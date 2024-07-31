@@ -1,0 +1,35 @@
+# Core latex/pdflatex auxiliary files:
+*.log
+*.aux
+#*.bbl
+*.blg
+*.out
+*.run.xml
+*.synctex
+*.synctex.gz
+*.toc
+*.tps
+*.tcp
+*-blx.bib
+*.mp
+*.t1
+*.nav
+*.snm
+*.ax1
+*.ax2
+*.xmpdata
+*.xmpi
+*.bcf
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+
+#Python auxiliary files:
+__pycache__
+
+#Links
+*.lnk
