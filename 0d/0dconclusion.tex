@@ -1,0 +1,138 @@
+\section{Conclusion and outlook}\label{sec:0dconclusion}
+\begin{disclaimer}
+	This section has been compiled from Secs. VI, VI, and V of our series~\cite{zerod1,zerod2,zerod3} respectively.
+	The following discussion also includes conceptual ideas developed in the drafts~\cite{zerod4,Koenigstein:fixedPoint}.
+\end{disclaimer}
+The time has come to conclude our discussions of zero-dimensional \qfts{}, by providing a concise summary and conclusion of our results so far and by giving an outlook into further research prospects in zero dimensions.
+After more than 130 pages of discussions regarding ordinary and Berezin integrals, we have to report that our research into this vast field is not concluded, especially with regard to Grassmann numbers in zero dimensions.
+
+\paragraph{The functional renormalization group and (numerical) fluid dynamics}\phantomsection\label{paragraph:0dconclusionCDF}\mbox{}\\%
+We set out to study zero-dimensional theories, predominantly within the \frg{}, to firmly develop an understanding of \frg{} flow equations in a robust \cfd{} framework, \ie{}, as flow equations in the true sense of the word.
+In a way this work is a rediscovery of well known concepts of the \grg{}: it is no accident that the evolution equations are called ``flow equations''.
+Motivated by the work~\cite{Keitel:2011pn} of Jan Keitel and Lorenz Bartosch and triggered by the publication~\cite{Grossi:2021ksl} of Eduardo Grossi and Nicolas Wink, we developed a detailed understanding of \frg{} flow equations for zero-dimensional $O(N)$ models as highly non-linear convection equations~\cite{zerod1,zerod2,zerod3}.\bigskip
+
+In \cref{sec:0dQFT} we rigorously and didactically developed the \frg{} framework in the interesting limiting case of vanishing space-time dimensions for a theory of a single scalar, \viz{} the $O(N=1)$ a simple \ZII{}-symmetric integral at its core.
+The fact that the theories under consideration are just theories of scalars, with ordinary integrals as their generating functionals, allows for a mathematically comparatively simple (but by no means trivial) development of the \frg{} as an integral deformation.
+The governing equation of this deformation \dash{} the Wetterich equation in zero dimensions \dash{} manifests directly as a \pde{} without the need for any truncations.
+Solving this equation in the following with the \frg{} and comparing to exact reference results has provided us with a vast testing ground.
+
+After generalizing our earlier discussion to a model including $N$ scalars and $O(N)$ symmetry, we discuss the conservative formulation of the \frg{} flow equation for scalar theories in zero dimensions in \cref{subsec:FRG-formulationONmodel}.
+The absence of any truncation and the underlying integral expressions allow for a detailed discussion of initial and boundary conditions also in the context of \rgcy{}.
+The underlying problem \dash{} $N$-dimensional ordinary integrals with $O(N)$ symmetry, \viz{} effectively still one-dimensional integrals, manifests on the level of the \frg{} flow equation for the underlying integral transformation as a highly non-trivial task.
+For the accurate and explicit numerical solution of the involved convection equations, we employ the well established \acrrepeat{kt} \acrrepeat{fv} scheme~\cite{KTO2-0,KTO2-1}.
+The flow equations manifest as non-linear advection-diffusion equations, where we can attribute advective contributions $\propto (N-1)$ to \pionModes{} and diffusive contributions are directly linked to the radial \sigmaMode{}.
+This formal observation already allows for a refined understanding of bosonic fluctuations in the \frg{} framework.
+%Following these symbolic consideration and the establishment of a proper \fv{} method-of-lines discretization in field space for the flow equation, we discuss explicit numerical ``test cases'' in \cref{subsec:0dONresults}.
+
+\paragraph{The test cases I--IV: precision tests and fluid dynamics for the $O(N)$ model in \dzero{}}\phantomsection\label{paragraph:0dconclusionTest}\mbox{}\\%
+The underlying nature of the generating functionals as simple integrals in zero dimensions allows us to construct an infinite amount of solvable theories in form of integrals.
+We limit our discussion in \cref{subsec:0dONresults} to four families of test cases, \viz{} \uv{} initial conditions/classical actions, chosen to study different aspects of the resulting explicit \frg{} flows.
+
+We have demonstrated the applicability of the implemented \ktScheme{} for \frg{} flow equations by comparing the results against exact solutions for the \nptFunctions{} of the $O(N)$ model as obtained from a direct integration of the partition function.
+We have performed several precision tests by quantifying discretization and boundary effects.
+
+We have also discussed the advective and diffusive contributions to the \frg{} flow on a qualitative level by varying the number of scalars $N$ in the $O(N)$ model.
+As expected from the general discussion of the flow equations, the system becomes advection-dominated for large $N$.
+Pionic modes dominate the flow through their non-linear, hyperbolic advection term in the flow equation.
+For small $N$ the diffusive contribution of the radial \sigmaMode{} becomes the dominant (in the case $N = 1$ the system is purely diffusive) driving force.
+
+The study of discontinuous \ics{} (test cases I and IV) in this context highlights the capability of our chosen numerics.
+This comes as no surprise to the \cfd{} initiated since, \fv{} volume methods like the \kt{} scheme, are purpose-build as shock-capturing and flexible black-box solvers for large classes of complicated non-linear convection equations.
+The proper resolution of non-linear advective contributions is at the core of the construction of such schemes.
+This makes \fv{} methods, like the \kt{}, scheme extremely attractive for \frg{} studies of highly non-perturbative phenomena and phase transitions in the \frg{} framework, \cf{} \ccite{\frgCFDRefs} for recent work leveraging the newly developed \cfd{}-perspective for \frg{} flow equations.
+In all test cases, we do not observe a violation of the \cmwhTheoremWithRefs{}, \ie{}, we find that there is no spontaneous symmetry breaking in $d = 0$ in the \ir{} limit.
+
+We have also performed quantitative studies of the dependence on the value of the \ir{} cutoff $r_\mathrm{IR}$.
+Moreover, we have discussed \rgcy{}, which is related to the proper choice of \uv{} initial scale $\Lambda$ for a given initial action $\mathcal{S}$.
+We find that computations in the \frg{} framework require sufficiently low \ir{} cutoffs and sufficiently large \uv{} initial scales in order to recover the exact \nptFunctions{}.
+As demonstrated by our results, the explicit values for $k_\mathrm{IR}$ and $\Lambda$ depend on the initial action under consideration.
+
+Discussing the \frg{} Taylor (vertex) expansion as a possible truncation scheme for the Wetterich equation in the context of zero-dimensional models, we have observed that the absence of momentum suppression in \dzero{} leads to an extremely strong coupling in field space.
+In turn, this greatly limits the applicability of such local expansion schemes.
+These findings are supported by and directly related to our novel findings (rediscoveries) regarding the irreversibility of the \grg{} flows, which we will discuss in the next two paragraphs.
+
+\paragraph{Irreversibility of of FRG flows, (numerical) entropy, and a $\mathcal{C}$-theorem for the $O(1)$ model in \dzero{}}\phantomsection\label{paragraph:0dconclusionEntropy}\mbox{}\\
+In \cref{subsec:0dO1Entropy} we mainly focus on the purely diffusive case $N=1$, \viz{} studying zero-dimensional $O(1)$ models, which are ultimately the \ZII{}-symmetric integrals, we discussed at the beginning of this chapter.
+
+Based on the formulation of \frg{} flows as advection and diffusion driven dissipative flows in the field space along \rgscale{}, we argued already in \cref{paragraph:conservative_form_entropy} on general ground that \grg{} flows ``produce" entropy.
+The \rgscale{}/time defines a rather natural ``thermodynamic'' arrow of time in this respect.
+We concluded that this dissipative character of the \grg{}, which causes irreversibility of \frg{} flows, is hard coded in the Wetterich equation.
+This implies that the irreversibility of Kadanoff's block-spin picture is directly encoded in the \pdes{} (the field-dependent beta functions), which describe the \frg{} flows.
+Hereby, the \ir{} solutions of \frg{} flows represent equilibrium solutions of fluid-dynamic equations.
+The impossibility of an unambiguous resolution of the microphysics (\uv{}) from the macrophysics (\ir{}) becomes apparent from this standpoint. 
+
+We make these general arguments specific in \cref{subsec:0dO1Entropy} by studying zero-dimensional $O(1)$ models.
+Using such theories, we explicitly demonstrated that the entropy production and the irreversibility during the \frg{} flow from the \uv{} to the \ir{} are not only of abstract manner, but can be quantified for $O(1)$ models in \dzero{}.
+Our discussion is based on the manifestation of the flow equation as a non-linear diffusion/heat equation, which allows us to leverage \cfd{} techniques and concepts developed for such parabolic systems. 
+Thereby, we directly related the field theoretical entropy production to the numerical entropy production from the research field of \pdes{} and numerical fluid dynamics, \viz{} to the \cfd{} notion of \acrrepeat{tv} and its non-increasing property (\tvni{}).
+
+Making use of our established set of test cases from \cref{subsec:0dONresults}, we demonstrate how numerical entropy is produced by diffusion in \frg{} flows and non-analyticities in the \uv{} initial conditions.
+Furthermore, we related certain aspects of the (numeric) entropy production in \frg{} flows to the concept of $\mathcal{C}$-/$\mathcal{A}$-theorems in \rg{} theory since both manifestly encode the irreversible character of \frg{} flows. 
+For the zero-dimensional $O(1)$ model we argue that the numerical entropy discussed and derived in this work is in fact a valid $\mathcal{C}$-/$\mathcal{A}$-function.
+In the sense of a meaningful zero dimension analog fulfilling all properties of $\mathcal{C}$-/$\mathcal{A}$-function, which in the zero-dimensional $O(1)$ model is also directly related to absence of admissible global fixed-point solutions~\cite{zerod3,Koenigstein:fixedPoint}.
+
+A generalization of this notion to $N>1$ and especially $d>0$ still eludes us but is a very interesting direction for further research.
+Although certain aspects of our discussion are still on an abstract level and could not yet be formalized in terms of explicit equations, we believe that our present work provides a fresh view on certain aspects of \grg{} theory, embellished with at at least a few new insights.
+
+\paragraph{Particularities of the $\tfrac{1}{N}$-expansion and advection-dominated \frg{} flows for the $O(N)$ model at large $N$ in \dzero{}}\phantomsection\label{paragraph:0dconclusionLargeN}\mbox{}\\
+In the last \cref{subsec:0dLargeN} of this chapter dealing exclusively with scalar zero-dimensional theories, we study the $O(N)$ model at large and even infinite $N$.
+This study of advection dominated \dash{} in the limit $N\rightarrow\infty$ purely advective \dash{} \frg{} flow completes our studies at variable (but mainly low) $N$ of \cref{subsec:0dONresults} and our discussion of the opposite \dash{} purely diffusive limit \dash{} $N=1$ of \cref{subsec:0dO1Entropy}
+
+For our studies at large $N$ we construct a new ``test case'' in the spirit of \cref{subsec:0dONresults}, which we have coined \customref{paragraph:RP}{an instructive toy model}.
+By inspecting this non-analytic piece-wise quadratic potential, we elucidated on the restricted applicability and validity of the large-$N$ expansion as well as the infinite-$N$ limit.
+Thereby we approached the task of calculating expectation values $\langle ( \vec{\phi}^{\, 2} )^n \rangle$ and the respective \ipi{} correlation functions $\Gamma^{(n)}$ with different methods.
+	
+On the one hand, we studied the large-$N$ and infinite-$N$ limit within a saddle-point expansion of the partition function.
+On the other hand, we used the \frg{} and analyzed the same problem in terms of an exact untruncated \frg{} flow equation.
+The capabilities of our \kt{} \fv{} numerics to handle \frg{} flows involving different non-analyticities, like shock and rarefaction waves, was crucial to facilitate this study of advection dominated systems at large $N$.
+	
+We identified two main pitfalls when it comes to the applicability of the large-$N$ expansion or large-$N$ limit.	
+The first pitfall is the drastically limited applicability of the large-$N$ approximation within certain methods, like the saddle-point expansion, where analyticity of the expansion point needs to be guaranteed (which is \apriori{} hardly ensured in higher-dimensional systems).
+The second pitfall is, that the infinite-$N$ limit (only retaining the zeroth-order of the large-$N$ expansion) may alter fundamental aspects of a \qft{}, like the convexity of (effective) potentials, while other observables, like specific correlation functions, might not be totally off the exact results.
+Both effects as well as the exact results can be adequately resolved within our maturing fluid-dynamic formulation of the \frg{}.
+
+Interestingly we additional found, that a formulation purely advective flow equation in the limit $N\rightarrow\infty$, in the invariant $\varrho\equiv\tfrac{1}{2}\sigma^2$, has the \tv{} as a \dash{} in the field of \cfd{} established \dash{} numerical entropy function.
+In comparison with our results in the opposite $(N=1)$-limit, we have been able to link irreversibility of purely advective \frg{} flows with the interaction of shock- and rarefaction waves.
+This is a well known observation for non-linear advection equations, which in absence of internal source terms, \ie{}, explicit position-dependencies, are \tvni{} and can become irreversible, see, \eg{}, our discussion of the \bbeq{} in \cref{paragraph:BBE}.
+
+\paragraph{Grassmann numbers as fermionic contributions in \dzero{}}\phantomsection\label{paragraph:0dconclusionFermions}\mbox{}\\%
+In \cref{sec:0dSU2} we presented our very much ongoing research of zero-dimensional theories involving scalars and pairs of Grassmann numbers.
+We discuss the explicit construction of an $SU(2)$-symmetric zero-dimensional theory including four Grassmann numbers and three scalars, which we constructed to study dynamic symmetry/breaking and restoration, \ie{}, precondensation \dash{} the formation of a non-persistent, non-trivial minimum of the \eaa{} or other involved couplings in zero dimensions.
+As a theory including a four-Grassmann-coupling and a Yukawa-type interaction, the model can in a sense be considered a zero-dimensional analog to NJL- and QM-type models.
+In terms of field content, couplings and a treatment within the \frg{} the model turned out to be surprisingly complicated.
+Nevertheless, it is completely solvable by means of ordinary and Berezin integration.
+
+The derivation of the complete set of field-dependent \frg{} flow equations is rather lengthy.
+This promoted us to improve our existing \WAM{} code~\cite{Steil:2023PhDFlowEquationsNB} for computations in field space by extending its capabilities.
+The \WAM{} code/notebook~\cite{Steil:2023zeroDSU2} used for the $SU(2)$ model has a very diverse set of capabilities (derivation, manipulation, and diagrammatic visualization \dash{} both in \WAM{} and \LaTeX{}).\bigskip
+
+On the level of the flow equation for the scalar-self-interaction potential $U_t(\sigma)$ can be recast in conservative form using the same simple derivative used for the $O(N)$ model.
+A conservative formulation for the flow equations of the couplings associated to Grassmann numbers is still work in progress.
+We encounter the same difficulties, presenting in studies of the \qmm{} with field-dependent Yukawa coupling $h_t(\sigma)$, \cf{} \ccite{\consYRef}.
+The goal would be to find a formulation which allows a treatment of all field-dependent couplings on equal footing, \ie{}, to derive a system of conservation laws like, \eg{}, the Euler-Equations, \cf{} \cref{subsec:hydroEuler}.
+Grassmann-scalar models, like the $SU(2)$ model considered here could help to gain insight into the open problem of conservative systems of flow equations in higher truncations beyond the \lpa{}.
+Further interesting, and as far as we know never addressed, topics are:
+\begin{itemize}
+	\item Regulator choice, \ie{}, non-unified regulator schemes for scalars and Grassmann numbers,
+	\item The role of the Grassmann-valued regulator as a modification/deformation of the underlying theory,
+	\item The aforementioned conservative formulation of systems of flow equations,
+	\item Dynamical hadronization for zero-dimensional theories,
+\end{itemize}
+to name a few highly interesting open questions.
+
+In summary we identify Grassmann-scalar models, like our $SU(2)$ model, a vast and very promising field.
+
+\paragraph{Outlook and future research projects}\phantomsection\label{paragraph:0dconclusionOutlook}\mbox{}\\%
+So far, throughout this chapter, we have commented at several points on the implications and impact of our zero-dimensional studies for applications in non-vanishing space-time dimensions.
+We will reserve a summary of these comments and findings for the general summary and outlook of this thesis in \cref{chap:conclusion}, following our explicit application in \cref{chap:GN}.
+In \cref{chap:GN} we will apply the developed frame work of our zero-dimensional studies to the \twoDimensional{} Gross-Neveu(-Yukawa) model, focusing on the question of symmetry-breaking and restoration at a finite number of fermion flavors $N$.
+
+Regarding further applications in \dzero{} we want to formulate two projects, which we are interested in
+\begin{itemize}
+	\item\textbf{Construction of a (numeric) entropy functional for the zero-dimensional $O(N)$ model at finite $N>1$:}\\
+	This is closely related to the discussion of fixed-point solutions and zero-dimensional variants of $\mathcal{C}$-/$\mathcal{A}$-functions.
+	\item\textbf{Study of a GN-type two-Grassmann-one-scalar model:}\\
+	The $SU(2)$ model considered so far might be too complicated as a first approach towards interacting Grassmann numbers in $d=0$.
+	It might therefore be a good idea to take a step back and consider the simplest (yet as we expect still non-trivial) theory involving just two Grassmann numbers and a single scalar.
+	Such a model might be sufficient to study a lot of the questions raised in the \customref{paragraph:0dconclusionFermions}{last paragraph}.
+\end{itemize}

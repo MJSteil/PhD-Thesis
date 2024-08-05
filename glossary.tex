@@ -1,0 +1,271 @@
+% ****** Setup ****** %
+\usepackage[acronym,indexonlyfirst,automake]{glossaries-extra} %automake
+\usepackage{glossary-mcols} % provides mcolindex style (see e.g. https://www.dickimaw-books.com/gallery/glossaries-styles/#mcolindex-style)
+
+\glssetcategoryattribute{acronym}{nohyperfirst}{true}
+\setabbreviationstyle[acronym]{long-short}
+
+\setabbreviationstyle[jargon]{long-short} % jargon terms are typeset italic on first use 
+\glssetcategoryattribute{jargon}{glossdescfont}{emph}
+
+\renewcommand*{%
+	\glstextformat}[1]{\textcolor{black}{#1}%
+}
+
+\renewcommand*{\acrshort}[1][]{\glsxtrshort[noindex,#1]}
+
+\renewcommand*{\acrlong}[1][]{\glsxtrlong[noindex,#1]}
+\renewcommand*{\Acrlong}[1][]{\Glsxtrlong[noindex,#1]}
+\newcommand*{\acrpllong}[1][]{\glsxtrlongpl[noindex,#1]}
+\newcommand*{\Acrpllong}[1][]{\Glsxtrlongpl[noindex,#1]}
+\newcommand{\acrlongEmph}[1]{\emph{\acrlong{#1}}}
+\newcommand{\AcrlongEmph}[1]{\emph{\Acrlong{#1}}}
+
+\newcommand{\acrrepeat}[1]{\acrlong{#1} (\acrshort{#1})}
+\newcommand{\Acrrepeat}[1]{\Acrlong{#1} (\acrshort{#1})}
+\newcommand{\acrrepeatEmph}[1]{\emph{\acrlong{#1}} (\acrshort{#1})}
+\newcommand{\AcrrepeatEmph}[1]{\emph{\Acrlong{#1}} (\acrshort{#1})}
+
+% For printing of glossary (automake option or manual build with 'makeglossaries-lite "PhD-Thesis"' to generate an .acr file  is necessary for this)
+\glssanitizesorttrue
+\makeglossaries
+\setglossarypreamble[acronym]{%
+	List of acronyms including their meaning and the page number of their first use:\bigskip%
+}
+% Use this to link to first definition when working in a file without a printed out glossary
+%\renewcommand*{\glsdonohyperlink}[2]{%
+	%{\glsxtrprotectlinks \glsdohypertarget{#1}{#2}}%
+%} 
+
+% ****** Miscellaneous abbrevations ****** %
+%\newacronym{hep}{HEP}{high-energy physics}
+	\newcommand{\hep}{high-energy physics}%\gls{hep}
+
+\newacronym{wrt}{w.r.t.}{with respect to}
+	\newcommand{\wrt}{\gls{wrt}}
+\newacronym{rhs}{r.h.s.}{right-hand side}
+	\newcommand{\rhs}{\gls{rhs}}
+\newacronym{lhs}{l.h.s.}{left-hand side}
+	\newcommand{\lhs}{\gls{lhs}}
+%\newacronym{iff}{iff}{if and only if}
+	\newcommand{\ifandonlyif}{if and only if}%\gls{iff}
+\newacronym{wlog}{w.l.o.g.}{without loss of generality}
+	\newcommand{\wlogA}{\gls{wlog}}
+	\newcommand{\WlogA}{\Gls{wlog}}
+
+\newcommand{\Poincare}{Poincar\'e}
+
+\newacronym{nu}{NU}{natural units}
+	\newcommand{\nun}{\gls{nu}}
+
+\newcommand{\sigmaMode}{\texorpdfstring{$\sigma$}{sigma}-mode}
+\newcommand{\sigmaModes}{\texorpdfstring{$\sigma$}{sigma}-modes}
+\newcommand{\pionMode}{\texorpdfstring{$\pi$}{pion}-mode}
+\newcommand{\pionModes}{\texorpdfstring{$\pi$}{pion}-modes}
+
+% ****** Acronyms ****** %
+%% QFT and (F)RG
+\newacronym[plural=QFTs,firstplural=quantum field theories]{qft}{QFT}{quantum field theory}
+	\newcommand{\qft}{\gls{qft}}
+	\newcommand{\qfts}{\glspl{qft}}
+	
+\newacronym{qcd}{QCD}{quantum chromodynamics}
+	\newcommand{\qcd}{\gls{qcd}}
+\newacronym{qed}{QED}{quantum electrodynamics}
+	\newcommand{\qed}{\gls{qed}}
+	
+\newacronym{ym}{YM}{Yang–Mills}
+	\newcommand{\ym}{\gls{ym}}
+	\newcommand{\ymts}{\gls{ym} theories}
+\newacronym{rg}{RG}{renormalization group}
+	\newcommand{\rg}{\gls{rg}}
+	\newcommand{\rgtime}{\gls{rg} time}
+	\newcommand{\rgtimes}{\gls{rg} times}
+	\newcommand{\rgtimedependent}{\gls{rg}-time-dependent}
+	\newcommand{\rgscale}{\gls{rg} scale}
+	\newcommand{\rgscales}{\gls{rg} scales}
+	\newcommand{\rgscaledependent}{\gls{rg}-scale-dependent}
+	\newcommand{\rgscaleevolution}{\gls{rg}-scale evolution}
+	\newcommand{\rgcy}{\gls{rg} consistency}
+	\newcommand{\rgct}{\gls{rg}-consistent}
+\newacronym{frg}{FRG}{functional renormalization group}
+	\newcommand{\frg}{\gls{frg}}
+	\newcommand{\Frg}{\Gls{frg}}
+\newacronym{erg}{ERG}{exact renormalization group}
+	\newcommand{\erg}{\gls{erg}}
+\newacronym{dses}{DSEs}{Dyson-Schwinger equations}
+	\newcommand{\dses}{\gls{dses}}
+\newacronym{grg}{(F)RG}{(functional) renormalization group}
+	\newcommand{\grg}{\gls{grg}}
+\newacronym{eaa}{EAA}{effective average action}
+	\newcommand{\eaa}{\gls{eaa}}
+	\newcommand{\eaas}{\glspl{eaa}}
+\newacronym{ea}{EA}{effective action}
+	\newcommand{\ea}{\gls{ea}}
+\newacronym{qeom}{QEOM}{quantum equation of motion}
+	\newcommand{\qeom}{\gls{qeom}}
+	
+\newacronym{csb}{\texorpdfstring{$\chi$SB}{cSB}}{chiral symmetry breaking}
+	\newcommand{\csb}{\gls{csb}}
+	\newcommand{\scsb}{spontaneous \gls{csb}}
+	
+	\newacronym{ssb}{SSB}{spontaneous symmetry breaking}
+	\newcommand{\ssb}{\gls{ssb}}
+
+\newacronym{pcac}{PCAC}{partially conserved axial current}
+	\newcommand{\pcac}{\gls{pcac}}
+	
+\newacronym[category=jargon]{qgp}{QGP}{\emph{quark–gluon plasma}}
+	\newcommand{\qgp}{\gls{qgp}}
+
+\newacronym{ipi}{1PI}{one-particle irreducible}
+	\newcommand{\ipi}{\gls{ipi}}
+\newacronym{tpi}{2PI}{two-particle irreducible}
+	\newcommand{\tpi}{\gls{tpi}}
+\newacronym{npi}{\texorpdfstring{$n$PI}{nPI}}{$n$-particle irreducible}
+	\newcommand{\npi}{\gls{npi}}
+
+\newacronym{uv}{UV}{ultraviolet}
+	\newcommand{\uv}{\gls{uv}}
+\newacronym{ir}{IR}{infrared}
+	\newcommand{\ir}{\gls{ir}}
+
+\newacronym{fs}{FS}{field space}
+	\newcommand{\fs}{\gls{fs}}
+
+\newacronym[category=jargon]{de}{DE}{\emph{derivative expansion}}
+	\newcommand{\de}{\gls{de}}
+	
+\newacronym{lpa}{LPA}{local potential approximation}
+	\newcommand{\lpa}{\gls{lpa}}
+\newacronym{lpap}{LPA'}{local potential approximation prime}
+	\newcommand{\lpap}{\gls{lpap}}
+
+\newacronym{mf}{MF}{mean-field}
+	\newcommand{\mf}{\gls{mf}}
+	
+%% Models and theories
+\newacronym{njl}{NJL}{Nambu-Jona-Lasinio}
+	\newcommand{\njl}{\gls{njl}}
+	\newcommand{\njlm}{\gls{njl} model}
+\newacronym{gn}{GN}{Gross-Neveu}
+	\newcommand{\gn}{\gls{gn}}
+	\newcommand{\gnm}{\gls{gn} model}
+\newacronym{bgn}{bGN}{bosonized Gross-Neveu}
+	\newcommand{\bgn}{\gls{bgn}}
+	\newcommand{\bgnm}{\gls{bgn} model}
+	
+\newacronym{gny}{GNY}{Gross-Neveu-Yukawa}
+	\newcommand{\gny}{\gls{gny}}
+	\newcommand{\gnym}{\gls{gny} model}
+	\newcommand{\gnyBm}{GN(Y) model}
+\newacronym{qm}{QM}{quark-meson}
+	\newcommand{\qm}{\gls{qm}}
+	\newcommand{\qmm}{\gls{qm} model}
+\newacronym{pqmm}{PQM model}{Polyakov loop enhanced quark-meson model}
+	\newcommand{\pqmm}{\gls{pqmm}}
+\newacronym[plural=LEFTs,firstplural=low-energy effective theories]{left}{LEFT}{low-energy effective theory}
+	\newcommand{\loeft}{\gls{left}}
+	\newcommand{\loefts}{\glspl{left}}
+
+\newacronym{cosc}{CSC}{color superconducting}
+	\newcommand{\cosc}{\gls{cosc}}
+
+\newacronym{cmwh}{CMWH}{Coleman-Mermin-Wagner-Hohenberg}
+	\newcommand{\cmwhTheorem}{\gls{cmwh} theorem}
+
+	\newcommand{\cmwhTheoremWithRefs}{\cmwhTheorem{}~\cite{Mermin:1966,Hohenberg:1967,Coleman:1973ci}}
+
+\newacronym{hs}{HS}{Hubbard-Stratonovich}
+	\newcommand{\hsTrafo}{\gls{hs} transformation}
+	\newcommand{\hsTrafoWithRefs}{\gls{hs} transformation~\cite{Stratonovich:1957,Hubbard:1959ub}}  
+
+%% Numerics
+\newacronym[plural=PDEs,firstplural=partial differential equations]{pde}{PDE}{partial differential equation}
+	\newcommand{\pde}{\gls{pde}}
+	\newcommand{\pdes}{\glspl{pde}}
+\newacronym[plural=ODEs,firstplural=ordinary differential equations]{ode}{ODE}{ordinary differential equation}
+	\newcommand{\ode}{\gls{ode}}
+	\newcommand{\odes}{\glspl{ode}}
+
+\newacronym{fv}{FV}{finite volume}
+	\newcommand{\fv}{\gls{fv}}
+\newacronym[plural=ICs,firstplural=initial conditions]{ic}{IC}{initial condition}
+	\newcommand{\ic}{\gls{ic}}
+	\newcommand{\ics}{\glspl{ic}}
+\newacronym[plural=BCs,firstplural=boundary conditions]{bc}{BC}{boundary condition}
+	\newcommand{\bc}{\gls{bc}}
+	\newcommand{\bcs}{\glspl{bc}}
+\newacronym[plural=IVPs,firstplural=initial value problems]{ivp}{IVP}{initial value problem}
+	\newcommand{\ivp}{\gls{ivp}}
+	\newcommand{\ivps}{\glspl{ivp}}
+
+\newacronym{cfd}{CFD}{computational fluid dynamics}
+	\newcommand{\cfd}{\gls{cfd}}
+\newacronym{hrsc}{HRSC}{high-resolution shock-capturing}
+	\newcommand{\hrsc}{\gls{hrsc}}
+\newacronym[category=jargon]{kt}{KT}{\emph{Kurganov-Tadmor}}
+	\newcommand{\kt}{\gls{kt}}
+	\newcommand{\ktScheme}{\kt{} scheme} 
+\newacronym[category=jargon]{knp}{KNP}{\emph{Kurganov-Noelle-Petrova}}
+	\newcommand{\knp}{\gls{knp}}
+	\newcommand{\knpScheme}{\knp{} scheme}
+\newacronym[category=jargon]{nt}{NT}{\emph{Nessyahu-Tadmor}}
+	\newcommand{\nt}{\gls{nt}}
+	\newcommand{\ntScheme}{\nt{} scheme}
+\newacronym[category=jargon]{lxf}{LxF}{\emph{Lax–Friedrichs}}
+	\newcommand{\lxf}{\gls{lxf}}
+	\newcommand{\lxfScheme}{\lxf{} scheme}
+\newacronym[plural=FDs,firstplural=finite differences]{fd}{FD}{finite difference}
+	\newcommand{\fd}{\gls{fd}}
+	\newcommand{\fds}{\glspl{fd}}
+\newacronym[category=jargon]{muscl}{MUSCL}{\emph{Monotonic Upstream-centered Scheme for Conservation Laws}}
+	\newcommand{\muscl}{\gls{muscl}}
+\newacronym{tv}{TV}{total variation}
+	\newcommand{\tv}{\gls{tv}}
+\newacronym[category=jargon]{tvd}{TVD}{\emph{total variation-diminishing}}
+	\newcommand{\tvd}{\gls{tvd}}
+\newacronym[category=jargon]{tvni}{TVNI}{\emph{total variation non-increasing}}
+	\newcommand{\tvni}{\gls{tvni}}
+
+\newacronym[category=jargon]{lae}{LAE}{\emph{linear advection equation}}
+	\newcommand{\lae}{\gls{lae}}
+	\newcommand{\laeq}{\gls{lae}~\eqref{eq:lae}}
+\newacronym[category=jargon]{bbe}{BBE}{\emph{Bateman-Burgers equation}}
+	\newcommand{\bbe}{\gls{bbe}}
+	\newcommand{\bbeq}{\gls{bbe}~\eqref{eq:bbe}}
+\newacronym[category=jargon]{he}{HE}{\emph{heat equation}}
+	\newcommand{\he}{\gls{he}}
+	\newcommand{\heq}{\gls{he}~\eqref{eq:he}}
+\newcommand{\eulereqs}{Euler Eqs.~\eqref{eq:euler}}
+
+%% Phasediagram and inhomogeneous phases
+\newacronym[plural=HBPs,firstplural=homogeneously broken phases]{hbp}{HBP}{homogeneously broken phase}
+	\newcommand{\hbp}{\gls{hbp}}
+\newacronym[plural=IPs,firstplural=inhomogeneous phases]{ip}{IP}{inhomogeneous phase}
+	\newcommand{\ip}{\gls{ip}}
+\newacronym[plural=SPs,firstplural=symmetric phases]{sp}{SP}{symmetric phase}
+	\newcommand{\symp}{\gls{sp}}
+\newacronym{cp}{CP}{critical point}
+	\newcommand{\cp}{\gls{cp}}
+
+\newacronym{lp}{LP}{Lifshitz point}
+\newcommand{\lp}{\gls{lp}}
+
+\newacronym{cep}{CEP}{critical endpoint}
+	\newcommand{\cep}{\gls{cep}}
+	\newcommand{\ceps}{\glspl{cep}}
+\newacronym{plp}{PLP}{pseudo Lifshitz point}
+
+\newacronym{cdw}{CDW}{chiral density wave}
+	\newcommand{\cdw}{\gls{cdw}}
+
+\newacronym{gl}{GL}{Ginzburg–Landau}
+	\newcommand{\gl}{\gls{gl}}
+	\newcommand{\gla}{\gls{gl} analysis}
+	\newcommand{\gle}{\gls{gl} expansion}
+	
+\newacronym{ggl}{gGL}{generalized Ginzburg-Landau}
+	\newcommand{\ggl}{\gls{ggl}}
+	\newcommand{\ggla}{\gls{ggl} analysis}
+	\newcommand{\ggle}{\gls{ggl} expansion}

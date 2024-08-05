@@ -1,0 +1,296 @@
+The strong interaction, one of the four established fundamental interactions and one of three cornerstones of the \textit{Standard Model of particle physics}, governs the confinement of quarks into protons, neutrons, and other more exotic states of strongly interacting matter.
+Quarks are fundamental, massive spin-$\frac{1}{2}$ particles~\cite{GellMann:1961ky,Neeman1961Aug,Gell-Mann:1962yej,Zweig:1964ruk,Zweig:1964jf,Bjorken1964Aug,Glashow1970Oct,Kobayashi1973Feb}, which carry color charge~\cite{Greenberg1964Nov,Han1965Aug,Bardeen:1972xk}.
+Colored quarks are not directly observable but their bound states \nolinebreak[3]-- most notably protons and neutrons \nolinebreak[3]-- are observable and form the building blocks of ordinary matter.
+The established fundamental \acrrepeat{qft} describing the strong interaction is \acrrepeat{qcd}~\cite{Fritzsch1973Nov}, which describes the interaction of color-charged quarks and gluons.
+Gluons are the color-charged gauge bosons of \qcd{} and mediate the strong force. 
+The strong interaction is crucial for the binding of protons and neutrons in atomic nuclei as it is able to overcome the electrostatic repulsion between protons at short range.
+It is also important for the understanding of matter at extreme conditions, \ie{}, at temperatures $T\smallergtrsim 10^{10}\,\mathrm{K}\mathrel{\widehat{\approx}} 1\,\MeV$ and densities $n\smallergtrsim n_0$, above nuclear saturation density $n_0=1.6\cdot10^{44}\,\mathrm{m}^{-3} = 0.16\,\fmIII$~\cite{Horowitz2020Oct}.
+Such extreme conditions are expected in the early universe, see, \eg{}, \ccite{\qcdExpLaboratoriesU}, studied in experimental high-energy particle physics, see, \eg{}, \ccite{Aubert1974Dec,Augustin1974Dec,Herb1977Aug,CDFCollaboration1995Apr,D0Collaboration1995Apr,Brandelik1979Sep,Ellis1979Feb,Brandelik1980Dec,Berger1980Dec,Alexander1991Dec,Saito2004Jul,ParticleDataGroup2022Aug,\qcdExpLaboratoriesC}, and are present in extreme astrophysical environments like neutron stars, see, \eg{}, \ccite{\qcdExpLaboratoriesNS}.
+
+Computing observables of strongly interacting systems in \qcd{} is technically extremely challenging due to the complicated nature of \qcd{} as a non-Abelian gauge theory~\cite{Yang:1954ek}, which becomes non-perturbative, \ie{}, strongly coupled at low energies \dash{} at macroscopic scales $\sim1\,\GeV$ in the context of \hep{}.
+The phase structure and thermodynamics of \qcd{} matter at especially intermediate densities and temperatures ($2\, n_0\smallerlesssim n\smallerlesssim 10\, n_0$ and $T\smallerlesssim 150\,\MeV$) is still very poorly understood both from experiment and theory.
+It is however of profound importance especially in extreme astrophysical environments like isolated neutron stars, neutron star mergers, and supernovae explosions, which are important sites of nucleosynthesis, see, \eg{}, \ccite{Thielemann:2017acv}.
+We humans and nature surrounding us are truly made of ``star dust'' including the ``dust'' of neutron stars.
+
+\paragraph{The phase diagram of \qcd{} \dash{} Here be dragons}\phantomsection\label{paragraph:introQCDPD}\mbox{}\\%
+\fullWidthFigure%
+	[!t]
+	{introduction/figures/qcd_phasediagram.pdf}% Graphics
+	[]% Sublabels
+	{%
+		Conjectured \qcd{} phase diagram with various states of strongly interacting matter including chiral symmetry breaking patterns in black and experimental laboratories, \cf{} \ccite{\qcdExpLaboratoriesU,\qcdExpLaboratoriesC,\qcdExpLaboratoriesNS}, in red.
+		Note that both the $T$- and $n$-axis are cut and especially the $n$-axes is non-linear. 
+		It should also be noted that a representation in $n$-$T$ should include mixed phases, \ie{}, regions with phase coexistence around first-order phase transitions, \cf{} \cref{fig:gn_gl_ntPD}.
+		This figure is meant to introduce the relevant phases and their rough location in the phase diagram while the shapes and boundaries should not be interpreted literally.
+		The visualization of phase boundaries and shapes is reminiscent of a diagram in the temperature and quark/baryon chemical potential plane, \cf{} \cref{fig:fuQCDpds,fig:QMMrMFAref}.
+		We settled for a presentation using net baryon number density instead for quark chemical potential in this introduction since it is arguably more intelligible for non-experts.
+		\textit{Based on Fig. 1. of \ccite{QCDPD1} and including information from Fig. 1 of \ccite{QCDPD2}, Fig I.8 of \ccite{QCDPD3}, and Fig. 2 of \ccite{Sahoo:2021aoy}. Elements of the background were generated using \textit{Axodraw version 2}~\cite{Collins:2016aya,axodraw2CTAN} and \textit{DALL-E}~\cite{DALL-E}. The final figure has been composed by hand using \textit{Matplotlib}~\cite{Hunter:2007} and \textit{Photoshop CS6}~\cite{photoshopCS6}.}
+	}%Caption
+	{fig:qcdPDsketch}%Label
+In \cref{fig:qcdPDsketch} we show a sketch of the conjectured phase diagram of \qcd{} including information from experiment and theory, see, \eg{}, \ccite{QCDPD1,QCDPD2,Shuryak:1980tp,Buballa:2003qv,Alkofer:2006fu,Alford:2007xm,Braun-Munzinger:2008szb,Fukushima:2010bq,Buballa:2014tba,Sahoo:2021aoy} for more details on the rich phase structure of strongly interacting matter.
+At low temperatures and densities we encounter nuclear matter where quarks and gluons are confined to baryons, \eg{}, protons and neutrons, and the chiral symmetry of \qcd{} is broken spontaneously~\cite{Nambu:1961tp,Nambu:1961fr}.
+This \acrrepeat{csb} is signaled by a non-zero expectation value $\chiCond\neq 0$ for the anti-quark-quark condensate \dash{} the \textit{chiral condensate}.
+The mechanism of spontaneous \csb{}~\cite{Nambu:1961tp,Nambu:1961fr} plays a critical role for the generation of masses of \qcd{} bound states, like protons and neutrons.
+In fact about $99\%$ of the proton's (neutron's) mass of $938.27\,\MeV$ ($939.57\,\MeV$) is generated dynamically in \qcd{} since the quarks themselves are incredibly light (compared to typical scales in \qcd{}) with $m_u\approx2\,\MeV$ and $m_d\approx 5\,\MeV$ in the ${\overline{\mathrm{MS}}}$-scheme at a renormalization scale of $2\,\GeV$~\cite{ParticleDataGroup2022Aug}.
+Throughout this work we focus on the dynamics of the two light quark flavors \dash{} up and down \dash{} hence $\chiCond$ denotes the anti-quark-quark condensate of the light quarks.
+Furthermore we limit most discussions to the chiral limit, \ie{}, neglecting the small masses of the up and down quark: $m_u=m_d=0$.
+
+At high temperatures and/or densities, \ie{}, high momenta, \qcd{} becomes asymptotically free~\cite{Gross:1973id,Politzer:1973fx,Coleman1973Sep}: the interaction strength between quarks and gluons decreases with increasing momentum transfer allowing a perturbative treatment of \qcd{} in this extreme high-energy regime. 
+The quarks and gluons at high temperatures are deconfined and present thermodynamically as a quasi-free, ultrarelativistic gas called the \qgp{}.
+Chiral symmetry is approximately restored in the \qgp{}, $\chiCond\approx 0$, meaning that the only breaking of \csb{} is due to quark masses.
+In the chiral limit $m_u=m_d=0$ chiral symmetry gets completely restored $\chiCond=0$.
+
+The existence of a (strongly coupled) \qgp{} is established theoretically (experimentally) in high-energy particle physics.
+The existence of nuclear matter \dash{} bound protons and neutrons \dash{} is nowadays a well-established fact in physics, supported by extensive experimental evidence and theoretical understanding.
+This poses an interesting question for the phase diagram of \qcd{}: how do we get from hadrons \dash{} bound states of confined quarks and gluons \dash{} to the \qgp{} \dash{} deconfined quarks and gluons \dash{} 
+or in terms of chiral symmetry: how does chiral symmetry get restored as temperature and density increase?
+This is one of the major open research questions in both experimental and theoretical \hep{}.
+The closely related and unsolved \textit{Yang-Mills \& The Mass Gap} problem~\cite{YMMilleniumProblem} was stated as a major mathematical challenge as one of the seven \textit{Millennium Prize Problems}.\label{YMmillennium}
+At low densities and quark chemical potentials existing collider experiments, see, \eg{}, \ccite{\qcdExpFreezeout}, and theoretical first principle computations in \qcd{} (especially but not exclusively from the field of lattice \qcd{}, see, \eg{}, \ccite{Wilson:1974sk,Aarts:2015tyj,Bellwied:2015rza,HotQCD:2018pds}) have basically established that chiral symmetry gets approximately restored as temperature increases in a smooth crossover, which in the chiral limit manifests as a second-order phase transition.
+
+At higher densities ($n\smallergtrsim 2\,n_0$) and associated quark chemical potentials the experimental situation remains unclear since this region is notoriously difficult to probe in colliders.
+Indirect experimental access to this region is provided by the study of isolated and merging neutron stars.
+With the recent advances in direct gravitational wave detection this experimental, astrophysical laboratory is gaining more and more attention in \hep{}.
+The established major theoretical instrument of lattice \qcd{} can not access the region of the \qcd{} phase diagram at non-vanishing chemical potential directly due to the notorious \textit{\qcd{} sign-problem}: a conceptual and computational algorithmic limitation preventing simulation at $\mu>0$, see, \eg{}, the review~\cite{deForcrand:2010ys}.
+Extrapolations of lattice \qcd{} results to non-zero chemical potential start to become unreliable at $3\mu/T\equiv \mu_B/T\smallergtrsim 2$~\cite{Fu:2019hdw,Bellwied:2015rza,HotQCD:2018pds}.
+Hence the phase structure at intermediate densities and temperatures is not fully understood both from a theoretical and experimental perspective.
+The center of \cref{fig:qcdPDsketch} \dash{} the \qcd{} phase diagram at intermediate temperatures and densities \dash{} is still to an extent a \textit{terra incognita} of challenges and mysteries: \textit{``Here be dragons''} and maybe even three-headed ones.
+
+Accessing the \qcd{} phase diagram at intermediate temperatures and densities to study chiral symmetry restoration and the confinement-deconfined transition requires non-perturbative methods for strongly-interacting \qcd{}.
+Functional methods \dash{} like the \acrrepeat{frg} \dash{}  and effective models \dash{} especially chiral \loefts{} of \qcd{} like the \njlm{} and related \acrrepeat{qm} model \dash{} are important tools to theoretically study \qcd{} in this regime.
+The \frg{} is a non-perturbative functional method, which implements Wilson's non-perturbative \acrrepeat{rg} approach exactly by introducing momentum and \rgscaledependent{} regulator terms.
+It effectively maps the problem of solving complicated functional integrals, which lattice \qcd{} tackles directly by discretization in position space, onto the problem of solving complicated functional differential equations.
+Those so-called \rg{}-flow equations describe the evolution of microscopic theories defined at high momentum scales \dash{} in the \uv{} \dash{} towards macroscopic theories at low momentum scales \dash{} in the \ir{}.
+At its core the \frg{} is based on successively integrating out quantum and thermodynamic fluctuations.
+ 
+Those are the methods and the part of the \qcd{} phase diagram relevant for our explicit research.
+
+\paragraph{Inhomogeneous chiral condensates \dash{} the \qmm{} in $d\mkern-2mu=\mkern-2mu3\mkern-3mu+\mkern-3mu1$}\phantomsection\label{paragraph:introInhomoQMM}\mbox{}\\%
+Several model calculations especially in the \fourDimensional{} \qmm{} with the \frg{} (incorporating both bosonic and fermionic quantum and thermodynamic fluctuations), see, \eg{}, \nbccite{Schaefer:2004en}, and in \acrrepeat{mf}/large-$N_c$ approximation (including only fermionic fluctuations), see, \eg{}, \ccite{Asakawa:1989bq}, predict a first-order phase transition ending in a \cp{} as the mechanism of chiral symmetry restoration.
+In \cref{fig:qcdPDsketch} the possible location of the \cp{} is marked as a diffuse orange dot and the first-order phase transition (with the corresponding phase coexistence region) would be located in the yellow band.
+This finding however is based on the \dash{} often tacit \dash{} assumption of homogeneous chiral condensation.
+Allowing for inhomogeneous, \ie{}, explicitly position-dependent, expectation values $\chiCond(\vec{x}\vts)$, computations using \mf{}/large-$N_c$ approximation, see, \eg{}, \ccite{Broniowski:1990dy,Sadzikowski:2000ap,Carignano:2014jla,Adhikari:2017ydi}, and to an extent also existing \frg{} computations, see, \eg{}, \ccite{Tripolt:2017zgc,Fu:2019hdw}, predict that such an inhomogeneous phase can be energetically favored over a homogeneous one.
+This preference typically occurs at or around the previously predicted location of the homogeneous first-order phase transition.
+
+One major research question regarding this exotic state of strongly interacting matter is its stability against bosonic Quantum and thermodynamic fluctuations. 
+Inhomogeneous phases are established in \mf{}/large-$N_c$ approximation in \fourDimensional{} chiral \loefts{} of \qcd{} like the \njlm{} and \qmm{}, see, \eg{}, the reviews~\cite{Broniowski:2011ef,Buballa:2014tba}. 
+But those computations only incorporate the effects of fermionic fluctuations.
+Using the \frg{} we originally set out to study the effects of bosonic quantum and thermal fluctuations on inhomogeneous phases in the \qmm{}.
+Both a direct computation with explicitly position-dependent expectation values $\chiCond(\vec{x}\vts)$ and an indirect approach using a stability analysis of the homogeneous ground state have been planed.
+I have focused on the first while my colleague Adrian Koenigstein has focused on the latter.
+
+Using a specific ansatz for the expectation values $\chiCond(\vec{x}\vts)$, \viz{} the \cdw{}, I have been able to derive \frg{} flow equations including this explicitly inhomogeneous condensate using the established \lpa{} as truncation~\cite{Steil:2023RGMF}.
+As a first step we have solved the derived \frg{}/\lpa{} flow equations with \cdw{} condensates neglecting bosonic fluctuations.
+In the resulting \rgct{} \mf{} computations we made contact with various existing mean-field results in literature studying the \qmm{} both as a renormalizable \qft{} and as a chiral \loeft{} of \qcd{}~\cite{Steil:2023RGMF}.
+
+\paragraph{\frg{} flow equations as convection equations and computational fluid dynamics}\phantomsection\label{paragraph:introFRGCFD}\mbox{}\\%
+At this point we turned our attention at the role of bosonic fluctuations and set out to solve our derived flow equations without the simplifying assumption of neglecting bosonic contributions.
+The flow equations for the \cdw{} in the \qmm{} present as generalizations of the well known \frg{}/\lpa{} flow equations for homogeneous chiral condensates and include those in the limit of vanishing position-dependence. 
+Those flow equations are non-linear \pdes{} for scale depended interaction potentials $U(k,\MFrho)$ in two variables: \rgscale{}~($k$) and the magnitude of the chiral condensate ($\propto\MFrho$).
+The \frg{} community employs a multitude of numerical methods to solve such \pdes{} which have been constructed for the problems at hand by various authors with varying mathematical rigor \dash{} often based on a fair degree of \aposteriori{} insight.
+Those methods include 
+\begin{itemize}
+	\item \textbf{local (Taylor) expansions}, see, \eg{}, \ccite{\frgTaylorReferences},
+	\item \textbf{collocation methods} \dash{} which are often referred to in \frg{} literature as just \textit{``grid methods''} \nolinebreak[3]-- like \fd{}, see, \eg{}, \ccite{\frgFDReferences}, and related spline methods, see, \eg{}, \ccite{\frgSplineReferences}, and
+	\item \textbf{global pseudo-spectral methods} like an expansion in Chebyshev polynomials, see, \eg{}, \ccite{\frgChebyshevReferences}. 
+\end{itemize}
+For our studies involving spontaneous \csb{} and restoration including first- and second-order phase transitions a local Taylor expansion of the potential is both \apriori{} and \aposteriori{} ill-suited, so we focused on the established \fd{} methods and on the less common pseudo-spectral (Chebyshev) collocation methods.
+
+However we \dash{} especially Adrian Koenigstein and I \dash{} soon had to realize that the seemingly well established numerical methods in the \frg{} community to solve truncated flow equations, \ie{}, \pdes{}, turned out to be numerically rather unstable.
+Varying just numerical discretization parameters yielded qualitatively differing results all while being incredibly inefficient and numerically unstable in terms of \rgscaleevolution{}. 
+With this came the realization that published, peer-reviewed literature using and in some cases seemingly establishing those methods included only sparse information about boundary conditions, subtleties in the implementation of the numerical schemes, numerical parameters (number of discretization points, size of the computational domain, \etc{}), numerical \ir{} cutoffs of \rgscaleevolution{}, and rigorous tests of numerical convergence of the employed methods\footnote{%
+	I have chosen not to highlight specific publications for criticism.
+	The issue is, in my opinion, not confined to a few isolated instances but is rather a somewhat systemic one.
+	I must express concern regarding the wide spread use of seemingly suboptimal numerical methods for \pdes{}, without sufficient exploration and reflection on their limitations.
+	I think the \frg{} community could benefit tremendously from a more judicious approach when it comes to choosing, adapting, testing, and/or designing numerical methods.
+	Although these issues are by no means ubiquitous, their presence in the field should, in my opinion, warrant more attention.
+	I will end this remark on a more positive note by citing Max Planck: ``Even a disappointment, if it is only thorough and final, represents a step forward, and the sacrifices associated with resignation would be amply compensated by the gain in treasures of new knowledge.'' (translated from the original quote in German~\cite{PlanckQuote} which I saw first in a talk of Dr. Johannes Weber).%
+}.
+The problem with those schemes is that they ultimately rely on smoothness or technically even analyticity of the underlying potentials.
+The encountered \pdes{} however can include (\eg{}, caused by the quark chemical potential) and dynamically generate (\eg{}, due to dynamical, spontaneous symmetry breaking in the \ir{}\footnote{%
+	Symmetry breaking is signaled during \frg{} flow by a non-zero expectation value, \ie{}, non-trivial minimum in $\MFrho$ of $U(k,\MFrho)$, but we know as we approach the physical \ir{} limit $k\rightarrow 0$, $U(k,\MFrho)$ has to turn convex ${\lim_{k\rightarrow 0}\partial_\MFrho U(k,\MFrho)\geq 0}$, which necessitates a kink at/around a non-trivial minimum.
+}) discontinuities in the derivative of the studied potentials.
+
+Eduardo Grossi and Nicolas Wink, two colleagues from Heidelberg encountered the same problems with the established methods and were able to ultimately identify the root cause in a mathematically and conceptually rigorous manner: the \lpa{} flow equation/\frg{} flow equations in general are convection/conservation equations~\cite{Grossi:2021ksl} since the involved \pdes{} manifest as advection-diffusion-(source/sink) equations.
+This is not a new concept in the context of the \rg{} \nolinebreak[3]-- it originally informed the term \textit{``flow equations''} when talking about \rg{} evolution equations \nolinebreak[3]-- but the consequences of this connection were not realized in the broader \frg{} community prior to \ccite{Grossi:2021ksl} and our extensive follow up collaboration and research in \ccite{zerod1,zerod2,zerod3,Stoll:2021ori}.
+Adrian Koenigstein and I decided to apply \fv{} methods from \cfd{} to \frg{} flow equations, \viz{} as a first test to the \lpa{} flow equation of \ON{} models. 
+We reproduced the results from \ccite{Grossi:2021ksl} and inspired by the superb publication~\cite{Keitel:2011pn} of Jan Keitel and Lorenz Bartosch, started studying \ON{} models in zero dimensions with the \frg{} and our new \cfd{} perspective on it.
+
+\paragraph{Zero-dimensional field theories \dash{} A gift that keeps on giving in $d\mkern-2mu=\mkern-2mu0$}\phantomsection\label{paragraph:introZeroD}\mbox{}\\%
+At the Mini-Workshop \textit{``QCD \& beyond with the FRG''} in Heidelberg (July 17, 2019), I presented first results that Adrian Koenigstein and I obtained with the \fv{} method for the \lpa{} flow equation of the three- and zero-dimensional
+\ON{} model at infinite and finite $N$ in a talk titled \textit{``Solving \xcancel{QFTs} convection–diffusion equations with finite volume methods Kurganov and Tadmor (KT) $O(x^2)$ central scheme - An appetizer''}~\cite{Steil:2019Talk}, which sparked the collaboration of Adrian Koenigstein and myself with Eduardo Grossi, Nicolas Wink, Jens Braun, Dirk Rischke and Michael Buballa leading to the series of publications~\cite{zerod1,zerod2,zerod3}.
+We decided to research the implications of the identification of \frg{} flow equations as convection equations/conservation laws in detail. 
+Especially with regard to the application and adaptation of concepts and numerical methods from the  highly-developed field of \cfd{} to the \frg{}, which at that point in time was clearly lacking rigorously developed and tested numerical tools for \pdes{}.
+Particularly Eduardo Grossi and Dirk Rischke with their background in relativistic hydrodynamics have brought much needed \cfd{}-expertise to the project.
+
+Zero-dimensional \ON{} models describe the interaction of $N$ scalars in a single point in space-time.
+Due to \ON{} symmetry and the complete absence of a notion of space-time in zero dimensions, such theories can be described using ordinary, one-dimensional integrals like the one shown in \cref{eq:anIntegral}.
+One might ask the question: how are there three publications~\cite{zerod1,zerod2,zerod3}, two doctoral theses (\ccite{Koenigstein:2023wso} and this document), and ongoing research projects~\cite{Steil:partIV,Koenigstein:fixedPoint} studying one-dimensional integrals?
+One could make the completely valid argument that computing numerical values for (converging) integrals like 
+\begin{align}
+	Z_S(J)\equiv \int_{-\infty}^{+\infty} \dif \phi \, \eu^{-S(\phi)+J\vts\phi}
+	\label{eq:anIntegral}
+\end{align}
+has been practically possible at the very least since the development of integral calculus by Isaac Newton and Gottfried Wilhelm Leibniz in the late \ith{17} century and 
+Leonhard Euler's work on exponential functions in the \ith{18} century. 
+With the advent of computers (including here actually the occupation \textit{computer} \dash{} a person performing mathematical calculations) and numerical methods over the centuries,
+computing the integral \eqref{eq:anIntegral} numerically for a given real function $S$ and real number $J$ \dash{} for which $Z_S(J)$ converges \dash{} is a simple exercise today.
+Especially modern computer algebra systems capable of arbitrary precision arithmetic, like \WAMwR{}, can compute \cref{eq:anIntegral} to high numerical precession in literally milliseconds.
+So how did we go from a \textit{Millennium Prize Problem}, \viz{} the \textit{Yang-Mills \& The Mass Gap} problem of page \pageref{YMmillennium}, to the integral \eqref{eq:anIntegral} on page \pageref{eq:anIntegral}?\bigskip
+
+The answer is simple: one can learn an almost shocking amount about \qfts{} and more precisely about methods used in the study of \qfts{} from simple integrals like \eqref{eq:anIntegral}. 
+The integral \nolinebreak[3]\eqref{eq:anIntegral} is the zero-dimensional analogue of the partition function: replacing the ordinary with a functional integral, identifying $S$ with the action, $\phi$ with a fluctuating quantum field $\phi(x)$, and $J$ with a source $J(x)$ (introduced to extract correlation functions from $Z$ using derivatives \wrt{} $J(x)$), we arrive at the text book expression for the partition function of an \ONn{1} model.
+Computing partition functions and related moments to gain access to observables is at the very core of \qft{} and its methods. 
+In \textit{``The zero-dimensional $O(N)$ vector model as a benchmark for perturbation theory, the large-$N$ expansion and the functional renormalization group''}~\cite{Keitel:2011pn} Jan Keitel and Lorenz Bartosch illustrate beautifully and in a self-contained manner how all three methods (perturbation theory, the large-$N$ expansion, and the \frg{} Taylor expansion) can be applied to zero-dimensional \ON{} models.
+The mentioned \qft{} methods \dash{} \frg{} among them \dash{} are by no means mathematically trivial in zero dimensions.
+The concepts and diagrammatic techniques of all three methods can be studied without encountering diverging momentum integrals, complicated functional integrals and calculus of functionals.
+Results and working principles can be visualized by just plotting the involved expressions.
+It is truly a didactic dream: zero-dimensional applications of \qft{} techniques should be part of any introductory lecture or at the very least of accompanying exercises. 
+
+\paragraph{Academic, didactic, and conceptual insight} into the \frg{} framework can be gained by extending the work in \ccite{Keitel:2011pn} to the study of the untruncated \frg{} flow equation in zero dimensions.
+The governing equation of the \frg{} \dash{} the Wetterich equation \dash{} is for theories in non-zero dimensions a functional differential equation.
+Tools for the direct solution of non-trivial, functional differential equations are non-existent.
+Any practical \frg{} computation in non-zero dimensions includes a truncation: a method to project from the Wetterich equation onto a finite set of \odes{} and \pdes{}.
+As a truly non-perturbative method it is often \apriori{} very difficult to construct a good truncation/projection strategy for a given research problem. 
+Established truncation schemes for certain classes of models/computations are usually established \aposteriori{}.
+In zero dimensions the \frg{} flow equation manifests directly as a \pde{} which can be studied without the need for truncations. 
+
+Just as their higher-dimensional counter parts the flow equation encountered for the zero-dimensional \ON{} model are advection-diffusion equations, which can be conceptually and numerically treated with methods from \cfd{}.
+Leveraging existing concepts of \cfd{} we have been able to identify pionic-contributions of massless modes in \frg{} flows as non-linear advective contributions, while contributions from massive radial \sigmaModes{} act as diffusive contributions~\cite{zerod1}.
+The irreversibility of non-perturbative \rg{} transformations \dash{} \frg{} flows from high to low energies/\rgscales{} \dash{} can be understood in this context and can be linked to the concept of numerical entropy in \cfd{}~\cite{zerod2}.
+In the large-$N$ limit of infinitely many scalars \frg{} flow equations become purely advective with the absence of diffusion allowing for unique features clearly distinguishing scenarios at finite and infinite $N$~\cite{zerod3}.
+
+Extending the discussion from the \ON{} model to an \SU{2} model including Grassmann numbers, we can identify fermionic contributions to \frg{} flows as source and sink terms~\cite{zerod4}.
+Furthermore, such more involved zero-dimensional models allow interesting insights into truncations and conservative formulations of more involved systems of \frg{} flow equations \nolinebreak[3]\cite{zerod4}.
+
+\paragraph{Numerical precision test and benchmarks} are especially easy to construct in zero-dimensional models.
+The fact that we can compute integrals like \eqref{eq:anIntegral} to arbitrary precision using just numerical integration provides us with basically exact reference values.
+Any \qft{} method applied to compute \cref{eq:anIntegral} can be benchmarked against the exact results: we do not have to wonder if and/or when a perturbative series converges, whether a saddle-point expansion in the spirit of the large-$N$ limit makes sense for a theory at hand, talk about apparent convergence of the \frg{} Taylor expansion, or wonder if our numerical scheme for the solution of the full untruncated \frg{} flow equation produces a meaningful result \dash{} we have exact reference values for all conceivable observables in zero dimensions for any action $S$ to compare to.
+There are only very few exact solutions for non-trivial, interacting \qfts{} in non-zero dimensions but in zero dimensions we can study any action $S$ we desire and just compute any observable in milliseconds on a laptop. 
+This allows us to construct a series of very illuminating and challenging \textit{test cases} in form of specific choices for $S$.
+There is no discussion to be had if a truncation is valid, a simplification justified, or a numerical scheme suited: their quality can be quantified by just comparing the results obtained from them with the exact reference values.
+In zero dimensions there is no room to hide.
+We test the \fv{} method of our choosing, \viz{} the \ktScheme{}~\cite{KTO2-0,KTO2-1}, for the numerical solution of \frg{} flow equations extensively with the zero-dimensional \ON{} model and our set of test cases.
+We investigate the role of boundary conditions, the spatial discretization, the size of the computational interval, the role of \uv{} and \ir{} cutoffs, and limitations of the \frg{} Taylor expansion extensively~\cite{zerod1,zerod2,zerod3}.
+
+\paragraph{The \acrlong{gn} model \dash{} a testing ground in $d\mkern-2mu=\mkern-2mu1\mkern-3mu+\mkern-3mu1$}\phantomsection\label{paragraph:introGN}\mbox{}\\%
+At this point we hope to have convinced the reader that studying zero-dimensional models is worthwhile for didactic, conceptual, and methodological reasons.
+But the valid question arises: can the developments in zero dimensions for the \frg{} be used in non-zero dimensions?
+We argue and demonstrate in the following that our work in zero dimensions extends beyond mere academic theory, having profound implications and applications beyond the realm of scalars and Grassmann numbers.
+
+Instead of applying our new found understanding of the \frg{} and our, at this point rigorously tested adaptation of the \ktScheme{}, directly to the \qmm{} in $3+1$ dimensions, we choose a more incremental approach.
+The \qmm{} is a rather involved theory at the very least when compared with the \acrrepeat{gn} model~\cite{Gross:1974jv} in \dimPlus{1}{1} dimensions.
+The \gnm{} is a simple four-fermi theory of $N$ chiral fermions in \dimPlus{1}{1} space-time dimensions which is frequently used as a toy model in the context of theoretical \hep{} to study \scsb{}.
+Like \qcd{} the \gnm{} is asymptotically free~\cite{Gross:1974jv,Wetzel:1984nw,Rosenstein:1990nm,Gracey:1990sx,Gracey:1990wi,Gracey:1991vy,Luperini:1991sv,ZinnJustin:1991yn,Peskin:1995ev,ZinnJustin:2002ru,Quinto:2021lqn} and at the classical level \dash{} at large \rgscales{} in the \uv{} \dash{} conformal.
+Notably, it exhibits dimensional transmutation, a phenomenon where studying quantum fluctuations leads to the emergence of a mass scale/gap in a theory initially free of dimensionful couplings, see, \eg{}, \ccite{ZinnJustin:1991yn,ZinnJustin:2002ru}.
+The asymptotic freedom of the \gnm{} makes constructing an explicit, initial action at varying number of fermion flavor $N$ rather simple.
+We study the \gnm{} both at an infinite number of fermion flavors (considering only fermionic fluctuations) and at a finite number of flavors (considering both fermionic and bosonic fluctuations) at non-zero temperature and chemical potential/density.
+
+At infinite-$N$ we study both homogeneous and inhomogeneous chiral condensates from an \frg{} perspective.
+In the context of theoretical \hep{} and inhomogeneous chiral condensates the \gnm{} is renowned for a dominant inhomogeneous phase in its phase diagram in the infinite-$N$ limit.
+The phase diagram allowing for inhomogeneous chiral condensates in this limit has been computed by Micheal Thies and others~\cite{Thies:2003kk,Schnetz:2004vr,deForcrand:2006zz,Karbstein:2006er} revising 
+in some cases longstanding homogeneous infinite-$N$ results~\cite{Dolan:1973qd,Harrington:1974te,Harrington:1974tf,Jacobs:1974ys,Dashen:1974xz,Dashen:1975xh,Wolff:1985av,Treml:1989,Pausch:1991ee}.
+We use those literature results for a qualitative and quantitative evaluation of the stability analysis of the homogeneous phase~\cite{\stabRefs} as a tool to detect inhomogeneous condensation~\cite{Koenigstein:2021llr}.
+
+At finite-$N$ we use the homogeneous infinite-$N$ results to construct an appropriate initial condition for \frg{} computations at varying $N$.
+We study the \gnym{} as a variant of the \gnm{} in the \lpa{} truncation.
+The encountered flow equation falls directly into the category of flow equations we studied extensively in zero dimensions. 
+Employing our adapted numerical methods from zero dimensions to this problem, we were able to study the effect of bosonic fluctuations at finite $N$.
+In doing so we have been able to address a long-standing question for the \gnm{}: is there \csb{} in the \gnm{} in \dimPlus{1}{1} dimensions?
+There are various \dash{} almost exclusively \apriori{} arguments \dash{} which predict no \csb{}, \ie{}, the complete disappearance of a broken phase at finite $N$.
+Using explicit \frg{} computations in \lpa{} we found no \csb{} at non-zero temperature, indications for \csb{} at zero temperature and a quantum phase transition (chiral symmetry restoration driven by density fluctuations induced by the chemical potential) at finite $N$ in the \gnym{}~\cite{Stoll:2021ori}.
+
+\paragraph{A disclaimer about physics}\phantomsection\label{paragraph:introPhysics}\mbox{}\\%
+The goal of physics is understanding nature and the laws that govern it.
+Theoretical physics, as a branch of physics, is tasked with using mathematical models to describe nature, focusing on identifying and theoretically understanding the governing laws and mechanisms of nature.
+In the context of this work, this means using the microscopic theory of \qcd{} to describe the macroscopic phase structure of strongly interacting matter which our colleagues can probe using collider experiments, astrophysical objects (like neutron stars), and indirect experiments aimed at understanding the states of matter in the early universe.
+To compute macroscopic observables from the microscopic theory of \qcd{}, we have to employ non-perturbative techniques from the field of \qft{}.
+For us the non-perturbative tool of choice is the \frg{}.
+Of the many open research questions regarding the phase diagram of strongly interacting matter at intermediate temperatures and densities, we set out to focus on the question whether inhomogeneous chiral condensates exist in this phase diagram. 
+We are particularly interested in the role of bosonic quantum and thermal fluctuations, which, so far, is poorly understood.
+
+We will not provide an answer to this question in this work since the application of the developed numerical methods to the relevant \loeft{}, \viz{} the \qmm{}, is subject to further research.
+In fact, throughout this entire thesis, we will not claim that our results have any direct implications for nature as we observe it.
+Our zero-dimensional models have no real tangible role in describing physical systems.
+The \gnm{} in \dimPlus{1}{1} dimensions has some applications in solid-state physics, but frankly, we are not qualified to comment on the possible implications of our results for physical systems in this context.
+We use the \gnm{} in the context of \hep{}, \ie{}, purely as a toy model to study \csb{} and as a stepping stone for computations in $3+1$ dimensions.
+Our explicit results in the \qmm{} in  $3+1$ dimensions are not novel but rather a reproduction of mean-field literature results with the \frg{} framework. 
+Disregarding bosonic fluctuations in mean-field approximation or justifying this approximation by considering an infinite number of colors in a large-$N_c$ limit is \apriori{} by no means a valid approach to describe nature at $N_c=3$.
+
+Probably the closest we ever come to describing nature is our discussion of the heat equation and classical Euler equations of ideal fluid dynamics in our methodological introduction of \cfd{}.\bigskip
+
+This work is therefore almost entirely focused on technical developments within the framework of the \frg{}.
+With our research we aim at improving the conceptual understanding of \frg{} flow equations and the role of inhomogeneous condensates in this context.
+Furthermore, we aim to establish robust numerical methods within the \frg{} framework, methods which have been rigorously developed and tested by the \cfd{} community for the type of \pdes{} encountered.
+All these incremental developments have the goal to help facilitate first principle \frg{} computations of \qcd{} with qualitative and quantitative predictive power at intermediate temperatures and quark chemical potentials, see, \eg{}, \ccite{Fu:2019hdw,Fu:2022uow,Ihssen:2023xlp}.
+Such computations are currently one of the most promising candidates to access these regimes of the phase diagram theoretically.
+
+\section{Outline}\label{sec:outline}
+For this thesis we adopt a somewhat modified IMRaD (Introduction, Methods, Results, and Discussion) structure to present our research.
+\Cref{chap:introduction} serves as an overall introduction to our research, which includes remarks about its chronological development in the context of my PhD studies and thus also already includes some remarks about key findings which shaped our research.\bigskip
+
+In \cref{chap:methods} we introduce overarching methods and concepts which are relevant for the main part of this thesis.
+We introduce the \frg{} as the main method employed in our studies in \cref{sec:FRG}.
+To discuss, study, and numerically solve \frg{} flow equations we employ the tools and language established in \cref{sec:conservationLaws} from the field of \cfd{}.
+In \cref{sec:qcdModels} we briefly introduce \qcd{} as the fundamental theory governing the strong force and motivate the \loeft{}, \viz{} the \qmm{}, we use in this work.
+The notion of inhomogeneous phases in strongly-interacting matter and related computational challenges are discussed in \cref{sec:inhomogeneousPhases}.\bigskip
+
+\Cref{chap:zeroONSU2,chap:GN,chap:QMM} constitute the main part of our research.
+Each chapter includes its own introduction and conceptualization, our research, and concluding remarks \dash{} incorporating a summary and outlook.
+For the presentation here I have chosen to order results by space-time dimension rather than by their chronological development within my PhD studies.
+
+In \cref{chap:zeroONSU2} we present and discuss our extensive research of zero-dimensional theories in the context of the \frg{}.
+This includes our studies of zero-dimensional \ON{} models in \cref{sec:0dQFT,sec:0dON}, which are already published in the series~\cite{Koenigstein:2021syz,Koenigstein:2021rxj,Steil:2021cbu}.
+In \cref{sec:0dSU2} we discuss first steps of an extension of this work to fermionic, \ie{}, Grassmann-valued, degrees of freedom in zero dimensions which is based on the manuscript and material surrounding \nbccite{Steil:partIV}.
+
+\Cref{chap:GN} is based on our research of the \gn{} model and its variants.
+This discussion includes our study~\cite{Koenigstein:2021llr} of inhomogeneous phases in the \gn{} model at infinite-$N$ with a stability analysis in \cref{subsec:stability} and our \frg{}-based study~\cite{Stoll:2021ori} of homogeneous phases at finite $N$ in \cref{sec:gnyFiniteN}.
+The latter is a direct application of our research and development in zero dimensions to a model in non-zero, \viz{} \dimPlus{1}{1} dimensions.
+
+\Cref{chap:QMM} is based on our research of the \qmm{} in $3+1$ dimensions surrounding the draft~\cite{Steil:2023RGMF}.
+The focus of this research is the novel and explicit study of inhomogeneous phases within the \frg{} framework.
+We discuss the derivation of the novel \lpa{} flow equation for the \cdw{} in the \qmm{} in \cref{sec:lpacdw} and related mean-field results in the subsequent \cref{sec:cdwmf}.\bigskip
+
+We give a brief, final summary and outlook in \cref{chap:conclusion}.
+Technical details, conventions, and supplementary material can be found in the printed \customref{app:app}{Appendices} and in the accompanying digital auxiliary files, see \cref{app:auxFiles}.
+The following backmatter includes the \customref{chap:bibliography}{Bibliography}, a list of \customref{chap:acronyms}{Acronyms}, my \customref{chap:cv}{Curriculum vitae}, and \customref{chap:acknowledgments}{Acknowledgments}.\bigskip
+
+The focus of our research on technical developments in the \frg{} might be off-putting to a reader not familiar and not invested into the framework.
+For readers unfamiliar with the \frg{}, I suggest a non-linear approach to reading this thesis to facilitate a more accessible entry into the subject matter.
+The methodological introduction to the \frg{} in \cref{sec:FRG} begins at, and maintains, a very technical level, making it likely ill-suited for \textit{``first-contact''} on its own.
+
+I recommend initially skipping \cref{sec:FRG} and, arguably, the entirety of \cref{chap:methods}, and instead start with \cref{sec:0dQFT,sec:0dON}, as these sections are more accessible and didactic in nature. 
+The reader then may use the included cross-references to jump back to relevant parts of \cref{sec:FRG,sec:conservationLaws} as and when needed.
+The remainder of \cref{chap:zeroONSU2} should become accessible after that.
+Before continuing with \cref{chap:GN}, I would advise reading \cref{sec:inhomogeneousPhases}. 
+For the study of \cref{chap:QMM}, I recommend reading the last remaining part of \cref{chap:methods}, \viz{} \cref{sec:qcdModels}, since it is particularity relevant for the \qmm{}.
+
+I decided against structuring the thesis in this way to maintain a clearer split between methods and our research (results/discussion).\clearpage
+
+\section{Publications and disclaimers}\label{sec:publications}
+This thesis has been composed by me independently.
+No source materials or aids other than those mentioned have been used in accordance with the affidavit \dash{} \hyperref[chap:affidavit]{Erklärungen laut Promotionsordnung}.
+However, most results have been obtained in collaboration with colleagues.
+Sections of this thesis dealing with results and ideas which are directly related to those collaborations have corresponding declarations at their beginning.
+Those declarations refer to the following publications, preprints, drafts, and notes:
+\begin{itemize}[leftmargin=4em,align=left]
+	\item[\cite{Koenigstein:2021syz}] \fullcite{Koenigstein:2021syz}, %0d part I paper -- zerod1
+	\item[\cite{Koenigstein:2021rxj}] \fullcite{Koenigstein:2021rxj}, %0d part II paper -- zerod2
+	\item[\cite{Steil:2021cbu}] \fullcite{Steil:2021cbu}, %0d part III paper -- zerod3
+	\item[\cite{Stoll:2021ori}] \fullcite{Stoll:2021ori}, %GN published manuskript/preprint -- gn
+	\item[\cite{Koenigstein:2021llr}] \fullcite{Koenigstein:2021llr}, % GN stability analysis paper-- gns
+	\item[\cite{Steil:2023RGMF}] \fullcite{Steil:2023RGMF}, %CDW draft
+	\item[\cite{Steil:partIV}] \fullcite{Steil:partIV}, %0d part IV draft-- zerod4
+	\item[\cite{Koenigstein:fixedPoint}] \fullcite{Koenigstein:fixedPoint}, % notes
+	\item[\cite{Koenigstein:2021numericalSchemes}] \fullcite{Koenigstein:2021numericalSchemes}.% notes
+\end{itemize}\clearpage
+Figures and data taken or adapted from those joint publications are individually and explicitly marked and declared as such, while adapted formulations and equations are not marked individually.
+
+Although I am not the sole author of the aforementioned material, I have been a major contributor to all of it.
+Further details regarding the publications and the use of material from them can be found in subsequent declarations \dash{} indented and typeset in italic, these disclaimers are placed under headings.
+
+Information on digital auxiliary files, software packages, and tools relevant to this thesis can be found in \cref{app:auxFiles,app:software}.
+The digital material is available in the online repository
+\begin{center}
+	\texttt{\smaller\href{https://github.com/MJSteil/PhD-Thesis}{https://github.com/MJSteil/PhD-Thesis}}.
+\end{center}

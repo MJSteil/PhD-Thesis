@@ -1,0 +1,484 @@
+\section{Quantum \texorpdfstring{\xcancel{field}}{(field)} theory in zero dimensions}\label{sec:0dQFT}
+\begin{disclaimer}
+	This section follows the discussion presented in Sec. II of \ccite{Koenigstein:2021syz}.
+\end{disclaimer}
+This section provides an introduction to zero-dimensional \qft{} using the theory of a single scalar as an instructive example.
+We will focus on details and structure of the flow equations and the technical subtleties in their solution in zero dimensions thus without any direct reference to regularization and renormalization.
+In addition we use this introduction to establish some notation and special features of zero-dimensional field theory.\\
+
+As already mentioned in the introduction to this chapter, the efficient and sufficiently precise calculation of correlation functions is key to understanding the properties of a particular model or theory.
+Usually this is done by introducing a partition function or functional integral that provides a probability distribution for the microstates of the model and serves as a generating functional for the $n$-point (correlation) functions~\cite{Weinberg:1996kr,Peskin:1995ev,ZinnJustin:2002ru,Kleinert:2004ev}.
+The partition function is based on an energy function that can be a discrete or continuous Hamilton function or an action, which determines the microscopic properties of the model, \cf{} \cref{eq:ZkDef}.
+The \frg{} provides an alternative to a direct computation using the functional integral.
+For generic \qfts{} we introduced this approach in \cref{sec:FRG} but in this section we want to focus on the special case of a zero-dimensional \qft{} of a single scalar.
+We will discuss the direct computation of observables using the generating functional and the alternative approach using the \frg{} flow equation.
+
+\subsection{The partition function}\label{subsec:partition_function}
+Consider a zero-dimensional \qft{} with a single real bosonic scalar field $\phi$\footnote{
+Throughout this chapter we will use $\phi$ denote a fluctuating scalar (not $\FSff{\phi}$) since we will use $\varphi$ for the expectation value $\langle \phi\rangle=\varphi$.
+Later in \cref{sec:0dSU2}, we will also introduce $\Ftheta$ and $\Fthetab$ as fluctuating Grassmann numbers with the corresponding expectation values $\langle\Ftheta\rangle=\MFtheta$ and $\langle\Fthetab\rangle=\MFthetab$.
+Sadly variant versions are not available for all Greek characters, which led us to introduce the tilde-overline in our general discussion of \cref{sec:FRG}.
+}.
+In zero dimensions the ``field'' $\phi$ is due to the complete absence of a notion of space-time in zero dimensions mathematically not a field but just a single scalar degree of freedom, \ie{}, a plain real number \dash{} hence the typographic pun with striking out the word \textit{field} in the title of this section.
+In our following discussion we will however maintain the term field even though mathematically we are just discussing numbers.
+Due to the absence of space-time in zero dimensions derivatives and space-time integrals simply do not exist.
+This implies that the action $\mathcal{S}[\phi]$ of the model is identical to the Lagrangian $\mathcal{L}[\phi]$.
+The action, the Lagrangian, and also the Hamiltonian $\mathcal{H}[\phi]$ are simply functions of $\phi$ instead of functionals%
+\footnote{%
+	Nevertheless, we will stick to the notation of functionals using square brackets, to maintain a degree of consistency with the corresponding expressions in non-zero space-time dimensions, as long as we do not focus on particular zero-dimensional examples.
+}.
+The complete absence of space-time derivatives/integrals, fields, and functionals makes the following discussion mathematically rather simple in stark contrast to the situation encountered by \qft{} practitioners in $d>0$: where dealing with potentially divergent space-time integrals and complicated functional integrals is the norm.
+This simplicity is the beauty of zero-dimensional \qfts{} which are by no means trivial: a lot can be learned from their study.
+Because of the absence of a space-time derivative and thus of kinetic terms, $\mathcal{S}[\phi] = \mathcal{L}[\phi] = \mathcal{H}[\phi] = U(\phi)$, where $U(\phi)$ is the (effective) potential.
+Therefore, the only requirement for these functions is that they must be bounded from below, in order to exclude ``negative-energy states''%
+\footnote{
+	We put ``negative-energy states'' in quotation marks, because all quantities in zero-dimensional field theory are dimensionless, \viz{} bare numbers without physical dimensions.
+	For convenience, we will still use the well-established notions from higher-dimensional \qfts{} in our discussion.
+}
+and to obtain positive normalizable probability distributions.
+Apart from this requirement, for the moment we do not demand any additional properties, like symmetries (\eg{}, \ZII{}, $\phi \rightarrow - \phi$) or analyticity.
+
+If we choose a specific model with action $\mathcal{S}[\phi]$ all expectation values of arbitrary functions $f(\phi)$ that do not grow exponentially in $\phi$ are defined and can be calculated via the following expression
+\begin{align}
+	\langle f(\phi) \rangle \equiv \frac{\int_{-\infty}^{+\infty} \dif \phi \, f(\phi) \, \eu^{ - \mathcal{S}[\phi] }}{\int_{-\infty}^{+\infty} \dif \phi \, \eu^{ - \mathcal{S}[\phi] }} \, ,	\label{eq:expectation_value_1}
+\end{align}
+where $\eu^{ - \mathcal{S}[\phi] }$ provides the partition of probabilities among the microstates.
+Note that due to the zero-dimensional nature all expectation values for such a model reduce to indefinite one-dimensional integrals over $\phi$.
+Such integrals can be computed to extremely high precision using standard techniques of numerical integration~\cite{Press:1992zz,PresTeukVettFlan92}.
+It is worth emphasizing that the current discussion holds also for non-analytic $\mathcal{S}[\phi]$ and/or $f(\phi)$.
+Some specific choices of $\mathcal{S}[\phi]$ and $f(\phi)$ even allow for an analytic evaluation of \cref{eq:expectation_value_1}, see, \eg{}, \ccite{Keitel:2011pn}.
+The possibility to compute expectation values to high precision makes zero-dimensional field theory of great interest as a testing ground for approximations and/or numerical methods.
+
+Some explicit examples of zero-dimensional field theories used as a testing ground for methods in statistical mechanics and \qft{} can be found in \ccite{Bessis:1980ss,Zinn-Justin:1998hwu,DiVecchia:1990ce,Hikami:1978ya,Nishigaki:1990sk,Schelstraete:1994sc,Keitel:2011pn,Pawlowski:talk,Moroz:2011thesis,Fl_rchinger_2010,SkinnerScript,Strocchi:2013awa,Kemler:2013yka,Rentrop_2015,Rosa:2016czs,Liang:2017whg,Millington:2019nkw,Alexander:2019cgw,Catalano:2019,Millington:2020Talk,Millington:2021ftp,Kades:2021hir,Fraboulet:2021amf}.
+In \ccite{Strocchi:2013awa}, for example, the asymptotic convergence and the vanishing convergence radius of perturbation theory of $\phi^4$-theory is discussed.
+Approximation schemes such as the large-$N$, the \frg{} vertex expansion, or the \frg{} Taylor expansion were analyzed in \ccite{Keitel:2011pn}.
+Zero-dimensional field theory was also used to study density-functional theory in \ccite{Kemler:2013yka,Rentrop_2015,Liang:2017whg} and applied to fermionic fields in \ccite{SkinnerScript}.
+Recently, it was used to study and visualize 2PI effective actions~\cite{Millington:2019nkw} \dash{} also in the \frg{} framework~\cite{Alexander:2019cgw,Millington:2020Talk,Millington:2021ftp}.
+
+The calculation of expectation values is facilitated by a suitably defined generating functional
+\begin{align}
+	\mathcal{Z} [J] \equiv \mathcal{N} \int_{-\infty}^{+\infty} \dif \phi \, \eu^{- \mathcal{S}[\phi] + J \, \phi} \, , \label{eq:partition_function}
+\end{align}
+from which one can derive all correlation functions by taking the corresponding number of derivatives \wrt{} the external source $J$,
+\begin{align}
+	\langle f(\phi) \rangle = \frac{f(\tfrac{\delta}{\delta J}) \, \mathcal{Z}[J]}{\mathcal{Z}[J]} \bigg|_{J = 0} \, .	\label{eq:expectation_value_2}
+\end{align}
+One should note that if $f(\phi)$ is non-analytic, then \cref{eq:expectation_value_2} is to be understood symbolically.
+Otherwise, it is defined through a Taylor series in $\frac{\delta}{\delta J}$.
+Irrespective of that, \cref{eq:expectation_value_1} and \eqref{eq:partition_function} are always well defined and \cref{eq:partition_function} can be always calculated for arbitrary $J$.
+One can even show in zero dimensions that $\mathcal{Z}[J] \in C^\infty$, hence, $\mathcal{Z}[J]$ is a smooth function, see \ccite{Moroz:2011thesis} and \MWApp{}.
+
+The normalization $\mathcal{N}$ is not an observable quantity and for our discussion here, it is convenient to choose
+\begin{align}
+		\mathcal{Z} [ 0 ] \overset{!}{=} 1 \qquad \longleftrightarrow \qquad \mathcal{N}^{-1} = \int_{-\infty}^{+\infty} \dif \phi \, \eu^{ - \mathcal{S} [\phi] } \, .	\label{eq:normalization}
+\end{align}
+As already mentioned above, calculating expectation values in a zero-dimensional \qft{} via \cref{eq:expectation_value_1} is (at the very least numerically) rather straightforward.
+In contrast, for higher-dimensional models or theories with non-trivial field content, calculating functional integrals similar to \cref{eq:expectation_value_1}, \cf{} \cref{eq:expectationOJ}, with sufficient precision is usually extremely challenging or might even be impossible with limited computational resources.
+Therefore, alternative methods like the \frg{} or approximation schemes apart from ``direct numerical integration'', like in lattice simulations, are of great interest.
+
+In the following, we will again focus on the \frg{} as a specific method for calculating \nptFunctions{} in zero-dimensional \qfts{}.
+In contrast to the usual motivation of the \frg{}, \cf{} the introduction of \cref{sec:FRG}, we will use a different but as it turns out closely related approach to motivate and ultimately arrive at the \frg{} flow equation \eqref{eq:WetterichEq0d} in zero-dimensions.
+To this end, we will follow and extend the discussion in \ccite{Keitel:2011pn,Pawlowski:talk,Moroz:2011thesis,Fl_rchinger_2010,SkinnerScript} and discuss its technical properties as an alternative way of solving the integrals in \cref{eq:expectation_value_1} and \eqref{eq:partition_function}.
+
+\subsection{Solving integrals with flow equations}\label{subsec:0dintegrals}
+The starting point of our following discussion, is the observation that there is one well-known non-trivial class of actions $\mathcal{S}[\phi]$ for which the calculation of integrals like \cref{eq:expectation_value_1} is straightforward, even in higher dimensions and even for more complicated field content.
+These actions are \qfts{} for ``(massive) free particles'' and correspond to Gaussian-type integrals.
+In the present case the Gaussian-type action takes the following simple form,
+\begin{align}
+	\mathcal{S} [ \phi ] = \tfrac{m^2}{2} \, \phi^2 \, .	\label{eq:mass_term}
+\end{align}
+where $m$ is called a ``mass'' for convenience, although it is actually a dimensionless quantity in zero space-time dimensions.
+
+For non-trivial actions $\mathcal{S}[\phi]$, \cref{eq:expectation_value_1} can still be approximated by a Gaussian integral, as long as $\mathcal{S}[\phi]$ contains a mass term \eqref{eq:mass_term} with a coefficient $m^2$ that is much larger than all other scales contained in $\mathcal{S}[\phi]$.
+If this is the case, the Gaussian part of the integrand $\eu^{-\mathcal{S}[\phi]}$ completely dominates the integrals in \cref{eq:expectation_value_1} and \eqref{eq:partition_function}.
+The reason is that the mass term $\sim\phi^2$ is dominant for small and moderate $\phi$, and most of the area under the curve $\eu^{-\mathcal{S}[\phi]}$ lies in the region of small $\phi$, similar to a pure Gaussian integral.
+For very large values of $\phi$ other terms in the action $\mathcal{S}[\phi]$ may become more important.
+Nevertheless, if $m^2$ is large enough, the corresponding area under the curve $\eu^{-\mathcal{S}[\phi]}$ is completely negligible in regions where $\phi$ is large, because $\mathcal{S}[\phi]$ is bounded from below such that $\eu^{-\mathcal{S}[\phi]}$ tends to zero exponentially fast for $\phi\to\infty$.
+In summary, the Gaussian part with the huge mass term dominates the integral and even integrals involving non-trivial actions can be approximated.
+This is illustrated in \cref{fig:rg_flow_integrand}.
+
+\subsubsection{The scale-dependent partition function}
+Based on the above observation, let us now (re)introduce the following quantity:
+\begin{align}
+	\mathcal{Z}_t [ J ] \equiv \mathcal{N} \, \int_{-\infty}^{+\infty} \dif \phi \, \eu^{- \mathcal{S} [ \phi ] - \Delta \mathcal{S}_t [ \phi ] + J \, \phi } \, ,	\label{eq:scale_dependent_z}
+\end{align}
+which is called the \textit{scale-dependent generating functional} or \textit{scale-dependent partition function}.
+It differs from the usual partition function \eqref{eq:partition_function} only by a scale-dependent mass term
+\begin{align}
+	\Delta \mathcal{S}_t [ \phi ] \equiv \tfrac{1}{2} \, r ( t ) \, \phi^2 \, .	\label{eq:regulator_insertion}
+\end{align}
+We directly adopt the common notation from the \frg{} community and call $r(t)$ the \textit{regulator (shape) function}, which depends on the \textit{\rgscale{}} (``\textit{time}'') $t \in [ \, 0 , \infty )$, see, \eg{}, \ccite{Litim:2000ci,Pawlowski:2015mlf}.
+We have now constructed the zero-dimensional analog to the \rgscaledependent{} generating functional \eqref{eq:ZkDef} purely based on the notion of an integral deformation.
+For now, we only demand that the function $r(t)$ has such properties that $\mathcal{Z}_t [J]$ interpolates between an almost Gaussian-type partition function%
+\footnote{%
+	This is also why the \uv{} fixed point of \grg{} flows is denoted as the \textit{trivial} or \textit{Gaussian fixed point}.
+}
+with extremely massive free fields at $t = 0$ and the actual partition function $\mathcal{Z}[J]$ of interest at $t \rightarrow \infty$.
+In order to achieve this behavior, $r ( t )$ has to have the following properties:
+	\begin{enumerate}
+		\item	In the limit of $t \rightarrow 0$, $r(t)$ ($\Delta \mathcal{S}_t [ \phi ] $) should behave like a mass (term), similar to what we discussed at the beginning of this section, and be much larger than all other scales in $\mathcal{S}[\phi]$. We will discuss this further in \cref{subsec:exact_rg_equation}.
+		
+		\item	For $t \rightarrow \infty$, $r(t)$ is supposed to vanish, such that $\lim_{t \rightarrow \infty} \mathcal{Z}_t [J]=\mathcal{Z}[J]$.
+		The same applies to expectation values calculated from $\mathcal{Z}_t[J]$, which become expectation values of $\mathcal{Z}[J]$.
+		For practical calculations it is sufficient to assume that, for $t \rightarrow \infty$, $r(t)$ becomes much smaller than all scales in $\mathcal{S}[\phi]$, because then the contribution $\Delta \mathcal{S}_t [\phi]$ to the whole integrand $\eu^{- \mathcal{S}[\phi] - \Delta \mathcal{S}_t [\phi]}$ is negligible and the integrand is almost identical to $\eu^{- \mathcal{S}[\phi]}$.
+		The value $\lim_{t \rightarrow \infty} r ( t ) = r_\mathrm{IR} \smallergtrsim 0$ is usually referred to as \textit{(numerical) \ir{} cutoff}.
+		
+		\item	The interpretation of $r(t)$ ($\Delta \mathcal{S}_t [ \phi ]$) as a mass (term) is guaranteed by further demanding monotonicity, ${\forall t,\ \partial_t r(t) \leq 0}$.
+		We will provide additional arguments for monotonicity in \cref{subsec:flow_equation_of_the_partition_function}.
+				
+		\item	In order to be able to smoothly deform the integral in \cref{eq:partition_function} and for the following derivation of evolution equations, we further require $r ( t ) \in C^1$.
+	\end{enumerate}
+Apart from these four properties there are no further requirements on $r(t)$ in zero dimensions and ultimately the regulator choice in zero-dimensions manifests as simple reparametrizations in the flow time $t$.
+The first (\uv{}) property is the zero-dimensional realization of general regulator property \customref{paragraph:regulatorUV}{3. \textit{Diverging in the Ultraviolet}} of \cref{subsubsec:regulator}.
+The second (\ir{}) property is the zero-dimensional realization of general regulator property \customref{paragraph:regulatorHighP}{2. \textit{Vanishing for high momentum modes}} of \cref{subsubsec:regulator}.
+Note that for higher-dimensional field theories the fourth requirement turns into $\Delta \mathcal{S}_t [ \phi ] \in C^1$.
+A specific choice which is used in large parts of our work is the zero-dimensional exponential regulator (shape) function
+	\begin{align}
+		r ( t ) = \Lambda \, \eu^{- t} \, ,	\label{eq:exponential_regulator}
+	\end{align}
+with an \uv{} cutoff/scale $\Lambda$, which must be chosen much larger than all scales in $\mathcal{S} [ \phi ]$.
+
+In order to get a better intuition of the effect of $r(t)$ on the integral \eqref{eq:scale_dependent_z}, we show the integrand at $J=0$, $\eu^{- \mathcal{S}[\phi] - \Delta \mathcal{S}_t [\phi]}$, and the respective exponent for different values of $t$ for the analytic action
+\begin{align}
+	\mathcal{S} ( \phi ) = - \tfrac{1}{2} \, \phi^2 + \tfrac{1}{4!} \, \phi^4 \, ,\label{eq:example_analytic_action}
+\end{align}
+in \cref{fig:rg_flow_integrand_z_1} and in \cref{fig:rg_flow_integrand_z_2} the same quantities for the non-analytic action
+	\begin{align}
+		\mathcal{S} ( \phi ) =
+		\begin{cases}
+			- \phi^2 \, ,								&	\text{if} \quad | \phi | \leq \tfrac{5}{4} \, ,	
+			\\[.1em]
+			- \big( \tfrac{5}{4} \big)^2 \, ,			&	\text{if} \quad \tfrac{5}{4} < | \phi | \leq 2 \, ,
+			\\[.1em]
+			\tfrac{1}{48} \,, \big( \phi^4 - 91 \big)	&	\text{if} \quad | \phi |>2 \, .
+			\\
+		\end{cases}	\label{eq:example_non-analytic_action}
+	\end{align}
+The figures show how the integrands are deformed from Gaussian-shaped integrands to the integrands $\eu^{- \mathcal{S}[\phi]}$.
+One observes that, as long as $r(t)$ is much larger than all other parameters in $\mathcal{S}[\phi]$, the Gaussian-like mass term dominates, while for increasing $t$ the regulator $r(t)$ becomes negligible.
+The most interesting part, where the integrands change their shapes significantly, is where $r(t)$ is of the same order as the scales in $\mathcal{S} ( \phi )$.
+\subcaptionFigure%
+	[t]% Placement
+	{0d/figures/rg_flow_integrand_z_smooth.pdf}% Figure (a)
+	[\captionsetup{justification=centering}\caption{Plots for the action \eqref{eq:example_analytic_action}}]% Caption (a)
+	{fig:rg_flow_integrand_z_1}% label (a)
+	{0d/figures/rg_flow_integrand_z_kink.pdf}% Figure (b)
+	[\captionsetup{justification=centering}\caption{Plots for the action  \eqref{eq:example_non-analytic_action}}]% Caption (b)
+	{fig:rg_flow_integrand_z_2}% label (b)
+	{%
+	The integrand (upper panel) and exponent (lower panel) from \cref{eq:scale_dependent_z} (at $J = 0$) as a function of the field variable $\phi$ for various \rgtimes{} $t = 0, 1, 2, \ldots, 15$ and for different actions on the left \subref{fig:rg_flow_integrand_z_1} and on the right \subref{fig:rg_flow_integrand_z_2}.
+	We choose the exponential regulator~\eqref{eq:exponential_regulator} with \uv{} scale $\Lambda = 10^3$.
+	The \ir{} cutoff scale is chosen at  $r_\mathrm{IR} \simeq 3.06 \cdot 10^{-4}$ which corresponds to $t = 15$.
+	The numerical value of $r_\mathrm{IR}$ is significantly smaller than all scales in $\mathcal{S}[\phi]$.
+	\fromFigs{1 and 2}{zerod1}%
+	}% Caption
+	{fig:rg_flow_integrand}% Label
+
+\FloatBarrier
+\subsubsection{A flow equation for the scale-dependent partition function}
+\label{subsec:flow_equation_of_the_partition_function}
+
+The change of the integrals with $t$ between the two limiting cases at $t=0$ and $t\rightarrow\infty$ is the in \cref{sec:FRG} established \textit{\frg{} flow} from the \uv{} to the \ir{}.
+By knowing/mathematically prescribing the integral deformation, we can obtain the function ${\mathcal{Z}(J) \equiv \lim_{t \rightarrow \infty} \mathcal{Z}_t [J] = \mathcal{Z}[J]}$ right from the Gaussian-like partition function $\mathcal{Z}_{t = 0}[J]$ without the need to calculate the $\phi$-integral in the partition function~\eqref{eq:partition_function} directly.
+In zero dimensions this might arguably be one of the most complicated ways to compute the partition function~\eqref{eq:partition_function}, because the integrals in field space are (at least numerically) simple to compute.
+For higher dimensions, however, circumventing the corresponding challenging functional integration is a tremendous benefit.\bigskip
+
+The \frg{} flow of $\mathcal{Z}_t [J]$, \ie{}, its deformation, is prescribed by a differential equation which can be obtained by taking the derivative \wrt{} the \rgtime{} $t$ of \cref{eq:scale_dependent_z}:
+\begin{subequations}\label{eq:pde_zF}
+\begin{align}
+		\partial_t \mathcal{Z}_t[J] =	\, & - \big[ \tfrac{1}{2} \, \partial_t r ( t ) \big] \, \mathcal{N} \int_{-\infty}^{+\infty} \dif \phi \, \phi^2 \, \eu^{ - \mathcal{S}[\phi] - \Delta \mathcal{S}[\phi] + J \, \phi}\, =\\
+		=\,& - \big[ \tfrac{1}{2} \, \partial_t r ( t ) \big] \, \frac{\delta^2 \mathcal{Z}_t [J]}{\delta J \, \delta J} \equiv \,  - \big[ \tfrac{1}{2} \, \partial_t r ( t ) \big] \, \mathcal{Z}^{(2)}_{t, J J} [J] \, ,	
+	\end{align}
+\end{subequations}
+which directly manifests as a simple \pde{} for the function $\mathcal{Z} ( t, J )$ in the $t$-$J$-plane,
+\begin{align}
+	\partial_t \mathcal{Z}(t,J) = - \big[ \tfrac{1}{2} \, \partial_t r ( t ) \big] \, \partial_J^2 \mathcal{Z}(t,J) \, .	\label{eq:pde_z}
+\end{align}
+Solving this equation with appropriate initial and boundary conditions results in a function $\mathcal{Z} ( J )$ from which one can calculate expectation values by taking ordinary (numerical) derivatives \wrt{} $J$ at $J = 0$, \cf{}\ \cref{eq:expectation_value_2}.
+
+The higher-dimensional analog to \cref{eq:pde_z} is \cref{eq:dZkdtflow} and thus we again recognize \cref{eq:pde_z} as a linear one-dimensional diffusion equation (\textit{heat equation})~\cite{Rosten:2010vm,SkinnerScript,Salmhofer:2020Talk,Cannon:1984}, where $t$ corresponds to the temporal direction, while $J$ corresponds to the spatial direction.
+We discussed this type of conservation equation in detail in \cref{subsec:hydroDiffusion}.
+The term $- \tfrac{1}{2} \, \partial_t r ( t )$ corresponds to a time-dependent (positive definite) diffusion coefficient%
+\footnote{%
+	Note that in zero dimensions one can get rid of $\partial_t r ( t )$ by an appropriate reparametrization of the time coordinate $t$, which nevertheless keeps the structure of the equation unchanged.
+	In higher dimensions this elimination of $r ( t )$ is in general not possible.
+	The positivity of the diffusion coefficient is directly related to the stability of solutions of the heat equation~\cite{LeVeque:1992,LeVeque:2002} and positivity \dash{} here guaranteed by the regulator properties \dash{} is necessary for a stable solution~\cite{Rosten:2010vm,Osborn:2011kw}.
+}.
+This further supports the notion of \rg{} ``time'' for the parameter $t$.
+We will come back to the concept of \rg{} ``time'' in the true sense of the word and the diffusive, irreversible character of \frg{} flows in \cref{subsubsec:conservative_form}.\bigskip
+
+For the remainder of this subsection we will discuss properties and practical issues considering the exact \pde{} \eqref{eq:pde_z}.
+We will neither discuss any kind of expansions in $J$ nor its application in higher dimensions here.
+However, some of the issues and questions raised in the following are also relevant for higher-dimensional theories.
+
+Finding the correct initial and boundary conditions for numerical solutions of \cref{eq:pde_z} as an exact \pde{} is challenging.
+By construction $\mathcal{Z}_{t = 0} [ J ]$ approaches a Gaussian integral,
+\begin{align}
+	\stepcounter{equation}\newSubEqBlock
+	\mathcal{Z}_{t = 0} [ J ] = \, & \mathcal{N} \, \int_{-\infty}^{+\infty} \dif \phi \, \eu^{- \frac{1}{2} r ( 0 ) \, \phi^2 + J \, \phi} \, \eu^{- \mathcal{S} ( \phi )}\,=\subEqTag\\* % no page break
+	= \, & \mathcal{N} \, \int_{-\infty}^{+\infty} \frac{\dif\tilde{\phi}}{\sqrt{r(0)}} \, \eu^{- \frac{1}{2} \, \tilde{\phi}^2 + J \, \frac{\tilde{\phi}}{\sqrt{r(0)}}} \, \Big[ 1- \order \big( \mathcal{S} \big( r ( 0 )^{-\frac{1}{2}} \big) \big) \Big]\,= \subEqTag\\* % no page break
+	= \, & \mathcal{N} \, \sqrt{\tfrac{2\piu}{r(0)}} \, \eu^{\frac{J^2}{2 r(0)}} \, \Big[ 1- \order \big( \mathcal{S} \big( r(0)^{-\frac{1}{2}} \big) \big) \Big] \, ,	\label{eq:initial_condition_z}
+\end{align}
+with $\tilde{\phi}\equiv \sqrt{r(0)}\,\phi$ and independent of the explicit shape of $\mathcal{S}[\phi]$.
+Considering different actions $\mathcal{S}[\phi]$ with couplings of the same order of magnitude we can choose the same regulator with an $r(0)$ larger than all internal scales involved in the different actions.
+The \ic{} $\mathcal{Z}(0,J)$ is then independent of the explicit action under consideration.
+
+According to the integral formulation~\eqref{eq:scale_dependent_z}, $\mathcal{Z}(t,J)$ changes for different actions when $t > 0$.
+In the differential formulation of the \cref{eq:pde_z} those changes are generated by the diffusion term on the \rhs{}
+However, we argued that it is permissible to use identical \ics{} $\mathcal{Z} ( 0, J)$ for different actions involving similar scales (as long as these are much smaller than $r ( 0 )$).
+This then results in an identical diffusion on the \rhs{} of \cref{eq:pde_z} when the latter is computed by means of a second derivative of $\mathcal{Z}(0,J)$.
+If one uses identical large-$J$ \bcs{} for the solution of the \pde{} \eqref{eq:pde_z} for different actions, this would imply that, despite different $\mathcal{S}[\phi]$, the \rgtime{} evolution leads to identical $\mathcal{Z}(J)$ for $t\rightarrow\infty$, which in general cannot be correct.
+
+In order to resolve this problem, particular action-dependent spatial \bcs{} seem to be necessary for a direct numerical solution starting at $t = 0$ with a Gaussian for $\mathcal{Z} ( 0, J )$.
+It is not obvious how to derive or formulate such \bcs{} from the asymptotics of \cref{eq:pde_z} alone.
+In light of this, a numerical solution of \cref{eq:pde_z} in the $t$-$J$-plane by means of a spatial discretization in $J$-direction and an integration in $t$-direction in the spirit of \cref{subsec:hydroDiffusion} appears to be conceptually questionable.
+
+However, this invalidates by no means the flow equation for $\mathcal{Z} ( t, J )$ in general.
+Augmenting it (at $t = 0$) with information from the integral formulation~\eqref{eq:scale_dependent_z} or, equivalently, other additional information, could enable practical computations using the \pde{} \eqref{eq:pde_z}.
+But it is at this point (at least to us) not obvious how one would implement a numerical solution strategy for the \pde{} \eqref{eq:pde_z} avoiding integrals of the action.\\
+
+There is another well-known drawback in using the partition function $\mathcal{Z} [ J ]$ for calculating \nptFunctions{} (or expectation values) $\langle \phi^n \rangle$.
+The latter are rather inefficient in storing information, because they contain redundant information in the form of disconnected and reducible terms, see \ccite{Iliopoulos:1974ur,ZinnJustin:2002ru,Weinberg:1996kr,Peskin:1995ev} or the mathematical theory of moment- and cumulant-generating functionals in statistics for details~\cite{McCullagh:2009}.
+This is also discussed in Sec.~II.E of \nbccite{zerod1}.
+However, the redundant information in $\langle \phi^n \rangle$ is not necessarily a strong argument against the use of the flow equation \eqref{eq:pde_z} in practical computations, since the irreducible information can be extracted from the correlation functions $\langle \phi^n \rangle$.\bigskip
+
+\subsection{The functional renormalization group equation}\label{subsec:exact_rg_equation}
+To resolve both the problem of initial and \bcs{} for $\mathcal{Z}(t,J)$ as well as the issue of redundant information in $\langle \phi^n \rangle$, we now consider two different generating functionals the \textit{scale-dependent Schwinger functional} in \cref{subsubsec:WtJd0} and the \textit{scale-dependent effective action} in \cref{subsubsec:scale_dependent_effective_action}. 
+Especially the latter will turn out to be much better suited for practical calculations of correlation functions/expectation values.
+In this subsection we will derive and discuss the \frg{} flow \cref{eq:WetterichEq0d} for our zero-dimensional toy model \qft{} by subsequently (re)discovering the zero-dimensional analogs to the general expressions of \cref{sec:FRG}.
+	
+\subsubsection{The scale-dependent Schwinger functional}
+\label{subsubsec:WtJd0}
+We begin our journey towards the \frg{} flow \cref{eq:WetterichEq0d} by introducing the \textit{scale-dependent Schwinger functional} starting from definition~\eqref{eq:scale_dependent_z},
+\begin{align}
+	\mathcal{W}_t [J] \equiv \ln \mathcal{Z}_t [J] \, ,	\label{eq:scale_dependent_w}
+\end{align}
+in direct analogy to \cref{eq:WkDef}.
+It follows from our previous discussion that for $t \rightarrow \infty$ the Schwinger functional $\mathcal{W}[J] \equiv \ln \mathcal{Z}[J]$ with	$\mathcal{W} [ 0 ] = 0$ is recovered,
+\begin{align}
+	\lim\limits_{t \rightarrow \infty} \mathcal{W}_t [J] = \mathcal{W} [J] \, ,
+\end{align}
+while $\mathcal{W}_{t = 0} [J]$ is given by the logarithm of \cref{eq:initial_condition_z}.
+
+In general $\mathcal{W}[J]$ is convex with a positive definite Hessian $\mathcal{W}^{(2)}_{J J} [ J ]$.
+In the present case the convexity of $\mathcal{W} [ J ] = \mathcal{W} ( J )$ becomes apparent considering its second derivative,
+\begin{align}
+	\partial_J^2 \mathcal{W}(J) = \langle \phi^2 \rangle_J -\langle \phi \rangle_J \langle \phi \rangle_J= \langle (\phi-\langle \phi \rangle_J)^2\rangle_J \, ,	\label{eq:jacobian_w}
+\end{align}
+which, as the expectation value of a positive quantity, is always positive.
+Note that also $\mathcal{Z}[J]$ is convex, which can be seen by investigating its second derivative.
+In zero dimensions, also smoothness, \ie{}, $\mathcal{Z} [ J ] \in C^\infty$, directly translates to $\mathcal{W} [ J ] \in C^\infty$, because all moments of $\mathcal{W} [ J ]$ can be entirely expressed in terms of derivatives of $\mathcal{Z} [J]$, see Sec.~II.E of \nbccite{zerod1} for explicit expressions.
+The insertion of the regulator \eqref{eq:regulator_insertion} into $\mathcal{Z}_t [J]$ does not spoil the convexity and smoothness (in zero dimensions) of the Schwinger functional: $\mathcal{W}_t [J]$ and $\mathcal{Z}_t [J]$ are convex and smooth for all $t$.
+
+Completely analogous to \cref{eq:pde_zF} one can derive a \pde{} for $\mathcal{W}_t[J] = \mathcal{W}(t,J)$ in the $t$-$J$-plane,
+\begin{align}
+	\partial_t \mathcal{W}(t,J) =	\, - \big[ \tfrac{1}{2} \, \partial_t r ( t ) \big] \, \Big( \partial_J^2 \mathcal{W}(t,J) + \big[ \partial_J \mathcal{W}(t,J) \big]^2 \Big) \, .\label{eq:pde_w}
+\end{align}
+which describes the flow of $\mathcal{W}(t,J)$ from $t = 0$ to $t \rightarrow \infty$.
+We have recovered the zero-dimensional analog to \cref{eq:dWkdtflow}.
+
+We could now repeat the discussion about the issues of initial and boundary conditions for the solution of this \pde{}.
+However, the problems are almost identical to those of \cref{eq:pde_z}, because on the level of the \pde{}, we only substituted the function $\mathcal{Z} ( t, J )$ by $\mathcal{W} ( t, J )$ via the logarithm, which does not change the structure of the problem fundamentally.
+Formulating appropriate initial and boundary conditions in the spatial $J$-direction therefore remains as complicated as before.
+Note that the \pde{} \eqref{eq:pde_w} is even more complicated when compared to \cref{eq:pde_z} due to the non-linear term on the right-hand side.
+In summary, the scale-dependent Schwinger functional is, from a practical point of view, as badly suited as $\mathcal{Z}(t,J)$ to perform the (numeric) calculation of the functional integral via a flow equation starting from a Gaussian-type integral.
+
+\subsubsection{The scale-dependent effective action}\label{subsubsec:scale_dependent_effective_action}
+In the following we will focus on the scale-dependent effective (average) action and its respective flow equation.
+We define the \textit{scale-dependent effective action} $\Gamma_t[\varphi]$ via the Legendre transform of \cref{eq:scale_dependent_w} \wrt{} the sources $J$ at a \rgtime{} $t$,
+\begin{subequations}
+\begin{align}
+	\Gamma_t [\varphi] \equiv \, & \mathop{\mathrm{sup}}_J \big( J \, \varphi - \mathcal{W}_t[J] \big)\, ,\label{eq:scale_dependent_effective_action}\\
+	\equiv  \, & J_t(\varphi) \, \varphi - \mathcal{W}_t[J_t(\varphi)] \, ,	\label{eq:scale_dependent_effective_action_Jt}
+\end{align}
+\end{subequations}
+where we introduced the source $J_t(\varphi)$ which realizes the supremum.
+Note that, analogous to $\mathcal{Z}_t [J]$ and $\mathcal{W}_t [J]$, the convexity and smoothness (in zero dimensions) of $\Gamma_t [\varphi]$ is not spoiled by the $t$-dependence, because the properties of the Legendre transformation still ensure both, since the Legendre transform of the convex function $\mathcal{W}_t[J]$ is convex by definition, see, \eg{}, \ccite{Fujimoto:1982tc,Wipf:2013vp} for details.
+	
+To obtain an explicit relation for the scale-dependent source $J_t ( \varphi )$, which realizes the supremum in \cref{eq:scale_dependent_effective_action}, we consider the functional derivative of \cref{eq:scale_dependent_effective_action} at the supremum to find the important relation
+\begin{align}
+	\mathcal{W}_{t,J}^{(1)}[J_t(\varphi)] \equiv \frac{\delta \mathcal{W}_t [J]}{\delta J}\bigg|_{J=J_t(\varphi)} = \varphi \, ,	\label{eq:definition_phi_t}
+\end{align}
+which will be used frequently in the following.
+Taking the functional derivative of \cref{eq:scale_dependent_effective_action_Jt} \wrt{} $\varphi$ and using \cref{eq:definition_phi_t} we ultimately rediscover the \textit{quantum equation of motion} in zero-dimensions:
+\begin{align}
+	\Gamma^{(1)}_{t, \varphi}[\varphi] \equiv \frac{\delta \Gamma_t [\varphi]}{\delta \varphi} = J_t(\varphi) \, ,	\label{eq:definition_j_t}
+\end{align}
+as a special simplification of the general analog \eqref{eq:QEOM}.
+Due to the strict convexity of $\Gamma_t [ \varphi ]$ the function $J_t ( \varphi )$ is bijective and as such can be inverted, which can be achieved by considering \cref{eq:definition_phi_t} at fixed value $J$ for $J_t$:
+\begin{align}
+	\varphi_t ( J ) \equiv \frac{\delta \mathcal{W}_t [ J ]}{\delta J} \, ,	\label{eq:definition_phi_t_explicit}
+\end{align}
+where $\varphi_t ( J )$ is the so-called \textit{scale-dependent classical field} (sometimes also referred to as \textit{scale-dependent mean-field}), \cf{} \cref{eq:dWdFSmfJ}.
+	
+The subtle relations between, and scale-dependencies of, $\varphi_t ( J )$ and $J_t ( \varphi )$ on this formal level are rarely discussed in literature and usually suppressed in the notation.
+The relation between $\varphi_t$ and $J_t$ is of particular importance for discussion and relations between of $n$-point correlation functions, see, \eg{}, Sec.~II.E of \nbccite{zerod1}.
+The scale-dependence of $\varphi_t(J)$ from \cref{eq:definition_phi_t_explicit} is not related to a rescaling (\rg{} transformation) using, \eg{}, a wave-function renormalization for $\varphi$, \cf{} \cref{eq:dFSmfdtLinear} and the corresponding discussion.
+
+\paragraph{\ic{} and the \uv{} limit $t\rightarrow 0$}\mbox{}\label{subsubsec:zerodICS} \\
+Before we reintroduce the Wetterich equation, which is the flow equation for $\Gamma_t [ \varphi ]$ and a \pde{} for the function $\Gamma ( t, \varphi )$ in the $t$-$\varphi$-plane, we check whether we will run into the same issues (related to initial and boundary conditions) as before.
+Hence, first of all, we must derive the \ic{} for the \pde{} for $\Gamma ( t, \varphi )$.
+To this end, we study the limit $t \rightarrow 0$ of $\Gamma_t [ \varphi ]$.
+We use the definitions~\eqref{eq:scale_dependent_z}, \eqref{eq:scale_dependent_w}, \eqref{eq:scale_dependent_effective_action}, and \eqref{eq:scale_dependent_effective_action_Jt} to obtain
+\begin{subequations}\label{eq:derivation_uv_condition}
+\begin{align}
+	\eu^{ - \Gamma_t [ \varphi ] } = \, & \eu^{ - \mathop{\mathrm{sup}}_J ( J \, \varphi - \mathcal{W}_t [ J ] ) } =\, \eu^{ \ln \mathcal{Z}_t [ J_t ( \varphi )] - J_t ( \varphi ) \, \varphi }\, =
+	\\* % no page break here
+	= \, & \mathcal{N} \int_{-\infty}^{+\infty} \dif \phi \, \eu^{ - \mathcal{S} [ \phi ] - \Delta \mathcal{S}_t [ \phi ] + J_t ( \varphi ) \, ( \phi - \varphi ) } \, .
+\end{align}
+\end{subequations}
+We now shift the integration variable%
+\footnote{%
+	It is the same shift that is used in the background field formalism~\cite{DeWitt:1965jb,Abbott:1981ke}, where the full fluctuating quantum field $\phi$ is split into a background field configuration $\varphi$ and additional fluctuations $\phi^\prime$ about the background field.
+	This is why $\varphi$ in this cortex is referred to as the \textit{classical} or \textit{mean} field.
+}
+$\phi \mapsto \phi^\prime = \phi - \varphi$. Using \cref{eq:regulator_insertion}, we find
+\begin{align}
+	\eu^{- \Gamma_t [ \varphi ] + \Delta \mathcal{S}_t [ \varphi ]} =	 \, & \mathcal{N} \int_{-\infty}^{+\infty} \dif\phi^\prime \, \eu^{ - \mathcal{S} [ \phi^\prime + \varphi ] - \Delta \mathcal{S}_t [ \phi^\prime ] - r ( t ) \, \phi^\prime \, \varphi + \Gamma^{(1)}_{t, \varphi} [ \varphi ] \, \phi^\prime } \, .	\label{eq:derivation_uv_condition_3}
+\end{align}
+In the next step, we reintroduce the \textit{scale-dependent effective average action},
+\begin{align}
+	\bar{\Gamma}_t [ \varphi ] \equiv \Gamma_t [ \varphi ] - \Delta \mathcal{S}_t [ \varphi ] \, ,	\label{eq:scale_dependent_effective_average_action}
+\end{align}
+which also tends to the effective action $\Gamma [ \varphi ]$ for $t \rightarrow \infty$, because the second term vanishes in this limit, \cf{}~\cref{eq:exponential_regulator}.
+
+At any finite value of $t$ (including $t=0$), $\bar{\Gamma}_t [ \varphi ]$ differs from $\Gamma_t [ \varphi ]$ and is no longer guaranteed to be convex, which can be seen directly from the second term in \cref{eq:scale_dependent_effective_average_action}.
+Convexity is only recovered for $t \rightarrow \infty$.
+However, the second term in \cref{eq:scale_dependent_effective_average_action} does not violate the smoothness of $\bar{\Gamma}_t[\varphi]$ in zero dimensions for all $t$, because $\Delta \mathcal{S}_t [\varphi] \equiv \mathcal{S}_t (\varphi) \in C^\infty$ in $\varphi$.
+
+We express \cref{eq:derivation_uv_condition_3} in terms of the scale-dependent effective average action \eqref{eq:scale_dependent_effective_average_action} and, for the sake of convenience, revert the notation $\phi^\prime \rightarrow \phi$,
+\begin{align}
+	& \eu^{- \bar{\Gamma}_t [ \varphi ]} =	\mathcal{N} \, \int_{-\infty}^{+\infty} \dif \phi \, \eu^{ - \mathcal{S} [ \phi + \varphi ] - \Delta \mathcal{S}_t [ \phi ] + \bar{\Gamma}^{(1)}_{t, \varphi} [ \varphi ] \, \phi } \, .	\label{eq:exp_gamma_bar_int}
+\end{align}
+We have arrived at the zero-dimensional analog of \cref{eq:EEAint} which has already facilitated our discussion in \cref{subsubsec:regulator} of \ics{} for general \frg{} flow equations.
+In the next step one formally introduces the normalization of a Gaussian integral with mass $r ( t )$ and takes the logarithm, which results in
+\begin{align}
+	\bar{\Gamma}_t [ \varphi ] = \, & - \ln \int_{-\infty}^{+\infty} \dif \phi \, \sqrt{\tfrac{r ( t )}{2 \piu}} \, \eu^{ - \mathcal{S} [ \phi + \varphi ] - \frac{1}{2} r ( t ) \, \phi^2 + \bar{\Gamma}^{(1)}_{t, \varphi} [ \varphi ] \, \phi} - \ln \Big[ \mathcal{N} \sqrt{\tfrac{2\piu}{r ( t )}} \Big] \, . \label{eq:derivation_uv_condition_2}
+\end{align}
+We are now ready to study the limit $t \rightarrow 0$, which corresponds to the \ic{} for a possible flow equation for $\Gamma_t [ \varphi ]$ or $\bar{\Gamma}_t [ \varphi ]$, respectively.
+Focusing on the $\phi$ integral in the first term on the \rhs{} of \cref{eq:derivation_uv_condition_2}, we leverage the fact that the regulator terms act like a Gaussian representation of the Dirac delta distribution,
+\begin{align}
+	\lim\limits_{t \rightarrow 0} \sqrt{\tfrac{r ( t )}{2\piu}} \, \eu^{- \frac{1}{2} r ( t ) \, \phi^2} \approx \delta (\phi) \, ,	\label{eq:delta_distribution}
+\end{align}
+as long as $r ( t )$ is much larger than all scales in $\mathcal{S} [ \phi ]$.
+Thus, denoting
+\begin{align}
+	c ( t ) \equiv - \ln \Big[ \mathcal{N} \, \sqrt{\tfrac{2\piu}{r ( t )}} \, \Big] \, ,
+\end{align}
+we find as 
+\begin{align}
+	\lim_{t\rightarrow 0}\bar{\Gamma}_t [\varphi] = \, & - \ln \int_{-\infty}^{+\infty} \dif \phi \, \delta(\phi) \, \eu^{ - \mathcal{S}[\phi + \varphi] + \bar{\Gamma}^{(1)}_{t,\varphi}[\varphi] \, \phi } + c ( t ) = \, \mathcal{S}[\varphi] + c ( t ).	\label{eq:initial_condition_gamma}
+\end{align}
+This means that the \ic{} for a flow of $\bar{\Gamma}_t [ \varphi ]$ is given by the classical action $\mathcal{S}$ evaluated for the classical field $\varphi$ and some additional $t$-dependent, but $\varphi$-independent term $c ( t )$.
+This choice for an \ic{} of a \pde{} for $\bar{\Gamma}_t [ \varphi ]$ has subtle consequences:
+
+Although $c ( t )$ does not depend on $\varphi$, it is large, $c ( t ) \sim  \frac{1}{2} \ln r ( t )$.
+Consequently, as far as the \ic{} for the \pde{} for $\Gamma_t[\varphi]$ or $\bar{\Gamma}_t[\varphi]$ is concerned, it seems as if we run into the same problem as before:
+The \ic{} is dominated by the artificial mass of the regulator $r ( t )$, independent of the specific action $\mathcal{S} [ \phi ]$, and differences in the specific choice for $\mathcal{S} [ \phi ]$ enter the \ic{} only as small deviations from the large term $c ( t )$.
+Furthermore, $c ( t )$ contains the normalization constant $\mathcal{N}$, which was fixed according to \cref{eq:normalization}.
+
+However, precisely because $c ( t )$ appears like the normalization $\mathcal{N}$, it should be irrelevant for all physical observables.
+Indeed this is the case, because all $\varphi$-independent terms in $\Gamma_t [ \varphi ]$ do not enter the \nptFunctions{}, since the latter are calculated as derivatives of $\Gamma [ \varphi ]$ \wrt{} $\varphi$ at $t \rightarrow \infty$, see, \eg{}, Sec. II E of \ccite{zerod1} for explicit expressions.
+This implies that an additive, $\varphi$-independent term in the three effective actions $\Gamma [ \varphi ]$, $\Gamma_t [ \varphi ]$, and $\bar{\Gamma}_t [ \varphi ]$ is irrelevant and only relative differences in the effective actions are observable.
+Therefore, we can simply omit $c ( t )$ and take $\mathcal{S} [ \varphi ]$ as \ic{} for the \pde{} for $\bar{\Gamma}_t [ \varphi ]$.
+This is however only valid if the \pde{} for $\bar{\Gamma}_t [ \varphi ]$ is independent of its zeroth moment \dash{} \viz{} only derivatives $\delta_\varphi^n\bar{\Gamma}_t [ \varphi ]$ contribute to the flow equation \dash{} otherwise $c ( t )$ would influence the flow in a time-dependent manner. 
+Fortunately, we know from our general discussion in \cref{subsec:wetterich} that this is the case for the \frgEq{} and by extension its zero-dimensional analog \eqref{eq:WetterichEq0d}.\bigskip
+
+We want to conclude this discussion regarding the \ic{} $\bar{\Gamma}_t [ \varphi ]=\mathcal{S} [ \varphi ]$ with a discussion of convexity, smoothness and \rgcy{}.
+
+After \cref{eq:scale_dependent_effective_average_action} we argued that $\bar{\Gamma}_t [ \varphi ]$ does not need to be convex, but must still be smooth for all $t$.
+Let us for example consider the non-analytic action \eqref{eq:example_non-analytic_action} as an \ic{}, $\bar{\Gamma}_{t = 0} [ \varphi ] = \mathcal{S} [ \varphi ]$, which does not cause any problems for the convexity and the smoothness of $\mathcal{Z}_t [ J ]$ and $\mathcal{W}_t [ J ]$ at arbitrary $t$, as discussed in App.~B and especially with Fig.~36 of \nbccite{zerod1}.
+The non-convexity of $\mathcal{S} [ \varphi ]$ is also not a problem for $\bar{\Gamma}_t [ \varphi ]$, which does not necessarily need to be convex at finite $t$.
+Nevertheless, the smoothness of $\bar{\Gamma}_t [ \varphi ]$ is violated by this choice of $\mathcal{S} [ \varphi ]$ at $t = 0$.
+This issue originates from relation \eqref{eq:delta_distribution}, which is exactly fulfilled only in the limit $\Lambda \rightarrow \infty$ for the \uv{} scale.
+This, however, leads to a trivial theory of infinitely massive particles at $t = 0$, \cf{}\ \cref{eq:scale_dependent_z}.
+
+If one chooses a reasonably large but finite $\Lambda$ and does not use \cref{eq:delta_distribution}, one would ensure that $\bar{\Gamma}_t [ \varphi ]$ is also smooth at $t = 0$.
+However, then the \ic{} is not exactly $\mathcal{S} [ \varphi ]$.
+In consequence, if we use the approximation \eqref{eq:delta_distribution} even for finite $\Lambda$, one has to pay the price of introducing errors into the \ic{} as well as violating the smoothness of $\bar{\Gamma}_t [ \varphi ]$ at $t = 0$.
+But in return one has a well-defined \ic{} $\mathcal{S} [ \varphi ]$ for the \pde{} for $\bar{\Gamma}_t [ \varphi ]$.
+However, if $\Lambda$ is chosen to be much larger than all scales in $\mathcal{S} [ \phi ]$, the errors from the \ic{} are minor and expected to be of magnitude
+\begin{align}
+	\mathrm{error} \approx \frac{\text{largest scale in\,\,} \mathcal{S}}{\Lambda} \, ,	\label{eq:error_scaling_uv_cutoff}
+\end{align}
+We will come back to this issue in \cref{paragraph:ONRGconsistency} in the context of \rgcy{}, see also \cref{subsec:RGconsistency}.
+
+Additionally, we will find that also the smoothness of $\bar{\Gamma}_t [ \varphi ]$ is recovered automatically for all $t > 0$ by the structure of the PDE for $\bar{\Gamma}_t [ \varphi ]$, because it always contains diffusive contributions which immediately smear out kinks in the \ic{} right in the first time step.
+We will also come back to this issue later on, after we have derived the flow equation \eqref{eq:WetterichEq0d} in zero dimensions and discussed its diffusive, irreversible character.
+
+\subsubsection{The exact renormalization group equation in zero dimensions}\label{subsubsec:exact_rg_equation}
+In analogy to the previous flow equations in zero dimensions, the flow equation for $\bar{\Gamma}_t [ \varphi ]$ is obtained by taking the derivative of $\bar{\Gamma}_t [ \varphi ]$ \wrt{} $t$ and using the definitions~\eqref{eq:scale_dependent_effective_action} and \eqref{eq:scale_dependent_effective_average_action} to express the derivative of $\bar{\Gamma}_t [ \varphi ]$ by the scale-dependent Schwinger functional,
+\begin{align}
+	\stepcounter{equation}\newSubEqBlock
+	\partial_t \bar{\Gamma}_t [\varphi] = \, & \partial_t \, \big( \Gamma_t [\varphi] - \Delta \mathcal{S}_t [\varphi] \big) 
+	= \, \partial_t \, \big( J_t(\varphi) \, \varphi - \mathcal{W}_t[J_t(\varphi)] - \Delta \mathcal{S}_t [\varphi] \big)\, =\subEqTag
+	\\*[.2em] % no page break here
+	= \, & [ \partial_t J_t (\varphi) ] \, \varphi - \partial_t \mathcal{W}_t [J_t (\varphi)] - [ \partial_t J_t (\varphi) ] \, \mathcal{W}^{(1)}_{t,J_t} [J_t] - \big[\tfrac{1}{2} \, \partial_t r ( t ) \big]\, \varphi^2\, = \subEqTag
+	\\*[.2em] % no page break here
+	= \, & - \partial_t \mathcal{W}_t [J_t (\varphi)] - \big[\tfrac{1}{2} \, \partial_t r ( t ) \big] \, \varphi^2 \, ,\label{eq:wetterich_mix_w_gamma}
+\end{align}
+where we used the chain rule and \cref{eq:definition_phi_t}.
+Using the flow equation for the Schwinger functional \eqref{eq:pde_w} to substitute the first term on the \rhs{} of \cref{eq:wetterich_mix_w_gamma} and again employing the identity \eqref{eq:definition_phi_t}, we arrive at
+\begin{align}
+	\partial_t \bar{\Gamma}_t [ \varphi ] = \, & \big[\tfrac{1}{2} \, \partial_t r ( t ) \big] \, \mathcal{W}_{t,J J}^{(2)} [ J_t ( \varphi ) ] \, .	\label{eq:wetterich_mix_w_gamma_2}
+\end{align}
+It remains to replace the second derivative of the scale-dependent Schwinger functional by a corresponding derivative of $\bar{\Gamma}_t [\varphi]$.
+This is done via the identity
+\begin{align}
+	1 = \frac{\delta J_t(\varphi)}{\delta \varphi} \, \frac{\delta \varphi}{\delta J_t ( \varphi )} = \Gamma^{(2)}_{t ,\varphi \varphi} [ \varphi ] \, \mathcal{W}^{(2)}_{t , J J} [ J_t ( \varphi ) ] \, ,	\label{eq:g2w2_identity}
+\end{align}
+which follows from \cref{eq:definition_phi_t} and \eqref{eq:definition_j_t}.
+Plugging this into \cref{eq:wetterich_mix_w_gamma_2} and using \cref{eq:scale_dependent_effective_average_action} with \cref{eq:regulator_insertion} we rediscover the \textit{Exact Renormalization Group equation} or \textit{Wetterich equation}~\cite{Wetterich:1992yh,Ellwanger:1993mw,Morris:1993qb}
+\begin{align}
+	\partial_t \bar{\Gamma}_t [\varphi] = \big[\tfrac{1}{2} \, \partial_t r ( t ) \big] \, \big[ \bar{\Gamma}^{(2)}_{t , \varphi \varphi} [\varphi] + r ( t ) \big]^{-1} \, ,	\label{eq:WetterichEq0d}
+\end{align}
+as the application of the general \frgEq{} to the zero-dimensional theory of a single scalar $\phi$ with expectation value $\varphi$.
+	
+\Cref{eq:WetterichEq0d} manifests as a \pde{} for the scale-dependent \eaa{} $\bar{\Gamma} ( t, \varphi )$ in the $t$-$\varphi$-plane,
+\begin{align}
+	\partial_t \bar{\Gamma}(t,\varphi) = \frac{1}{2} \,\frac{1}{\partial_\varphi^2 \bar{\Gamma}(t,\varphi) + r ( t )}\,\partial_t r ( t ) \, ,	\label{eq:pde_gamma}
+\end{align}
+with the \ic{} $\bar{\Gamma} ( t = 0, \varphi ) = \mathcal{S} [ \varphi ]$.
+Some remarks are in order:
+\begin{enumerate}
+	\item	In contrast to the \pdes{} for $\mathcal{Z} ( t, J )$ and $\mathcal{W} ( t, J )$ the Wetterich equation can be initialized with a suitable \ic{} at $t = 0$ that produces distinct flows for different actions $\mathcal{S}[\phi]$, as was discussed in the previous \cref{subsubsec:scale_dependent_effective_action}.
+	
+	\item	The spatial \bcs{}, \ie{}, for $\varphi \rightarrow \pm \infty$ are provided by the asymptotics of the Wetterich equation \eqref{eq:pde_gamma} itself and by the requirement that $\mathcal{S} [ \varphi ]$ must be bounded from below: The action $\mathcal{S} [ \varphi ]$ of an (interacting) field theory must at least grow like $\varphi^2$ for large $| \varphi |$ and the dominant contribution for large $| \varphi |$ must be even in $\varphi$.
+	For actions $\mathcal{S} [ \varphi ]$ that grow asymptotically faster than $\varphi^2$ the denominator on the \rhs{} of the \pde{} \eqref{eq:pde_gamma} already diverges at $t \approx 0$, such that
+	\begin{align}
+		\lim\limits_{| \varphi | \rightarrow \infty} \partial_t \bar{\Gamma} ( t, \varphi ) \approx 0 \, .
+	\end{align}
+	It follows that for $| \varphi | \rightarrow \infty$ the function $\bar{\Gamma} ( t, \varphi )$ does not change at all, but keeps its initial value $\mathcal{S} [ \varphi ]$.
+	These are perfectly valid \bcs{} for a \pde.
+	The scenario for \ics{} with $\lim_{| \varphi | \rightarrow \infty} \mathcal{S} [ \varphi ] \sim \varphi^2$ is more delicate.
+	We will return to this issue and a detailed discussion of \bcs{}, when we discuss the numerical implementation and solution of \cref{eq:pde_gamma} in \cref{subsec:boundary_conditions_finite_volume} in the context of numerical fluid dynamics.
+	
+	\item	The \pde{} \eqref{eq:pde_gamma} can be recast into a non-linear diffusion equation in the spirit of \cref{subsec:RGflow}, \viz{} \cref{eq:dWetterichEqFlow} by considering the flow equation for $\partial_t (\partial_\varphi\bar{\Gamma}(t,\varphi))$:
+	\begin{align}
+		\partial_t \del{\partial_\varphi\bar{\Gamma}(t,\varphi)}\, =\, \partial_\varphi\frac{\frac{1}{2} \, \partial_t r ( t )}{\partial_\varphi(\partial_\varphi\bar{\Gamma}(t,\varphi)) + r ( t )} \,=\,
+		-\frac{\partial_t r ( t )}{\del{\partial_\varphi(\partial_\varphi\bar{\Gamma}(t,\varphi)) + r ( t )}^2} \partial_\varphi^2\del{\partial_\varphi\bar{\Gamma}(t,\varphi)}
+		\, .	\label{eq:pde_dgamma}
+	\end{align}
+	In contrast to the \pdes{} \eqref{eq:pde_z} and \eqref{eq:pde_w} it is non-linear in the second-order spatial derivatives of $\Gamma ( t, \varphi )$.
+	Using the flow equation for $\bar{\Gamma} ( t, \varphi )$ and its \ic{}, a worthwhile subject of future work could be a study of the resulting flows for $\mathcal{Z} ( t, J )$ and $\mathcal{W} ( t, J )$.
+	By applying the same formalism to models with different field content, the \frg{} flow equations can also acquire convective/advective terms and source terms, see \cref{subsubsec:conservative_form,subsec:0dSU2flowEqs} for a detailed discussion.
+			
+	\item	In zero dimensions, similar to the flow equations for $\mathcal{Z} ( t, J )$ and $\mathcal{W} ( t, J )$, one can reparameterize the flow time $t$ in terms of $r$ in \cref{eq:pde_gamma} and get rid of the prefactor $\partial_t r ( t )$.
+	Additionally, one could eliminate $r ( t )$ in the denominator in \cref{eq:pde_gamma} by shifting $\bar{\Gamma} ( t, \varphi ) \rightarrow \bar{\Gamma} ( r, \varphi ) - \tfrac{1}{2} \, r \, \varphi^2$ and switching from $t$ to $r$ as flow parameter, which corresponds to the zero-dimensional analogue of the rescaled  ``dimensionless'' flow equation in fixed-point form, but is not suited for most practical calculations in this work. The exception is our discussion in \cref{subsubsec:c-theorem_irreversibility_entropy}.
+	
+	This reparameterization effectively corresponds to different choices of regulator (shape) functions in zero dimensions.
+	However, for higher-dimensional problems, different choices of regulators do not need to be related to each other via simple reparametrization of the \rgtime{}.
+	In any case, the effective dynamics in the \pde{} during the \frg{} flow strongly depends on the parametrization of the \rgscale{} as well as the explicit choice of regulator, which has two direct consequences:
+	First, although the dynamics and $t$-evolution of observables (the \nptFunctions{}) during the \frg{} flow might be highly interesting and must also be studied to ensure that the \uv{} and \ir{} cutoff scales are chosen appropriately, one must clearly state that only the \ir{} value of $\Gamma [ \varphi ]$ is physically meaningful.
+	This is demonstrated and discussed again in the context of numerical precision tests of the $O(N)$ model in \cref{subsec:0dONresults}.
+	Second, from a numerical point of view, some parametrizations or choices of regulators might be more challenging for the numerical integrators than others and must be adopted to the specific problems at hand.
+	On the level of the PDE this corresponds to the time-dependent strength of the diffusion, \cf{} \cref{paragraph:conservative_form_diffusion}.
+\end{enumerate}
+Using a zero-dimensional field theory with one degree of freedom, we have therefore demonstrated that it is possible to transform the problem of solving functional integrals like \cref{eq:expectation_value_1} and \eqref{eq:partition_function} for a model with action $\mathcal{S}[\phi]$ into solving the \pde{} \eqref{eq:pde_gamma} in $t$ and $\varphi$ with the \ic{} $\mathcal{S} [ \varphi ]$.
+The Wetterich \cref{eq:WetterichEq0d} thus directly implements the idea of transforming Gaussian-type functional integrals into arbitrary functional integrals, but on the level of the effective action $\Gamma[\varphi]$ rather than the partition function $\mathcal{Z}[J]$.
+Both formulations of the problem of calculating $n$-point correlation functions \dash{} the functional-integral formulation and the \frg{} formulation \dash{} are mathematically equivalent.
+This, however, is, as we have seen, a highly non-trivial statement and demands for numerical precision tests, which are part of this work.
+
+For our following discussions in \cref{sec:0dON} we want to extent the current scope by including additional scalars in our theory, respecting \ON{} symmetry.
+On a conceptual level this is a straight forward extension and its is of course possible to derive the generalization, \cf{} \eqref{eq:flow_equation_effective_potential}, of the flow equation \eqref{eq:pde_gamma} to $N$ scalars under \ON{} symmetry by repeating the derivation of this section.
+After having derived the Wetterich equation twice already, first resulting the general \cref{eq:WetterichEq} and then in this subsubsection resulting in \cref{eq:pde_dgamma}, we will refrain from a third derivation and make use the general expression \eqref{eq:WetterichEq} in \cref{subsubsec:exact_flow_equation_potential} instead.

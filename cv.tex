@@ -1,0 +1,91 @@
+% ****** komacv style commands ****** %
+\newcommand{\cvitem}[2]{
+	\par\noindent%
+	\begin{tabular}{@{}p{0.24\textwidth}@{\hspace{0.035\textwidth}}p{0.725\textwidth}@{}}
+		#1 & #2 \\
+	\end{tabular}\vspace{0.2em}
+	\par
+}
+
+\newcommand{\cvitemwithcomment}[3]{
+	\par\noindent%
+	\begin{tabular}{@{}p{0.24\textwidth}@{\hspace{0.035\textwidth}}p{0.497\textwidth}p{0.2\textwidth}@{}}
+		#1 & #2 & \begin{minipage}[t]{0.2\textwidth}\raggedleft\textit{#3}\end{minipage} \\
+	\end{tabular}\vspace{0.2em}
+	\par
+}
+
+\newcommand{\cventry}[4]{
+	\par\noindent%
+	\begin{tabular}{@{}m{0.24\textwidth}@{\hspace{0.035\textwidth}}p{0.725\textwidth}@{}}
+		\multirow[t]{2}{0.24\textwidth}{#1} & \textbf{#2}, #3 \\
+		& #4  \\
+	\end{tabular}\vspace{0.2em}
+	\par
+}
+
+\newcommand{\cvsection}[1]{
+	\par\noindent\raisebox{2.25pt}{\colorbox{accentcolor}{\makebox[0.21\textwidth][l]{\rule{0pt}{5pt}}}}% Colored bar
+	\hspace{0.05\textwidth}% Space between bar and title
+	\textcolor{accentcolor}{\Large\bfseries #1}% Section title
+	\par\nobreak\vspace{5pt}% Space after the title
+}
+
+% ****** CV ****** %
+\section{Personal information}
+\cvitem{Name}{Martin Jakob Steil}
+\cvitem{Date of birth}{October 23, 1991}
+\cvitem{Place of birth}{Offenbach am Main, Germany}
+\cvitem{Nationality}{German}\bigskip
+
+\section{Languages}
+\cvitemwithcomment{German}{fluent}{mother tongue}
+\cvitemwithcomment{English}{fluent}{oral and written}\bigskip
+
+\section{Education}
+\cventry{08/2017--10/2024}{PhD in Physics}{\textit{Technische Universität Darmstadt}}{%
+	Dissertation ``From zero-dimensional theories to inhomogeneous phases with the functional renormalization group'' under the supervision of Priv.-Doz. Dr. Michael Buballa
+}
+\cventry{02/2015--07/2017}{Master of Science in Physics}{\textit{Technische Universität Darmstadt}}{%
+	Master’s thesis ``Structure of slowly rotating magnetized neutron stars in a perturbative approach''
+	under supervision of Priv.-Doz. Dr. Michael Buballa
+}
+\cventry{10/2011--02/2015}{Bachelor of Science in Physics}{\textit{Technische Universität Darmstadt}}{%
+	Bachelor’s thesis ``Hadron-quark crossover and massive hybrid stars''
+	under supervision of Priv.-Doz. Dr. Michael Buballa
+}
+\cventry{05/2011}{Abitur}{\textit{Claus-von-Stauffenberg-Schule}, Rodgau}{}{}\bigskip
+
+\clearpage
+\section{Professional experience}
+\cventry{08/2017--12/2021}{Research associate}{Institute for Nuclear Physics, Technische Universität Darmstadt}{Study of inhomogeneous chiral condensates within the Functional Renormalization Group (26h/week)}
+
+\cventry{04/2016--09/2016 10/2011--10/2015}{Student assistant}{Central Student Advisory and Orientation Office (ZSB), Technische Universität Darmstadt}{IT Support, webmaster, print- and web-design (15h/week)}\bigskip
+
+\section{Publications and preprints}
+\cvitem{09/2022}{\fullcite{Koenigstein:2021syz}}%0d part I paper -- zerod1
+\cvitem{09/2022}{\fullcite{Koenigstein:2021rxj}} %0d part II paper -- zerod2
+\cvitem{09/2022}{\fullcite{Steil:2021cbu}} %0d part III paper -- zerod3
+\cvitem{08/2022}{\fullcite{Koenigstein:2021llr}}\bigskip % GN stability analysis paper-- gns
+\cvitem{08/2021}{\fullcite{Stoll:2021ori}} %GN published manuskript/preprint -- gn
+
+\clearpage
+\section{Teaching}
+\cventry{10/2017--03/2020}{Teaching assistant}{Department of Physics, Technische Universität Darmstadt}{
+	\vspace{-1em}\begin{itemize}
+	\setlength\itemsep{-.1em}
+		\item \textit{``Quantum Field Theory II''} (winter term 2019/20)
+		\item \textit{``Quantum Field Theory I''} (summer term 2019)
+		\item \textit{``Classical Particles and Fields for Teachers''} (winter term 2018/19)
+		\item \textit{``Classical Particles and Fields for Teachers''} (winter term 2017/18)
+	\end{itemize}}\bigskip
+\cventry{08/2017--12/2021}{Supervision of bachelor theses}{Department of Physics, Technische Universität Darmstadt}{Second referee and co-supervision of two bachelor theses}
+
+\section{Awards, distinctions \& grants}
+	\cvitem{10/2019}{Giersch-Excellence-Grant: in recognition of outstanding achievements in the doctoral thesis project \textit{``Inhomogeneous Chiral Condensates within the Functional Renormalization Group''}}\bigskip
+
+\section{Academic associations}
+	\cvitem{08/2017--10/2024}{Junior member of the \textit{Collaborative Research Center TransRegio 211} (funded by the \textit{Deutsche Forschungsgemeinschaft})}
+	\cvitem{01/2018--07/2024}{Member of the \textit{Helmholtz Graduate School for Hadron and Ion Research (HGS-HIRe)}}
+	\cvitem{since 08/2017}{Member of the \textit{Deutsche Physikalische Gesellschaft e. V.}}
+\clearpage

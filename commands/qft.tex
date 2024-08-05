@@ -1,0 +1,403 @@
+% ****** QFT commands ****** %
+% *** Fermions and clifford algebra *** %
+\newcommand{\gammach}{\gamma^{\mathrm{ch}}} % additional gamma-Matrix (one could also use \gamma^5 or \bar{\gamma})
+
+% *** n-point function *** %
+\newcommand{\nptFunction}{$n$-point function}
+\newcommand{\nptFunctions}{$n$-point functions}
+
+% *** Dimensions *** %
+\newcommand{\dimSpacer}{\mkern-3mu}
+\newcommand{\dimPlus}[2]{${#1 \dimSpacer + \dimSpacer #2}$}
+
+\newcommand{\dzero}{${d=0}$}
+\newcommand{\dtwo}{${d=1 \dimSpacer +\dimSpacer 1}$}
+\newcommand{\dfour}{${d=3 \dimSpacer + \dimSpacer 1}$}
+\newcommand{\dxy}[2]{${d=#1 \dimSpacer + \dimSpacer #2}$}
+
+\newcommand{\twoDimensional}{${(1 \dimSpacer +\dimSpacer 1)}$-dimensional}
+\newcommand{\fourDimensional}{${(3 \dimSpacer + \dimSpacer 1)}$-dimensional}
+\newcommand{\xyDimensional}[2]{${(#1 \dimSpacer + \dimSpacer #2)}$-dimensional}
+\newcommand{\dxyDimensional}[2]{${(d = #1 \dimSpacer + \dimSpacer #2)}$-dimensional}
+
+% *** Indices *** %
+\newcommand{\iE}[1]{{\underline{#1}}}
+
+\newcommand{\iEI}{\iE{\mathrm{I}}}
+\newcommand{\iEII}{\iE{\mathrm{II}}}
+\newcommand{\iEIII}{\iE{\mathrm{III}}}
+
+% *** (Mean) Fields *** %
+\newcommand{\MFphi}{\varphi}
+\newcommand{\MFEphi}{\underline{\varphi}}
+\newcommand{\MFEIphi}{\Uwave{\varphi}[-1.95][0.8][0]}
+\newcommand{\Fphi}{\phi}
+
+\newcommand{\MFrho}{\varrho}
+\newcommand{\MFEIrho}{\Uwave{\MFrho}[-1.95][0.8][0]}
+\newcommand{\Frho}{\rho}
+
+\newcommand{\MFsigma}{\sigma}
+\newcommand{\MFpi}{\pi}
+
+\newcommand{\Ftheta}{\theta}
+\newcommand{\Fthetab}{\bar{\theta}}
+\newcommand{\MFtheta}{\vartheta}
+\newcommand{\MFthetab}{\bar{\vartheta}}
+\newcommand{\MFEtheta}{\underline{\vartheta}}
+\newcommand{\MFEthetab}{\underline{\bar{\vartheta}}}
+
+\newcommand{\Fpsi}{\tilde{\psi}}
+\newcommand{\MFEpsi}{\underline{\psi}}
+\newcommand{\MFpsi}{\psi}
+
+\newcommand{\Fpsib}{\tilde{\bar{\psi}}}
+\newcommand{\MFEpsib}{\underline{\bar{\psi}}}
+\newcommand{\MFpsib}{\bar{\psi}}
+
+\newcommand{\Fc}{\tilde{c}}
+\newcommand{\MFEc}{\underline{c}}
+\newcommand{\MFc}{c}
+
+\newcommand{\Fcb}{\tilde{\bar{c}}}
+\newcommand{\MFEcb}{\underline{\bar{c}}}
+\newcommand{\MFcb}{\bar{c}}
+
+\newcommand{\FA}{\tilde{A}}
+\newcommand{\MFEA}{\underline{A}}
+\newcommand{\MFA}{A}
+
+\newcommand{\chiCond}{\langle \bar{q} q \rangle}
+
+\newcommand{\Fchi}{\tilde{\chi}}
+\newcommand{\MFchi}{\chi}
+\newcommand{\MFEchi}{\underline{\chi}}
+\newcommand{\MFEIchi}{\Uwave{\chi}[-1.7][0.8][-0.5]}
+
+% *** QCD *** %
+\newcommand{\uIItv}{\tau}
+\newcommand{\Lglue}{\mathcal{L}_A[\MFA,\MFc,\MFcb\mkern0.5mu{}]} % classical, running gauge contribtuion
+	\newcommand{\LglueExp}{%
+		\frac{1}{4} F_{\mu\nu}^a F_{\mu\nu}^a%
+		+Z_{c;k}\MFcb\mkern0.5mu{}^a(\partial_\mu D_\mu^{ab})\MFc^b%
+		+\frac{1}{2\xi} (\partial_\mu \MFA_\mu^a)(\partial_\mu \MFA_\mu^a)
+	}
+
+\newcommand{\LDeltaGlue}{\mathcal{L}_{\Delta A}[A]} % non-classical, running gauge contribution
+	\newcommand{\LqbqKin}{\mathcal{L}_{\MFpsib\MFpsi}[\MFA,\MFpsi,\MFpsib\mkern0.5mu{}]} % classical, running kinetic term for the quarks
+		\newcommand{\LqbqKinExp}{%
+			Z_{\psi;k}\MFpsib(\gamma_\mu D_\mu -\gamma_4\mu)\MFpsi
+		}
+\newcommand{\Lqbqqbq}{\mathcal{L}_{(\MFpsib\MFpsi)^2}[\MFpsi,\MFpsib\mkern0.5mu{}]} % non-classical, induced four fermi coupling 
+	\newcommand{\LqbqqbqExp}{%
+		-\lambda_{\psi;k}\Big( \big(\MFpsib \vts \suIItup{0} \vts \MFpsi\big)^2 + \big(\MFpsib \vts\iu\gammach \suIItvec\vts \MFpsi\big)^2\Big)
+	} 
+\newcommand{\Lqbqphi}{\mathcal{L}_{\MFpsib\MFpsi\MFphi}[\MFphi,\MFpsi,\MFpsib]} % non-classical, bosonized yukawa coupling
+	\newcommand{\LqbqphiExp}{%
+		h_{k}\MFpsib\big( \suIItup{0}\MFphi_0 + \iu\gammach \suIItup{a}\MFphi_a \big)\MFpsi 
+	}
+	\newcommand{\LqbqphiExpII}{%
+		h_{k}\MFpsib\big( \MFphi_i \uIItv^{i} \big)\MFpsi 
+	}
+\newcommand{\LphiKin}{\mathcal{L}_{\MFphi}[\MFphi]} % non-classical, bosonized kintetic term for the mesons
+	\newcommand{\LphiKinExp}{%
+		\frac{1}{2}Z_{\MFphi;k} \big(\partial_\mu\MFphi\big)^2
+	}
+
+\newcommand{\Lpot}{\mathcal{L}_{V}[A,\MFphi]} % non-classical, bosonized self interaction potential for the mesons
+	\newcommand{\LpotExp}{%
+		V_{\mathrm{glue};k}(A_4)+V_{\mathrm{mat};k}(\MFrho,A_4)
+	}
+	\newcommand{\LpotExpI}{%
+		V_{k}(\MFrho,A_4)
+	}
+%\begin{align}
+%S_\mathrm{QCD}[\FA,\Fc,\Fcb,\Fpsi,\Fpsib]&\equiv \int_x\, \bigg\{
+%\frac{1}{4} F_{\mu\nu}^a F_{\mu\nu}^a
+%+\Fpsib(\gamma_\mu D_\mu +\hat{m}+ \gamma_4 \hat{\mu})\Fpsi\,+\notag\\
+%&\qquad\qquad\qquad\qquad\qquad\qquad+\Fcb\mkern0.5mu{}^a(\partial_\mu D_\mu^{ab})\Fc^b
+%+\frac{1}{2\xi} (\partial_\mu \FA_\mu^a)(\partial_\mu \FA_\mu^a)
+%\bigg \}\, ,
+%\label{eq:Sqcd}
+%\end{align}
+
+% Vertex
+\NewDocumentCommand{\vertex}{mO{}O{}}{%
+	\def\tempA{#1}%
+	\def\tempB{#2}%
+	\def\tempC{#3}%
+	\ifx\tempB\FSEmpty%
+			\def\Vsym{\FSeaa}%
+	\else%
+			\def\Vsym{\tempB}%
+	\fi%
+	\ifx\tempC\FSEmpty%
+			\def\subk{\FSk}%
+	\else%
+			\def\subk{{\tempC;\FSk}}%
+	\fi%
+	\ifx\tempA\FSEmpty%
+		\Vsym_\subk
+	\else%
+		\Vsym_\subk^{,\FSidxRow{#1}}
+	\fi%
+}
+
+% Coupling
+\newcommand{\couplingDt}[3]{%
+	\partial_t \coupling{#1}{#2}{#3}
+}
+\newcommand{\couplingDk}[3]{%
+	\partial_k \coupling{#1}{#2}{#3}
+}
+
+% Propagator
+\NewDocumentCommand{\propagator}{mO{}O{}}{%
+	\def\tempB{#2}%
+	\def\tempC{#3}%
+	\ifx\tempB\FSEmpty%
+			\def\Gsym{\FSG}%
+	\else%
+			\def\Gsym{\tempB}%
+	\fi%
+	\ifx\tempC\FSEmpty%
+			\def\subk{\FSk}%
+	\else%
+			\def\subk{{\tempC;\FSk}}%
+	\fi%
+	\Gsym_{\subk;\FSidxRow{#1}}%
+}
+
+% Regulator
+\NewDocumentCommand{\regulator}{mO{}O{}}{%
+	\def\tempB{#2}%
+	\def\tempC{#3}%
+	\ifx\tempB\FSEmpty%
+			\def\Rsym{\FSR}%
+	\else%
+			\def\Rsym{\tempB}%
+	\fi%
+	\ifx\tempC\FSEmpty%
+			\def\subk{\FSk}%
+	\else%
+			\def\subk{{\tempC;\FSk}}%
+	\fi%
+	\Rsym_{\subk}^{;\FSidxRow{#1}}%
+}
+
+% *** Potentials *** %
+\newcommand{\MFvtx}[2]{{#1}_t(#2)}
+\newcommand{\MFvtxd}[3]{\partial_{#2}^{\ifthenelse{\equal{#3}{1}}{}{#3}}{#1}_t(#2)}
+
+% ****** Thermal QFT commands ****** %
+\newcommand{\nb}{n_\mathrm{b}}
+\newcommand{\nf}{n_\mathrm{f}}
+
+\newcommand{\vac}{\mathrm{vac}}
+\newcommand{\med}{\mathrm{med}}
+\newcommand{\ext}{\mathrm{ext}}
+\newcommand{\gap}{\mathrm{gap}}
+\newcommand{\phys}{\mathrm{phys}}
+\newcommand{\eom}{\mathrm{EoM}}
+
+\NewDocumentCommand{\muT}{O{\mu}O{T}}{#1,#2}
+
+\NewDocumentCommand{\spatialVolume}{O{s}}{V_{#1}}
+\newcommand{\thermalPartionFunction}{\mathcal{Z}}
+\newcommand{\thermalDensityMatrix}{\hat{\rho}}
+\newcommand{\thermalHamiltonian}{\hat{\mathcal{H}}}
+\newcommand{\thermalGrandPotential}{\tilde{\Omega}}
+\newcommand{\thermalGrandPotentialArgs}{\thermalGrandPotential(\muT)}
+\newcommand{\thermalGrandPotentialDensity}{\Omega}
+\newcommand{\thermalGrandPotentialDensityArgs}{\thermalGrandPotential(\muT)}
+
+\NewDocumentCommand{\Uk}{O{k}O{}m}{%
+	U_{#1}^{#2}\!\del{#3}
+}
+\newcommand{\Ukrho}{\Uk[k][]{\MFrho}}
+
+\NewDocumentCommand{\Veff}{O{}O{}}{%
+	\IfNoValueTF{#1}
+	{\IfNoValueTF{#2}{\mathcal{V}}{\mathcal{V}^{#2}}}
+	{\IfNoValueTF{#2}{\mathcal{V}_{#1}}{\mathcal{V}_{#1}^{#2}}}%
+}
+\NewDocumentCommand{\VeffArgs}{O{}O{}m}{\Veff[#1][#2]\!\del{#3}}
+\NewDocumentCommand{\VeffFArgs}{O{}O{}m}{\Veff[#1][#2]\!\sbr{#3}}
+
+\newcommand{\LambdaP}{{\Lambda'}}
+
+\newcommand{\thetaLitim}{\Theta}
+\newcommand{\rf}{r_\mathrm{f}}
+\newcommand{\rb}{r_\mathrm{b}}
+
+% ****** Position- and momentum-space (pms) ****** %
+\def\pmsL{false}
+\def\falsestring{false}
+\def\truestring{true}
+\def\emptystring{}
+\newcounter{pmsArgLength}%
+
+\NewDocumentCommand{\intp}{O{p}O{d}}{%
+	\ifx\pmsL\truestring\intpL[#1][#2]\else\intpS[#1][#2]\fi%
+}
+\NewDocumentCommand{\sumintpn}{O{p}O{s}O{n}O{}}{%
+	\ifx\pmsL\truestring\sumintpnL[#1][#2][#3][#4]\else\sumintpnS[#1][#2][#3][#4]\fi%
+}
+\NewDocumentCommand{\intx}{O{x}O{d}O{V_d}}{%
+	\ifx\pmsL\truestring\intxL[#1][#2][#3]\else\intxS[#1][#2][#3]\fi%
+}
+\NewDocumentCommand{\intxt}{O{x}O{s}O{V_s}O{\tau}}{%
+	\ifx\pmsL\truestring\intxtL[#1][#2][#3][#4]\else\intxtS[#1][#2][#3][#4]\fi%
+}
+
+\NewDocumentCommand{\deltap}{O{p}O{d}}{%
+	\ifx\pmsL\truestring\deltapL[#1][#2]\else\deltapS[#1][#2]\fi%
+}
+
+\NewDocumentCommand{\deltapn}{O{p}O{s}O{n}}{
+	\ifx\pmsL\truestring\deltapnL[#1][#2][#3]\else\deltapnS[#1][#2][#3]\fi
+}
+\NewDocumentCommand{\deltaFactor}{m}{
+	\ifx#1\emptystring%
+		\beta(2\piu)%
+	\else%
+		\beta^#1(2\piu)^{#1}
+}
+
+% Implementations for \deltapL and \deltapnL
+\NewDocumentCommand{\deltapL}{O{p}O{d}}{
+	\ifx#2\emptystring%
+		(2\piu)\delta(#1)%
+	\else%
+		\ifx#21%
+			(2\piu)\delta(#1)%
+		\else%
+			(2\piu)^#2\delta^{(#2)}(#1)%
+		\fi%
+	\fi%
+}
+
+\NewDocumentCommand{\deltapnL}{O{p}O{s}O{n}}{
+	\ifx#2\emptystring%
+		\beta \delta_{0,#3}(2\piu)\delta(#1)%
+	\else%
+		\ifx#21%
+			\beta \delta_{0,#3}(2\piu)\delta(#1)%
+		\else%
+			\beta \delta_{0,#3}(2\piu)^#2\delta^{(#2)}(#1)%
+		\fi%
+	\fi%
+}
+
+% Implementations for \deltapS and \deltapnS
+\NewDocumentCommand{\deltapS}{O{p}O{d}}{
+	\ifx#21%
+		\tilde{\delta}_{#1}%
+	\else%
+		\tilde{\delta}^{(#2)}_{#1}%
+	\fi%
+}
+
+\NewDocumentCommand{\deltapnS}{O{p}O{s}O{n}}{
+		\ifx#21%
+			\tilde{\delta}_{\substack{#3\\#1}}
+		\else%
+			\tilde{\delta}^{(#2)}_{\substack{#3\\#1}}
+		\fi%
+}
+
+% Long version of the integrals
+\NewDocumentCommand{\intpL}{O{p}O{d}}{%
+	\int_{-\infty}^{+\infty}\mkern-4mu%
+	\foreach \entry [count=\ni] in {#1} {%
+		\edef\tempentry{\entry}%foreach/xphrase issue
+		\edef\templdots{\ldots}%
+		\ifx\tempentry\templdots%
+			{\,\ldots\,}%
+		\else%
+			\frac{\dif^{\,#2}\! \entry}{(2\piu)^{#2}}%
+		\fi%
+	}%
+}
+
+\NewDocumentCommand{\sumintpnL}{O{p}O{s}O{n}O{}}{%
+	\frac{1}{\beta^{#4}}\sum_{#3=-\infty}^{\infty} \int_{-\infty}^{+\infty}\mkern-4mu%	
+	\foreach \entry [count=\ni] in {#1} {%
+		\edef\tempentry{\entry}%foreach/xphrase issue
+		\edef\templdots{\ldots}%
+		\ifx\tempentry\templdots%
+			{\,\ldots\,}%
+		\else%
+			\frac{\dif^{\,#2}\! \entry}{(2\piu)^{#2}}%
+		\fi%
+	}%
+}
+
+\NewDocumentCommand{\intxL}{O{x}O{d}O{V_d}}{%
+	\int_{#3}%
+	\foreach \entry [count=\ni] in {#1} {%
+		\edef\tempentry{\entry}%foreach/xphrase issue
+		\edef\templdots{\ldots}%
+		\ifx\tempentry\templdots%
+			{\,\ldots\,}%
+		\else%
+			\dif^{\,#2}\! \entry%
+		\fi%
+	}%
+}
+
+\NewDocumentCommand{\intxtL}{O{x}O{s}O{V_s}O{\tau}}{%
+	\int_0^\beta
+	\foreach \entry [count=\ni] in {#4} {%
+		\edef\tempentry{\entry}%foreach/xphrase issue
+		\edef\templdots{\ldots}%
+		\ifx\tempentry\templdots%
+			{\,\ldots\,}%
+		\else%
+			\dif\entry%
+		\fi%
+	}%
+	\int_{#3}%
+	\foreach \entry [count=\ni] in {#1} {%
+		\edef\tempentry{\entry}%foreach/xphrase issue
+		\edef\templdots{\ldots}%
+		\ifx\tempentry\templdots%
+			{\,\ldots\,}%
+		\else%
+			 \dif^{\,#2}\! \entry
+		\fi%
+	}%
+}
+
+% Short version of the integrals
+\NewDocumentCommand{\intpS}{O{p}O{d}}{%
+	\int_{#1}%
+}
+
+\NewDocumentCommand{\sumintpnS}{O{p}O{s}O{n}O{}}{%
+	\setcounter{pmsArgLength}{0}%
+	\foreach \x in {#1}{%
+		\stepcounter{pmsArgLength}%
+	}%
+	\ifnum\value{pmsArgLength}>1%
+		\sumint_{\substack{#3\\#1}}%
+	\else%
+		\sumint_{#3;#1}%
+	\fi%
+}
+
+\NewDocumentCommand{\intxS}{O{x}O{d}O{V_d}}{%
+	\int_{#1}%
+}
+
+\NewDocumentCommand{\intxtS}{O{x}O{s}O{V_s}O{\tau}}{%
+	\setcounter{pmsArgLength}{0}%
+	\foreach \x in {#1}{%
+		\stepcounter{pmsArgLength}%
+	}%
+	\ifnum\value{pmsArgLength}>2%
+		\int_{\substack{#4\\#1}}%
+	\else%
+		\int_{#4;#1}%
+	\fi%
+}

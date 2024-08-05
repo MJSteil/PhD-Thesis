@@ -1,0 +1,166 @@
+% ****** Field space notation ****** %
+% *** Basics *** %
+\newcommand{\FSidx}[1]{\textbf{#1}} % FS index
+\newcommand{\FSidxI}[1]{\textbf{#1}} % FS internal index
+\newcommand{\FSidxE}[1]{\underline{\textbf{#1}}}  % FS external index
+
+\def\FSEmpty{}%
+		
+\newcommand{\FSidxRow}[1]{% row of FS indices
+	\foreach \entry [count=\ni] in {#1} {%
+		\ifnum\ni=1{\entry}\else{\mkern1mu\entry}\fi%
+	}%
+}
+
+\newcommand{\FSsf}{\chi} % FS super field
+\newcommand{\FSsfEoM}{%
+\mathchoice%
+	{\raisebox{1.50pt}{$\displaystyle\oldchi$}}
+	{\raisebox{1.50pt}{$\oldchi$}}
+	{\raisebox{1.00pt}{$\scriptstyle\oldchi$}}
+	{\raisebox{0.50pt}{$\scriptscriptstyle\oldchi$}}
+{}_\mathrm{EoM}
+} % FS super field on EoM
+
+\newcommand{\FSk}{k} % Fieldspace skale subscript
+
+% *** FS metric *** %
+\newcommand{\FSguu}[2]{\gamma^{\FSidx{#1}\mkern1mu\FSidx{#2}}}
+\newcommand{\FSgud}[2]{\gamma^{\FSidx{#1}}_{\phantom{\FSidx{#1}}\FSidx{#2}}}
+\newcommand{\FSgdu}[2]{\gamma_{\FSidx{#1}}^{\phantom{\FSidx{#1}}\FSidx{#2}}}
+\newcommand{\FSgdd}[2]{\gamma_{\FSidx{#1}\mkern1mu\FSidx{#2}}}
+
+\newcommand{\FSd}[2]{\delta^{\FSidx{#1}}_{\FSidx{#2}}} % FS delta
+
+% *** FS sign factor *** %
+% FScRow command for spaced list of indices 
+\newcommand{\FScRow}[1]{%
+	\foreach \entry [count=\ni] in {#1} {%
+		\ifnum\ni=1%
+			{\entry}%
+		\else%
+			\ifodd\ni{,\entry}\else{\mkern1mu\entry}\fi%
+		\fi%
+	}
+}
+% FSc
+\newcommand{\FSc}[1]{(-1)^{\FScRow{#1}}} % FS commutator (-1)^{ab...}
+\newcommand{\FScSkeleton}[3]{ % abrivated FS commutator (-1)^{#1,<<#2>>,#3}
+	\def\tempA{#1}%
+	\def\tempC{#3}%
+	\ifx\tempC\FSEmpty
+		\ifx\tempA\FSEmpty
+			(-1)^{\skeleton{#2}}%
+		\else
+			(-1)^{{\FScRow{#1}},\skeleton{#2}}%
+		\fi%
+	\else%
+		\ifx\tempA\FSEmpty
+			(-1)^{\skeleton{#2},{\FScRow{#3}}}%
+		\else
+			(-1)^{{\FScRow{#1}},\skeleton{#2},{\FScRow{#3}}}%
+		\fi%
+	\fi%
+}
+
+% *** fields *** %
+% FS fundamental field
+\newcommand{\FSff}[1]{\tilde{#1}}
+\newcommand{\FSffu}[2]{\FSff{#1}^\FSidx{#2}}
+\newcommand{\FSffd}[2]{\FSff{#1}_\FSidx{#2}}
+
+% FS composite field
+\newcommand{\FSf}[1]{\hat{#1}}
+\newcommand{\FSfu}[2]{\FSf{#1}^\FSidx{#2}}
+\newcommand{\FSfd}[2]{\FSf{#1}_\FSidx{#2}}
+
+% FS mean-field
+\newcommand{\FSmf}[1]{{#1}}
+\newcommand{\FSmfu}[2]{\FSmf{#1}^\FSidx{#2}}
+\newcommand{\FSmfd}[2]{\FSmf{#1}_\FSidx{#2}}
+
+% *** Misc *** %
+\newcommand{\expectationValue}[2]{\left\langle #1\right\rangle_{k;#2}}
+
+% *** Field space elements *** %
+% Alassical action
+\newcommand{\Sinit}{S_\Lambda}
+
+% Vertex
+\newcommand{\FSeaa}{\overline{\Gamma}}
+\newcommand{\FSeaaEoM}{\overline{\underline{\Gamma}}\mkern0.5mu}
+\newcommand{\FSeaaEoMI}{\Uwave{\overline{\Gamma}}[-1.3][0.8][-1.5]\mkern0.5mu}
+\newcommand{\FSea}{\Gamma}
+\newcommand{\FSeaEoM}{\underline{\Gamma}\mkern0.5mu}
+\newcommand{\FSeaEoMI}{\Uwave{\Gamma}[-1.3][0.8][0.0]\mkern0.5mu}
+
+\newcommand{\FSvertex}[1]{%
+	\def\tempA{#1}%
+	\ifx\tempA\FSEmpty%
+		\FSeaa_\FSk
+	\else%
+		\FSeaa_\FSk^{,\FSidxRow{#1}}
+	\fi%
+}
+
+\newcommand{\FSvertexArg}[2]{%
+	\def\tempA{#2}%
+	\ifx\tempA\FSEmpty%
+		#1_\FSk
+	\else%
+		#1_\FSk^{,\FSidxRow{#2}}
+	\fi%
+}
+
+\newcommand{\FSvertexDt}[1]{%
+	\partial_t\FSvertex{#1}
+}
+\newcommand{\FSvertexDk}[1]{%
+	\partial_\FSk\FSvertex{#1}
+}
+
+% FS coupling
+\newcommand{\FScoupling}[3]{%
+	\def\arg{#3}%
+	\ifthenelse{\equal{#2}{0}}{%
+		#1{}_\FSk\ifx\arg\FSEmpty{}\else{(\arg)}\fi
+	}{%else
+		#1{}_\FSk^{(#2)}\ifx\arg\FSEmpty{}\else{(\arg)}\fi
+	}
+}
+
+% Propagator
+\newcommand{\FSG}{G}
+\newcommand{\FSGEoM}{\underline{G}}
+\newcommand{\FSGEoMI}{\Uwave{G}[-1.3][0.8][0.5]}
+
+\newcommand{\FSpropagator}[1]{%
+	\FSG_{\FSk;\FSidxRow{#1}}%
+}
+
+\newcommand{\FSpropagatorArg}[2]{%
+	{#1}_{\FSk;\FSidxRow{#2}}%
+}
+
+% Regulator
+\newcommand{\FSR}{R}
+\newcommand{\FSREoM}{\underline{R}}
+\newcommand{\FSREoMI}{\Uwave{R}[-1.3][0.8][0.5]}
+
+\newcommand{\FSregulator}[1]{%
+	\FSR_{\FSk}^{;\FSidxRow{#1}}%
+}
+
+\newcommand{\FSregulatorArg}[2]{%
+	{#1}_{\FSk}^{;\FSidxRow{#2}}%
+}
+
+\newcommand{\FSregulatorDk}[1]{%
+	\partial_\FSk\FSregulator{#1}
+}
+\newcommand{\FSregulatorDt}[1]{%
+	\partial_t\FSregulator{#1}
+}
+
+% FRG
+\newcommand{\FRGflow}{\mathcal{F}}

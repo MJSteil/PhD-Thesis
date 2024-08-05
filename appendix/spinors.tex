@@ -1,0 +1,100 @@
+\section{Spinor degrees of freedom}\label{app:spinors}
+In this work, we perform computations involving spinors in two and four dimensions using a Euclidean metric $g_{\mu\nu}\equiv\delta_{\mu\nu}$.
+In this appendix we present the relevant conventions for Euclidean and Minkowski signature, where the latter is not used in practical computations through out this work and is presented here for completeness sake.
+The notation and conventions we introduce below are partly based on the ones put forward in \ccite{Wetterich:2010ni} therefore we refer the interested reader to this article for further details especially regarding discrete and continuous symmetries and aspects of analytic continuation\footnote{%
+	Our conventions for analytic continuation from Minkowski signature ($s = 1$) to Euclidean signature ($s=0$), implied by the conventions of \cref{app:clifford2,app:clifford4}, are based on the usual continuation of the time coordinate and not on the formulation using a vielbein used in \ccite{Wetterich:2010ni}.%
+}.\bigskip
+
+We consider the Clifford algebra
+\begin{align}
+	\{\gamma^\mu,\gamma^\nu\}=2 g^{\mu\nu}\Id\label{eq:clifford}
+\end{align}
+for the $d$-dimensional inverse diagonal metric $g^{\mu\nu}$ with $\tilde{s}$ eigenvalues $-1$ such that $\tilde{s}=0$ amounts to Euclidean and $\tilde{s}=d-1$ to Minkowski signature.
+In this work we only consider $d$ even, \viz{} $d=2$ and $d=4$, and $(\gamma^\mu)^\dagger = \pm\gamma^\mu$ for $g^{\mu\mu}=\pm1$.
+When considering Euclidean space Greek (Lorentz) indices run from $1$ to $d$ while we use $\mu\in\{1,\ldots,d-1,0\}$ when considering Minkowski signature.
+We use ${(d_\gamma\equiv 2^{\lfloor d/2\rfloor})}$-dimensional Dirac spinors for chiral fermions described by two associated elements $\MFpsi$ and $\MFpsib$ of a Grassmann algebra which transform under infinitesimal $\mathrm{SO}(\tilde{s},d-\tilde{s})$ transformations of the generalized Lorenz group as
+\begin{align}
+	\delta\MFpsi^{\bar{\alpha}} &= -\tfrac{1}{2}\epsilon_{\mu\nu}(\Sigma^{\mu\nu})^{\bar{\alpha}}{}_{\bar{\beta}} \MFpsi^{\bar{\beta}} \, ,\\
+	\delta\MFpsib_{\bar{\alpha}} &= \tfrac{1}{2}\epsilon_{\mu\nu}\MFpsib_{\bar{\beta}}(\Sigma^{\mu\nu})^{\bar{\beta}}{}_{\bar{\alpha}} \, ,
+\end{align}
+with ${	\epsilon_{\mu\nu}=-\epsilon_{\nu\mu}=\epsilon_{\mu\nu}^\ast}$, the spinor indices $\bar{\alpha}$ and $\bar{\beta}$ and where we suppressed the corresponding transformations of the generalized Lorenz group of coordinates or momenta in our notation.
+Conventions for (inverse) Fourier transformations for fermionic components can be found in \cref{app:fourier}.
+The generators $\Sigma^{\mu\nu}$ of the $\mathrm{SO}(\tilde{s},d-\tilde{s})$ group can be constructed using the elements $\gamma^\mu$ of the matrix representation of the Clifford algebra \eqref{eq:clifford}
+\begin{align}
+	\Sigma^{\mu\nu} = \frac{1}{4}[\gamma^\mu,\gamma^\nu] \, .
+\end{align}
+
+Dirac spinors in even dimensions can be decomposed into Weyl spinors using an additional gamma matrix
+\begin{align}
+	\gammach \equiv -(-\iu)^{\frac{d}{2}-\tilde{s}}\gamma^1\ldots\gamma^{d-1}\gamma^{d/0} \label{eq:gammachDef}
+\end{align}
+for Euclidean ($\tilde{s}=0$) and Minkowski ($\tilde{s}=d-1$) signature respectively\footnote{%
+	We use a different sign convention for $\gammach$ when compared to Eq.~(2.14) of \ccite{Wetterich:2010ni}.%
+}.
+With $\gammach$ defined according to \cref{eq:gammachDef} the following identities hold
+\begin{align}
+	(\gammach)^2&=\Id \, , \label{eq:gammachSelfInverse}\\
+	(\gammach)^\dagger&=\gammach \, ,\\
+	\{\gamma^\mu,\gammach\}&=0 \, , \label{eq:gammachAntiCommute}\\
+	[\Sigma^{\mu\nu},\gammach]&=0 \, .
+\end{align}
+Because of the property~\eqref{eq:gammachSelfInverse} one can define the ``right''- and ``left''-handed projection operators
+\begin{align}
+	\gamma_{\pm} \equiv \frac{1}{2}(\Id\pm\gammach) \, ,\label{eq:gammaChProjection}
+\end{align}
+which can be used to decompose the Dirac spinors into two Weyl spinors $\MFpsi_\pm$ ($\MFpsib_\pm$) of opposite "chirality" denoted by the subscript $\pm$:
+\begin{align}
+	\MFpsi_\pm = \gamma_\pm \MFpsi,\qquad \MFpsib_\pm=\MFpsib\gamma_\mp \, .\label{eq:psiPM}
+\end{align}
+Boosts and rotations do not mix between Weyl spinors of opposite "chirality" and while rotations act similarly on $\MFpsi_+$ ($\MFpsib_+$) and $\MFpsi_-$ ($\MFpsib_-$), boosts act differently on $\MFpsi_+$ ($\MFpsib_+$) and $\MFpsi_-$ ($\MFpsib_-$), which when considering $d=4$ and Minkowski signature $\tilde{s}=3$ gives rise to the notion of chirality in this context.
+
+Using the objects introduced in this appendix it is possible to define the bilinears $\MFpsib\Id\MFpsi$, $\MFpsib\gammach\MFpsi$, $\MFpsib\gamma^\mu\MFpsi$, $\MFpsib\gammach\gamma^\mu\MFpsi$ and $\MFpsib\Sigma^{\mu\nu}\MFpsi$, which transform under Lorenz transformations as scalars, pseudoscalars, vectors, pseudovectors, and antisymmetric second rank tensors respectively.
+Those bilinears can be used to construct Lorentz-invariant actions including spinor degrees of freedom.\bigskip
+
+For lengthy (partial) Dirac traces in $d$ dimension we use the functionalities of the \textit{FormTracer} package~\cite{Cyrol:2016zqb,Cyrol:2021} for \WAMwR{} as well as the explicit representations of the following two subsections.
+
+\subsection{Clifford algebra in two dimensions}\label{app:clifford2}
+For computations in $d=2$ and Euclidean signature ($\tilde{s}=0$) requiring an explicit representation we use hermitian gamma matrices in Weyl basis
+\begin{align}
+	\gamma^1= -\sigma^2 = \begin{pmatrix}
+		0& \iu \\
+		-\iu &0
+	\end{pmatrix},\qquad%
+	\gamma^2= \sigma^1 = \begin{pmatrix}
+		0& 1\\
+		1 &0
+	\end{pmatrix},\qquad%
+	\gammach=-\sigma^3=\begin{pmatrix}
+		-1& 0\\
+		0 &1
+	\end{pmatrix},\label{eq:gammaWeyl2}
+\end{align}
+as basis elements of the Clifford algebra in accordance to the representation-independent definitions of \cref{app:spinors}.
+Corresponding matrices for computations in Minkowski signature ($\tilde{s}=1$) are given by
+\begin{align}
+	\gamma_\mathrm{M}^0 = \gamma^2 \, ,\qquad \gamma_\mathrm{M}^1 = -\iu \gamma^1 \, , \quad\text{and}\quad \gammach_\mathrm{M}=\gammach \, .
+\end{align}
+
+\subsection{Clifford algebra in four dimensions}\label{app:clifford4}
+For computations in $d=4$ and Euclidean signature ($\tilde{s}=0$) requiring an explicit representation we use hermitian gamma matrices in Weyl basis\footnote{%
+	We use a different sign for $\gamma^i$ and $\gammach$ in Weyl basis when compared to Eq.~(A.1) of \ccite{Wetterich:2010ni}.%
+}
+\begin{align}
+	\gamma^i=\begin{pmatrix}
+		\Zero_{2\times 2}& \iu \sigma^i\\
+		-\iu \sigma^i &\Zero_{2\times 2}
+	\end{pmatrix},\qquad%
+	\gamma^4=\begin{pmatrix}
+		\Zero_{2\times 2}& \Id_{2\times 2}\\
+		\Id_{2\times 2} &\Zero_{2\times 2}
+	\end{pmatrix},\qquad%
+	\gammach=\begin{pmatrix}
+		-\Id_{2\times 2}& \Zero_{2\times 2}\\
+		\Zero_{2\times 2} &\Id_{2\times 2}
+	\end{pmatrix},\label{eq:gammaWeyl4}
+\end{align}
+with ${i\in\{1,2,3\}}$ as basis elements of the Clifford algebra in accordance to the representation-independent definitions of \cref{app:spinors}.
+Corresponding matrices for computations in Minkowski signature ($\tilde{s}=3$) are given by
+\begin{align}
+	\gamma_\mathrm{M}^0 = \gamma^4 \, ,\qquad \gamma_\mathrm{M}^i = -\iu \gamma^i  \, ,\quad\text{and}\quad \gammach_\mathrm{M}=\gammach \, .
+\end{align}

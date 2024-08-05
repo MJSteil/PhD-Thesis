@@ -1,0 +1,143 @@
+\pdfoptionpdfminorversion=7 % fixes warning: "PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed"
+\pdfsuppresswarningpagegroup=1 % disables/fixes warning: "PDF inclusion: multiple pdfs with page group included in a single page"
+\documentclass[
+	english,
+	ruledheaders=chapter,% Layer until which headings are surounded by lines, cf. DEMO-TUDaPub
+	class=book,% KOMA-Script baseclass
+	twoside=true,% twosided layout
+	thesis={
+		type=drfinal,
+		dr=rernat
+	},
+	accentcolor=1b,% highlight color blue
+	colorback=false,% options: false, true, head, title, body
+	custommargins=true,% use the following geometry setup
+	custommargins=geometry,% use the following geometry setup
+	marginpar=false,% header and footer do not extend over the margin note column.
+	%BCOR=5mm,% binding correction, if necessary
+	%parskip=true,% paragraph marking by spacing, cf.  KOMA-Script
+	fontsize=11pt,% base fontsize of 11pt (9pt default is a bit small)
+	pdfa=true,% use PDF-A standart
+	IMRAD=true% use IMRAD labels
+]{tudapub}
+
+% ************ (tudapub) Information, page layout, and styles ************ %
+% This thesis uses a modfied version of tudapub from the TUDa-CI – Corporate Design LaTeX-Templates for TU Darmstadt [https://github.com/tudace/tuda_latex_templates].
+% The modified version is available at [https://github.com/MJSteil/tuda_latex_templates/releases/tag/PhDThesisPublication].
+% It includes some changes and additional functionality to front- and backmatter commands. 
+% WARNING: The modified version is provided as-is, with no guarantees or warranties of any kind. Please note that it is not actively maintained.
+
+%\geometry{reset,top=4cm,bottom=5cm,left=2.0cm,right=3.5cm} % twoside flipping
+\geometry{reset,top=4cm,bottom=5cm,left=2.75cm,right=2.75cm} % centered layout -- better for viewing the PDF version on a screen
+
+\makeatletter
+\g@addto@macro\bfseries{\boldmath} % Allow Bold math in headers [https://tex.stackexchange.com/a/124311]
+\makeatother
+
+\ifoot{\Ifstr{\rightmark}{}{\leftmark}{\rightmark}} % setup footer
+
+\KOMAoptions{open=any} % Alow chapters to start on even and odd pages. Alternative use %\makeatletter\@openrightfalse for individual control
+\setcounter{secnumdepth}{3} % Number sections down to subsubsection (secnumdepth=3)
+\setcounter{tocdepth}{2} % Show only down to subsection (tocdepth=2)
+
+% ****** Colors ****** %
+\input{commands/colors}
+
+% ************ Packages, package options, and related setup ************ %
+\hypersetup{%
+	breaklinks=true,
+	hidelinks,% removing color and border
+	bookmarksnumbered,% put section numbers in bookmarks
+	colorlinks,% color links
+	allcolors=TUDa-1b,% set all link colors to TUDa CD accent color
+	bookmarksdepth=3% display bookmarks down to subsubsection (bookmarksdepth=3)
+} 
+
+% ****** Language ****** %
+\usepackage[ngerman, main=english]{babel} % Typographical stuff
+\usepackage[autostyle,english=american]{csquotes} % Context Sensitive Quotation Facilities
+
+% ****** Math ****** %
+\usepackage{amsmath}		% AMS math package for improved mathematical typesetting
+\usepackage{amssymb}		% AMS symbol package
+\usepackage{mathrsfs}		% Support for using RSFS fonts in maths -- e.g. \mathscr{}
+\usepackage{accents}		% package for improved accents functionality mathematics (Needed in tudapub with amsmath for stacked accents, e.g., \hat{\bar{\MFpsi}} )
+%\usepackage{slashed}		% "Feynman slashed character" notation
+\usepackage{upgreek}		% upright Greek letters, e.g., \uppi
+\usepackage{dsfont}			% "blackboard bold" alphabet with mathds -- using bbold introduces type 3 fonts (sadly)
+\usepackage{mathtools}	% General tools for finte tuning mathematical typesetting [https://www.ctan.org/pkg/mathtools]
+\usepackage{commath}		% Additional mathematical typesetting commands, e.g., \del, \sbr, \cbr, \dif, \od, \pd [https://www.ctan.org/pkg/commath]
+\usepackage{pifont}			% Access to PostScript standard Symbol and Dingbats fonts -- e.g. \ding{192}-\ding{195} for encircled numbers
+\usepackage{eurosym}		% METAFONT and macros for Euro sign
+\usepackage[thicklines]{cancel} % \cancel and related methods to strikethough text
+
+\allowdisplaybreaks % Allow breaking of formulas across multiple pages
+
+% ****** Bibliography ****** %
+\input{bibtex}
+
+% ****** Glossary ****** %
+\input{glossary}
+
+% ****** Miscellaneous ****** %
+%% Utilities
+\usepackage{silence} % Selective filtering of error messages and warnings
+\usepackage{relsize} % Set the font size relative to the current font size by using e.g. \smaller
+\usepackage{pgffor} % Macro package provides \foreach
+\usepackage{xparse} % A generic document command parser
+%\usepackage{xurl} % Allow URL breaks at any alphanumerical character
+
+% References
+\usepackage{cleveref} % Intelligent cross-referencing used primarily unless text and/or linebreaking requires manual \ref, \cite, or \eqref
+\newcommand{\creflastconjunction}{, and\nobreakspace} % Oxford comma in multiple citations [https://tex.stackexchange.com/a/161340]
+\newcommand{\crefrangeconjunction}{--}
+\newcommand{\customref}[2]{\hyperref[#1]{#2}}
+
+% Itemize and enumerate
+\usepackage{enumitem} % Control layout of itemize, enumerate, description
+\setlist[itemize]{itemsep=2pt, topsep=6pt, partopsep=0pt, parsep=4pt}
+\setlist[enumerate]{itemsep=2pt, topsep=6pt, partopsep=0pt, parsep=4pt}
+
+%% Typesetting, see, e.g., [https://ctan.org/pkg/microtype] and [https://www.khirevich.com/latex/microtype/]
+% The following typesetting setup implements better linespacing and breaking especially around \dash{} and when trying to prevent line breaks in specific expressions
+\usepackage{microtype} % "Subliminal refinements towards typographical perfection"
+\microtypesetup{activate={true,nocompatibility},tracking=true,kerning=true,spacing=true,factor=750,stretch=20,shrink=20}
+% activate={true,nocompatibility} - activate protrusion and expansion
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=750 -- protrusion amount (default is 1000):  750 reduces/pentaltizes protrusion a bit more
+% stretch=..., shrink=... - stretchability/shrinkability (default is 20/20)
+\microtypecontext{spacing=nonfrench} % prevents a corresponding warning
+\SetTracking{encoding={*}, shape=sc}{30} % reduce tracking for small caps to 0.03*1em [https://www.khirevich.com/latex/microtype/]
+\WarningFilter{microtype}{I cannot find a spacing list for font} % Disable warning for some missing XCharter sizes/fonts
+
+%% Captions
+\usepackage{caption} % Format figure captions
+\usepackage{subcaption} % Support for sub-captions
+\addto\captionsenglish{% Second argument is singular, third is plural
+	\crefname{figure}{figure}{figures}
+	\crefname{table}{table}{tables}
+	\crefname{equation}{Eq.}{Eqs.}	
+	\crefname{section}{section}{sections}
+	\crefname{subsection}{subsection}{subsections}
+	\crefname{subsubsection}{subsubsection}{subsubsections}
+	\crefname{appendix}{App.}{Apps.}
+	\crefname{subappendix}{App.}{Apps.}
+	\crefname{subsubappendix}{App.}{Apps.}
+	\crefname{subsubsubappendix}{App.}{Apps.}
+}
+
+%% Figures and tables
+\input{commands/figures_and_tables}
+
+%% Placements, floats, ...
+\usepackage{placeins} % Control float placement -- defines \FloatBarrier
+\interfootnotelinepenalty=10000 % Prevent footnotes from breaking across multiple pages
+\counterwithout{footnote}{chapter} % Ensure continuous footnote numbering
+
+% ************ Commands ************ %
+\input{commands/general}
+\input{commands/math}
+\input{commands/FS}
+\input{commands/qft}
+\input{commands/auxiliary}
+\input{commands/referenceBlocks}

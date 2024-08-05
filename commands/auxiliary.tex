@@ -1,0 +1,20 @@
+% ****** Auxillary packages and commands for working version ****** %
+%\usepackage{comment} % Selectively include/exclude portions of text -- defines comment environment
+%\usepackage{xstring,catchfile}% Used \commit and \branch [https://tex.stackexchange.com/a/455397/148765]
+%\usepackage{lipsum} % Blindtext generator
+%\usepackage{qrcode} % Package to generate QR codes
+\usepackage[yyyymmdd,hhmmss]{datetime}
+\renewcommand{\dateseparator}{.}
+
+% TODO and Comments
+%\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+% Git version [https://tex.stackexchange.com/a/455397/148765] -- provides \commit and \branch to print git information into the pdf file
+%\CatchFileDef{\headfull}{.git/HEAD.}{}
+%\StrGobbleRight{\headfull}{1}[\head]
+%\StrBehind[2]{\head}{/}[\branch]
+%\IfFileExists{.git/refs/heads/\branch.}{%
+	%\CatchFileDef{\commit}{.git/refs/heads/\branch.}{}%
+%}{%
+	%\newcommand{\commit}{\dots~(in \emph{packed-refs})}%
+%}

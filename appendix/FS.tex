@@ -1,0 +1,104 @@
+\section{Field space notation}\label{app:FS}
+The \acrlong{fs}{} notation introduced in this appendix is based on the one put forward in Refs.~\cite{Pawlowski:2005xe,Rennecke:2015lur,PawlowskiScript} and allows for a unified treatment of fermionic (Grassmann-valued) and bosonic (non-Grassmann-valued) fields.\bigskip
+
+In the following we collect all Grassmann-valued fields of the theory under consideration in $\FSf{\MFpsi}$ and $\FSf{\MFpsib}$ and all other fields in $\FSf{\MFphi}$.
+In the FS notation introduced in this appendix, we will suppress all discrete and continuous internal indices of those fields and collect all fields in one multi-field $\FSf{\chi}$.
+FS indices, related to components of the multi-field $\FSf{\chi}$, are typeset as bold roman indices.
+The multi-field $\FSf{\chi}$ includes all fundamental fields of the theory as well as 
+all optional composite fields under consideration.
+The FS components of this multi-field
+\begin{align}
+	(\FSfd{\FSsf}{a})&\equiv (\FSf{\MFphi},\FSf{\MFpsi},\FSf{\MFpsib})^\tr \, ,\label{eq:FSfd}\\
+	(\FSfu{\FSsf}{a})&\equiv (\FSf{\MFphi},\FSf{\MFpsib},-\FSf{\MFpsi}) \, ,\label{eq:FSfu}
+\end{align}
+are chosen to implement the contraction
+\begin{align}
+	\FSfu{\FSsf}{m}\FSfd{\FSsf}{m}
+		=\FSguu{m}{n}\FSfd{\FSsf}{n}\FSfd{\FSsf}{m}
+		=\FSfu{\FSsf}{m}\FSfu{\FSsf}{n}\FSgdd{n}{m}
+		=\FSf{\MFphi}^2+\FSf{\MFpsib}\FSf{\MFpsi}-\FSf{\MFpsi}\FSf{\MFpsib}=\FSf{\MFphi}^2+2\FSf{\MFpsib}\FSf{\MFpsi} \, ,\label{eq:FSchi2contraction}
+\end{align}
+where we introduced the FS metric\footnote{%
+	Our FS metric of \cref{eq:FSguugdd} is consistent with the sign conventions used in \ccite{Rennecke:2015lur,PawlowskiScript} while in \ccite{Pawlowski:2005xe} the signs in the FS metric of Eq.~(A.1) should be switched for Eqs.~(A.2) and (A.7) of \ccite{Pawlowski:2005xe} to be consistent.
+	The $\pm1$ for the components of the FS metric related to Grassmann-valued fields are just convention ($\mp1$ is also possible) but they affect the relation between $(\FSfd{\FSsf}{a})$ and $(\FSfu{\FSsf}{a})$, see \cref{eq:FSfd,eq:FSfu}, and consequently signs in contractions like the one in \cref{eq:FSchi2contraction}.%
+}
+\begin{align}
+	\del[1]{\FSguu{a}{b}}&\equiv\del[1]{\FSgdd{a}{b}}\equiv
+		\begin{pmatrix}
+			1 & 0 & 0\\
+			0 & 0 & 1\\
+			0 & -1 & 0
+		\end{pmatrix}\label{eq:FSguugdd}
+\end{align}
+and the Northwest-Southeast (NW-SE) convention: FS indices are always raised (N) from the left (W), $\FSfu{\FSsf}{a}= \FSguu{a}{m}\FSfd{\FSsf}{m}$, and  lowered (S) from the right (E), $\FSfd{\FSsf}{a}= \FSfu{\FSsf}{m}\FSgdd{m}{a}$.
+Summation over FS and discrete internal indices as well as integration over continuous internal variables is implied for contractions.
+
+The FS metric is non-diagonal in FS, which is necessary to take the Grassmann nature of some field components into account.
+In all, in our notation currently suppressed, internal spaces the metric is trivial and the respective identity.
+The FS metric introduced above has the following properties
+\begin{alignat}{2}
+	\FSgdu{a}{b} &= \FSgdd{a}{m}\FSguu{b}{m} &&= \FSgdd{m}{a}\FSguu{m}{b} = \FSd{b}{a} \, ,\\
+	\FSgud{a}{b} &= \FSguu{a}{m}\FSgdd{m}{b} &&= \FSguu{m}{a}\FSgdd{b}{m} = \FSc{\FSidx{a},\FSidx{b}}\FSd{a}{b} \, ,
+\end{alignat}
+where we introduced the generalized sign factor
+\begin{align}
+	\FSc{\FSidx{a},\FSidx{b}}\equiv%
+	\begin{cases}%
+		-1 & \text{if the components $\FSidx{a}$ and $\FSidx{b}$ are Grassmann-valued}\\
+		+1 &\text{otherwise}%
+	\end{cases} \, ,\label{eq:FScDef}
+\end{align}
+which tracks possible sign flips due to the commutation of FS components $\FSidx{a}$ and $\FSidx{b}$.
+Products of such sign factors appear frequently in practical computations therefore we introduce the compact notation
+\begin{align}
+	\FSc{\FSidx{a},\FSidx{b},\FSidx{c},\FSidx{d},\FSidx{e},\FSidx{f}}\equiv\FSc{\FSidx{a},\FSidx{b}}\FSc{\FSidx{c},\FSidx{d},\FSidx{e},\FSidx{f}} \equiv \FScSkeleton{\FSidx{a},\FSidx{b}}{2}{}\, . \label{eq:FScAbr}
+\end{align}
+
+The defined metric together with the NW-SE convention implements the anticommutation of Grassmann-valued fields properly, \eg,
+\begin{align}
+	\FSfu{\FSsf}{m}\FSfd{\FSsf}{m}
+		=\FSguu{m}{n}\FSfd{\FSsf}{n}\FSfu{\FSsf}{l}\FSgdd{l}{m}
+		=\FSfd{\FSsf}{n}\FSfu{\FSsf}{l}\FSgud{n}{l}
+		=\FSc{\FSidx{n},\FSidx{l}}\FSd{n}{l}\FSfd{\FSsf}{n}\FSfu{\FSsf}{l}
+		=\FSc{\FSidx{m},\FSidx{m}}\FSfd{\FSsf}{m}\FSfu{\FSsf}{m} \, ,
+\end{align}
+which is of course consistent with \cref{eq:FSchi2contraction}.
+
+Sources related to components of $\FSf{\FSsf}$ can also be treated in the introduced notation
+\begin{align}
+	(\FSfd{J}{a})&\equiv (J_{\FSf{\MFphi}},J_{\FSf{\MFpsib}}, J_{\FSf{\MFpsi}}),\\
+	(\FSfu{J}{a})&=(\FSguu{a}{m}\FSfd{J}{m})= (J_{\FSf{\MFphi}},J_{\FSf{\MFpsi}}, -J_{\FSf{\MFpsib}}) \, ,
+\end{align}
+which implements
+\begin{align}
+	\FSfu{J}{m}\FSfd{\FSsf}{m}=\FSc{\FSidx{m},\FSidx{m}}\FSfu{\FSsf}{m}\FSfd{J}{m}
+		=J_{\FSf{\MFphi}}\FSf{\MFphi}+ J_{\FSf{\MFpsi}}\FSf{\MFpsi}- J_{\FSf{\MFpsib}}\FSf{\MFpsib}
+		=J_{\FSf{\MFphi}}\FSf{\MFphi}+ J_{\FSf{\MFpsi}}\FSf{\MFpsi}+ \FSf{\MFpsib}J_{\FSf{\MFpsib}} \, .
+\end{align}
+
+Functional derivatives in FS are always taken from the left.
+The  order of those derivatives is important since derivatives \wrt{} Grassmann-valued fields or sources anticommute with Grassmann-valued components.
+For the product rule this implies
+\begin{align}
+	\frac{\delta}{\delta \FSfu{J}{b}} \del{ \frac{\delta f[\FSf{J}\mkern1.5mu]}{\delta \FSfu{J}{a}} g[\FSf{J}\mkern1.5mu] } =
+		\del{\frac{\delta}{\delta \FSfu{J}{b}}\frac{\delta f[\FSf{J}\mkern1.5mu]}{\delta \FSfu{J}{a}}} g[\FSf{J}\mkern1.5mu]
+		+\FSc{\FSidx{a},\FSidx{b}}\frac{\delta f[\FSf{J}\mkern1.5mu]}{\delta \FSfu{J}{a}} \frac{\delta g[\FSf{J}\mkern1.5mu]}{\delta \FSfu{J}{b}} \, , \label{eq:FSproductrule}
+\end{align}
+while for the chain rule
+\begin{align}
+	\frac{\delta}{\delta \FSfu{J}{a}} f[g[\FSf{J}\mkern1.5mu]] = f'[g[\FSf{J}\mkern1.5mu]] \frac{\delta g[\FSf{J}\mkern1.5mu]}{\delta \FSfu{J}{a}} \label{eq:FSchainrule}
+\end{align}
+applies in the usual manner.
+
+For functional derivatives we frequently adopt the compact notations
+\begin{align}
+	\FSeaa_k^{,\row{\FSidx{x},\FSidx{m}_n,\mkern-1mu\ldots,\FSidx{m}_2,\FSidx{m}_1}}[\FSmf{\FSsf}]%
+		\equiv\frac{\delta}{\delta \FSmfd{\FSsf}{x}}\FSeaa_k^{,\row{\FSidx{m}_n,\mkern-1mu\ldots,\FSidx{m}_2,\FSidx{m}_1}}[\FSmf{\FSsf}]%
+		\equiv\frac{\delta}{\delta \FSmfd{\FSsf}{x}} \frac{\delta}{\delta \FSmf{\FSsf}_{\FSidx{m}_n}}\ldots \frac{\delta}{\delta \FSmf{\FSsf}_{\FSidx{m}_2}} \frac{\delta}{\delta \FSmf{\FSsf}_{\FSidx{m}_1}} \FSeaa_k [\FSmf{\FSsf}] \, ,\\
+	W_{k,\row{\FSidx{x},\FSidx{m}_n,\mkern-1mu\ldots,\FSidx{m}_2,\FSidx{m}_1}}[\FSf{J}\mkern1.5mu]%
+		\equiv\frac{\delta}{\delta \FSfu{J}{x}}W_{k,\row{\FSidx{m}_n,\mkern-1mu\ldots,\FSidx{m}_2,\FSidx{m}_1}}[\FSmf{\FSsf}]%
+		\equiv \frac{\delta}{\delta \FSfu{J}{x}} \frac{\delta}{\delta \FSf{J}^{\FSidx{m}_n}}\ldots \frac{\delta}{\delta \FSf{J}^{\FSidx{m}_2}} \frac{\delta}{\delta \FSf{J}^{\FSidx{m}_1}} W_k [\FSf{J}\mkern1.5mu] \, ,
+\end{align}
+where additional derivatives are attached from the left, derivatives to the right are performed first, taking derivatives \wrt{} upper (lower) FS indices lowers (raises) the index in question and functional derivatives are understood as derivatives \wrt{} the argument of the functional in question.
+
+For FS components of operators which are not directly related to functional derivatives and which already carry sub- or superscript characters we use a semicolon as separator, \eg, $\FSf{\FSsf}_{k;\FSidx{a}}[\FSff{\FSsf}]$ and $G_{k;\FSidx{ab}}[\FSmf{\FSsf}]$.

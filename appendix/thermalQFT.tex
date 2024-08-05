@@ -1,0 +1,376 @@
+In this appendix, we will briefly discuss the Matsubara formalism~\cite{Matsubara:1955ws} used in this work, for computations in thermal equilibrium (at non-zero temperature).
+We will focus mainly on technical aspects and refer the interested reader to \ccite{Das1997,Zinn-Justin:2000ecv,Kapusta:2006pm,Wipf:2013vp,Laine:2016hma,Mustafa:2022got,Rischke:statQFT} for a comprehensive introduction of thermal (quantum) field theory. An introduction to \frg{} flows at non-zero temperature can be found, \eg{}, \ccite{PawlowskiScript,Litim:2006ag}. This appendix has a corresponding digital auxiliary file~\cite{Steil:2023PhDThermodynamicsNB}.
+
+\section{Grand canonical partition function}\label{app:grandCanonicalPartitionFunction}
+Throughout this work we use the grand canonical ensemble to study equilibrium bulk properties of thermodynamic systems at non-zero temperature $T$, chemical potentials $\mu$\footnote{
+	Through this work we consider only one chemical potential, \viz{} the quark chemical potential.
+	Expressions in this appendix however can trivially be extended to incorporate multiple chemical potentials.%
+} and in our applications constant spatial volume $\spatialVolume{}$. 
+The latter is usually assumed to be asymptotically large/infinite and we limit the discussion to appropriate densities of thermodynamic quantities, \cf{} \cref{eq:thermalFreeEnergyDensity,eq:thermalPressureRaw,eq:thermalEntropyDensity,eq:thermalNumberDensity}.
+The partition function of the grand canonical ensemble is given by
+\begin{align}
+	\thermalPartionFunction=\Tr\thermalDensityMatrix=\Tr\eu^{-\beta \thermalHamiltonian}=\sum_n \eu^{-\beta E_n}\,,
+	\label{eq:thermalPartionFunction}
+\end{align}
+with the density matrix $\thermalDensityMatrix$, the Hamiltonian $\thermalHamiltonian$, and corresponding energy eigenvalues $E_n$ with $\thermalHamiltonian|n\rangle=E_n|n\rangle$.
+The Hamiltonian $\thermalHamiltonian$ includes a Lagrange multiplier $\mu \hat{N}$ realizing the conservation of the associated mean quark number density $n=\langle \hat{N}\rangle$ with the corresponding quark chemical potential $\mu$.
+The latter is a measure of the change in the energy of the system when the number of quarks, \ie{}, quark-anti-quark-asymmetry,  is changed.
+The associated mean quark number density $n$ measures the number of quarks minus the number of anti-quarks per unit volume.
+The ensemble average of an observable represented by the operator $\hat{O}$ is given by
+\begin{align}
+	\langle\mkern1mu\hat{O}\mkern1mu\rangle = \frac{1}{\Tr\thermalDensityMatrix}\Tr\!\del[1]{\thermalDensityMatrix\,\hat{O}} =\frac{1}{\thermalPartionFunction}\Tr\!\del[1]{\hat{O}\eu^{-\beta\thermalHamiltonian}}\, .
+	\label{eq:thermalAverage}
+\end{align}
+
+The traces in \cref{eq:thermalPartionFunction,eq:thermalAverage} can be expressed as
+\begin{align}
+	\thermalPartionFunction&=\Tr\eu^{-\beta \thermalHamiltonian}=\int \dif^{\,s}\!\tilde{\chi} \langle\tilde{\chi}|\eu^{-\beta \thermalHamiltonian}|\tilde{\chi}\rangle\, ,\label{eq:thermalPhiTrace}\\ 
+	\langle\mkern1mu\hat{O}\mkern1mu\rangle &= \frac{1}{\thermalPartionFunction}\int \dif^{\,s}\!\tilde{\chi} \langle\tilde{\chi}|\hat{O}\eu^{-\beta \thermalHamiltonian}|\tilde{\chi}\rangle\, ,
+\end{align}
+using field eigenstates.
+In this context the density matrix $\thermalDensityMatrix$ \dash{} the operator $\eu^{-\beta \thermalHamiltonian}$ \dash{} can be interpreted as an evolution operator on a compact imaginary time axis with $0\le t \le \iu \beta$.
+This allows a computation \dash{} in the Matsubara formalism~\cite{Matsubara:1955ws} \dash{} of such traces as expectation values of Euclidean \qfts{} with a compact Euclidean time-direction $0\le\tau\le\beta$ and on account of the governing traces (anti-)periodic boundary conditions
+\begin{align}
+	\tilde{\chi}(\vec{x},\tau)=\mp\tilde{\chi}(\vec{x},\tau+\beta)\, ,
+	\label{eq:thermalBCs}
+\end{align}
+for (fermionic) bosonic fields.
+In momentum space this periodicity amounts to a replacement of continuous frequencies $p_{d}\equiv p_{s+1}$ associated with the Euclidean time direction with discrete bosonic $\omega_n = 2n \tfrac{\piu}{\beta}$ or fermionic $\nu_n=(2n+1)\tfrac{\piu}{\beta}$ Matsubara frequencies.
+Related conventions for fields, operators, and functional derivatives are presented in \cref{app:fourier}.
+Identities for computations involving Matsubara frequencies are presented in the next \cref{app:matsubaraSums}.
+
+In the context of \cref{subsubsec:generatingFunctionals} the thermodynamic partition function $\thermalPartionFunction$ is given by the Euclidean generating functional in the \ir{} ($k=0$) and at vanishing source $(\FSf{J}=0)$: $\thermalPartionFunction=Z_0[0]$.
+This allows for an identification of the \eaa{} $\FSeaa_0[\FSsfEoM]$ in the \ir{} evaluated on the \qeom{},
+\begin{align}
+	\FSsfEoM{}_{;\FSidx{a}}=\eval[3]{\frac{\delta W_0[\FSf{J}]}{\delta\FSfu{J}{a}}}_{\FSf{J}=0}\qquad\Leftrightarrow\qquad \eval[3]{\frac{\delta \FSeaa_0[\FSmf{\FSsf}] }{\delta \FSmfd{\FSsf}{a}}}_{\FSsf=\FSsfEoM}=0\,,
+	\label{eq:FSsfEoM}
+\end{align}
+\viz{} \cref{eq:dWkdJa,eq:QEOM}, with the so called \textit{grand potential} $\thermalGrandPotential$:
+\begin{align}
+	\thermalGrandPotentialArgs=-T\ln \thermalPartionFunction=T\, \FSeaa_0[\FSsfEoM;\muT]\,.
+	\label{eq:thermalGrandPotential}
+\end{align}
+Therefore $\FSeaa_0[\FSsf]$ does not only carry the information of all \ipi{} correlation function in its moments, it also encodes the thermodynamics of the system when evaluated on the \qeom{} \eqref{eq:FSsfEoM}.
+Explicit solutions for $\FSsfEoM$ depend on temperature and chemical potential.
+In the context of symmetry breaking and phase transitions the \qeom{} \eqref{eq:FSsfEoM} might have multiple solutions. 
+The physical ground state of the system is in this case given by the solution $\FSsfEoM$ which minimizes $\FSeaa_0[\FSsf]$.
+Explicit examples are discussed in \cref{chap:GN,chap:QMM} including both homogeneous $\FSsfEoM=\const$ and inhomogeneous $\FSsfEoM(\vec{x}\vts)$ solutions of the \qeom{}.
+
+For our explicit computations at constant and implicitly infinite spatial volume $\spatialVolume{}$ it is convenient to work with the \textit{grand potential density} $\thermalGrandPotentialDensity$
+\begin{align}
+	\thermalGrandPotentialDensity\equiv \frac{1}{\spatialVolume{}}\thermalGrandPotential=-\frac{T}{\spatialVolume{}}\ln \thermalPartionFunction=\frac{T}{\spatialVolume{}}\FSeaa_0[\FSsfEoM]\,,
+	\label{eq:thermalGrandPotentialDensity}
+\end{align}
+from which one can derive densities of thermodynamic quantities in the usual manner:
+\begin{alignat}{2}
+	f&=-\frac{T}{\spatialVolume{}} \ln \thermalPartionFunction &&= \thermalGrandPotentialDensity \label{eq:thermalFreeEnergyDensity}\,,\\
+	p&=\frac{\partial T \ln \thermalPartionFunction}{\partial V} &&= -\thermalGrandPotentialDensity \label{eq:thermalPressureRaw}\,,\\
+	s&=\frac{1}{ \spatialVolume{}} \frac{\partial T \ln \thermalPartionFunction}{\partial T} &&= -\frac{\partial\thermalGrandPotentialDensity}{\partial T}  \label{eq:thermalEntropyDensity}\,,\\
+	n&=-\frac{1}{\spatialVolume{}} \frac{\partial T \ln \thermalPartionFunction}{\partial \mu} &&= -\frac{\partial\thermalGrandPotentialDensity}{\partial \mu} \label{eq:thermalNumberDensity}\,,
+\end{alignat}
+with the Landau free energy density $f$, the pressure $p$, the entropy density $s$, and the mean quark number density $n$.
+The energy density $\varepsilon$ follows with the Gibbs-Duhem relation as
+\begin{align}
+	\varepsilon=-p+ Ts+ \mu n\,.
+	\label{eq:thermalEnergyDensity}
+\end{align}
+\Cref{eq:thermalPressureRaw} holds only if the \eaa{} in the \ir{} is normalized such that ${\thermalGrandPotentialDensity(\muT[0][0])=0}$ reproduces a vanishing pressure in vacuum.
+Such a normalization is not very practical and in fact not necessary since ${\thermalGrandPotentialDensity(\muT[0][0])=0}$ can be realized for any sensible normalization by modifying
+\cref{eq:thermalPressureRaw}:
+\begin{align}
+	p&=-(\thermalGrandPotentialDensity(\muT)-\thermalGrandPotentialDensity(\muT[0][0]))=\frac{T}{\spatialVolume{}}\del{\FSeaa_0[\muT[0][0];\FSsfEoM]-\FSeaa_0[\muT;\FSsfEoM]}\,.\label{eq:thermalPressure}
+\end{align}
+
+For the study of phase transitions and symmetry breaking it is convenient to define the effective potential 
+\begin{align}
+	\VeffFArgs{\muT;\FSsf}\equiv\frac{T}{\spatialVolume{}} \FSeaa_0[\muT;\FSsf]\, ,
+	\label{eq:VeffFdef}
+\end{align}
+which entails for the extremum $\FSsfEoM$ 
+\begin{align}
+	\eval[3]{\frac{\delta \VeffFArgs{\muT;\FSsf} }{\delta \FSmfd{\FSsf}{a}}}_{\FSsf=\FSsfEoM}=0\,,
+	\label{eq:VeffFEoM}
+\end{align}
+as a variant of \cref{eq:FSsfEoM}.
+The grand potential density $\thermalGrandPotentialDensity$ is found by minimizing $\VeffFArgs{\muT;\FSsf}$ \wrt{} $\FSsf$ and $\thermalGrandPotentialDensity(\muT)=\VeffFArgs{\muT;\FSsfEoM}$. When studying homogeneous condensation, the effective potential becomes a function (not a functional) of the homogeneous/constant expectation values $\FSsf$ and the effective potential can be identified with the local potential $\VeffArgs{\muT;\FSsf}=U_0(\muT;\FSsf)$, \cf{} \cref{chap:GN,chap:QMM} for explicit applications.
+
+\section{Selected Matsubara sums and identities for distribution functions}\label{app:matsubaraSums}
+Symbolic expressions arising in computations in the Matsubara formalism involve so called Matsubara sums 
+\begin{align}
+	\frac{1}{\beta}\sum_{n=-\infty}^{\infty} f(\omega_n)\qquad\text{or}\qquad\frac{1}{\beta}\sum_{n=-\infty}^{\infty} g(\nu_n) \label{eq:matsubaraSumsSymbolic}
+\end{align}
+involving bosonic $\omega_n = 2n \tfrac{\piu}{\beta}$ or fermionic $\nu_n=(2n+1)\tfrac{\piu}{\beta}$ Matsubara frequencies.
+Such sums can usually be computed by means of the residue theorem using bosonic (Bose-Einstein~\cite{Bose:1924mk})
+\begin{align}
+	\nb(x)\equiv \frac{1}{\eu^x-1}=\frac{1}{2}\coth\left(\tfrac{x}{2}\right)-\frac{1}{2}\label{eq:nfDef}
+\end{align}
+or fermionic (Fermi-Dirac~\cite{Fermi:1926,Fermi:1999ncp,Dirac:1926jz})
+\begin{align}
+	\nf(x)\equiv \frac{1}{\eu^x+1}=\frac{1}{2}-\frac{1}{2}\tanh\left(\tfrac{x}{2}\right) \label{eq:nbDef}
+\end{align}
+distribution functions, which have poles at $\iu \omega_n$ and $\iu \nu_n$ respectively.
+Using the residue theorem the sums in \cref{eq:matsubaraSumsSymbolic} can be expressed as contour integrals using the distributions functions with the initial contour enclosing all poles of the distribution functions.
+When considering sums involving well-behaved functions $f$ or $g$, which decay sufficiently fast for arguments with a large absolute value, the contours can be deformed to include the poles of $f$ or $g$ instead of the poles of the distributions functions without changing the result of the integrals.
+The remaining contour integrals can be evaluated using the residue theorem backwards to express the contour integrals as sums over the poles of $f$ or $g$.
+Explicit computations for typical sums can be found in, \eg{}, \ccite{Laine:2016hma}.
+After presenting useful relations and identities for the distribution functions we will present results for selected explicit Matsubara sums relevant for this work.
+The following expressions and corresponding computations can be found in the chapter \textit{Distribution functions} of the digital auxiliary file~\cite{Steil:2023PhDThermodynamicsNB}.
+
+Using the definitions \eqref{eq:nbDef} and \eqref{eq:nfDef} for $\nb(x)$ and $\nf(x)$ the following identities for powers and derivatives of the distribution functions are straightforward to derive
+\begin{align}
+	\nb'(x) &= -\tfrac{1}{4} \sinh^{-2}\left(\tfrac{x}{2}\right)=\\
+		&= -\nb(x)^2-\nb(x) \, ,\notag\\
+	\nb''(x) &= \tfrac{1}{4} \coth \left(\tfrac{x}{2}\right) \sinh^{-2}\left(\tfrac{x}{2}\right)=\\
+		&= 2 \nb(x)^3+3 \nb(x)^2+\nb(x) \, ,\notag\\
+	\nb'''(x) &= -\tfrac{1}{8} \sinh^{-4}\left(\tfrac{x}{2}\right)-\tfrac{1}{4} \coth ^2\left(\tfrac{x}{2}\right) \sinh^{-2}\left(\tfrac{x}{2}\right)=\\
+		&= -6 \nb(x)^4-12 \nb(x)^3-7 \nb(x)^2-\nb(x) \, ,\notag
+\end{align}
+\begin{align}
+	\nb(x)^2 &= -\nb'(x)-\nb(x) \, ,\\
+	\nb(x)^3 &= \tfrac{1}{2}\nb''(x) + \tfrac{3}{2}\nb'(x)+\nb(x) \, ,\\
+	\nb(x)^4 &= -\tfrac{1}{6} \nb'''(x)-\nb''(x)-\tfrac{11}{6}\nb'(x)-\nb(x) \, ,
+\end{align}
+\begin{align}
+	\nf'(x) &= -\tfrac{1}{4} \coth^{-2}\left(\tfrac{x}{2}\right)=\\
+		&= \nf(x)^2-\nf(x) \, ,\notag\\
+	\nf''(x) &= \tfrac{1}{4} \tanh \left(\tfrac{x}{2}\right) \coth^{-2}\left(\tfrac{x}{2}\right)=\\
+		&= 2 \nf(x)^3-3 \nf(x)^2+\nf(x) \, ,\notag\\
+	\nf'''(x) &= \tfrac{1}{8} \coth^{-4}\left(\tfrac{x}{2}\right)-\tfrac{1}{4} \tanh ^2\left(\tfrac{x}{2}\right) \coth^{-2}\left(\tfrac{x}{2}\right)=\\
+		&= 6 \nf(x)^4-12 \nf(x)^3+7 \nf(x)^2-\nf(x) \, ,\notag
+\end{align}
+\begin{align}
+	\nf(x)^2 &= \nf'(x)+\nf(x) \, ,\\
+	\nf(x)^3 &= \tfrac{1}{2}\nf''(x) + \tfrac{3}{2}\nf'(x)+\nf(x) \, ,\\
+	\nf(x)^4 &= \tfrac{1}{6} \nf'''(x) + \nf''(x) +\tfrac{11}{6}\nf'(x)+\nf(x)\, .
+\end{align}
+Additionally relations for the indefinite parity 
+\begin{align}
+	\nb(-x)&=-1-\nb(x) \, ,\\
+	\nf(-x)&= 1-\nf(x) \, ,
+\end{align}
+and transmutations 
+\begin{align}
+	\nb(\beta(E+\iu\omega_n))&=\nb(\beta E) \, ,\qquad \nb(\beta(E+\iu\nu_n))=-\nf(\beta E) \, ,\\
+	\nf(\beta(E+\iu\omega_n))&=\nf(\beta E) \, ,\qquad\, \nf(\beta(E+\iu\nu_n))=-\nb(\beta E) \, ,
+\end{align}
+of distribution functions are again direct consequences of the definitions \eqref{eq:nbDef} and \eqref{eq:nfDef}.
+In the limit of vanishing temperature ($\beta=1/T\rightarrow\infty$) we find
+\begin{align}
+	\forall E>0\quad \lim_{\beta\rightarrow\infty} \nb(\beta E) &= \lim_{\beta\rightarrow\infty} \frac{1}{\eu^{\beta E}-1} =0 \, ,\label{eq:nbZeroT}\\
+	\forall E>0,\,\mu\geq 0\quad \lim_{\beta\rightarrow\infty} \nf(\beta (E+\mu)) &= \lim_{\beta\rightarrow\infty} \frac{1}{\eu^{\beta (E+\mu)}-1} =0 \, ,\label{eq:nfpmuZeroT}\\
+	\forall E>0,\,\mu\geq 0\quad \lim_{\beta\rightarrow\infty} \nf(\beta (E-\mu)) &= \lim_{\beta\rightarrow\infty} \frac{1}{\eu^{\beta (E-\mu)}-1} = %
+	\Theta(\mu-E)\equiv\begin{cases}1 & E<\mu\\ \tfrac{1}{2} & E=\mu \\ 0 & E>\mu \end{cases}\, , \label{eq:nfmmuZeroT}
+\end{align}
+with the Heaviside step function $\Theta(x)$ in half-maximum convention with $\Theta(0)=\tfrac{1}{2}$.\\
+
+In the computation of (non-perturbative) one-loop diagrams involving a single propagator the bosonic sum
+\begin{align}
+	\mathcal{M}_\mathrm{b}^1(\mu,\beta;E)\equiv \mathcal{M}_\mathrm{b}^1(\beta;E)\equiv\frac{1}{\beta}\sum_{n=-\infty}^{\infty}\frac{1}{\omega_n^2+E^2}=\frac{1}{2E}+\frac{\nb(\beta E)}{E}\label{eq:Mb1}
+\end{align}
+and the fermionic sum 
+\begin{align}
+	\mathcal{M}_\mathrm{f}^1(\mu,\beta;E)\equiv \frac{1}{\beta}\sum_{n=-\infty}^{\infty}\frac{1}{(\nu_n+\iu\mu)^2+E^2}=\frac{1}{2E}-\frac{\nf(\beta(E+\mu))}{2E}-\frac{\nf(\beta(E-\mu))}{2E} \label{eq:Mf1}
+\end{align}
+are frequently encountered. The identities
+\begin{align}
+	\mathcal{M}_\mathrm{b}^0(\mu,\beta;E)&\equiv\mathcal{M}_\mathrm{b}^0(\beta;E)\equiv \frac{1}{\beta}\sum_{n=-\infty}^{\infty}\ln[\beta^2(\omega_n^2+E^2)]=\notag\\[.25em]
+	&=-E-\tfrac{2}{\beta}\ln[\nb(\beta E)]+\const \label{eq:Mb0}\\[.25em]
+	&= E+\tfrac{2}{\beta}\ln\big[1+\eu^{-\beta E}\big] +\const\, ,\label{eq:Mb0split}\\[.25em]
+	\mathcal{M}_\mathrm{f}^0(\mu,\beta;E)&\equiv \frac{1}{\beta}\sum_{n=-\infty}^{\infty}\ln[\beta^2((\nu_n+\iu\mu)^2+E^2)]=\notag\\[.25em]
+		&=-E-\tfrac{1}{\beta}\ln[\nf(\beta (E+\mu))]-\tfrac{1}{\beta}\ln[\nf(\beta (E-\mu))]+\const \label{eq:Mf0}\\[.25em]
+		&=E+\tfrac{1}{\beta}\ln\big[1+\eu^{-\beta (E+\mu)}\big]+\tfrac{1}{\beta}\ln\big[1+\eu^{-\beta (E-\mu)}\big]+\const \, ,\label{eq:Mf0split}
+\end{align}
+containing divergent but in $E$, $\beta$, and $\mu$ constant contributions follow directly from the identities~\eqref{eq:Mb1} and \eqref{eq:Mf1} when applying $\tfrac{1}{2E}\tfrac{\partial}{\partial E}$ to them.
+$\mathcal{M}_{\mathrm{b}/\mathrm{f}}^0$ appear in the study of zero-point functions \dash{} effective/thermodynamic potentials \dash{} and naturally in (partial) integrals involving expressions containing $\mathcal{M}_{\mathrm{b}/\mathrm{f}}^1$.
+
+In the computation of computation of two-point functions Matsubara sums involving multiple energies appear frequently. The simplest sums of this type are
+\begin{align}
+	\mathcal{M}_\mathrm{b}^{1,1}(\mu,\beta;E_1,E_2)&\equiv\mathcal{M}_\mathrm{b}^{1,1}(\beta;E_1,E_2)\equiv \frac{1}{\beta}\sum_{n=-\infty}^{\infty}\frac{1}{\omega_n^2+E_1^2}\frac{1}{\omega_n^2+E_2^2}=\notag\\[.25em]
+	&= \frac{1}{2E_1(E_2^2-E_1^2)}(1+2\nb(\beta E_1))+ 1\leftrightarrow2 \, , \label{eq:Mb11}\\[.25em]
+	\mathcal{M}_\mathrm{f}^{1,1}(\mu,\beta;E_1,E_2)&\equiv \frac{1}{\beta}\sum_{n=-\infty}^{\infty}\frac{1}{(\nu_n+\iu\mu)^2+E_1^2}\frac{1}{(\nu_n+\iu\mu)^2+E_2^2}=\notag\\[.25em]
+	&= \frac{1}{2E_1(E_2^2-E_1^2)}(1+\nf(\beta (E_1+\mu))+\nf(\beta (E_1-\mu)))+ 1\leftrightarrow2 \, . \label{eq:Mf11}
+\end{align}
+Related sums involving higher powers of $(\omega_n^2+E_i^2)$ or $((\nu_n+\iu\mu)^2+E_i^2)$ can be readily computed by applying $-\tfrac{1}{2E_i}\tfrac{\partial}{\partial E_i}$ to $\mathcal{M}_\mathrm{b}^{1,1}(\mu,\beta;E_1,E_2)$ or $\mathcal{M}_\mathrm{f}^{1,1}(\mu,\beta;E_1,E_2)$ potentially repeatedly.
+
+The zero-temperature limits of the presented Matsubara sums can be obtained with the help of the limits of \cref{eq:nbZeroT,eq:nfmmuZeroT,eq:nfpmuZeroT}.
+For renormalization and regularization it is often advantageous to split (if possible) the Matsubara sums into vacuum and medium parts in the following way
+\begin{align}
+	\mathcal{M}(\mu,\beta)&\equiv \mathcal{M}_{;\vac} +\mathcal{M}_{;\med}(\mu,\beta)\, ,
+\end{align}
+where 
+\begin{align}
+	\mathcal{M}_{;\vac} &\equiv \lim_{\beta \rightarrow \infty } \mathcal{M}(\mu=0,\beta)\, ,\\
+	\mathcal{M}_{;\med}(\mu,\beta) &\equiv \mathcal{M}(\mu,\beta) - \mathcal{M}_{;\vac} \, .
+\end{align}
+For the Matsubara sums presented in this appendix this split can be read of the given expressions directly when noting that both the bosonic and fermionic distribution functions vanish in the zero-temperature limit at vanishing chemical potential $\mu$. For the sums $\mathcal{M}_\mathrm{b/f}^0(\mu,\beta;E)$ the alternative expressions \eqref{eq:Mb0split} and \eqref{eq:Mf0split} should be considered to directly read of the zero-temperature limit and/or the split in vacuum and medium parts.
+
+\section{Momentum integrals and related notations}\label{app:momInt}
+Throughout this work and in \qft{} in general we are frequently faced with momentum-space integrals \dash{} often referred to as loop integrals.
+Before commenting on their evaluation (especially in the \frg{} context) note and recall the following identities between \rgtime{} $t$, \rgscale{} $k$, the dimensionless ration $y$, and spatial momentum $p$,
+\begin{alignat}{2}
+	y&\equiv \frac{p^2}{k^2} \qquad &&\longrightarrow \qquad \dif p \rightarrow \frac{k^2}{2p}\dif y\, ,\label{eq:yId}\\[0.2em]
+	k&\equiv \Lambda \eu^{-t} \qquad &&\longrightarrow \qquad \partial_t = -k \partial_k = 2 y \partial_y \, ,\label{eq:ktyId}
+\end{alignat}
+\cf{} \cref{eq:def_rg_time,eq:yofpkDef}.
+
+For $s$-dimensional momentum-space integrals with spherical symmetry, \ie{}, their integrands depend only on the absolute value/square the spatial momentum, we employ hyperspherical coordinates
+\begin{align}
+\int\frac{\dif^{\,s}\! p}{(2\piu)^s}f(|\vec{p}\vts|) = \frac{a_s}{(2\piu)^s}\int_0^\infty \dif p\, p^{s-1}f(p)=s A_s\int_0^\infty \dif p\, p^{s-1}f(p)\, ,\label{eq:sphericalCords}
+\end{align}
+with hypervolume $a_s$ of the $s-1$ unit sphere (area of the boundary of the $s$-dimensional unit ball) and the related factor $A_s$:
+\begin{alignat}{2}
+	a_s&\equiv \frac{2\piu^\frac{s}{2}}{\Gamma(\tfrac{s}{2})}\, ,\qquad &&\text{with} \quad a_1=2\,, \quad\text{and}\quad a_3=4\piu\, ,\label{eq:asDef}\\[.2em]
+	A_s&\equiv\frac{a_s}{s(2\piu)^s}= \frac{2^{1-s}\piu^{-\frac{s}{2}}}{s\Gamma(\tfrac{s}{2})}\, ,\qquad &&\text{with} \quad A_1=\tfrac{1}{\piu}\,, \quad\text{and}\quad A_3=\tfrac{1}{6\piu^2}\, .\label{eq:AsDef}
+\end{alignat}
+Note that one-dimensional hyperspherical coordinates $(s=1)$ are trivial in the sense that they just entail using the \ZII{} symmetry of the one-dimensional momentum integral (hence $a_1=2$) and three-dimensional hyperspherical coordinates $(s=3)$ are just canonical spherical coordinates (hence $a_3=4\piu$, \viz{} the surface area of the 2-sphere).\bigskip
+
+The following compact notation for regulated spatial momenta
+\begin{align}
+\vec{p}_{k}\equiv \vec{p}\, \sqrt{\lambda(\vec{p}^{\, 2}/k^2)}\,,
+\label{eq:pkReg}
+\end{align}
+with $\lambda(y)\equiv r(y)+1\equiv \rb(y)+1\equiv(\rf(y)+1)^2$ from \cref{eq:rfrbDef}, is particularly useful for our \frg{} computations in \cref{chap:GN,chap:QMM} and the corresponding \cref{app:gn}.
+
+\section{Series expansion for the medium part of the MF thermodynamic potential}\label{app:seriesV}
+The medium contribution to the effective potential in \mf{} approximation of a fermionic theory $\VeffArgs[\mathrm{f};\med]{\muT;\Delta}$ in \dxy{s}{1} dimensions involves the $s$-momentum integral over the medium part of the Matsubara sum $\mathcal{M}_{f}^0$, \cf{} \cref{eq:Mf0split}, 
+\begin{align}
+	\VeffArgs[\mathrm{f};\med]{\muT;\Delta}\equiv -\frac{d_\gamma N}{2}\int\frac{\dif^{\,s}\! p}{(2\piu)^s}\mathcal{M}_{f;\med}^0\big(\mu,\beta;\sqrt{p^2+\Delta^2}\mkern2mu\big),\label{eq:VfmedApp}
+\end{align}
+with the dimension $d_\gamma=\Tr(\Id_\gamma)$ of the matrix representation of the Clifford algebra \eqref{eq:clifford} (in even dimensions typically ${d_\gamma\equiv 2^{\lfloor d/2\rfloor}}$) used for the fermions, $N$ the number of different fermion species, and the quark mass $\Delta$ associated with homogeneous, spontaneous (chiral) symmetry breaking.
+
+The Ginzburg–Landau expansions discussed in \cref{subsec:GNGL} require an expansion of \cref{eq:VfmedApp} around $\Delta=0$. Such an expansion can be computed by expressing the integral in \cref{eq:VfmedApp} with a series of modified Bessel function of the second kind $\mathrm{K}_n(x)$~\cite{abramowitz+stegun,Mathematica:13.0} following \ccite{Actor:1986zf} one can derive:
+\begin{align}
+	\VeffArgs[\mathrm{f};\med]{\muT;\Delta}=\frac{2^{1-n}d_\gamma N}{\piu^n}(\beta\Delta)^n \beta^{-2n}\sum_{m=1}^\infty (-1)^m\mathrm{K}_n(m \beta \Delta)\cosh(m \beta \mu)\, ,\label{eq:VfmedBesselApp}
+\end{align}
+with the inverse temperature $\beta=1/T$ and $n=\tfrac{s+1}{2}$.
+A detailed derivation of this and the following expressions of this section can be found in the chapter 4 of the digital auxiliary file~\cite{Steil:2023PhDThermodynamicsNB}.
+
+Using the \textit{ascending  Series for $\mathrm{K}_n(x)$ for integer $n$} from Eq. (9.6.11) of \ccite{abramowitz+stegun} it is possible to split the sum in \cref{eq:VfmedBesselApp} and rewrite it in terms of a modified power series in $\Delta$ for odd spatial dimensions $s$ (integer $n$):
+\begin{align}
+	\VeffArgs[\mathrm{f};\med]{\muT;\Delta}&=2^{-n}d_\gamma N \sum_{k=0}^{n-1}\frac{(-1)^k}{2^{2k+1-n}\piu^n}\frac{(n-k-1)!}{k!}\beta^{2k-2n}\Delta^{2k}\times\notag\\
+	&\qquad\qquad\qquad\qquad\qquad\qquad\times\del{\mathrm{Li}_{2n-2k}(-\eu^{-\beta\mu})+\mathrm{Li}_{2n-2k}(-\eu^{\beta\mu})} +\notag\\
+	&\qquad +2^{-n}d_\gamma N \frac{(-1)^n}{(2\piu)^n n!}\Delta^{2n} \del{\emc -\tfrac{\mathrm{H}_n}{2}+\ln\del{\tfrac{\beta \Delta}{2}}+\mathrm{DLi}_0(\beta \mu)}+ \notag\\
+	&\qquad +2^{-n}d_\gamma N\sum_{k=1}^{\infty} \frac{(-1)^n}{2^{2k+n}\piu^n k!(k+n)!}\beta^{2k}\Delta^{2(k+n)}\mathrm{DLi}_{2n}(\beta \mu) \, ,\label{eq:VfmedPolyApp}
+\end{align}
+involving the Euler-Mascheroni constant $\emcApprox$, the harmonic number $\mathrm{H}_n$  ($H_1=1$ and $H_2=3/2$), and (derivatives of) the polylogarithm function $\mathrm{Li}_n(z)$\footnote{%
+	At this point we have to apologize for the differing definitions for the subscript of $\DLi_{2n} ( z ) $ across our publications~\cite{Stoll:2021ori,Koenigstein:2021llr}.
+	Throughout this work we exclusively and consistently use the definitions of \cref{eq:def_dli,eq:dli_polyGamma} which can be translated by switching sign in the subscript $\DLi_{2n} ( z )\leftrightarrow \DLi_{-2n} ( z ) $ in \ccite{Stoll:2021ori,Koenigstein:2021llr}.%
+}%
+\begin{subequations}
+\begin{align}
+	\mathrm{DLi}_{2n} ( z ) &\equiv \big[ \tfrac{\partial}{\partial m} \mathrm{Li}_m ( - \eu^{z} ) + \tfrac{\partial}{\partial m} \mathrm{Li}_m ( - \eu^{- z} ) \big]_{m = -2n} \, = \label{eq:def_dli}\\*[.2em] % no page break
+	&= -\delta_{0,n}(\,\ln(2\piu)+\emc\,) + (-1)^{1+n} (2\piu)^{-2n}\Re\MFpsi^{(2n)}\big(\tfrac{1}{2}+\tfrac{\iu}{2\piu}z\big) \, . \label{eq:dli_polyGamma}
+\end{align}
+\end{subequations}
+The representation\footnote{%
+	Expressions involving $\Re\MFpsi^{(2n)}(\tfrac{1}{2}+\tfrac{\iu}{2\piu}z)$ appear throughout analytic work for limits, expansion, and evaluations involving fermionic distribution functions.
+	We do not claim that the expression \eqref{eq:dli_polyGamma} in conjunction with \cref{eq:VfmedPolyApp} is original to this work but we do not have an explicit reference for this formulation either.
+	A similar expansion to \cref{eq:VfmedPolyApp} can be found in \ccite{Blinnikov1988Sep} which is referenced in \ccite{Ahmed:2018tcs}.%
+}~\eqref{eq:dli_polyGamma} for $\mathrm{DLi}_{2n} ( z ) $ is based on identities for the polygamma function $\MFpsi^{(2n)}$, see, \eg{}, \ccite{abramowitz+stegun,Mathematica:13.0,NIST:DLMF}, and a relation with the Hurwitz zeta function, \cf{} identity 25.11.12 of \ccite{NIST:DLMF}.
+\cref{eq:dli_polyGamma} is better suited for numerical computations of $\mathrm{DLi}_{2n} ( z ) $ when compared to the defining expression \eqref{eq:def_dli}.
+
+\fullWidthFigure[t]%
+	{appendix/figures/DLi_plots}%
+	{%
+		First four functions $\mathrm{DLi}_{2n}(z)$ for $n=0,1,2,3$ plotted log-linearly over $z=\mu \beta$.
+		The roots of $\mathrm{DLi}_{2n}(z)$ for $n=1,2,3$ are marked with solid dots and additional grid lines while the corresponding numerical values (in double precision \dash{} $16$ decimal digits) for the roots can be found in Eqs.~\eqref{eq:DLi2Zero1}, \eqref{eq:DLi4Zero}, and \eqref{eq:DLi6Zero}.
+		$\mathrm{DLi}_{2n}(z)$ decay asymptotically for large $z$ with $z^{-2n}$ for $n>0$ while $\mathrm{DLi}_{0}(z)$ diverges logarithmically.
+		The asymptotics of $\mathrm{DLi}_{0}(z)$ for $z\rightarrow\infty$ is plotted in the corresponding panel (upper left) as a gray-dashed line.
+	}%
+	{fig:DLi_plots}
+\Cref{fig:DLi_plots} displays the first four $\mathrm{DLi}_{2n} ( z )$ with their asymptotics and roots.
+For positive integer $n$ $\mathrm{DLi}_{2n} ( z ) $ are smooth, ``well behaved'', and their roots can be computed numerically to arbitrary precision using \WAMwR{}.
+$\DLi_{0} ( z ) $ has no root, $\DLi_{2} ( z ) $ has a single root located at
+\begin{align}
+	z_{2,1}=1.910668692586341\,,\label{eq:DLi2Zero1}
+\end{align}
+$\DLi_{4} ( z )$ has two roots located at
+\begin{subequations}\label{eq:DLi4Zero}
+\begin{align}
+	z_{4,1}&=1.024174392948833\,,\label{eq:DLi4Zero1}\\
+	z_{4,2}&=4.359150199084925\,,\label{eq:DLi4Zero2}
+\end{align}
+\end{subequations}
+and $\DLi_{6} ( z ) $ has three roots located at
+\begin{subequations}\label{eq:DLi6Zero}
+\begin{align}
+	z_{6,1}&=0.717273524934982\,,\label{eq:DLi6Zero1}\\
+	z_{6,2}&=2.505674421545387\,,\label{eq:DLi6Zero2}\\
+	z_{6,3}&=6.473624182009944\,.\label{eq:DLi6Zero3}
+\end{align}
+\end{subequations}
+Evaluating \cref{eq:VfmedPolyApp} explicitly for $s=1$ and $s=3$ ($n=1$ and $n=2$) we arrive at Ginzburg–Landau expansions for $\mathcal{V}_{\mathrm{f};\med}$
+in form of modified power series in $\Delta$ presented in \cref{app:Vmedf1Series,app:Vmedf3Series}.
+Modified in the sense that $\alpha_2^{s=1}(\muT)$ and $\alpha_4^{s=3}(\muT)$ contain logarithmic divergencies $\ln{\Delta}$, which are however highly relevant and in fact physical rather than artificial, see, \eg{}, \cref{eq:GNalpha2}.
+The zero temperature limit ($\beta\rightarrow\infty$) in the following equations is computed using the appropriate expansions (6.3.18) and (6.4.11) of \ccite{abramowitz+stegun} for the polygamma function and they are cross-checked using the explicit computations at $T=0$ of \cref{app:zeroT}~\cite{Steil:2023PhDThermodynamicsNB}.
+
+\subsection{Ginzburg-Landau series \texorpdfstring{for $\mathcal{V}_{\mathrm{f};\med}^{s=1}(\muT;\Delta)$}{} in one spatial dimension}\label{app:Vmedf1Series}
+\begin{align}
+	\VeffArgs[\mathrm{f};\med][s=1]{\muT;\Delta} &= \frac{d_\gamma N}{2}\sum_{m=0}^\infty \alpha_{2m}^{s=1}(\muT)\Delta^{2m}\, ,
+\end{align}
+with the first six non-vanishing medium Ginzburg-Landau coefficients
+\begin{align}
+	\alpha_0^{s=1}(\muT) &= -\tfrac{\mu^2}{2 \piu }-\tfrac{\piu  T^2}{6}\, ,\label{eq:s1alpha0} \\[.25em]
+	\alpha_2^{s=1}(\muT) &= -\frac{1}{2\piu}\del[1]{\DLi_0(\tfrac{\mu}{T}) + \ln (\tfrac{\Delta }{2 T}) + \emc -\tfrac{1}{2} } = \notag\\[.25em]
+	&=\begin{cases}
+		-\frac{1}{2 \piu }\del[1]{-\Re\MFpsi^{(0)}(\tfrac{\iu \mu }{2 \piu  T}+\tfrac{1}{2})+\ln (\tfrac{\Delta }{4 \piu  T})-\tfrac{1}{2}} &\text{for}\quad \mu>0\land T>0 \\[.25em]
+		-\frac{1}{2 \piu }\del[1]{\ln (\tfrac{\Delta }{\piu  T})+\emc -\tfrac{1}{2}} &\text{for}\quad \mu=0\land T\geq 0\\[.25em]
+		-\frac{1}{2 \piu }\del[1]{\ln (\tfrac{\Delta }{2 \mu })-\tfrac{1}{2}} &\text{for}\quad  \mu\geq 0\land T=0
+	\end{cases}\, ,\label{eq:s1alpha2}\\[.25em]
+	\alpha_4^{s=1}(\muT) &=  -\frac{\DLi_2(\tfrac{\mu}{T})}{16\piu T^2} = \begin{cases}
+		\frac{1}{64 \piu ^3 T^2}\Re\MFpsi^{(2)}(\tfrac{\iu \mu }{2 \piu  T}+\tfrac{1}{2}) &\text{for}\quad \mu>0\land T>0 \\[.25em]
+		\frac{7 \zeta (3)}{32 \piu ^3 T^2} &\text{for}\quad \mu=0\land T\geq 0 \\[.25em]
+		-\frac{1}{16 \piu  \mu ^2} &\text{for}\quad  \mu\geq 0\land T=0
+	\end{cases}\, \label{eq:s1alpha4} ,\\[.25em]
+	\alpha_6^{s=1}(\muT) &= -\frac{\DLi_4(\tfrac{\mu}{T})}{384\piu T^4} = \begin{cases}
+		\frac{1}{6114 \piu ^5 T^4}\Re\MFpsi^{(4)}(\tfrac{\iu \mu }{2 \piu  T}+\tfrac{1}{2}) &\text{for}\quad \mu>0\land T>0 \\[.25em]
+		-\frac{31 \zeta (5)}{256 \piu ^5 T^4} &\text{for}\quad \mu=0\land T\geq 0 \\[.25em]
+		-\frac{1}{64 \piu  \mu ^4} &\text{for}\quad \mu \geq 0\land T=0
+	\end{cases}\, ,\label{eq:s1alpha6} 
+\end{align}
+which can also be found in \ccite{Ahmed:2018tcs} for $\mu>0\land T>0$.
+The adept reader might recognize the Stefan-Boltzmann pressure of a massless free Fermi gas in $1 + 1$ dimensions, see, \eg{}, \nbccite{Ahmed:2018tcs} and the textbooks~\cite{Kleinert:2016,Kapusta:2006pm}, in \cref{eq:s1alpha0} for $- \alpha_0^{s=1}(\muT)$.
+
+\subsection{Ginzburg-Landau series \texorpdfstring{for $\mathcal{V}_{\mathrm{f};\med}^{s=3}(\muT;\Delta)$}{} in three spatial dimension}\label{app:Vmedf3Series}
+\begin{align}
+	\VeffArgs[\mathrm{f};\med][s=3]{\muT;\Delta} &= \frac{d_\gamma N}{4}\sum_{m=0}^\infty \alpha_{2m}^{s=3}(\muT)\Delta^{2m}\, ,
+\end{align}
+with the first six non-vanishing medium Ginzburg-Landau coefficients
+\begin{align}
+	\alpha_0^{s=3}(\muT) &= -\tfrac{\mu ^4}{12 \piu ^2}-\tfrac{\mu ^2 T^2}{6}-\tfrac{7 \piu ^2 T^4}{180} \, ,\label{eq:s3alpha0} \\[.25em]
+	\alpha_2^{s=3}(\muT) &= \tfrac{\mu ^2}{4 \piu ^2}+\tfrac{T^2}{12}\, ,\label{eq:s3alpha2} \\[.25em]
+	\alpha_4^{s=3}(\muT) &= \frac{1}{8 \piu^2}\del[1]{\DLi_{0}(\tfrac{\mu}{T}) +\ln (\tfrac{\Delta }{2  T}) +\emc-\tfrac{3}{4} } = \notag \\[.25em]
+	&=\begin{cases}
+		\frac{1}{8 \piu ^2}\del[1]{-\Re\MFpsi^{(0)}(\tfrac{\iu \mu }{2 \piu  T}+\tfrac{1}{2})+\ln (\tfrac{\Delta }{4 \piu  T})-\tfrac{3}{4}} &\text{for}\quad \mu>0\land T>0 \\[.25em]
+		\frac{1}{8 \piu ^2}\del[1]{\ln (\tfrac{\Delta }{\piu  T})+\emc -\tfrac{3}{4}} &\text{for}\quad \mu=0\land T\geq 0 \\[.25em]
+		\frac{1}{8 \piu ^2}\del[1]{\ln (\tfrac{\Delta }{2 \mu })-\tfrac{3}{4}} &\text{for}\quad  \mu\geq 0\land T=0
+	\end{cases}\, ,\label{eq:s3alpha4}\\[.25em]
+	\alpha_6^{s=3}(\muT) &= \frac{\DLi_{2}(\tfrac{\mu}{T})}{96\piu^2T^2} = 
+	\begin{cases}
+		\frac{1}{384 \piu ^4 T^2}\Re\MFpsi^{(2)}(\tfrac{\iu \mu }{2 \piu  T}+\tfrac{1}{2}) &\text{for}\quad \mu>0\land T>0 \\[.25em]
+		-\frac{7 \zeta (3)}{192 \piu ^4 T^2} &\text{for}\quad \mu=0\land T\geq 0 \\[.25em]
+		\frac{1}{96 \piu ^2 \mu ^2} &\text{for}\quad  \mu\geq 0\land T=0
+	\end{cases}\, .\label{eq:s3alpha6} 
+\end{align}
+The adept reader might recognize the Stefan-Boltzmann pressure of a massless free Fermi gas in $3 + 1$ dimensions, see, \eg{}, \ccite{Herbst:2013ail} and the textbooks~\cite{Kleinert:2016,Kapusta:2006pm}, in \cref{eq:s3alpha0} for $- \alpha_0^{s=3}(\muT)$.
+
+\section{Zero temperature limit of the medium part of the MF thermodynamic potential}\label{app:zeroT}
+Using \cref{eq:nfmmuZeroT} we can compute $\mathcal{V}_{\mathrm{f};\med}(\muT[\mu][T=0];\Delta)$ from \cref{eq:VfmedApp} directly for $\mu>0$
+\begin{align}
+	\mathcal{V}_{\mathrm{f};\med}(\muT[\mu][T=0];\Delta) &= -\frac{d_\gamma N}{2}\lim_{\beta\rightarrow\infty}\int\frac{\dif^{\,s}\! p}{(2\piu)^s}\mathcal{M}_{f;\med}^0\big(\mu,\beta;\sqrt{p^2+\Delta^2}\mkern2mu\big)\\[.1em]
+	&=-\frac{d_\gamma N}{2} \frac{a_s}{(2\piu)^s} \int_0^\infty\dif p \, p^{s-1}\del{\mu-\sqrt{p^2+\Delta^2}} \Theta\del{\mu-\sqrt{p^2+\Delta^2}}\\[.1em]
+	&=\int_0^\infty\dif E \rho_s(E)\del{\mu-E} \Theta\del{\mu-E}\,,\label{eq:VfmedT0App}
+\end{align}
+where we used hyperspherical coordinates, see \cref{app:momInt} and specifically \cref{eq:asDef}, and in \cref{eq:VfmedT0App} the density of states
+\begin{align}
+	\rho_s(E)&=\frac{d_\gamma N}{2^s \piu^\frac{s}{2} \Gamma(\frac{s}{2})}E(E^2-\Delta^2)^{\frac{s}{2}-1}\Theta(E-\Delta)\,.\label{eq:rhoVfmedT0App}
+\end{align}
+Evaluating the integrals in \cref{eq:VfmedT0App} explicitly for $s=1$ and $s=3$ we arrive at
+\begin{align}
+	\mathcal{V}_{\mathrm{f};\med}^{s=1}(\muT[\mu][T=0];\Delta) &=  \frac{d_\gamma N}{4\piu}\bigg(\Delta ^2 \sinh ^{-1}\left(\sqrt{\tfrac{\mu ^2}{\Delta ^2}-1}\right)-\mu  \sqrt{\mu ^2-\Delta ^2}\bigg)\Theta\del{\mu-\Delta}\, ,\label{eq:Vs1fmedT0App}
+\end{align}
+\begin{align}
+	\mathcal{V}_{\mathrm{f};\med}^{s=3}(\muT[\mu][T=0];\Delta) &= \frac{d_\gamma N}{96\piu^2}\bigg(\mu  \left(5 \Delta ^2-2 \mu ^2\right) \sqrt{\mu ^2-\Delta ^2}-\notag\\
+	&\qquad\qquad\qquad\qquad - 3 \Delta ^4 \sinh ^{-1}\left(\sqrt{\tfrac{\mu ^2}{\Delta ^2}-1}\right)\bigg)\Theta\del{\mu-\Delta}\, ,\label{eq:Vs3fmedT0App}
+\end{align}
+which are used in \cref{eq:ir_potential_mean-field_vac} and for the validation of the $T=0$ expressions in \cref{app:Vmedf1Series,app:Vmedf3Series} using the series expansion (4.6.31) of \ccite{abramowitz+stegun} for the inverse hyperbolic sine in \cref{eq:Vs1fmedT0App,eq:Vs3fmedT0App}~\cite{Steil:2023PhDThermodynamicsNB}.

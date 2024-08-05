@@ -1,0 +1,326 @@
+% ****** Tables setup ******
+\usepackage{booktabs} % Publication quality tables in LaTeX
+\usepackage{dcolumn} % Align on the decimal point of numbers in tabular columns -- defines \extrarowheight (among other things)
+\usepackage{multirow} % Create tabular cells spanning multiple rows
+
+\newlength{\TableAbovecaptionskip}
+\setlength{\TableAbovecaptionskip}{8pt}
+
+\newcommand{\fromTab}[2]{\textit{From Tab.~#1 of \ccite{#2}.}}
+\newcommand{\fromTabs}[2]{\textit{From Tabs.~#1 of \ccite{#2}.}}
+
+% ****** Figure setup ******
+\usepackage{graphicx} % Enhanced support for graphics -- include figure files
+\usepackage{import} % Use \import to load files relative to the \import-ed directory
+\usepackage[export]{adjustbox} % Graphics package-alike macros for “general” boxes -- valign=t
+
+% *** Caption setup ***
+\captionsetup{format=plain,font=small,labelfont=bf,width=14cm,subrefformat=parens} % default caption setup
+
+% *** Referencing commands ***
+\newcommand{\fromFig}[2]{\textit{From Fig.~#1 of \nbccite{#2}.}}
+\newcommand{\fromFigs}[2]{\textit{From Figs.~#1 of \nbccite{#2}.}}
+\newcommand{\ccbysaLicense}[1]{\textit{Publication under CC BY-SA 4.0 license with the permission of #1.}}
+
+% *** Lengths, spacings, and offsets ***
+\newlength{\subcaptionFigureWidth}
+\setlength{\subcaptionFigureWidth}{6.8cm}
+
+\newlength{\halfWidthFigureWidth}
+\setlength{\halfWidthFigureWidth}{9cm}
+
+\newlength{\fullWidthFigureWidth}
+\setlength{\fullWidthFigureWidth}{14cm}
+
+\newlength{\subcaptionFigureOffset}
+\setlength{\subcaptionFigureOffset}{-0.05cm}
+\newlength{\subcaptionFigureSpacing}
+\setlength{\subcaptionFigureSpacing}{0.29cm}
+
+\newlength{\fullWidthTwoColumnFigureOffset}
+\setlength{\fullWidthTwoColumnFigureOffset}{0.05cm}
+\newlength{\fullWidthTwoColumnFigureSpacing}
+\setlength{\fullWidthTwoColumnFigureSpacing}{0.39cm}
+
+\newlength{\fullWidthTwoColumnTwoSubFiguresVspace}
+\setlength{\fullWidthTwoColumnTwoSubFiguresVspace}{0.2cm}
+
+% ****** Figures commands ******
+
+% Create a Figure with two sub figures width the parameters [placement]{figA}[captionA]{labelA}{figB}[captionB]{labelB}{caption}{label}
+\NewDocumentCommand{\subcaptionFigure}{o m O{\caption{}} m m O{\caption{}} m m m}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\begin{subcaptionblock}{\subcaptionFigureWidth}%
+			\centering%
+			\hspace{\subcaptionFigureOffset}\includegraphics[width=\subcaptionFigureWidth]{#2}
+			#3\label{#4}%
+		\end{subcaptionblock}%
+		\hspace{\subcaptionFigureSpacing}%
+		\begin{subcaptionblock}{\subcaptionFigureWidth}%
+			\centering%
+			\includegraphics[width=\subcaptionFigureWidth]{#5}
+			#6\label{#7}%
+		\end{subcaptionblock}%
+		\caption{#8}\label{#9}
+	\end{figure}
+}
+
+% Create a Figure with two sub figures with the parameters [placement][widthShift]{figA}{spacing}{figB}{caption}{label}
+\newlength{\subcaptionFigureVariableWidthShift}
+\NewDocumentCommand{\subcaptionFigureVariableWidth}{o o m m m m m}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+	\IfNoValueTF{#2}{\setlength{\subcaptionFigureVariableWidthShift}{0cm}}{\setlength{\subcaptionFigureVariableWidthShift}{#2}}
+		\centering
+		\begin{minipage}[t]{\subcaptionFigureWidth+\subcaptionFigureVariableWidthShift}
+			\begin{subcaptionblock}[t]{\subcaptionFigureWidth+\subcaptionFigureVariableWidthShift}%
+				\hspace{\subcaptionFigureOffset}#3
+			\end{subcaptionblock}%
+		\end{minipage}
+		#4
+		\begin{minipage}[t]{\subcaptionFigureWidth-\subcaptionFigureVariableWidthShift}
+			\begin{subcaptionblock}[t]{\subcaptionFigureWidth-\subcaptionFigureVariableWidthShift}%
+				#5
+			\end{subcaptionblock}%
+		\end{minipage}%
+		\caption{#6}\label{#7}
+	\end{figure}
+}
+
+% Create a Figure with two sub figures with the parameters [placement][widthShift][heightShiftLeft][heightShiftRight]{figA}{spacing}{figB}{caption}{label}
+\NewDocumentCommand{\subcaptionFigureVariableWidthNonAligned}{o o o o m m m m m}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+	\IfNoValueTF{#2}{\setlength{\subcaptionFigureVariableWidthShift}{0cm}}{\setlength{\subcaptionFigureVariableWidthShift}{#2}}
+		\centering
+		\begin{minipage}[t]{\subcaptionFigureWidth+\subcaptionFigureVariableWidthShift}
+			#3
+			\begin{subcaptionblock}[t]{\subcaptionFigureWidth+\subcaptionFigureVariableWidthShift}%
+				\hspace{\subcaptionFigureOffset}#5
+			\end{subcaptionblock}%
+		\end{minipage}
+		#6
+		\begin{minipage}[t]{\subcaptionFigureWidth-\subcaptionFigureVariableWidthShift}
+			#4
+			\begin{subcaptionblock}[t]{\subcaptionFigureWidth-\subcaptionFigureVariableWidthShift}%
+				#7
+			\end{subcaptionblock}%
+		\end{minipage}%
+		\caption{#8}\label{#9}
+	\end{figure}
+}
+
+% Create a Figure with three sub figures with the parameters [placement]{figA}{captionA/labelA}{figB/captionB/labelB}{figC/captionC/labelC}{caption}{label}
+\NewDocumentCommand{\subcaptionFigureOneTwo}{o m m m m m m}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\begin{subfigure}[t]{\subcaptionFigureWidth}%
+			\vspace{0cm}
+			\captionsetup{font=footnotesize,width=\subcaptionFigureWidth} %
+			\hspace{\subcaptionFigureOffset}\includegraphics[width=\subcaptionFigureWidth]{#2}
+			#3
+		\end{subfigure}%
+		\hspace{\subcaptionFigureSpacing}%
+		\begin{subfigure}[t]{\subcaptionFigureWidth}%
+			\vspace{0cm}
+			\centering
+			\begin{subfigure}{\textwidth}%
+				\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}%
+				\centering
+				#4
+			\end{subfigure}
+			\vskip 5pt%
+			\begin{subfigure}{\textwidth}
+				\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}%
+				\centering
+				#5
+			\end{subfigure}%
+		\end{subfigure}%
+		\captionsetup{subrefformat=parens}%
+		\caption{#6}\label{#7}
+	\end{figure}
+}
+
+% Create a full width figure with the parameters [placement]{fig}[phantom]{caption}{label}
+\NewDocumentCommand{\fullWidthFigure}{o m O{} m m }{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\includegraphics[width=\fullWidthFigureWidth]{#2}%
+		\begin{subcaptiongroup}%
+			\foreach \entry [count=\ni] in {#3} {%
+				\phantomcaption\label{\entry}%
+			}%
+		\end{subcaptiongroup}%
+		\caption{#4}\label{#5}
+	\end{figure}
+}
+
+% Create a custom width figure with the parameters [placement]{fig}[phantom]{caption}{label}
+\NewDocumentCommand{\customWidthFigure}{o m O{} m m }{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		#2%
+		\begin{subcaptiongroup}%
+			\foreach \entry [count=\ni] in {#3} {%
+				\phantomcaption\label{\entry}%
+			}%
+		\end{subcaptiongroup}%
+		\caption{#4}\label{#5}
+	\end{figure}
+}
+% Create a Figure with full width the parameters [placement]{figA}{figB}[phantomcaption]{caption}{label}
+\NewDocumentCommand{\fullWidthTwoColumnSubFigures}{o m m O{} m m}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\begin{minipage}{\subcaptionFigureWidth}%
+			\hspace{\fullWidthTwoColumnFigureOffset}#2
+		\end{minipage}%
+		\hspace{\fullWidthTwoColumnFigureSpacing}%
+		\begin{minipage}{\subcaptionFigureWidth}%
+			#3
+		\end{minipage}%
+		\begin{subcaptiongroup}
+			\foreach \entry [count=\ni] in {#4} {%
+				\phantomcaption\label{\entry}%
+			}%
+		\end{subcaptiongroup}%
+		\caption{#5}\label{#6}
+	\end{figure}
+}
+
+% Create a Figure with full width the parameters [placement]{figA}{hspace}{figB}
+\NewDocumentCommand{\fullWidthTwoColumnFigures}{o m m m}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\begin{minipage}[t]{\subcaptionFigureWidth}%
+			\vspace{0cm}
+			\hspace{\fullWidthTwoColumnFigureOffset}#2
+		\end{minipage}%
+		\hspace{#3}%
+		\begin{minipage}[t]{\subcaptionFigureWidth}%
+			\vspace{0cm}
+			#4
+		\end{minipage}
+	\end{figure}%
+}
+
+\NewDocumentCommand{\fullWidthTwoColumnTwoSubFigures}{o m m m m m m m O{}}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\hspace{\fullWidthTwoColumnFigureOffset}%
+		\begin{minipage}[t]{\subcaptionFigureWidth}
+				\vspace{0em}
+				\begin{subcaptionblock}{\linewidth}%
+					\centering
+					\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}
+					#2
+					\vspace{\fullWidthTwoColumnTwoSubFiguresVspace}
+				\end{subcaptionblock}
+				\begin{subcaptionblock}{\linewidth}%
+					\centering
+					\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}
+					#3
+				\end{subcaptionblock}%
+			\captionsetup{width=\subcaptionFigureWidth}%
+			#4
+		\end{minipage}%
+		\hspace{#5}%
+		\begin{minipage}[t]{\subcaptionFigureWidth}
+			\vspace{0em}
+			\begin{subcaptionblock}{\linewidth}%
+					\centering
+					\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}
+					#6
+					\vspace{\fullWidthTwoColumnTwoSubFiguresVspace}
+				\end{subcaptionblock}
+				\begin{subcaptionblock}{\linewidth}%
+					\centering
+					\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}
+					#7
+				\end{subcaptionblock}%
+			\captionsetup{width=\subcaptionFigureWidth}%
+			#8
+			\IfNoValueTF{#9}{}{#9}
+		\end{minipage}
+	\end{figure}%
+}
+
+% Create a Figure with half width the parameters [placement]{fig}[phantom]{caption}{label}
+\NewDocumentCommand{\halfWidthFigure}{o m O{} m m }{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\includegraphics[width=\halfWidthFigureWidth]{#2}%
+		\begin{subcaptiongroup}%
+			\foreach \entry [count=\ni] in {#3} {%
+				\phantomcaption\label{\entry}%
+			}%
+		\end{subcaptiongroup}%
+		\caption{#4}\label{#5}
+	\end{figure}
+}
+
+% Create a Figure with half width the parameters [placement]{fig}[phantom]{caption}{label}
+\NewDocumentCommand{\subcaptionFigureWidthFigure}{o m O{} m m }{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\includegraphics[width=\subcaptionFigureWidth]{#2}%
+		\begin{subcaptiongroup}%
+			\foreach \entry [count=\ni] in {#3} {%
+				\phantomcaption\label{\entry}%
+			}%
+		\end{subcaptiongroup}%
+		\caption{#4}\label{#5}
+	\end{figure}
+}
+
+\NewDocumentCommand{\fullWidthTwoSubFigures}{o m m m O{}}{
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\begin{minipage}[t]{\fullWidthFigureWidth}
+				\vspace{0em}
+				\begin{subcaptionblock}{\linewidth}%
+					\centering
+					\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}
+					#2
+					\vspace{\fullWidthTwoColumnTwoSubFiguresVspace}
+				\end{subcaptionblock}
+				\begin{subcaptionblock}{\linewidth}%
+					\centering
+					\captionsetup{font=footnotesize,width=\subcaptionFigureWidth}
+					#3
+				\end{subcaptionblock}%
+			#4
+			\IfNoValueTF{#5}{}{#5}
+		\end{minipage}%
+	\end{figure}%
+}
+
+% ****** Mixded commands ******
+
+% Create a Figure and accompanying Table with full width the parameters [placement]{figA}{labelA}{captionA}{tabB}{labelB}{captionB}
+\NewDocumentCommand{\fullWidthTwoColumnFigureTable}{o m m m m m m}{
+	\WarningFilter{caption}{The type was already set}
+	\IfNoValueTF{#1}{\begin{figure}}{\begin{figure}[#1]}
+		\centering
+		\begin{minipage}[t]{\subcaptionFigureWidth}
+			\vspace{0pt} % Ensure top alignment
+			\centering%
+			\includegraphics[width=\subcaptionFigureWidth,valign=t]{#2}
+			\captionsetup{width=\subcaptionFigureWidth} %
+			\caption{\label{#3}
+				#4
+			}
+		\end{minipage}%
+		\hspace{\fullWidthTwoColumnFigureSpacing}%
+		\begin{minipage}[t]{\subcaptionFigureWidth}
+			\vspace{-6pt} % Ensure top alignment
+			\centering%
+			\captionsetup{width=\subcaptionFigureWidth} %
+			\captionof{table}{\label{#6}
+					#7
+			}
+			\vspace{\TableAbovecaptionskip}
+			#5
+		\end{minipage}
+	\end{figure}
+	\WarningFilter*{caption}{The type was already set}
+}

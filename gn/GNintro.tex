@@ -1,0 +1,37 @@
+\begin{disclaimer}
+	Large parts of this chapter are based on \ccite{Stoll:2021ori,Koenigstein:2021llr}. The individual sections include more detailed disclaimers. The involved collaborators are J. Stoll, N. Zorbach, A. Koenigstein, and S. Rechenberger as well as L. Pannullo and M. Winstel.
+	
+	\Ccite{Stoll:2021ori} contains results from the Master's theses~\cite{Stoll:2021thesis,Zorbach:2021thesis} of J. Stoll and N. Zorbach and is also discussed in A. Koenigstein's dissertation~\cite{Koenigstein:2022phd}. J. Stoll, N. Zorbach, A. Koenigstein, and me contributed in equal shares to this work. S. Rechenberger was involved in early stages of this project before leaving academia and contributed to the final draft.
+	
+	 Preliminary analytical and numerical computations for \ccite{Koenigstein:2021llr} were performed by S. Rechenberger (see, \eg{}, \ccite{Rechenberger:2018talk}) before he left academia but prior to \ccite{Koenigstein:2021llr} they were not published. The authors of \ccite{Koenigstein:2021llr} completed the computations and wrote \ccite{Koenigstein:2021llr} as a ``pedagogical and detailed supplement, and completion of existing literature''. All authors contributed in equal shares to this work.
+	
+	The following introduction of this chapter has been compiled from the introductions and abstracts of \ccite{Stoll:2021ori,Koenigstein:2021llr}.
+\end{disclaimer}
+After our lengthy discussion of theories in zero space-time dimensions the time has finally come to discuss ``real'' \qft{}, \ie{}, theories which have a notion of space-time and actually deal with fluctuating quantum fields rather than scalars and Grassmann numbers. We have chosen to study the \twoDimensional{} \acrrepeat{gn} model~\cite{Gross:1974jv} for its relative simplicity, at least when compared with \qcd{} or even the \qmm{}.
+
+In theoretical \hep{} the \gnm{} has been studied extensively as a toy model or testing ground to study effects like asymptotic freedom, (chiral) symmetry breaking and restoration, and inhomogeneous phases.
+In this chapter we will study the \gnm{} and its variants with the \frg{} in \lpa{} within our developed \cfd{} framework for \frg{} flow equations. 
+We study the model at finite $N$, exploring the role of bosonic fluctuations, and at infinite $N$, where bosonic fluctuations are completely suppressed.\bigskip
+
+In \cref{sec:gny} we introduce the \gnm{} and the \gnym{} as a partially bosonized variant, which we will study with the \frg{}.
+In \cref{sec:gny_frg} we adapt the \cfd{} methods, which we developed in \cref{chap:zeroONSU2}, to the \lpa{} flow equation of the \gnym{}.
+
+To set up our \frg{} study of the \gnym{} at finite $N$ in \cref{sec:gnyFiniteN}, we first study the model in the infinite-$N$/mean-field limit.
+We use the \frg{} in \lpa{} to recover the well known results for the homogeneous phase diagram at infinite $N$ in \cref{sec:gnInfHomo}.
+Renormalization and asymptotic freedom are discussed as important aspects for the subsequent analysis at finite $N$.
+
+At infinite $N$ the \gnm{} is renowned for its robust inhomogeneous phase, \cf{} \cref{subsec:inhomoLiterature} and \cref{fig:GNthisPD}.
+We will use the established explicit, literature results of Michael Thies \etal{} to study inhomogeneous phases indirectly in \cref{sec:gnInfInhomo} using a stability analysis of the homogeneous phase.
+Using the literature results as reference we assess the stability analysis and the related \acrrepeat{ggl} analysis both qualitatively and quantitatively.
+
+We finish the discussions in this chapter with our \frg{} study of the \gnym{} at finite $N$ in \cref{sec:gnyFiniteN}.
+We employ our \cfd{} numerics and perspective to discuss the role of fermionic and bosonic fluctuations in \frg{} flows at zero and non-zero temperature and chemical potential.
+With this explicit \lpa{} study we address the long standing open research question: whether there is symmetry breaking at finite $N$ in the \gnm{} or not.
+There are a lot of literature results on this topic including, heuristic arguments, large-$N$ studies, and even lattice results but the situation remained unclear.
+The main result of our explicit computations is that bosonic thermal fluctuations vaporize the chiral condensate at any finite $N$: we do not find symmetry breaking at non-zero temperature and arbitrary chemical potential.
+
+In \cref{sec:gnConclusion} we summarize our key research results of our studies with the \gnyBm{}.
+Extending the present discussion beyond the \lpa{} is identified as the logical and necessary next step.
+
+This chapter has two primary digital auxiliary files~\cite{Steil:2023GNnotebook,Steil:2023GNcpp}.
+The \WAM{} notebook~\cite{Steil:2023GNnotebook} includes some of the symbolic and (semi-)analytic computations of this chapter, while the \Cpp{} code~\cite{Steil:2023GNcpp} was used for numerical computations in the infinite-$N$ limit.

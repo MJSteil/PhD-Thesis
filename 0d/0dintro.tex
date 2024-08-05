@@ -1,0 +1,70 @@
+\begin{disclaimer}
+	Large parts of this chapter are based on \ccite{Koenigstein:2021syz,Koenigstein:2021rxj,Steil:2021cbu,Steil:partIV,Koenigstein:fixedPoint}.
+	The individual sections include more detailed disclaimers.
+	The involved collaborators are A. Koenigstein, N. Wink, E. Grossi, J. Braun, M. Buballa, and D. H. Rischke. 
+
+	\Ccite{Koenigstein:2021syz,Koenigstein:2021rxj,Steil:2021cbu} are published manuscripts and parts of a series discussing zero-dimensional \ON{} models in the context of the \frg{}. The discussed research is also part of the dissertation~\cite{Koenigstein:2022phd} of A. Koenigstein. Most symbolic calculations, all numerical computations, and the majority of these manuscripts have been prepared by A. Koenigstein and me in equal shares. The other co-authors have been primarily involved in the conceptualization, discussion, and the finishing of the manuscripts.
+		
+	\Ccite{Steil:partIV} is an unpublished manuscript draft, which has been planed as a continuation and supplement to the series on \frg{} in zero dimensions.
+	\Ccite{Koenigstein:fixedPoint} are unpublished notes on fixed-point solutions in the context of \ccite{Koenigstein:2021rxj}.
+	
+	The following introduction of this chapter has been compiled from the introductions and abstracts of \ccite{Koenigstein:2021syz,Koenigstein:2021rxj,Steil:2021cbu,Steil:partIV}.
+\end{disclaimer}
+
+We begin the main part of this thesis with the detailed discussion of our research regarding theories in zero space-time dimensions.
+As demonstrated beautifully by Jan Keitel and Lorenz Bartosch with their work~\cite{Keitel:2011pn} and by numerous other authors, see, \eg{}, \ccite{\zerodRefs}, zero-dimensional theories are by no means trivial.
+While it is true that they are easily solvable by just computing simple, ordinary integrals, their treatment within perturbative and non-perturbative methods employed in \qft{} is non-trivial.
+Applying the \frg{}, \dses{}, nPI techniques, $\tfrac{1}{N}$-expansion schemes, and/or perturbative methods to zero-dimensional theories can be very illuminating.
+Not only academic and didactic insights can be gained, but also deep conceptual and methodological developments are indeed possible with such studies.\bigskip 
+
+As outlined in the introduction~\ref{paragraph:introZeroD}, the main purpose of the following discussions of this chapter is twofold.
+\begin{enumerate}
+	\item Using zero-dimensional theories, we want to gain academic, didactic, and conceptual insight into the \frg{} framework.
+	\item Making use of the unique properties of \qfts{} in zero dimensions, we want to adapt and benchmark numerically stable methods for the solution of \frg{} flow equations.
+\end{enumerate}
+To achieve these goals we will apply and adapt methods from the field of \cfd{}, which we introduced in \cref{sec:conservationLaws}, to the \frg{}, which we introduced in \cref{sec:FRG}.
+
+Zero-dimensional \qfts{} are uniquely well suited for such discussions, since the functional flow equations encountered in the \frg{} manifest directly as \pdes{} in zero dimensions.
+It is possible to study the \frgEq{} and the related flow \cref{eq:dWkdtflow,eq:dZkdtflow} for $W_k[\FSff{J}]$ and $Z_k[\FSff{J}]$ directly, \ie{}, without the need of any truncations or approximations.
+The flow equations can be readily expressed as conservation laws, allowing for a direct adaptation of concepts and methods from the field of \cfd{} to \frg{}.
+Applications in zero dimensions make the somewhat vague notion of functional flow equations explicit as flow equations for functions. 
+This supports and extends on the findings~\cite{Grossi:2021ksl} of Eduardo Grossi and Nicolas Wink and firmly establishes the very explicit notion of \frg{} flow equations as flow equations in a fluid-dynamical sense.
+The exact flow equations encountered in zero dimensions share many crucial qualitative and, to an extent, even quantitative features with flow equations encountered in non-zero dimensions.
+As such, our research and development in zero dimensions is far more than just an academic exercise, since it is very relevant and to a significant extent directly applicable in non-zero dimensions.\bigskip
+
+We begin this chapter with a detailed discussion of zero-dimensional \qft{} using the $O(1)$ model of a single scalar as an instructive example in \cref{sec:0dQFT}.
+We discuss general peculiarities of such \qfts{} in a single space-time point, but then shift focus especially on the manifestation of \frg{} in zero dimensions.
+The \frg{} can be understood very intuitively  as an integral deformation \dash{} making the underlying idea of Wilson's \rg{} approach and the governing equations very tangible.
+We retrace the general derivation of the \frgEq{} of \cref{sec:FRG} in zero-dimensions commenting in detail on the involved subtleties.
+The fact that this discussion is based on functions and integrals instead of functionals and functional integrals allows for a simpler, but at the same time in many regards more concise discussion.\bigskip
+
+In \cref{sec:0dON} we extend our discussion to zero-dimensional $O(N)$ models, where we allow for condensation in one radial direction leading to one massive \sigmaMode{} and $(N-1)$ \pionModes{}.
+We use this model to study $O(N)$ symmetry restoration, by studying the \frg{} flow for various initial conditions/actions.
+Basic symmetries of the underlying integrals prevent symmetry breaking in the \ir{} in zero dimensions.
+This can be seen as an extreme limiting case of the \cmwhTheoremWithRefs{}, \cf{} \MWApp{}.
+
+We will discuss the \frg{} flow evolution equation for the zero-dimensional $O(N)$ model at length.
+Starting by casting it in conservative form, we continue to discuss initial conditions, boundary conditions, \rgcy{}, and irreversibility at length.
+The conservative formulation allows for an identification of the \sigmaMode{} as diffusive contribution and of the \pionModes{} as advective contributions.
+
+In \cref{subsec:0dONresults} we construct a series of test cases (initial conditions/actions) in the zero-dimensional $O(N)$ model at finite $N$.
+For our explicit numerical computations  with the \frg{} flow equation, we adopt the \kt{} scheme of \cref{subsec:hydroKT} as our finite volume method of choice.
+We discuss the advective and diffusive nature of \frg{} flows in detail using explicit numerical computations.
+The impact of initial scales in the context of \rgcy{}, boundary conditions, and discretization in field space is discussed at length.
+We also discus the, as it turns out rather limited, applicability of the \frg{} Taylor expansion as a possible truncation scheme in zero dimensions.
+
+After our discussions of various finite $N$ results, we focus on the limiting cases $N=1$ and $N\rightarrow\infty$ in \cref{subsec:0dO1Entropy} and \cref{subsec:0dLargeN} respectively.
+The focus of our discussion of the purely diffusive system at $N=1$ is the irreversibility of \grg{} flows from a \cfd{} perspective and the associated concept of (numerical) entropy.
+A connection between the later and the concept of $\mathcal{C}$-/$\mathcal{A}$-functions is also discussed.
+At large $N$ and ultimately in the limit $N\rightarrow\infty$ we study advection dominated and in the limit ultimately purely advective systems. 
+The focus here are limitations of the large-$N$ saddle-point approximation and related \frg{}/\cfd{} concepts.
+For our discussion we construct yet another test case, which we study using both numeric and analytic methods.
+Shocks and rarefaction waves and their implications for the large-$N$ limit are discussed, including again comments on the irreversibility of \grg{} flows in such scenarios.\bigskip
+
+In the penultimate \cref{sec:0dSU2} of this chapter we discuss Grassmann numbers as zero-dimensional analogs to fermions.
+We present a $SU(2)$ model including two pairs of associated Grassmann numbers and three scalars, which we constructed as a zero-dimensional analog to the \qmm{}.
+We discuss the model and the involved flow equations and comment at length on our plans for further research with such theories.
+Compared to our, for the most parts, complete discussion of scalars in zero-dimensions, this work on Grassmann numbers is in a very early state.\bigskip
+
+In \cref{sec:0dconclusion} we summarize our key research results of our extensive studies in zero dimensions and give an outlook for even further research with zero-dimensional \qfts{}.
+Especially zero-dimensional models involving Grassmann numbers are identified as a very interesting and relevant area for further research.

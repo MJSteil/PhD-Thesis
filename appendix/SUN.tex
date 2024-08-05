@@ -1,0 +1,67 @@
+\section{The (special) unitary group}\label{app:SUN}
+The Lie algebra $\mathfrak{su}(N)$ of the group $\mathrm{SU}(N)$ \dash{} the Lie-group of unitary matrices $U$ of rank $N$ and determinant one \dash{} has in its $N$-dimensional fundamental representation $N^2-1$ generators $\suNt{a}\equiv \suNtup{a}$ (traceless, hermitian $N\times N$ matrices) obeying
+\begin{align}
+	\suNt{a}\suNt{b} &= \frac{1}{2N}\delta_{a,b}\Id_N + \frac{1}{2}\sum_{c=1}^{N^2-1}\big(\iu f_{a b c}+d_{a b c}\big)\suNtup{c}  \, ,\label{eq:SUNTdef}
+\end{align}
+and thus implementing the (anti-)commutator relations
+\begin{align}
+	\big\{\suNt{a},\suNt{b}\big\}&\equiv \suNt{a}\suNt{b} + \suNt{b}\suNt{a} = \frac{1}{N}\delta_{a,b} \Id_N+\sum_{c=1}^{N^2-1}d_{a b c}\suNtup{c} \, ,\\
+	\big[\suNt{a},\suNt{b}\big]&\equiv \suNt{a}\suNt{b} - \suNt{b}\suNt{a} = \iu\mkern2mu\sum_{c=1}^{N^2-1}f_{a b c}\suNtup{c} \, ,
+\end{align}
+with the antisymmetric structure constants $f_{a b c}$, the symmetric $d$-coefficients, and the normalization
+\begin{align}
+	\Tr\!\big(\suNt{a}\suNt{b}\big) &= \frac{1}{2}\delta_{a,b} \, .
+\end{align}
+The elements of the group $\mathrm{SU}(N)$ are given by
+\begin{align}
+	\suNU{}=\exp(\iu \theta_a \suNtup{a}) \, ,
+\end{align}
+with the generators $T^a$ and the real parameters $\theta_a$.\bigskip
+
+The $(N^2-1)$-dimensional adjoint representation is given by
+\begin{align}
+	(\suNta{a})^{b c}=-\iu f^{a b c} \, .
+\end{align}
+
+\subsection{\texorpdfstring{$\mathrm{SU}(2)$}{SU(2)} and \texorpdfstring{$\mathrm{U}(2)$}{U(2)} algebras}\label{app:SU2}
+The special unitary group of degree two $\mathrm{SU}(2)$ is of particular importance for several parts of this work therefore we elaborate on this special case of the group $\mathrm{SU}(N)$ in this appendix.\bigskip
+
+The Lie algebra $\mathfrak{su}(2)$ of the group $\mathrm{SU}(2)$ consists of $2\times2$ hermitian matrices with vanishing trace.
+The three two-dimensional generators $\suIIt{a}\equiv \suIItup{a}$ of the fundamental representation are given by
+\begin{align}
+	\suIIt{1}=\frac{1}{2}\sigma_1=\frac{1}{2}\begin{pmatrix}0& 1\\1 &0\end{pmatrix},\quad%
+	\suIIt{2}=\frac{1}{2}\sigma_2=\frac{1}{2}\begin{pmatrix}0& -\iu\\\iu &0\end{pmatrix},\quad%
+	\suIIt{3}=\frac{1}{2}\sigma_3=\frac{1}{2}\begin{pmatrix}1& 0\\0 &-1\end{pmatrix},\label{eq:SU2Tfundamental}
+\end{align}
+with the canonical Pauli matrices $\sigma_i$.
+The structure constants $f_{a b c}$ are given by the totally antisymmetric Levi-Civita symbol $\lcs_{a b c}$ and the symmetric $d$-coefficients vanish for the generators of $\mathrm{SU}(2)$ and consequently \cref{eq:SUNTdef} manifests as
+\begin{align}
+	\suIIt{a}\suIIt{b}=\frac{1}{4}\delta_{a,b}\vts\Id_2+\frac{\iu}{2}\lcs^{a b c}\vts\suIIt{c}\label{eq:SU2Tdef} \, ,
+\end{align}
+where Latin indices run from 1 to 3 and summation over repeating indices implied as usual.
+Using \cref{eq:SU2Tdef} and contraction identities for the Levi-Civita symbol repeatedly one can show
+\begin{align}
+	\suIIt{a}\suIIt{b}\suIIt{c} &= \frac{\iu}{8}\lcs_{a b c}\vts\Id_2+\frac{1}{4}\big( \delta_{b, c}\vts \suIIt{a} - \delta_{a, c} \vts\suIIt{b} + \delta_{a,b}\vts \suIIt{c}\big) \, ,\\[.25em]
+	\suIIt{a}\suIIt{b}\suIIt{c}\suIIt{d} &= \frac{\iu}{8}\lcs_{b c d}\vts\suIIt{a}+\frac{1}{16}\big( \delta_{a,d}\vts\delta_{b, c} - \delta_{a,c}\vts\delta_{b, d} + \delta_{a,b}\vts\delta_{c, d} \big)\vts\Id_2 +\notag\\
+	&\qquad\qquad\qquad\qquad\qquad+\frac{\iu}{8}\big(\delta_{b, c}\vts\lcs_{ad}{}^{m} - \delta_{b, d}\vts\lcs_{ac}{}^{m} + \delta_{c, d}\vts\lcs_{ab}{}^{m}\big)\vts\suIIt{m} \, ,
+\end{align}
+and consequently the following identities for traces hold
+\begin{align}
+	\Tr\!\big( \suIIt{a} \big) & = 0 \, ,\\[.25em]
+	\Tr\!\big( \suIIt{a}\suIIt{b} \big) & = \frac{1}{2}\delta_{a,b} \, ,\\[.25em]
+	\Tr\!\big( \suIIt{a}\suIIt{b}\suIIt{c} \big) & = \frac{\iu}{4}\lcs^{a b c} \, ,\\[.25em]
+	\Tr\!\big( \suIIt{a}\suIIt{b}\suIIt{c}\suIIt{d} \big) & = \frac{1}{8} \big( \delta_{a, d}\vts\delta_{b, c} - \delta_{a,c}\vts\delta_{b, d} + \delta_{a,b}\vts\delta_{c, d} \big) \, .
+\end{align}
+Further product and trace identities can be derived by further repeated use of \cref{eq:SU2Tdef}.\bigskip
+
+The three-dimensional adjoint representation is defined by the structure constants $f_{a b c}=\lcs_{a b c}$ and given by
+\begin{align}
+	\suIIta{1}=\begin{pmatrix}0& 0& 0\\0 &0 & -\iu\\0& \iu& 0\end{pmatrix},\quad%
+	\suIIta{2}=\begin{pmatrix}0& 0& \iu\\0 &0 & 0\\-\iu& 0 & 0\end{pmatrix},\quad%
+	\suIIta{3}=\begin{pmatrix}0&-\iu&0\\ \iu & 0 & 0\\0& 0& 0\end{pmatrix}.\label{eq:su2adjExp}
+\end{align}\bigskip
+
+The Lie algebra $\mathfrak{u}(2)$ of the group $\mathrm{U}(2)$ of unitary matrices of rank $N$ has four two-dimensional generators $\{\suIIt{0},\suIIt{1},\suIIt{2},\suIIt{3}\}$, where $\suIIt{1}$, $\suIIt{2}$ are $\suIIt{3}$ shared with $\mathfrak{su}(2)$, see \cref{eq:SU2Tfundamental}, and 
+\begin{align}
+	\suIIt{0}=\frac{1}{2}\Id_2=\frac{1}{2}\begin{pmatrix}1& 0\\0 &1\end{pmatrix}.
+\end{align}

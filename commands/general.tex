@@ -1,0 +1,92 @@
+% ****** General commands ****** %
+% *** Paper citations ***
+\newcommand{\MWApp}{App.~B of \nbccite{zerod1}}
+\newcommand{\LargeNnumApp}{App.~F of \nbccite{zerod3}}
+
+\newcommand{\gnAppNum}{App.~F of \nbccite{Stoll:2021ori}}
+\newcommand{\gnAppNumRGC}{App.~F.3 of \nbccite{Stoll:2021ori}}
+
+\newcommand{\gnAppVacFlow}{App.~E of \nbccite{Stoll:2021ori}}
+
+% *** (Cross)references ***
+\newcommand{\veRef}{\cref{paragraph:vertexExpansion}}
+\newcommand{\deRef}{\cref{paragraph:derivativeExpansion}}
+\newcommand{\teRef}{\cref{paragraph:taylorExpansion}}
+
+\newcommand{\frgEq}{Wetterich \cref{eq:WetterichEq}}
+\newcommand{\frgEquation}{Wetterich equation \eqref{eq:WetterichEq}}
+
+%  *** Latin abbrevations [https://en.wikipedia.org/wiki/List_of_Latin_abbreviations] ***
+\newcommand{\ie}{\textit{i.e.}} % id est: "That is (to say)" -- usage ..., \ie{}, ...
+\newcommand{\eg}{\textit{e.g.}} % exempli gratia: "for example", "for instance" -- usage ..., \eg{}, ...
+\newcommand{\viz}{\textit{viz.}} % videlicet: "namely" -- usage ..., \viz{} ...
+\newcommand{\cf}{\textit{cf.}} % confer: "bring together" and hence "compare" -- usage ..., \cf{} ...
+\newcommand{\etc}{\textit{etc.}} % et cetera: "and the others"
+\newcommand{\Apriori}{\textit{A priori}} % "independent of experience"
+\newcommand{\apriori}{\textit{a priori}} % "independent of experience"
+\newcommand{\Aposteriori}{\textit{A posteriori}} % "based on experience"
+\newcommand{\aposteriori}{\textit{a posteriori}} % "based on experience"
+\newcommand{\etal}{\textit{et~al.}} % "and others"
+
+% *** Constants and units ***
+\newcommand{\hbarc}{\hbar\mkern1.0mu c}
+\newcommand{\kB}{k_\mathrm{B}}
+
+\newcommand{\MeV}{\mathrm{MeV}}
+\newcommand{\GeV}{\mathrm{GeV}}
+\newcommand{\MeVfm}{\mathrm{MeV}\mkern1.0mu\mathrm{fm}}
+\newcommand{\MeVfmIII}{\mathrm{MeV}\mkern1.0mu\mathrm{fm}^{-3}}
+\newcommand{\fm}{\mathrm{fm}}
+\newcommand{\fmIII}{\mathrm{fm}^{-3}}
+\newcommand{\kgmIII}{\mathrm{kg}\mkern1.0mu\mathrm{m}^{-3}}
+\newcommand{\kgms}{\mathrm{kg}\mkern1.0mu\mathrm{m}\mkern1.0mu\mathrm{s}^{-1}}
+\newcommand{\JmIII}{\mathrm{J}\mkern1.0mu\mathrm{m}^{-3}}
+\newcommand{\ms}{\mathrm{m}\mkern1.0mu\mathrm{s}^{-1}}
+
+% *** Misc commands ***
+
+% Define the \dash command
+\NewDocumentCommand{\dash}{o}{%
+	\IfNoValueTF{#1}%
+		{\texorpdfstring{\nolinebreak[3]--}{--}}% Default behavior
+		{#1--}% Custom text before the dash
+}
+
+\newcommand{\gmv}{Grassmann-valued}
+
+\newcommand{\WAM}{\textsc{Mathematica}}
+\newcommand{\WAMwR}{\WAM{}~\cite{Mathematica:13.0}}
+\newcommand{\WAMXIIwR}{\WAM{}~\cite{Mathematica:12.1}}
+\newcommand{\WAMvwR}{\WAM{} 13.0.1.0~\cite{Mathematica:13.0}}
+
+\newcommand{\Python}{\textsc{Python}}
+
+\newcommand{\Cpp}{C\nolinebreak\hspace{-.05em}\raisebox{.15ex}{\relsize{-1}{\textbf{+}}}\nolinebreak\hspace{-.10em}\raisebox{.15ex}{\relsize{-1}{\textbf{+}}}}
+
+\newcommand{\intel}{Intel\textsuperscript{\tiny\textcopyright} Core{\texttrademark} i7-8750H processor}
+\newcommand{\ryzen}{AMD Ryzen\textsuperscript{\tiny\textcopyright} 9 3900X}
+
+\newcommand{\ith}[1]{$#1^\text{th}$}
+
+% *** Spaced iterators ***
+\newcommand{\row}[1]{%
+	\foreach \entry [count=\ni] in {#1} {%
+		\ifnum\ni=1{\entry}\else{\mkern1mu\entry}\fi%
+	}
+}
+
+\newcommand{\spacedrow}[2]{%
+	\foreach \entry [count=\ni] in {#1} {%
+		\ifnum\ni=1{\entry}\else{#2\entry}\fi%
+	}
+}
+
+% *** Disclaimer ***
+\newenvironment{disclaimer}{%
+	\begin{addmargin}[1.5em]{2em}% [vertical space]{horizontal space}
+	\begin{itshape}
+}{
+	\end{itshape}
+	\end{addmargin}%
+	\ \\%
+}

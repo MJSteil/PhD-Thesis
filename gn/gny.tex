@@ -1,0 +1,167 @@
+\section{The Gross-Neveu(-Yukawa) model}\label{sec:gny}
+\begin{disclaimer}
+	This section follows the discussion presented in Secs. I and II of \ccite{Stoll:2021ori}.
+\end{disclaimer}
+Since its original publication in 1974, the \acrrepeat{gn} model~\cite{Gross:1974jv} \dash{} a relativistic \qft{} of $N$ massless Dirac fermions that are self-interacting via the scalar channel of the four-Fermi interaction \dash{} was subject of intensive research \wrt{} various aspects of strongly interacting systems.
+In $1 + 1$ space-time dimensions it was studied as a (perturbatively) renormalizable prototype model for asymptotic freedom~\cite{Gross:1974jv,Wetzel:1984nw,Rosenstein:1990nm,Gracey:1990sx,Gracey:1990wi,Gracey:1991vy,Luperini:1991sv,ZinnJustin:1991yn,Peskin:1995ev,ZinnJustin:2002ru,Quinto:2021lqn}, while for $2 + 1$ space-time dimensions it served as a toy model for asymptotically safe \qfts{}~\cite{Braun:2010tt} and is renormalizable with non-perurbative methods~\cite{Rosenstein:1988pt,Rosenstein:1988dj,Rosa:2000ju,Hofling:2002hj}.
+In $3 + 1$ dimensions it mimics the dynamics of the important scalar channel of the \njlm{}~\cite{Nambu:1961fr,Nambu:1961tp} and is non-renormalizable, but can be seen as being part of a low-energy effective model of \qcd{}, \cf{} \cref{subsec:chiralLEFT}.
+However, for the rest of this chapter, we exclusively focus on its formulation in $1 + 1$ space-time dimensions.
+
+We will use the model as a testing ground to study the stability and \ggla{} for inhomogeneous phases at large $N$ and to apply our \frg{} \cfd{} methods, developed so far in zero dimensions only, to a real \qft{}.
+As such we consider the \gnm{} as a toy model in the context of theoretical \hep{} but it has a multitude of applications beyond such a purely theoretical scope. 
+We will briefly comment on some applications of the \gnm{} in the next paragraph but as mentioned in \customref{paragraph:introPhysics}{A disclaimer about physics} in \cref{chap:introduction}, we will not attempt to comment on the possible implications of our results for physical systems in this context. 
+While certainly interesting and relevant, such a discussion is beyond the scope of the current work, since we are ultimately interested in studies in $3+1$ dimensions, \cf{} \cref{chap:QMM}, and we consider the results of this chapter as a stepping stone towards applications in $3+1$ dimensions.
+
+\paragraph{Applications of the GN model for physical systems}\phantomsection\label{paragraph:gnApplications}\mbox{}\\%
+The \gn{} has various connections to non-relativistic models in solid-state physics, see, \eg{}, Refs.~\cite{Schnetz:2004vr,Fradkin:2013}.
+\gn{}-type four-fermi models can arise in the continuum limit (describing large distance physics) of one-dimensional solid-state systems.
+Examples of such one-dimensional systems are quantum antiferromagnets (described by {spin\nobreakdash-$\tfrac{1}{2}$} Heisenberg models~\cite{Heisenberg:1928mqa}), interacting electrons in a one-dimensional conductor (described by a Tomonaga–Luttinger liquid~\cite{Tomonaga:1950,Luttinger:1963zz}), and polyacetylene polymer chains~\cite{Chodos:1993mf,Thies:2006ti} \dash{} ${(\mathrm{C}\mathrm{H})_x}$ \dash{} (described in the limit $x\rightarrow\infty$ with the Su-Schrieffer-Heeger model~\cite{Su:1979ua} or the subsequent Takayama-Lin-Liu-Maki model~\cite{Takayama:1980zz}).
+Recently, a one-dimensional probabilistic cellular automaton, where classical bits can be interpreted as Ising spins, was shown to be equivalent to a relativistic fermionic quantum field theory~\cite{Wetterich:2021exk}.
+A central concept behind the emergence of fermionic \qfts{} in two dimensions from spin-systems in one dimension is the mapping of spin operators onto fermionic creation and annihilation operators by means of the Jordan–Wigner transformation~\cite{Jordan:1928wi}, for a pedagogic discussion see \ccite{Fradkin:2013}.
+\gn{}-type models also arise naturally in the continuum limit of two-dimensional spin-systems like the Ashkin-Teller model~\cite{Ashkin:1943zza}, which is related to the well-known Potts model~\cite{Potts:1951rk} and as such used to study various phenomena of solid-state physics, see, \eg{}, \ccite{Wu:1982} for a general overview. In the following, we will list some explicit connections between the \gnm{} and models used in solid-state physics.
+
+The lattice field theoretical formulation of the \gn{} model in the limit $N\rightarrow\infty$ is equivalent to an Ising model~\cite{Affleck:1981bn}.
+
+At finite $N$ the \gnm{} can be considered as the continuum limit of the $N$-color ($N$ Ising spin) Ashkin-Teller model~\cite{Ashkin:1943zza,Fradkin:1984,Shankar:1985zc}, which describes $N$ coupled Ising spins on a two-dimensional lattice~\cite{Shankar:1985zc}.
+
+For $N=1$ the \gnm{} is equivalent to the Thirring model~\cite{Thirring:1958in,Witten:1978qu} due to Fierz identities, \cf{} \ccite{Peskin:1995ev,ZinnJustin:2002ru,Fradkin:2013}.
+In the continuum limit the one-dimensional spin-$\tfrac{1}{2}$ Heisenberg model is equivalent to a $N = 1$ \gn{} (Thirring) model~\cite{Fradkin:2013}.
+The Thirring model also arises in the infinite volume limit of the Luttinger model~\cite{Luttinger:1963zz} with strictly local interactions~\cite{Heidenreich:1980}, see \ccite{Fradkin:2013} for further details.
+The massive Thirring model is equivalent to the sine-Gordon model~\cite{Coleman:1974bu,Delepine:1997bz}, which in turn is (among its other application in mathematical physics) the continuum-limit of the Frenkel–Kontorova model~\cite{Frenkel:431595}.
+The latter is a simple model of a harmonic chain in a periodic potential known from solid-sate physics~\cite{Kivshar:2000}.
+The equivalence of the Thirring model and sine-Gordon model is based on an Abelian bosonization transformation, see \ccite{Fradkin:2013,Delepine:1997bz} and references therein, which connects equivalent bosonic and fermionic two-dimensional quantum field theories.
+
+Apart from research efforts in high-energy and solid-state physics the \gn{} model is also of interest in the context of holographic methods~\cite{Maldacena:1997re,Witten:1998qj} especially in the study of the AdS/CFT correspondence involving higher-spin fields, see \ccite{Giombi:2016ejx} for a recent review.
+
+\paragraph{Phenomenology of the Gross-Neveu model}\phantomsection\label{paragraph:GN_pheno}\mbox{}\\%
+A peculiar feature of the massless \gn{} model is, that at leading order of an $\tfrac{1}{N}$-expansion, thus in the infinite-$N$ limit (sometimes also referred to as 't~Hooft limit), the \gnm{} dynamically develops a mass gap for the fermions, which is associated with an anti-fermion-fermion condensate $\langle \Fpsib \, \Fpsi \rangle \neq 0$.
+In turn, this results in the breakdown of the discrete chiral symmetry of the initial microscopic \uv{} theory.
+The formation of a mass gap is a purely non-perturbative effect, see, \eg{}, the \ccite{ZinnJustin:1991yn,ZinnJustin:2002ru} for details, and is a prime example for \textit{dimensional transmutation} \dash{} the emergence of a dimensionful scale in a theory which has only dimensionless couplings in its \uv{} classical action, see, \eg{}, \ccite{Kleinert:2016,Peskin:1995ev,ZinnJustin:2002ru}.
+Hence, by summing up loop-contributions of all orders in the four-Fermi coupling in a $\tfrac{1}{N}$-expansion the discrete chiral symmetry spontaneously breaks down and is absent in the macroscopic theory in the \ir{}.
+In the partially bosonized version, this amounts to integrating out the fermion-loop contribution to the bosonic effective potential, which develops a non-trivial minimum in the \ir{} \dash{} the condensate~\cite{ZinnJustin:1991yn,ZinnJustin:2002ru,Rosenstein:1990nm,Luperini:1991sv,Quinto:2021lqn}.
+
+Shortly after D.~J.~Gross and A.~Neveu had published their results~\cite{Gross:1974jv} on \csb{}, the question arose, to what extent condensate formation is stable against thermal effects due to non-zero temperature $T$ or an increase in density, induced by a non-zero quark chemical potential $\mu$.
+Within the infinite-$N$ limit and allowing only for spatially homogeneous condensates, the answer to these questions was quickly settled and is remarkable~\cite{Dolan:1973qd,Harrington:1974te,Harrington:1974tf,Jacobs:1974ys,Dashen:1974xz,Dashen:1975xh,Wolff:1985av,Treml:1989,Pausch:1991ee,Karbstein:2006er}: The homogeneous phase diagram of the \gn{} model consists of a region, where the discrete chiral symmetry is broken and a region of vanishing chiral condensate, \cf{}\ \cref{fig:GNlargeN_PD}.
+The phase-transition line between these regions splits up into a second-order phase transition (starting at $\mu = 0$ and some critical temperature $T_\mathrm{C} \neq 0$ and ending in a \cp{} with $\mu_\mathrm{CP} \neq 0$ and $T_\mathrm{CP} \neq 0$) and a first-order phase transition (starting at the critical point and ending on the $T = 0$ axis and some non-zero chemical potential $\mu_1$).
+The entire phase diagram solely depends on a single dimensionful parameter, which is related to a renormalization condition, and can be chosen freely.
+All other dimensionful quantities are fixed multiples of this parameter and choosing a different renormalization condition (fixing some other parameter) corresponds to simple rescalings of all dimensionful quantities, but does not change their ratios, the phenomenology and the phase diagram.\\
+
+Notwithstanding these early successes, the discussion on the physics of the \gn{} model did not stop.
+One of the assumptions, which has led to the above results, is the assumption of a spatially homogeneous condensation of the fermions.
+Relaxing this assumption, but retaining the $N \rightarrow \infty$ limit, it was shown in \ccite{Thies:2003kk,Schnetz:2004vr,deForcrand:2006zz} that there are regions in the $\mu$-$T$-plane, where a spatially inhomogeneous but static condensate $\langle \Fpsib \, \Fpsi \rangle ( x ) \neq \mathrm{const}.$\ is energetically favored over homogeneous condensation including a vanishing of the condensate, \cf{} \cref{subsec:inhomoLiterature} and \cref{fig:GNthisPD}.
+We will discuss those inhomogeneous condensates in more detail in \cref{sec:gnInfHomo}.
+
+\subsection{The models in vacuum and at non-zero \texorpdfstring{$T$}{T} and \texorpdfstring{$\mu$}{mu}}\label{subsec:gnyTmu}
+\begin{disclaimer}
+	This subsection is compiled from Secs.~II.A and B and App.~B of \nbccite{Stoll:2021ori} and Sec.~II.A of \nbccite{Koenigstein:2021llr}.
+\end{disclaimer}
+In this subsection, we introduce the \gn{} model, its bosonized counterpart and the \gny{} model in Euclidean space-time.
+We comment on its symmetries and its in-medium generalization for non-zero chemical potentials $\mu$ and temperatures $T$.
+
+\paragraph{In vacuum}\phantomsection\label{paragraph:gnyVac}\mbox{}\\%
+The \gnm{} in one spatial and one temporal dimension in Euclidean space-time is defined by its classical action, \cf{}\ \ccite{Gross:1974jv},
+\begin{align}
+	S_\mathrm{GN} [ \Fpsi,\Fpsib ] = \int \dif^{\,2}\! x \, \big( \Fpsib \, \gamma^\nu\partial_\nu \, \Fpsi - \tfrac{g^2}{2 N} \, ( \Fpsib \, \Fpsi )^2 \big) \, ,	\label{eq:gn-model}
+\end{align}
+where $\Fpsi$ is a $N$-component object in flavor space ($f = 1, 2, \dots, N$ and $N > 1$)\footnote{We explicitly exclude $N = 1$, where the \gn{} model is identical to the Thirring model~\cite{Thirring:1958in,Witten:1978qu}, which has a vanishing perturbative one-loop beta function and different phenomenology than the \gn{} model at $N>1$~\cite{Peskin:1995ev,ZinnJustin:2002ru}. Some details and References concerning the Thirring model can be found in the \customref{paragraph:gnApplications}{previous paragraph}.} and a two-component spinor in Dirac space.
+Our conventions for spinors in \dtwo{} can be found in \cref{app:clifford2}.
+The action \eqref{eq:gn-model} involves a kinetic term and a four-fermion-interaction term with the dimensionless positive coupling constant $g\in \Reals{}^+$.
+	
+Apart from the usual Euclidean space-time symmetries (translations and a rotation), the action \eqref{eq:gn-model} is invariant under transformations of the symmetry group ${G = U(1) \times SU(N) \times \mathds{Z}_2}$. The group acts on the fermion fields as follows 
+\begin{subequations}\label{eq:gn-group-action}
+\begin{align}
+	G \times \Complex{}^{2 N} \to \, & \Complex{}^{2 N} \, ,\\[.1em]
+	( ( \alpha, \theta, n ), \Fpsi ) \mapsto \, & \alpha \, ( \theta \, \gamma_+ + n \, \theta \, \gamma_- ) \, \Fpsi \, ,
+\end{align}
+\end{subequations}
+with $n \in \{-1, +1\}$, left- and right-handed chiral projection operators $\gamma_{\mp}$ from \cref{eq:gammaChProjection}, and $\alpha \in U ( 1 )$ and $\theta \in SU ( N )$. 
+The full group $G$ is defined as the direct product of the groups $U(1)$, $SU(N)$, and \ZII{}.
+Hereby, the $SU(N)$ symmetry is usually called flavor or color symmetry and causes, according to Noether's theorem, the conservation of a vector current.
+The \ZII{} symmetry is called discrete chiral symmetry.
+The $U(1)$ symmetry is called phase symmetry and leads to a conserved Noether-charge density $\Fpsib \, \gamma^2 \, \Fpsi/N$, which is usually called baryon number density, which is tuned by the chemical potential $\mu$ for the fermions~\cite{Fitzner:2010nv,Dunne:2011wu,Thies:2017fkr,Lenz:2020cuv}, see also \cref{app:grandCanonicalPartitionFunction}.
+It is also worth mentioning, that the $SU(N)$ symmetry group of the \gnm{} in $1 + 1$ space-time dimensions is an $O(N)$ symmetry, which is why it is sometimes also denoted as an $O(N)$-symmetric model~\cite{Jacobs:1974ys,ZinnJustin:2002ru}. Furthermore the \gn{} model in two dimensions has an additional hidden $O(2N)$ symmetry between Majorana components of the fermion fields~\cite{Dashen:1975xh} which prevents the appearance of different four-fermion interaction channels during renormalization~\cite{Luperini:1991sv}.\bigskip
+
+The partition function of the \gn{} model is equivalent to the partition function of a \bgn{}, which can be derived by means of a \acrrepeat{hs} transformation~\cite{Stratonovich:1957,Hubbard:1959ub}.
+One introduces a Gaussian integral over a bosonic auxiliary field $\FSff{\xi}$ using
+\begin{align}
+	1 = \mathcal{N} \int \mathcal{D}[ \FSff{\xi} \vts] \, \eu^{- \int \dif^{\,2}\! x \, \frac{\FSff{\xi}^2}{2g^2}} \, ,\label{eq:gnHStrafo}
+\end{align}
+with a normalization factor $\mathcal{N}$.
+Combining this with the purely fermionic grand-canonical partition function, based on the action \eqref{eq:gn-model}, \cf{} \cref{app:grandCanonicalPartitionFunction}, we find
+\begin{align}
+	\mathcal{Z} \propto \, &  \int \mathcal{D}[ \FSff{\xi},\Fpsi,\Fpsib\vts]  \, \eu^{- \int \dif^{\, 2}\! x \, [ \Fpsib \, \gamma^\nu\partial_\nu \, \Fpsi - \frac{g^2}{2 N} \, ( \Fpsib \, \Fpsi )^2 + \frac{\FSff{\xi}^2}{2g^2} ]} \, .
+\end{align}
+Next, we shift the bosonic field integration variable
+\begin{align}
+	\FSff{\xi} = h \, \phi + \tfrac{g^2}{\sqrt{N}} \, \Fpsib \, \Fpsi \, ,
+\end{align}
+where we introduced the Yukawa coupling constant $h$ in order to have bosonic fields $\phi$\footnote{Following the convention used throughout \cref{chap:zeroONSU2} we use $\phi$ to denote a fluctuating field (not $\FSff{\phi}$) since we use $\varphi$ for the expectation value $\langle \phi\rangle=\varphi$.} with zero energy dimension, which is natural in two dimensions.
+The real scalar field $\phi$ usually called ``auxiliary'' or ``constraint'' field~\cite{Harrington:1974tf,Jacobs:1974ys,Luperini:1991sv,Braun:2011pp}.
+Using
+\begin{align}
+	\tfrac{1}{2 g^2} \, \FSff{\xi}^2 = \tfrac{h^2}{2 g^2} \phi^2 + \tfrac{h}{\sqrt{N}} \, \Fpsib \, \phi \, \Fpsi + \tfrac{g^2}{2 N} \, ( \Fpsib \, \Fpsi )^2 \, ,
+\end{align}
+we can completely eliminate the four-Fermi interaction term in favor of a Yukawa interaction term,
+\begin{align}
+	\mathcal{Z} \propto \, &  \int \mathcal{D}[\phi, \Fpsi,\Fpsib\vts] \, \eu^{- \int \dif^{\, 2}\! x \, [ \Fpsib \, ( \gamma^\nu\partial_\nu + \frac{h}{\sqrt{N}} \phi ) \, \Fpsi + \frac{h^2}{2 g^2} \phi^2 ]} \, .\label{eq:Zbgn}
+\end{align}
+This complete bosonization of the four-fermi interaction channel is reminiscent to the construction discussed in \cref{paragraph:qcdDynHad} in the context of dynamical hadronization in composite \frg{} flows of \qcd{}.
+	
+Using \cref{eq:Zbgn}, we define the action of the \bgn{} as
+\begin{align}
+	S_\mathrm{bGN} [\phi,\Fpsi,\Fpsib] = \int \dif^{\,2}\! x \, \big[ \Fpsib \, \big( \gamma^\nu\partial_\nu + \tfrac{h}{\sqrt{N}} \, \phi \big) \, \Fpsi + \tfrac{h^2}{2 g^2} \, \phi^2 \big] \, ,	\label{eq:bgn-model}
+\end{align}
+which is equivalent to the action \cref{eq:gn-model} of the original \gnm{}.
+Equivalent in this context means, that both theories share the same correlation functions, see the discussion at the beginning of \cref{paragraph:GNbGNGNY} or the textbooks~\cite{ZinnJustin:2002ru,Peskin:1995ev} for additional details. 
+	
+In the bosonized version \eqref{eq:bgn-model}, the four-Fermi interaction is replaced by a Yukawa interaction term with coupling constant $h$ as well as a quadratic (mass) term $h^2/g^2$ for the auxiliary field $\phi$.
+If we postulate
+\begin{subequations}\label{eq:bGNchiralSym}
+\begin{align}
+	G \times \Reals{} \to \, & \Reals{} \, ,\\
+	( ( \alpha, \theta, n ), \phi ) \mapsto \, & n \phi \, ,	
+\end{align}
+\end{subequations}
+then the action \eqref{eq:bgn-model} is invariant under the same symmetry group $G$ as the original action \eqref{eq:gn-model}.
+Within this work, we are especially interested in the discrete chiral symmetry transformation, which we understand as the group element $(\alpha, \theta, n) = (1, \Id_N, -1) \in G$, \ie{},
+	\begin{align}
+		\Fpsi \mapsto \Fpsi^\prime = \gamma_\mathrm{ch} \, \Fpsi \, ,	\qquad \Fpsib \mapsto \bar{\psi}^\prime = - \Fpsib \, \gamma_\mathrm{ch}\, ,\qquad	\phi \mapsto \phi^\prime = - \phi \, .\label{eq:discrete-chiral-transformation}
+	\end{align}
+It is this symmetry which prevents the \gnm{} from perturbatively generating a mass gap, see, \eg{}, \ccite{Gross:1974jv,ZinnJustin:2002ru}.
+
+Correlation functions of the \gn{} and \bgn{} are linked through Ward-Takahashi identities.
+Most notably among them: the expectation value of the scalar field can be related to the fermionic expectation value $\langle \bar{\psi} \, \psi \rangle$,
+	\begin{align}
+		\langle \phi \rangle \equiv \varphi = -\frac{g^2}{h N} \langle \Fpsib \, \Fpsi \rangle \, ,	\label{eq:sigm_eqofmotion} 
+	\end{align}
+see, \eg{}, \ccite{Pannullo:2019} for a derivation of this well known identity.
+For this expectation value the discrete symmetry transformation \eqref{eq:discrete-chiral-transformation} is realized as follows,
+	\begin{equation}
+		\langle \Fpsib \, \Fpsi \rangle \mapsto - \langle \Fpsib \, \Fpsi \rangle \quad \Leftrightarrow \quad \varphi \mapsto -\varphi \, .
+	\end{equation}
+Since the expectation value of $\langle \phi \rangle \equiv \varphi$ is directly proportional to this condensate, a non-vanishing $\varphi$ implies a spontaneous breaking of the discrete chiral symmetry.\bigskip
+
+By including an additional kinetic term for the bosonic field we obtain the \acrrepeat{gny} model~\cite{ZinnJustin:1991yn,ZinnJustin:2002ru,Rosa:2000ju}
+\begin{align}
+	S [ \phi ,\Fpsi,\Fpsib] = \, & \int \dif^{\,2}\! x \, \big[ \Fpsib \, \big( \gamma^\nu\partial_\nu + \tfrac{h}{\sqrt{N}} \, \phi \big) \, \Fpsi - \phi \, ( \Box \phi ) + \tfrac{h^2}{2 g^2} \, \phi^2 \big] \, ,		\label{eq:gny-model}
+\end{align}
+which we will use for practical computations in the \frg{} framework. We elaborate on the specific model choice and differences between the (b)\gn{} and \gnym{} in \cref{paragraph:GNbGNGNY}.
+
+\paragraph{In medium}\phantomsection\label{paragraph:gnyTmu}\mbox{}\\%
+In this work, we are mainly interested in the in-medium properties of the \gnym{}.
+To work at non-zero baryon density, we fix the net baryon number density by introducing a quark chemical potential $\mu$ in the usual manner, \cf{} \cref{app:grandCanonicalPartitionFunction}, \viz{}
+by subtracting
+\begin{align}
+	\mu N \equiv \mu \int\dif x \int_{0}^{\beta} \dif \tau \, \, \Fpsib \, \gamma^2 \, \Fpsi
+\end{align}
+from the classical \uv{} action, which yields the grand canonical partition function
+\begin{align}
+	\mathcal{Z} \propto \int \mathcal{D}[\phi,\Fpsi,\Fpsib\vts] \, \eu^{- S [\phi,\Fpsi,\Fpsib] + \mu N } \, .	\label{eq:GNpartition_function}
+\end{align}
+
+Furthermore, we introduce non-zero temperature via a compactification of the Euclidean time-direction in the usual manner, \cf{} \cref{app:grandCanonicalPartitionFunction,app:matsubaraSums} and specifically in this context App.~C of \nbccite{Stoll:2021ori}.
+
+The aforementioned steps lead us to the in-medium or thermal \gnym{},
+\begin{align}
+	S[\phi, \Fpsi,\Fpsib] = \, & \int\dif x \int_{0}^{\beta} \dif \tau \, \big[ \Fpsib \, \big( \gamma^\nu\partial_\nu - \mu \, \gamma^2 + \tfrac{h}{\sqrt{N}} \, \phi \big) \, \Fpsi - \phi \, ( \Box \phi ) + \tfrac{h^2}{2 g^2} \, \phi^2 \big] \, .\label{eq:thermal_gny_action}
+\end{align}

@@ -1,0 +1,25 @@
+\begin{align}
+	\cm{2,\FSvertexDt{\FSidxE{x},\FSidxE{w},\FSidxE{v},\FSidxE{u}}}
+	%*** Combinatorics
+	&=\, \skeleton{T_{4,4}} + \skeleton{T_{4,3}} + (\skeleton{T_{4,2}}) + \skeleton{T_{4,1}} \,= \notag\\
+	&=\, \skeleton{24} + \skeleton{36} + (\skeleton{8} + \skeleton{6}) + \skeleton{1}\label{eq:FS4}
+	%*** FS expressions
+	\newSubEqBlock\\[.25em]
+	%FRG`wetterichEq`FS4[{5, {3, 4}}][[1]]
+	&= \cm{\FScSkeleton{}{8}{},\ncm{\FSpropagator{\FSidxI{a},\FSidxI{b}},\FSvertex{\FSidxI{b},\FSidxE{x},\FSidxI{c}},\FSpropagator{\FSidxI{c},\FSidxI{d}},\FSvertex{\FSidxI{d},\FSidxE{w},\FSidxI{e}},\FSpropagator{\FSidxI{e},\FSidxI{f}},\FSvertex{\FSidxI{f},\FSidxE{v},\FSidxI{g}},\FSpropagator{\FSidxI{g},\FSidxI{h}},\FSvertex{\FSidxI{h},\FSidxE{u},\FSidxI{i}},\FSpropagator{\FSidxI{i},\FSidxI{j}},\FSregulatorDt{\FSidxI{j},\FSidxI{a}}}}+\skeleton{23} -  \subEqTag \label{eq:FS4_534_1}\\[.25em]
+	%FRG`wetterichEq`FS4[{4, {3, 2}, {4, 1}}][[1]]
+	&\qquad -\cm{\FScSkeleton{}{7}{},\ncm{\FSpropagator{\FSidxI{a},\FSidxI{b}},\FSvertex{\FSidxI{b},\FSidxE{x},\FSidxI{c}},\FSpropagator{\FSidxI{c},\FSidxI{d}},\FSvertex{\FSidxI{d},\FSidxE{w},\FSidxI{e}},\FSpropagator{\FSidxI{e},\FSidxI{f}},\FSvertex{\FSidxI{f},\FSidxE{v},\FSidxE{u},\FSidxI{g}},\FSpropagator{\FSidxI{g},\FSidxI{h}},\FSregulatorDt{\FSidxI{h},\FSidxI{a}}}}+\skeleton{35} + \subEqTag \label{eq:FS4_43241_1}\\[.25em]
+	%FRG`wetterichEq`FS4[{3, {3, 1}, {5, 1}}][[1]]
+	&\qquad + \Big(\cm{\FScSkeleton{}{6}{},\ncm{\FSpropagator{\FSidxI{a},\FSidxI{b}},\FSvertex{\FSidxI{b},\FSidxE{x},\FSidxI{c}},\FSpropagator{\FSidxI{c},\FSidxI{d}},\FSvertex{\FSidxI{d},\FSidxE{w},\FSidxE{v},\FSidxE{u},\FSidxI{e}},\FSpropagator{\FSidxI{e},\FSidxI{f}},\FSregulatorDt{\FSidxI{f},\FSidxI{a}}}}+\skeleton{7} + \subEqTag \label{eq:FS4_33151_1}\\[.25em]
+	%FRG`wetterichEq`FS4[{3, {4, 2}}][[1]]
+	&\qquad\qquad\quad + \cm{\FScSkeleton{}{6}{},\ncm{\FSpropagator{\FSidxI{a},\FSidxI{b}},\FSvertex{\FSidxI{b},\FSidxE{x},\FSidxE{w},\FSidxI{c}},\FSpropagator{\FSidxI{c},\FSidxI{d}},\FSvertex{\FSidxI{d},\FSidxE{v},\FSidxE{u},\FSidxI{e}},\FSpropagator{\FSidxI{e},\FSidxI{f}},\FSregulatorDt{\FSidxI{f},\FSidxI{a}}}}+\skeleton{5}\Big) - \subEqTag \label{eq:FS4_342_1}\\[.25em]
+	%FRG`wetterichEq`FS4[{2, {6, 1}}][[1]]
+	&\qquad -\cm{\FScSkeleton{}{5}{},\ncm{\FSpropagator{\FSidxI{a},\FSidxI{b}},\FSvertex{\FSidxI{b},\FSidxE{x},\FSidxE{w},\FSidxE{v},\FSidxE{u},\FSidxI{c}},\FSpropagator{\FSidxI{c},\FSidxI{d}},\FSregulatorDt{\FSidxI{d},\FSidxI{a}}}} \subEqTag \label{eq:FS4_261_1}
+	\newSubEqBlockPrime\\[.25em]
+	%*** Diagrams
+	&=\input{frg/diagrams/FRG-wetterichEq-FS4_534_1.tex} - \subEqTagPrime \label{eq:FS4_534_1-diagram}\\
+	&\qquad \input{frg/diagrams/FRG-wetterichEq-FS4_43241_1.tex} + \subEqTagPrime \label{eq:FS4_43241_1-diagram}\\
+	&\qquad +\Big(\input{frg/diagrams/FRG-wetterichEq-FS4_33151_1.tex} + \subEqTagPrime \label{eq:FS4_33151_1-diagram}\\
+	&\qquad\qquad\quad +\input{frg/diagrams/FRG-wetterichEq-FS4_342_1.tex}\Big) - \subEqTagPrime \label{eq:FS4_342_1-diagram}\\
+	&\qquad \input{frg/diagrams/FRG-wetterichEq-FS4_261_1.tex}\,. \subEqTagPrime \label{eq:FS4_261_1-diagram}
+\end{align}

@@ -1,0 +1,1419 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{Koenigstein:2021syz}{article}{}{}
+      \name{author}{7}{}{%
+        {{hash=4b23d88736ad751bed13656e4d7c84c5}{%
+           family={Koenigstein},
+           familyi={K\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+        {{hash=49fcb2fa68a625847384be50c22c850d}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=6ce7d5f22f58214e23a7f8801d78886e}{%
+           family={Wink},
+           familyi={W\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=1bcc77a68e857dea3bb5cb7f10f12e35}{%
+           family={Grossi},
+           familyi={G\bibinitperiod},
+           given={Eduardo},
+           giveni={E\bibinitperiod}}}%
+        {{hash=3a9b4fa55085e2232df17a1c4533e9e4}{%
+           family={Braun},
+           familyi={B\bibinitperiod},
+           given={Jens},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2a69c66619f537f7d42bc89814c2e6ee}{%
+           family={Buballa},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=2b3fdab62f2e9fb13097507c3b02ed18}{%
+           family={Rischke},
+           familyi={R\bibinitperiod},
+           given={Dirk\bibnamedelima H.},
+           giveni={D\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{fullhash}{1f2c32aa0eccf7a15e557ee6e90df30b}
+      \strng{fullhashraw}{1f2c32aa0eccf7a15e557ee6e90df30b}
+      \strng{bibnamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authorbibnamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authornamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authorfullhash}{1f2c32aa0eccf7a15e557ee6e90df30b}
+      \strng{authorfullhashraw}{1f2c32aa0eccf7a15e557ee6e90df30b}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cond-mat.stat-mech}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Rev. D}
+      \field{number}{6}
+      \field{title}{{Numerical fluid dynamics for FRG flow equations: Zero-dimensional QFTs as numerical test cases. I. The $O(N)$ model}}
+      \field{volume}{106}
+      \field{year}{2022}
+      \field{pages}{065012}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.106.065012
+      \endverb
+      \verb{eprint}
+      \verb 2108.02504
+      \endverb
+    \endentry
+    \entry{Koenigstein:2021rxj}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=4b23d88736ad751bed13656e4d7c84c5}{%
+           family={Koenigstein},
+           familyi={K\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+        {{hash=49fcb2fa68a625847384be50c22c850d}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=6ce7d5f22f58214e23a7f8801d78886e}{%
+           family={Wink},
+           familyi={W\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=1bcc77a68e857dea3bb5cb7f10f12e35}{%
+           family={Grossi},
+           familyi={G\bibinitperiod},
+           given={Eduardo},
+           giveni={E\bibinitperiod}}}%
+        {{hash=3a9b4fa55085e2232df17a1c4533e9e4}{%
+           family={Braun},
+           familyi={B\bibinitperiod},
+           given={Jens},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{fullhash}{a0150ef93b18b2ff861e6f951ac19245}
+      \strng{fullhashraw}{a0150ef93b18b2ff861e6f951ac19245}
+      \strng{bibnamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authorbibnamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authornamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authorfullhash}{a0150ef93b18b2ff861e6f951ac19245}
+      \strng{authorfullhashraw}{a0150ef93b18b2ff861e6f951ac19245}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cond-mat.stat-mech}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Rev. D}
+      \field{number}{6}
+      \field{title}{{Numerical fluid dynamics for FRG flow equations: Zero-dimensional QFTs as numerical test cases. II. Entropy production and irreversibility of RG flows}}
+      \field{volume}{106}
+      \field{year}{2022}
+      \field{pages}{065013}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.106.065013
+      \endverb
+      \verb{eprint}
+      \verb 2108.10085
+      \endverb
+    \endentry
+    \entry{Steil:2021cbu}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=49fcb2fa68a625847384be50c22c850d}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=4b23d88736ad751bed13656e4d7c84c5}{%
+           family={Koenigstein},
+           familyi={K\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{fullhash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{fullhashraw}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{bibnamehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authorbibnamehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authornamehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authorfullhash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authorfullhashraw}{de01884df822fc32cfb97bf78d4dd63b}
+      \field{extraname}{1}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cond-mat.stat-mech}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Rev. D}
+      \field{number}{6}
+      \field{title}{{Numerical fluid dynamics for FRG flow equations: Zero-dimensional QFTs as numerical test cases. III. Shock and rarefaction waves in RG flows reveal limitations of the $N\ensuremath{\rightarrow}\ensuremath{\infty}$ limit in $O(N)$-type models}}
+      \field{volume}{106}
+      \field{year}{2022}
+      \field{pages}{065014}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.106.065014
+      \endverb
+      \verb{eprint}
+      \verb 2108.04037
+      \endverb
+    \endentry
+    \entry{Stoll:2021ori}{misc}{}{}
+      \name{author}{5}{}{%
+        {{hash=91e697c02cd1c6904c8a5668487f4919}{%
+           family={Stoll},
+           familyi={S\bibinitperiod},
+           given={Jonas},
+           giveni={J\bibinitperiod}}}%
+        {{hash=df3243189787754cea5bab1ac94ea05b}{%
+           family={Zorbach},
+           familyi={Z\bibinitperiod},
+           given={Niklas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=4b23d88736ad751bed13656e4d7c84c5}{%
+           family={Koenigstein},
+           familyi={K\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+        {{hash=49fcb2fa68a625847384be50c22c850d}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=4a4012c0e74cdc83d9be7ff73b80a5d0}{%
+           family={Rechenberger},
+           familyi={R\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{5916161b58d123615af443b591d8d12b}
+      \strng{fullhash}{c329d5cf9db567a2da5910498c0107e6}
+      \strng{fullhashraw}{c329d5cf9db567a2da5910498c0107e6}
+      \strng{bibnamehash}{5916161b58d123615af443b591d8d12b}
+      \strng{authorbibnamehash}{5916161b58d123615af443b591d8d12b}
+      \strng{authornamehash}{5916161b58d123615af443b591d8d12b}
+      \strng{authorfullhash}{c329d5cf9db567a2da5910498c0107e6}
+      \strng{authorfullhashraw}{c329d5cf9db567a2da5910498c0107e6}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{month}{8}
+      \field{title}{{Bosonic fluctuations in the $( 1 + 1 )$-dimensional Gross-Neveu(-Yukawa) model at varying $\mu$ and $T$ and finite $N$}}
+      \field{year}{2021}
+      \verb{eprint}
+      \verb 2108.10616
+      \endverb
+    \endentry
+    \entry{Koenigstein:2021llr}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=4b23d88736ad751bed13656e4d7c84c5}{%
+           family={Koenigstein},
+           familyi={K\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+        {{hash=abe11417c221dce0736e5145dc49262a}{%
+           family={Pannullo},
+           familyi={P\bibinitperiod},
+           given={Laurin},
+           giveni={L\bibinitperiod}}}%
+        {{hash=4a4012c0e74cdc83d9be7ff73b80a5d0}{%
+           family={Rechenberger},
+           familyi={R\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=49fcb2fa68a625847384be50c22c850d}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=d5ff316408770580864d34a133ded944}{%
+           family={Winstel},
+           familyi={W\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{fullhash}{7534d67aeb39beb4f2050b18039c8fca}
+      \strng{fullhashraw}{7534d67aeb39beb4f2050b18039c8fca}
+      \strng{bibnamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authorbibnamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authornamehash}{877d3d3f37b69447f3a60180fef5ebe6}
+      \strng{authorfullhash}{7534d67aeb39beb4f2050b18039c8fca}
+      \strng{authorfullhashraw}{7534d67aeb39beb4f2050b18039c8fca}
+      \field{extraname}{3}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{J. Phys. A}
+      \field{number}{37}
+      \field{title}{{Detecting inhomogeneous chiral condensation from the bosonic two-point function in the (1 + 1)-dimensional Gross–{}Neveu model in the mean-field approximation*}}
+      \field{volume}{55}
+      \field{year}{2022}
+      \field{pages}{375402}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1088/1751-8121/ac820a
+      \endverb
+      \verb{eprint}
+      \verb 2112.07024
+      \endverb
+    \endentry
+    \entry{Philipsen:2010Antritt}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=b325af37e7cf99328a48bb31f17c75ab}{%
+           family={Philipsen},
+           familyi={P\bibinitperiod},
+           given={Owe},
+           giveni={O\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Frankfurt}%
+      }
+      \list{organization}{1}{%
+        {Goethe-Universität}%
+      }
+      \strng{namehash}{b325af37e7cf99328a48bb31f17c75ab}
+      \strng{fullhash}{b325af37e7cf99328a48bb31f17c75ab}
+      \strng{fullhashraw}{b325af37e7cf99328a48bb31f17c75ab}
+      \strng{bibnamehash}{b325af37e7cf99328a48bb31f17c75ab}
+      \strng{authorbibnamehash}{b325af37e7cf99328a48bb31f17c75ab}
+      \strng{authornamehash}{b325af37e7cf99328a48bb31f17c75ab}
+      \strng{authorfullhash}{b325af37e7cf99328a48bb31f17c75ab}
+      \strng{authorfullhashraw}{b325af37e7cf99328a48bb31f17c75ab}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{{Inaugural lecture}}
+      \field{month}{10}
+      \field{note}{[Online; accessed 2024.05.02]}
+      \field{title}{{Nuclear Matter between Heaven and Earth: The QCD Phase Diagram}}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://itp.uni-frankfurt.de/~philipsen/homepage_files/antritt10.pdf
+      \endverb
+      \verb{url}
+      \verb https://itp.uni-frankfurt.de/~philipsen/homepage_files/antritt10.pdf
+      \endverb
+    \endentry
+    \entry{Steil:2024phd}{thesis}{}{}
+      \name{author}{1}{}{%
+        {{hash=d56869c3b9ea291feba55d954f0f09fc}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima Jakob},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Technische Universität Darmstadt}%
+      }
+      \strng{namehash}{d56869c3b9ea291feba55d954f0f09fc}
+      \strng{fullhash}{d56869c3b9ea291feba55d954f0f09fc}
+      \strng{fullhashraw}{d56869c3b9ea291feba55d954f0f09fc}
+      \strng{bibnamehash}{d56869c3b9ea291feba55d954f0f09fc}
+      \strng{authorbibnamehash}{d56869c3b9ea291feba55d954f0f09fc}
+      \strng{authornamehash}{d56869c3b9ea291feba55d954f0f09fc}
+      \strng{authorfullhash}{d56869c3b9ea291feba55d954f0f09fc}
+      \strng{authorfullhashraw}{d56869c3b9ea291feba55d954f0f09fc}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{From zero-dimensional theories to inhomogeneous phases with the functional renormalization group}}
+      \field{type}{PhD thesis}
+      \field{year}{2024}
+      \verb{doi}
+      \verb 10.26083/tuprints-00027380
+      \endverb
+      \verb{urlraw}
+      \verb https://tuprints.ulb.tu-darmstadt.de/27380/
+      \endverb
+      \verb{url}
+      \verb https://tuprints.ulb.tu-darmstadt.de/27380/
+      \endverb
+    \endentry
+    \entry{Wilson:1971bg}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=71a81eae45ca11d1925b29ac97990acd}{%
+           family={Wilson},
+           familyi={W\bibinitperiod},
+           given={Kenneth\bibnamedelima G.},
+           giveni={K\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{fullhash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{fullhashraw}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{bibnamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorbibnamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authornamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorfullhash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorfullhashraw}{71a81eae45ca11d1925b29ac97990acd}
+      \field{extraname}{1}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Rev. B}
+      \field{month}{11}
+      \field{title}{{Renormalization group and critical phenomena. 1. Renormalization group and the Kadanoff scaling picture}}
+      \field{volume}{4}
+      \field{year}{1971}
+      \field{pages}{3174\bibrangedash 3183}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1103/PhysRevB.4.3174
+      \endverb
+    \endentry
+    \entry{Wilson:1971dh}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=71a81eae45ca11d1925b29ac97990acd}{%
+           family={Wilson},
+           familyi={W\bibinitperiod},
+           given={Kenneth\bibnamedelima G.},
+           giveni={K\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{fullhash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{fullhashraw}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{bibnamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorbibnamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authornamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorfullhash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorfullhashraw}{71a81eae45ca11d1925b29ac97990acd}
+      \field{extraname}{2}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Rev. B}
+      \field{month}{11}
+      \field{title}{{Renormalization group and critical phenomena. 2. Phase space cell analysis of critical behavior}}
+      \field{volume}{4}
+      \field{year}{1971}
+      \field{pages}{3184\bibrangedash 3205}
+      \range{pages}{22}
+      \verb{doi}
+      \verb 10.1103/PhysRevB.4.3184
+      \endverb
+    \endentry
+    \entry{Wilson:1979qg}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=71a81eae45ca11d1925b29ac97990acd}{%
+           family={Wilson},
+           familyi={W\bibinitperiod},
+           given={Kenneth\bibnamedelima G.},
+           giveni={K\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{fullhash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{fullhashraw}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{bibnamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorbibnamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authornamehash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorfullhash}{71a81eae45ca11d1925b29ac97990acd}
+      \strng{authorfullhashraw}{71a81eae45ca11d1925b29ac97990acd}
+      \field{extraname}{3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sci. Am.}
+      \field{month}{8}
+      \field{title}{{Problems in physics with many scales of length}}
+      \field{volume}{241}
+      \field{year}{1979}
+      \field{pages}{158\bibrangedash 179}
+      \range{pages}{22}
+      \verb{doi}
+      \verb 10.1038/scientificamerican0879-158
+      \endverb
+    \endentry
+    \entry{Wetterich:1991be}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=2af3bd4d233047be079ff739ecd35faf}{%
+           family={Wetterich},
+           familyi={W\bibinitperiod},
+           given={Christof},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{fullhash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{fullhashraw}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{bibnamehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authorbibnamehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authornamehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authorfullhash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authorfullhashraw}{2af3bd4d233047be079ff739ecd35faf}
+      \field{extraname}{1}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Z. Phys. C}
+      \field{month}{9}
+      \field{title}{{The average action for scalar fields near phase transitions}}
+      \field{volume}{57}
+      \field{year}{1993}
+      \field{pages}{451\bibrangedash 470}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1007/BF01474340
+      \endverb
+    \endentry
+    \entry{Wetterich:1992yh}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=2af3bd4d233047be079ff739ecd35faf}{%
+           family={Wetterich},
+           familyi={W\bibinitperiod},
+           given={Christof},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{fullhash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{fullhashraw}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{bibnamehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authorbibnamehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authornamehash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authorfullhash}{2af3bd4d233047be079ff739ecd35faf}
+      \strng{authorfullhashraw}{2af3bd4d233047be079ff739ecd35faf}
+      \field{extraname}{2}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-th}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Lett. B}
+      \field{month}{2}
+      \field{title}{{Exact evolution equation for the effective potential}}
+      \field{volume}{301}
+      \field{year}{1993}
+      \field{pages}{90\bibrangedash 94}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1016/0370-2693(93)90726-X
+      \endverb
+      \verb{eprint}
+      \verb 1710.05815
+      \endverb
+    \endentry
+    \entry{Reuter:1993kw}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=ba2cbfcb3f2671460dc76fd7f5865b48}{%
+           family={Reuter},
+           familyi={R\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=2af3bd4d233047be079ff739ecd35faf}{%
+           family={Wetterich},
+           familyi={W\bibinitperiod},
+           given={Christof},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \strng{fullhash}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \strng{fullhashraw}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \strng{bibnamehash}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \strng{authorbibnamehash}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \strng{authornamehash}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \strng{authorfullhash}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \strng{authorfullhashraw}{6b8ad6e1f71458ebf90dd00e60ada381}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nucl. Phys. B}
+      \field{month}{4}
+      \field{title}{{Effective average action for gauge theories and exact evolution equations}}
+      \field{volume}{417}
+      \field{year}{1994}
+      \field{pages}{181\bibrangedash 214}
+      \range{pages}{34}
+      \verb{doi}
+      \verb 10.1016/0550-3213(94)90543-6
+      \endverb
+    \endentry
+    \entry{Morris:1993qb}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=4052561297b36a18ae518b5b6769b41d}{%
+           family={Morris},
+           familyi={M\bibinitperiod},
+           given={Tim\bibnamedelima R.},
+           giveni={T\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{4052561297b36a18ae518b5b6769b41d}
+      \strng{fullhash}{4052561297b36a18ae518b5b6769b41d}
+      \strng{fullhashraw}{4052561297b36a18ae518b5b6769b41d}
+      \strng{bibnamehash}{4052561297b36a18ae518b5b6769b41d}
+      \strng{authorbibnamehash}{4052561297b36a18ae518b5b6769b41d}
+      \strng{authornamehash}{4052561297b36a18ae518b5b6769b41d}
+      \strng{authorfullhash}{4052561297b36a18ae518b5b6769b41d}
+      \strng{authorfullhashraw}{4052561297b36a18ae518b5b6769b41d}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Int. J. Mod. Phys. A}
+      \field{month}{6}
+      \field{number}{14}
+      \field{title}{{The Exact Renormalization Group and approximate solutions}}
+      \field{volume}{09}
+      \field{year}{1994}
+      \field{pages}{2411\bibrangedash 2450}
+      \range{pages}{40}
+      \verb{doi}
+      \verb 10.1142/S0217751X94000972
+      \endverb
+      \verb{eprint}
+      \verb hep-ph/9308265
+      \endverb
+    \endentry
+    \entry{Tetradis:1993ts}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=715ee65e380991c007e4eb5b20bdf0ef}{%
+           family={Tetradis},
+           familyi={T\bibinitperiod},
+           given={Nikolaos},
+           giveni={N\bibinitperiod}}}%
+        {{hash=2af3bd4d233047be079ff739ecd35faf}{%
+           family={Wetterich},
+           familyi={W\bibinitperiod},
+           given={Christof},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{538d38f194aca8393b729c731bef977b}
+      \strng{fullhash}{538d38f194aca8393b729c731bef977b}
+      \strng{fullhashraw}{538d38f194aca8393b729c731bef977b}
+      \strng{bibnamehash}{538d38f194aca8393b729c731bef977b}
+      \strng{authorbibnamehash}{538d38f194aca8393b729c731bef977b}
+      \strng{authornamehash}{538d38f194aca8393b729c731bef977b}
+      \strng{authorfullhash}{538d38f194aca8393b729c731bef977b}
+      \strng{authorfullhashraw}{538d38f194aca8393b729c731bef977b}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Nucl. Phys. B}
+      \field{month}{7}
+      \field{title}{{Critical exponents from effective average action}}
+      \field{volume}{422}
+      \field{year}{1994}
+      \field{pages}{541\bibrangedash 592}
+      \range{pages}{52}
+      \verb{doi}
+      \verb 10.1016/0550-3213(94)90446-4
+      \endverb
+      \verb{eprint}
+      \verb hep-ph/9308214
+      \endverb
+    \endentry
+    \entry{Ellwanger:1993mw}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=a655486e7f1e4e2ae7c2ffefe23cc92c}{%
+           family={Ellwanger},
+           familyi={E\bibinitperiod},
+           given={Ulrich},
+           giveni={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \strng{fullhash}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \strng{fullhashraw}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \strng{bibnamehash}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \strng{authorbibnamehash}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \strng{authornamehash}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \strng{authorfullhash}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \strng{authorfullhashraw}{a655486e7f1e4e2ae7c2ffefe23cc92c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Z. Phys. C}
+      \field{month}{9}
+      \field{title}{{Flow equations for $N$ point functions and bound states}}
+      \field{volume}{62}
+      \field{year}{1994}
+      \field{pages}{503\bibrangedash 510}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1007/BF01555911
+      \endverb
+      \verb{eprint}
+      \verb hep-ph/9308260
+      \endverb
+    \endentry
+    \entry{Grossi:2019urj}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=1bcc77a68e857dea3bb5cb7f10f12e35}{%
+           family={Grossi},
+           familyi={G\bibinitperiod},
+           given={Eduardo},
+           giveni={E\bibinitperiod}}}%
+        {{hash=6ce7d5f22f58214e23a7f8801d78886e}{%
+           family={Wink},
+           familyi={W\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \strng{fullhash}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \strng{fullhashraw}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \strng{bibnamehash}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \strng{authorbibnamehash}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \strng{authornamehash}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \strng{authorfullhash}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \strng{authorfullhashraw}{d3fd7ffb95dfc1abc2c48e536455f50d}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-th}
+      \field{eprinttype}{arXiv}
+      \field{month}{3}
+      \field{title}{{Resolving phase transitions with Discontinuous Galerkin methods}}
+      \field{year}{2019}
+      \verb{eprint}
+      \verb 1903.09503
+      \endverb
+    \endentry
+    \entry{Keitel:2011pn}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=df4292e233bbad2163d2f3f6abe046de}{%
+           family={Keitel},
+           familyi={K\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ede3f718f1e7f402b9fcfee1c0c3770f}{%
+           family={Bartosch},
+           familyi={B\bibinitperiod},
+           given={Lorenz},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{35ab050830a956c545518c49d44caa6d}
+      \strng{fullhash}{35ab050830a956c545518c49d44caa6d}
+      \strng{fullhashraw}{35ab050830a956c545518c49d44caa6d}
+      \strng{bibnamehash}{35ab050830a956c545518c49d44caa6d}
+      \strng{authorbibnamehash}{35ab050830a956c545518c49d44caa6d}
+      \strng{authornamehash}{35ab050830a956c545518c49d44caa6d}
+      \strng{authorfullhash}{35ab050830a956c545518c49d44caa6d}
+      \strng{authorfullhashraw}{35ab050830a956c545518c49d44caa6d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cond-mat.stat-mech}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{J. Phys. A}
+      \field{month}{2}
+      \field{title}{{The zero-dimensional $O(N)$ vector model as a benchmark for perturbation theory, the large-$N$ expansion and the Functional Renormalization Group}}
+      \field{volume}{A45}
+      \field{year}{2012}
+      \field{pages}{105401}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1088/1751-8113/45/10/105401
+      \endverb
+      \verb{eprint}
+      \verb 1109.3013
+      \endverb
+    \endentry
+    \entry{KTO2-0}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=ad20998e1057bfeb80356100a951b491}{%
+           family={Kurganov},
+           familyi={K\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=0ab49305453ae95941b35e853c687f99}{%
+           family={Tadmor},
+           familyi={T\bibinitperiod},
+           given={Eitan},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \strng{fullhash}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \strng{fullhashraw}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \strng{bibnamehash}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \strng{authorbibnamehash}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \strng{authornamehash}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \strng{authorfullhash}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \strng{authorfullhashraw}{4f96e474d73d9bfe27f920add0cf0ff5}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0021-9991}
+      \field{journaltitle}{J. Comput. Phys.}
+      \field{number}{1}
+      \field{title}{{New High-Resolution Central Schemes for Nonlinear Conservation Laws and Convection–Diffusion Equations}}
+      \field{volume}{160}
+      \field{year}{2000}
+      \field{pages}{241\bibrangedash 282}
+      \range{pages}{42}
+      \verb{doi}
+      \verb 10.1006/jcph.2000.6459
+      \endverb
+    \endentry
+    \entry{Schnetz:2004vr}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=cbbac8e2717d353a991704924c7e9f2d}{%
+           family={Schnetz},
+           familyi={S\bibinitperiod},
+           given={Oliver},
+           giveni={O\bibinitperiod}}}%
+        {{hash=cb7393f0f629aa8fa284c470d5f277f7}{%
+           family={Thies},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ab56d6741ff8102dee4413625b18023e}{%
+           family={Urlichs},
+           familyi={U\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{fullhash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{fullhashraw}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{bibnamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorbibnamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authornamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorfullhash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorfullhashraw}{3cb8551301cad97fadcd39ee48443e0e}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Annals Phys.}
+      \field{month}{12}
+      \field{title}{{Phase diagram of the Gross-Neveu model: Exact results and condensed matter precursors}}
+      \field{volume}{314}
+      \field{year}{2004}
+      \field{pages}{425\bibrangedash 447}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1016/j.aop.2004.06.009
+      \endverb
+      \verb{eprint}
+      \verb hep-th/0402014
+      \endverb
+    \endentry
+    \entry{Schnetz:2005ih}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=cbbac8e2717d353a991704924c7e9f2d}{%
+           family={Schnetz},
+           familyi={S\bibinitperiod},
+           given={Oliver},
+           giveni={O\bibinitperiod}}}%
+        {{hash=cb7393f0f629aa8fa284c470d5f277f7}{%
+           family={Thies},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ab56d6741ff8102dee4413625b18023e}{%
+           family={Urlichs},
+           familyi={U\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{fullhash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{fullhashraw}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{bibnamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorbibnamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authornamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorfullhash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorfullhashraw}{3cb8551301cad97fadcd39ee48443e0e}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Annals Phys.}
+      \field{month}{11}
+      \field{title}{{Full phase diagram of the massive Gross-Neveu model}}
+      \field{volume}{321}
+      \field{year}{2006}
+      \field{pages}{2604\bibrangedash 2637}
+      \range{pages}{34}
+      \verb{doi}
+      \verb 10.1016/j.aop.2005.12.007
+      \endverb
+      \verb{eprint}
+      \verb hep-th/0511206
+      \endverb
+    \endentry
+    \entry{Schnetz:2005vh}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=cbbac8e2717d353a991704924c7e9f2d}{%
+           family={Schnetz},
+           familyi={S\bibinitperiod},
+           given={Oliver},
+           giveni={O\bibinitperiod}}}%
+        {{hash=cb7393f0f629aa8fa284c470d5f277f7}{%
+           family={Thies},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ab56d6741ff8102dee4413625b18023e}{%
+           family={Urlichs},
+           familyi={U\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{fullhash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{fullhashraw}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{bibnamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorbibnamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authornamehash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorfullhash}{3cb8551301cad97fadcd39ee48443e0e}
+      \strng{authorfullhashraw}{3cb8551301cad97fadcd39ee48443e0e}
+      \field{extraname}{3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{month}{7}
+      \field{title}{{The Phase diagram of the massive Gross-Neveu model, revisited}}
+      \field{year}{2005}
+      \verb{eprint}
+      \verb hep-th/0507120
+      \endverb
+    \endentry
+    \entry{Basar:2009fg}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=eb600270b64f330e09aee31c7260f875}{%
+           family={Basar},
+           familyi={B\bibinitperiod},
+           given={Gokce},
+           giveni={G\bibinitperiod}}}%
+        {{hash=08d411f6841d28ac782c0fb6f0137114}{%
+           family={Dunne},
+           familyi={D\bibinitperiod},
+           given={Gerald\bibnamedelima V.},
+           giveni={G\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=cb7393f0f629aa8fa284c470d5f277f7}{%
+           family={Thies},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Physical Society}%
+      }
+      \strng{namehash}{6d5a181612584763f2af7434eba4a545}
+      \strng{fullhash}{6d5a181612584763f2af7434eba4a545}
+      \strng{fullhashraw}{6d5a181612584763f2af7434eba4a545}
+      \strng{bibnamehash}{6d5a181612584763f2af7434eba4a545}
+      \strng{authorbibnamehash}{6d5a181612584763f2af7434eba4a545}
+      \strng{authornamehash}{6d5a181612584763f2af7434eba4a545}
+      \strng{authorfullhash}{6d5a181612584763f2af7434eba4a545}
+      \strng{authorfullhashraw}{6d5a181612584763f2af7434eba4a545}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-th}
+      \field{eprinttype}{arXiv}
+      \field{issue}{10}
+      \field{journaltitle}{Phys. Rev. D}
+      \field{month}{5}
+      \field{title}{{Inhomogeneous condensates in the thermodynamics of the chiral ${\mathrm{NJL}}_{2}$ model}}
+      \field{volume}{79}
+      \field{year}{2009}
+      \field{pages}{105012}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.79.105012
+      \endverb
+      \verb{eprint}
+      \verb 0903.1868
+      \endverb
+    \endentry
+    \entry{Rennecke:2021ovl}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=d5ba18ad8f6e08b6d5c0c44208acd41b}{%
+           family={Rennecke},
+           familyi={R\bibinitperiod},
+           given={Fabian},
+           giveni={F\bibinitperiod}}}%
+        {{hash=06401090ef58b8833ec68ba4963e1fa5}{%
+           family={Pisarski},
+           familyi={P\bibinitperiod},
+           given={Robert\bibnamedelima D.},
+           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{7d7ac1a9edbe3d776c670274040fc993}
+      \strng{fullhash}{7d7ac1a9edbe3d776c670274040fc993}
+      \strng{fullhashraw}{7d7ac1a9edbe3d776c670274040fc993}
+      \strng{bibnamehash}{7d7ac1a9edbe3d776c670274040fc993}
+      \strng{authorbibnamehash}{7d7ac1a9edbe3d776c670274040fc993}
+      \strng{authornamehash}{7d7ac1a9edbe3d776c670274040fc993}
+      \strng{authorfullhash}{7d7ac1a9edbe3d776c670274040fc993}
+      \strng{authorfullhashraw}{7d7ac1a9edbe3d776c670274040fc993}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{{International Conference on Critical Point and Onset of Deconfinement}}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{month}{10}
+      \field{title}{{Moat Regimes in QCD and their Signatures in Heavy-Ion Collisions}}
+      \field{year}{2021}
+      \verb{eprint}
+      \verb 2110.02625
+      \endverb
+    \endentry
+    \entry{Pisarski:2020gkx}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=06401090ef58b8833ec68ba4963e1fa5}{%
+           family={Pisarski},
+           familyi={P\bibinitperiod},
+           given={Robert\bibnamedelima D.},
+           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=d5ba18ad8f6e08b6d5c0c44208acd41b}{%
+           family={Rennecke},
+           familyi={R\bibinitperiod},
+           given={Fabian},
+           giveni={F\bibinitperiod}}}%
+        {{hash=1f13bacc0f4c30d7c69624096adf437e}{%
+           family={Tsvelik},
+           familyi={T\bibinitperiod},
+           given={Alexei\bibnamedelima M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=52405698ca6d113f701936f5d7a5f663}{%
+           family={Valgushev},
+           familyi={V\bibinitperiod},
+           given={Semeon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \name{editor}{5}{}{%
+        {{hash=8cfebbe54197d0a6e7c196b6fe8cf3a3}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Feng},
+           giveni={F\bibinitperiod}}}%
+        {{hash=8b92b5893719fe2fd2107efe28c4612a}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Enke},
+           giveni={E\bibinitperiod}}}%
+        {{hash=3e8745890dde006e6762d3d612306a7e}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Xin-Nian},
+           giveni={X\bibinithyphendelim N\bibinitperiod}}}%
+        {{hash=34a7d029279f21c2efff4b6aae169742}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Nu},
+           giveni={N\bibinitperiod}}}%
+        {{hash=7ac39b6054b207d59c7cfd071ecf2d09}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Ben-Wei},
+           giveni={B\bibinithyphendelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{a277d5f2a15a30a38ac4d5b7f1d6206f}
+      \strng{fullhash}{c19d179117970aeb441d9ab7170770dd}
+      \strng{fullhashraw}{c19d179117970aeb441d9ab7170770dd}
+      \strng{bibnamehash}{a277d5f2a15a30a38ac4d5b7f1d6206f}
+      \strng{authorbibnamehash}{a277d5f2a15a30a38ac4d5b7f1d6206f}
+      \strng{authornamehash}{a277d5f2a15a30a38ac4d5b7f1d6206f}
+      \strng{authorfullhash}{c19d179117970aeb441d9ab7170770dd}
+      \strng{authorfullhashraw}{c19d179117970aeb441d9ab7170770dd}
+      \strng{editorbibnamehash}{53cf3057a5afe39f80bc6c1fdf9a86d8}
+      \strng{editornamehash}{53cf3057a5afe39f80bc6c1fdf9a86d8}
+      \strng{editorfullhash}{5a5f72edef75a73b517c0d4fdd5d03b1}
+      \strng{editorfullhashraw}{5a5f72edef75a73b517c0d4fdd5d03b1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{nucl-th}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Nucl. Phys. A}
+      \field{month}{1}
+      \field{title}{{The Lifshitz Regime and its Experimental Signals}}
+      \field{volume}{1005}
+      \field{year}{2021}
+      \field{pages}{121910}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.nuclphysa.2020.121910
+      \endverb
+      \verb{eprint}
+      \verb 2005.00045
+      \endverb
+    \endentry
+    \entry{Pisarski:2021qof}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=06401090ef58b8833ec68ba4963e1fa5}{%
+           family={Pisarski},
+           familyi={P\bibinitperiod},
+           given={Robert\bibnamedelima D.},
+           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=d5ba18ad8f6e08b6d5c0c44208acd41b}{%
+           family={Rennecke},
+           familyi={R\bibinitperiod},
+           given={Fabian},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a3c3f967882843b99ae92a6eddafa4f}
+      \strng{fullhash}{3a3c3f967882843b99ae92a6eddafa4f}
+      \strng{fullhashraw}{3a3c3f967882843b99ae92a6eddafa4f}
+      \strng{bibnamehash}{3a3c3f967882843b99ae92a6eddafa4f}
+      \strng{authorbibnamehash}{3a3c3f967882843b99ae92a6eddafa4f}
+      \strng{authornamehash}{3a3c3f967882843b99ae92a6eddafa4f}
+      \strng{authorfullhash}{3a3c3f967882843b99ae92a6eddafa4f}
+      \strng{authorfullhashraw}{3a3c3f967882843b99ae92a6eddafa4f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Rev. Lett.}
+      \field{month}{10}
+      \field{number}{15}
+      \field{title}{{Signatures of Moat Regimes in Heavy-Ion Collisions}}
+      \field{volume}{127}
+      \field{year}{2021}
+      \field{pages}{152302}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevLett.127.152302
+      \endverb
+      \verb{eprint}
+      \verb 2103.06890
+      \endverb
+    \endentry
+    \entry{Pisarski:2020dnx}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=06401090ef58b8833ec68ba4963e1fa5}{%
+           family={Pisarski},
+           familyi={P\bibinitperiod},
+           given={Robert\bibnamedelima D.},
+           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=1f13bacc0f4c30d7c69624096adf437e}{%
+           family={Tsvelik},
+           familyi={T\bibinitperiod},
+           given={Alexei\bibnamedelima M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=52405698ca6d113f701936f5d7a5f663}{%
+           family={Valgushev},
+           familyi={V\bibinitperiod},
+           given={Semeon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{6fe105d306d479741a4b2aa1d12d788d}
+      \strng{fullhash}{6fe105d306d479741a4b2aa1d12d788d}
+      \strng{fullhashraw}{6fe105d306d479741a4b2aa1d12d788d}
+      \strng{bibnamehash}{6fe105d306d479741a4b2aa1d12d788d}
+      \strng{authorbibnamehash}{6fe105d306d479741a4b2aa1d12d788d}
+      \strng{authornamehash}{6fe105d306d479741a4b2aa1d12d788d}
+      \strng{authorfullhash}{6fe105d306d479741a4b2aa1d12d788d}
+      \strng{authorfullhashraw}{6fe105d306d479741a4b2aa1d12d788d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Rev. D}
+      \field{month}{7}
+      \field{number}{1}
+      \field{title}{{How transverse thermal fluctuations disorder a condensate of chiral spirals into a quantum spin liquid}}
+      \field{volume}{102}
+      \field{year}{2020}
+      \field{pages}{016015}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.102.016015
+      \endverb
+      \verb{eprint}
+      \verb 2005.10259
+      \endverb
+    \endentry
+    \entry{Fu:2022gou}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=5929de33b9025ffd87f5634137fc6299}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={Wei-jie},
+           giveni={W\bibinithyphendelim j\bibinitperiod}}}%
+      }
+      \strng{namehash}{5929de33b9025ffd87f5634137fc6299}
+      \strng{fullhash}{5929de33b9025ffd87f5634137fc6299}
+      \strng{fullhashraw}{5929de33b9025ffd87f5634137fc6299}
+      \strng{bibnamehash}{5929de33b9025ffd87f5634137fc6299}
+      \strng{authorbibnamehash}{5929de33b9025ffd87f5634137fc6299}
+      \strng{authornamehash}{5929de33b9025ffd87f5634137fc6299}
+      \strng{authorfullhash}{5929de33b9025ffd87f5634137fc6299}
+      \strng{authorfullhashraw}{5929de33b9025ffd87f5634137fc6299}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Commun. Theor. Phys.}
+      \field{number}{9}
+      \field{title}{{QCD at finite temperature and density within the fRG approach: an overview}}
+      \field{volume}{74}
+      \field{year}{2022}
+      \field{pages}{097304}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1088/1572-9494/ac86be
+      \endverb
+      \verb{eprint}
+      \verb 2205.00468
+      \endverb
+    \endentry
+    \entry{Dautry:1979bk}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=faaaf4e43df91266a526607b668e5195}{%
+           family={Dautry},
+           familyi={D\bibinitperiod},
+           given={Francois},
+           giveni={F\bibinitperiod}}}%
+        {{hash=61d0962f91efcbcb8bffebfc017c11dd}{%
+           family={Nyman},
+           familyi={N\bibinitperiod},
+           given={Ebbe\bibnamedelima M.},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{739c46d65a832d241266c7406182091d}
+      \strng{fullhash}{739c46d65a832d241266c7406182091d}
+      \strng{fullhashraw}{739c46d65a832d241266c7406182091d}
+      \strng{bibnamehash}{739c46d65a832d241266c7406182091d}
+      \strng{authorbibnamehash}{739c46d65a832d241266c7406182091d}
+      \strng{authornamehash}{739c46d65a832d241266c7406182091d}
+      \strng{authorfullhash}{739c46d65a832d241266c7406182091d}
+      \strng{authorfullhashraw}{739c46d65a832d241266c7406182091d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nucl. Phys. A}
+      \field{month}{5}
+      \field{title}{{Pion condensation and the $\sigma$-model in liquid neutron matter}}
+      \field{volume}{319}
+      \field{year}{1979}
+      \field{pages}{323\bibrangedash 348}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1016/0375-9474(79)90518-9
+      \endverb
+    \endentry
+    \entry{Adhikari:2017ydi}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=961f89dd7b4405bb4a463214bd2ac463}{%
+           family={Adhikari},
+           familyi={A\bibinitperiod},
+           given={Prabal},
+           giveni={P\bibinitperiod}}}%
+        {{hash=2c1b47b6de069b773c101e89ef4c0cf4}{%
+           family={Andersen},
+           familyi={A\bibinitperiod},
+           given={Jens\bibnamedelima O.},
+           giveni={J\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{hash=530e75c7b1f24e269c9051fd55595914}{%
+           family={Kneschke},
+           familyi={K\bibinitperiod},
+           given={Patrick},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \strng{fullhash}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \strng{fullhashraw}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \strng{bibnamehash}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \strng{authorbibnamehash}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \strng{authornamehash}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \strng{authorfullhash}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \strng{authorfullhashraw}{39f5d4b05d7a3ce53f82fa683d8db59b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Rev. D}
+      \field{note}{[Erratum: Phys.Rev.D 98, 099902 (2018)]}
+      \field{number}{1}
+      \field{title}{{Inhomogeneous chiral condensate in the quark-meson model}}
+      \field{volume}{96}
+      \field{year}{2017}
+      \field{pages}{016013}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.96.016013
+      \endverb
+      \verb{eprint}
+      \verb 1702.01324
+      \endverb
+    \endentry
+    \entry{Carignano:2014jla}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=9dc55e739192da5be6ac25d752bdf1a3}{%
+           family={Carignano},
+           familyi={C\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2a69c66619f537f7d42bc89814c2e6ee}{%
+           family={Buballa},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=90df508a4f6ca3238877a619f76cd92d}{%
+           family={Schaefer},
+           familyi={S\bibinitperiod},
+           given={Bernd-Jochen},
+           giveni={B\bibinithyphendelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \strng{fullhash}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \strng{fullhashraw}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \strng{bibnamehash}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \strng{authorbibnamehash}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \strng{authornamehash}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \strng{authorfullhash}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \strng{authorfullhashraw}{4dc1fc7fd064d5e6bc7d511dd3e30d91}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Phys. Rev. D}
+      \field{month}{7}
+      \field{number}{1}
+      \field{title}{{Inhomogeneous phases in the quark-meson model with vacuum fluctuations}}
+      \field{volume}{90}
+      \field{year}{2014}
+      \field{pages}{014033}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.90.014033
+      \endverb
+      \verb{eprint}
+      \verb 1404.0057
+      \endverb
+    \endentry
+    \entry{Steil:partIVminimal}{unpublished}{}{}
+      \name{author}{2}{}{%
+        {{hash=49fcb2fa68a625847384be50c22c850d}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=4b23d88736ad751bed13656e4d7c84c5}{%
+           family={Koenigstein},
+           familyi={K\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{fullhash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{fullhashraw}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{bibnamehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authorbibnamehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authornamehash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authorfullhash}{de01884df822fc32cfb97bf78d4dd63b}
+      \strng{authorfullhashraw}{de01884df822fc32cfb97bf78d4dd63b}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pubstate}{in preparation}
+      \field{title}{{Testing FRG (numerics) in zero spacetime dimensions: A model with fermions, bosons, and interactions}}
+      \field{year}{2024}
+    \endentry
+    \entry{Steil:2024RGMF}{unpublished}{}{}
+      \name{author}{3}{}{%
+        {{hash=d56869c3b9ea291feba55d954f0f09fc}{%
+           family={Steil},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima Jakob},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=2a69c66619f537f7d42bc89814c2e6ee}{%
+           family={Buballa},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=90df508a4f6ca3238877a619f76cd92d}{%
+           family={Schaefer},
+           familyi={S\bibinitperiod},
+           given={Bernd-Jochen},
+           giveni={B\bibinithyphendelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb772343b6552d9a3f871f0a7292f945}
+      \strng{fullhash}{bb772343b6552d9a3f871f0a7292f945}
+      \strng{fullhashraw}{bb772343b6552d9a3f871f0a7292f945}
+      \strng{bibnamehash}{bb772343b6552d9a3f871f0a7292f945}
+      \strng{authorbibnamehash}{bb772343b6552d9a3f871f0a7292f945}
+      \strng{authornamehash}{bb772343b6552d9a3f871f0a7292f945}
+      \strng{authorfullhash}{bb772343b6552d9a3f871f0a7292f945}
+      \strng{authorfullhashraw}{bb772343b6552d9a3f871f0a7292f945}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pubstate}{in preparation}
+      \field{title}{{Inhomogeneous chiral condensates in the quark-meson model with the functional renormalization group}}
+      \field{type}{Draft}
+      \field{year}{2024}
+    \endentry
+  \enddatalist
+  \keyalias{FuQCDRev}{Fu:2022gou}
+  \keyalias{gn}{Stoll:2021ori}
+  \keyalias{gns}{Koenigstein:2021llr}
+  \keyalias{zerod1}{Koenigstein:2021syz}
+  \keyalias{zerod2}{Koenigstein:2021rxj}
+  \keyalias{zerod3}{Steil:2021cbu}
+\endrefsection
+\endinput
+

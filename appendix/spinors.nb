@@ -1,0 +1,2804 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ TemplateBox[{"\[FilledSmallSquare]", "\"\[FilledSmallSquare]\"", 
+   TemplateBox[{"\[FilledSmallSquare]", "\"\[FilledSmallSquare]\"", 
+     RowBox[{"2022", "-", "08", "-", 
+       RowBox[{"31", 
+         RowBox[{"T19", ":", "21"}]}]}], 
+     RowBox[{"v1", ".04"}]}, "RowWithSeparators"], 
+   TemplateBox[{
+    "\[FilledSmallSquare]", "\"\[FilledSmallSquare]\"", "M. J. Steil", 
+     TemplateBox[{
+      "msteil@theorie.ikp.physik.tu-darmstadt.de", 
+       "mailto:msteil@theorie.ikp.physik.tu-darmstadt.de"}, "HyperlinkURL"], 
+     "TU Darmstadt"}, "RowWithSeparators"]},
+  "RowWithSeparators"]], "NotebookHeader",
+ FontFamily->"Source Sans Pro",
+ FontSize->14,
+ FontWeight->"Normal",
+ FontSlant->"Plain",
+ CellTags->{
+  "NB`Header", "NB`Date->2021-03-17T21:48:59\n", "NB`Version->3.83\n", 
+   "NB`Author->M. J. Steil\n \
+NB`Mail->msteil@theorie.ikp.physik.tu-darmstadt.de\n NB`Affiliation->TU \
+Darmstadt\n NB`URL->"},ExpressionUUID->"29c65e57-32a6-4b16-87c0-1f2295696e8e"],
+
+Cell[TextData[{
+ "Martin Jakob ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["Steil", "1"], TraditionalForm]],ExpressionUUID->
+  "f4784444-cd55-4d3e-b499-6e74edc3d30f"]
+}], "Author",ExpressionUUID->"0ea66777-a543-434e-9eaa-14eaa568b91f"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["", "1"], TraditionalForm]],ExpressionUUID->
+  "223f14b8-2bda-4fef-8c97-6b3e29fd5cca"],
+ "Technische Universit\[ADoubleDot]t Darmstadt"
+}], "Affiliation",ExpressionUUID->"542366bb-e560-454c-b945-49d478b19000"],
+
+Cell["\<\
+Computations for the App. A.5. \[OpenCurlyDoubleQuote]Spinor degrees of \
+freedom\[CloseCurlyDoubleQuote] of [M. J. Steil, - 2022 - PhD thesis]\
+\>", "Abstract",ExpressionUUID->"7e561066-c7df-494b-8ea0-77b980c802bb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Initialization", \
+"InitializationSection",ExpressionUUID->"83ee48aa-d448-4d5d-b51a-\
+8f84c22939ec"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$DistributedContexts", "=", 
+    RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Disable", " ", "Notebookhistory"}], ",", " ", 
+    RowBox[{"[", 
+     RowBox[{
+      RowBox[{"https", ":"}], "//", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"mathematica", ".", "stackexchange", ".", "com"}], "/", 
+          "questions"}], "/", "11258"}], "/", "are"}], "-", "there", "-", 
+       "suitable", "-", "versioning", "-", "systems", "-", "for", "-", 
+       "mathematica", "-", "notebooks"}]}], "]"}]}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"SetOptions", "[", 
+   RowBox[{
+    RowBox[{"EvaluationNotebook", "[", "]"}], ",", 
+    RowBox[{"PrivateNotebookOptions", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<FileOutlineCache\>\"", "\[Rule]", "False"}], "}"}]}], ",", 
+    RowBox[{"System`TrackCellChangeTimes", "\[Rule]", "False"}]}], "]"}], 
+  "\n", "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Display", " ", "the", " ", "Timing", " ", "of", " ", "an", " ", 
+    "Evaluation", " ", "in", " ", "a", " ", "Notebook", " ", 
+    RowBox[{"Window", " ", "[", 
+     RowBox[{
+      RowBox[{"https", ":"}], "//", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"reference", ".", "wolfram", ".", "com"}], "/", "language"}],
+         "/", "howto"}], "/", 
+       RowBox[{
+       "DisplayTheTimingOfAnEvaluationInANotebookWindow", ".", "html"}]}]}], 
+     "]"}]}], " ", "*)"}]}], "\n", 
+ RowBox[{"SetOptions", "[", 
+  RowBox[{
+   RowBox[{"EvaluationNotebook", "[", "]"}], ",", 
+   RowBox[{"EvaluationCompletionAction", "\[Rule]", 
+    RowBox[{"{", "\"\<ShowTiming\>\"", "}"}]}]}], "]"}]}], "Code",
+ InitializationCell->True,
+ CellLabel->"In[21]:=",ExpressionUUID->"dc4b6ff5-3f40-43e2-9d15-522f116dd991"],
+
+Cell[CellGroupData[{
+
+Cell["Methods", \
+"Subsubsection",ExpressionUUID->"28c5948c-9586-4f6c-956d-9f0d56b6514f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"*", " ", "Update", " ", "tagged", " ", "methods"}], " ", "**)"}], 
+  "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Needs", "[", 
+     RowBox[{
+     "\"\<UpdateTaggedMethod`\>\"", ",", 
+      "\"\<D:/Github/Mathematica/Packages/UpdateTaggedMethod/\
+UpdateTaggedMethod.m\>\""}], "]"}], ";"}], "\n", 
+   RowBox[{
+   "UpdateTaggedMethods", "[", 
+    "\"\<D:/Github/Mathematica/tagged_methods.nb\>\"", 
+    "]"}]}]}]], \
+"NonEvaluatingCode",ExpressionUUID->"121fe866-f63f-4685-8043-8fe348003cf4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"AutoCollapse", " ", "|", " ", 
+    RowBox[{"v2", ".0"}], " ", "|", " ", 
+    RowBox[{"Close", " ", "CellGroup"}], " ", "|", " ", 
+    RowBox[{"[", 
+     RowBox[{
+      RowBox[{"https", ":"}], "//", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"mathematica", ".", "stackexchange", ".", "com"}], "/", "a"}],
+        "/", "683"}]}], "]"}]}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"AutoCollapse", "[", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", "\n", "\t", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"$FrontEnd", "=!=", "$Failed"}], ",", "\n", "\t\t", 
+         RowBox[{
+          RowBox[{"SelectionMove", "[", 
+           RowBox[{
+            RowBox[{"EvaluationNotebook", "[", "]"}], ",", "All", ",", 
+            "GeneratedCell"}], "]"}], ";", "\[IndentingNewLine]", "\t\t", 
+          RowBox[{
+          "FrontEndTokenExecute", "[", 
+           "\"\<SelectionCloseUnselectedCells\>\"", "]"}]}]}], "\n", "\t", 
+        "]"}], ";"}]}], "\n", "]"}]}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"AutoCollapse", "::", "usage"}], "=", 
+     "\"\<Collapse input cells by grouping them with the generated output \
+cells.\>\""}], ";"}]}]}]], "Code",
+ InitializationCell->True,
+ CellTags->"AutoCollapse",
+ CellLabel->"In[26]:=",ExpressionUUID->"04be66f9-7c1e-466e-90f5-6895afda0962"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"CellPrintDisplayFormulaNumbered", " ", "|", " ", 
+    RowBox[{"v2", ".0"}], " ", "|", " ", 
+    RowBox[{"CellPrint", " ", "a", " ", "DisplayFormulaNumbered"}]}], " ", 
+   "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "CellPrintDisplayFormulaNumbered", "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"CellPrintDisplayFormulaNumbered", "[", 
+     RowBox[{"exp_", ",", 
+      RowBox[{"tag_", ":", "None"}], ",", 
+      RowBox[{"comment_", ":", "\"\<\>\""}], ",", 
+      RowBox[{"generatedCellQ_", ":", "False"}], ",", 
+      RowBox[{"groupQ_", ":", "True"}], ",", 
+      RowBox[{"autoCollapseQ_", ":", "True"}]}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"frameLabels", ",", "box"}], "}"}], ",", "\[IndentingNewLine]",
+       "\t", 
+      RowBox[{
+       RowBox[{"frameLabels", "=", 
+        RowBox[{"CellFrameLabels", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"None", ",", 
+             RowBox[{"Cell", "[", 
+              RowBox[{
+               RowBox[{"TextData", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"tag", "===", "None"}], ",", "\"\<\>\"", ",", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", "tag", "]"}], "<>", 
+                    "\"\< \>\""}]}], "]"}], "<>", "\"\<(\>\""}], ",", 
+                  RowBox[{"CounterBox", "[", "\"\<Chapter\>\"", "]"}], ",", 
+                  "\"\<.\>\"", ",", 
+                  RowBox[{
+                  "CounterBox", "[", "\"\<DisplayFormulaNumbered\>\"", "]"}], 
+                  ",", "\"\<)\>\""}], "}"}], "]"}], ",", 
+               "\"\<DisplayFormulaEquationNumber\>\""}], "]"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"None", ",", "None"}], "}"}]}], "}"}]}]}], ";", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"box", "=", 
+        RowBox[{"BoxData", "[", 
+         RowBox[{"RowBox", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"ToBoxes", "[", "exp", "]"}], ",", 
+            RowBox[{"RowBox", "[", 
+             RowBox[{"{", "comment", "}"}], "]"}]}], "}"}], "]"}], "]"}]}], 
+       ";", "\n", "\t", 
+       RowBox[{"CellPrint", "[", 
+        RowBox[{"Cell", "[", 
+         RowBox[{
+         "box", ",", "\"\<DisplayFormulaNumberedPrinted\>\"", ",", 
+          "frameLabels", ",", "\n", "\t\t", 
+          RowBox[{"GeneratedCell", "\[Rule]", "generatedCellQ"}], ",", 
+          RowBox[{"CellAutoOverwrite", "\[Rule]", "True"}], ",", 
+          RowBox[{"ShowStringCharacters", "\[Rule]", "False"}], ",", 
+          RowBox[{"CellGroupingRules", "\[Rule]", 
+           RowBox[{"If", "[", 
+            RowBox[{
+            "groupQ", ",", "\"\<OutputGrouping\>\"", ",", "Inherited"}], 
+            "]"}]}]}], "]"}], "\n", "\t", "]"}], ";", "\n", "\t", 
+       RowBox[{"If", "[", 
+        RowBox[{"autoCollapseQ", ",", 
+         RowBox[{"AutoCollapse", "[", "]"}]}], "]"}], ";"}]}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"CellPrintDisplayFormulaNumbered", "::", "usage"}], "=", 
+     "\"\<CellPrintDisplayFormulaNumbered[exp_,tag_:None,comment_:\\\"\\\",\
+generatedCellQ_:False,groupQ_:True,autoCollapseQ_:False]:\\\nCellPrint exp to \
+a DisplayFormulaNumberedPrinted output cell.\>\""}], ";"}]}]}]], "Code",
+ InitializationCell->True,
+ CellTags->"CellPrintDisplayFormulaNumbered",
+ CellLabel->"In[28]:=",ExpressionUUID->"de6ddc3f-ecc9-4518-8904-3f38fde817df"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Spinor degrees of freedom", \
+"Chapter",ExpressionUUID->"d967fbd2-ff2f-4885-bf15-9daa45dd522d"],
+
+Cell["\<\
+[C. Wetterich - 2011 - Spinors in euclidean field theory]
+[A. Koenigstein - 2021 - Group theory, [private Communication]]\
+\>", "Text",ExpressionUUID->"accdf894-929a-42f4-8ba8-9a736bff28c7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Id", "[", 
+   RowBox[{"n_", ":", "4"}], "]"}], ":=", 
+  RowBox[{"IdentityMatrix", "[", "n", "]"}]}]], "Input",
+ CellLabel->"In[31]:=",ExpressionUUID->"a6692858-6be7-4482-828d-cfaa0f50d1c8"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "d=2 - Euclidian ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      SuperscriptBox["g", "\[Mu]\[Nu]"], ")"}], "\[Congruent]", 
+     RowBox[{"(", 
+      SuperscriptBox["\[Delta]", "\[Mu]\[Nu]"], ")"}]}], "=", 
+    RowBox[{"diag", "(", 
+     RowBox[{
+      RowBox[{"+", "1"}], ",", 
+      RowBox[{"+", "1"}]}], ")"}]}], TraditionalForm]],ExpressionUUID->
+  "fb0263d4-409c-49cd-83fb-5c0a906ce173"]
+}], "Subsection",ExpressionUUID->"712e6606-61c0-4e75-b776-28edac447b21"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"d2E", "=", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}]}], ";"}]], "Input",
+ CellLabel->"In[32]:=",ExpressionUUID->"539d4606-673b-41c1-9e59-e7fb5459a6e9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2E", "[", "1", "]"}], "=", 
+   RowBox[{"-", " ", 
+    RowBox[{"PauliMatrix", "[", "2", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2E", "[", "2", "]"}], "=", 
+   RowBox[{"PauliMatrix", "[", "1", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]2E", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "d2E"}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[33]:=",ExpressionUUID->"82e2fc1d-0afa-4f18-a3e3-997e32e85f46"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "1"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "\[ImaginaryI]"}, {
+           RowBox[{"-", "\[ImaginaryI]"}], "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "2"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "1"}, {"1", "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+         1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+        "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"d0a8055a-3368-4862-8b4a-9467bd09164b"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Gamma]2E", "[", "\[Mu]", "]"}], ".", 
+        RowBox[{"\[Gamma]2E", "[", "\[Nu]", "]"}]}], "+", 
+       RowBox[{
+        RowBox[{"\[Gamma]2E", "[", "\[Nu]", "]"}], ".", 
+        RowBox[{"\[Gamma]2E", "[", "\[Mu]", "]"}]}], "-", 
+       RowBox[{"2", 
+        RowBox[{"KroneckerDelta", "[", 
+         RowBox[{"\[Mu]", ",", "\[Nu]"}], "]"}], "*", 
+        RowBox[{"Id", "[", "2", "]"}]}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "2", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", "d2E"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Nu]", ",", "d2E"}], "}"}]}], "]"}], "//", "Flatten"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Apply", "[", 
+  RowBox[{"And", ",", "%"}], "]"}]}], "Input",
+ CellLabel->"In[36]:=",ExpressionUUID->"d2d69f60-e66e-456e-9665-8d706b4596c6"],
+
+Cell[BoxData["True"], "Output",
+ CellLabel->"Out[37]=",ExpressionUUID->"d4deee15-1210-4486-ade1-a19d65bd94e9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2E", "[", "\"\<ch\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"-", "I"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"2", "/", "2"}], "-", "0"}], ")"}]}]}], " ", 
+    RowBox[{"Dot", "@@", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"\[Gamma]2E", "[", "i", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "d2E"}], "}"}]}], "]"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Subsuperscript", "[", 
+      RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "\"\<ch\>\""}], 
+      "]"}], ",", "\"\<=\>\"", ",", 
+     RowBox[{
+      RowBox[{"\[Gamma]2E", "[", "\"\<ch\>\"", "]"}], "//", "MatrixForm"}]}], 
+    "}"}], "]"}], "//", "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[38]:=",ExpressionUUID->"87c5f33d-0a2a-4cec-81dd-e76d777039d3"],
+
+Cell[BoxData[
+ TemplateBox[{
+   TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"ch\""}, "Subsuperscript", 
+    SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{"-", "1"}], "0"}, {"0", "1"}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]},
+  "RowDefault"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"833be7c4-5f4a-415f-926d-f05589326e42"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Gamma]2E", "[", "\[Mu]", "]"}], "-", 
+       RowBox[{"ConjugateTranspose", "[", 
+        RowBox[{"\[Gamma]2E", "[", "\[Mu]", "]"}], "]"}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "2", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", 
+       RowBox[{"d2E", "~", "Join", "~", 
+        RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], "//", 
+   "Flatten"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"MapThread", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Row", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Subsuperscript", "[", 
+           RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "#2"}], "]"}], 
+          ",", 
+          RowBox[{"If", "[", 
+           RowBox[{"#1", ",", "\"\<=\>\"", ",", "\"\<\[NotEqual]\>\""}], 
+           "]"}], ",", 
+          RowBox[{"Row", "[", 
+           RowBox[{"{", 
+            RowBox[{"\"\<(\>\"", ",", 
+             RowBox[{"Subsuperscript", "[", 
+              RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "#2"}], 
+              "]"}]}], "}"}], "]"}], ",", 
+          "\"\<\!\(\*SuperscriptBox[\()\), \(\[Dagger]\)]\)\>\""}], "}"}], 
+        "]"}], "&"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"%", ",", 
+        RowBox[{"d2E", "~", "Join", "~", 
+         RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[40]:=",ExpressionUUID->"904161d0-1a3d-4a9f-b6c6-48f3beb01209"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "1"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "1"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "2"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "2"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"ch\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"ch\""}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"1ee44c84-639a-45bb-9ef2-85b2ee5a0abc"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2E", "[", "\"\<+\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]2E", "[", "\"\<R\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "2", "]"}], "+", 
+       RowBox[{"\[Gamma]2E", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2E", "[", "\"\<-\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]2E", "[", "\"\<L\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "2", "]"}], "-", 
+       RowBox[{"\[Gamma]2E", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"i", "===", "\"\<L\>\""}], ",", "\"\<-\>\"", ",", 
+             "\"\<+\>\""}], "]"}]}], "]"}], ",", "\"\<=\>\"", ",", 
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]2E", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<R\>\"", ",", "\"\<L\>\""}], "}"}]}], "}"}]}], "]"}], 
+    ",", "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[42]:=",ExpressionUUID->"030a2f68-6281-4f54-ac0d-d535485ef5f7"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"+\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"R\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0"}, {"0", "1"}}, RowSpacings -> 1, ColumnSpacings -> 
+         1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+        "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"-\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"L\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"1", "0"}, {"0", "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+         1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+        "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"eeca22ec-54f0-4561-a433-e8c1c7f5ffc6"]
+}, {2}]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[CapitalSigma]2E", "[", 
+   RowBox[{"\[Mu]_", ",", "\[Nu]_"}], "]"}], ":=", 
+  RowBox[{
+   FractionBox["1", "4"], 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Gamma]2E", "[", "\[Mu]", "]"}], ".", 
+      RowBox[{"\[Gamma]2E", "[", "\[Nu]", "]"}]}], "-", 
+     RowBox[{
+      RowBox[{"\[Gamma]2E", "[", "\[Nu]", "]"}], ".", 
+      RowBox[{"\[Gamma]2E", "[", "\[Mu]", "]"}]}]}], 
+    ")"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"i", ",", "j", ",", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[CapitalSigma]2E", "[", 
+          RowBox[{"i", ",", "j"}], "]"}], "-", 
+         RowBox[{"ConjugateTranspose", "[", 
+          RowBox[{"\[CapitalSigma]2E", "[", 
+           RowBox[{"i", ",", "j"}], "]"}], "]"}]}], "\[Equal]", 
+        RowBox[{"0", 
+         RowBox[{"Id", "[", "]"}]}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "d2E"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "d2E"}], "}"}]}], "]"}], "//", "MatrixForm"}], 
+  ";"}]}], "Input",
+ CellLabel->"In[45]:=",ExpressionUUID->"e2bf5d2e-29c1-4a75-83dc-eb39e7563335"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "d=2 - Minkowski ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     SuperscriptBox["g", 
+      RowBox[{
+       SubscriptBox["\[Mu]", "M"], 
+       SubscriptBox["\[Nu]", "M"]}]], ")"}], "=", 
+    RowBox[{"diag", "(", 
+     RowBox[{
+      RowBox[{"-", "1"}], ",", 
+      RowBox[{"+", "1"}]}], ")"}]}], TraditionalForm]],ExpressionUUID->
+  "e4d2a6e9-e33f-424e-8b27-17fe9cad738d"]
+}], "Subsection",ExpressionUUID->"51209ccb-e5d0-4c57-ae95-90ec8325a897"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"d2M", "=", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "0"}], "}"}]}], ";"}]], "Input",
+ CellLabel->"In[47]:=",ExpressionUUID->"c9ef9816-4ac9-4cae-bf9d-cb218511e1b1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2M", "[", "1", "]"}], "=", 
+   RowBox[{"I", " ", 
+    RowBox[{"PauliMatrix", "[", "2", "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2M", "[", "0", "]"}], "=", 
+   RowBox[{"PauliMatrix", "[", "1", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]2M", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "d2M"}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[48]:=",ExpressionUUID->"79607282-2264-4a0f-9fde-c3ce6c3a4a2f"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "1"}, "Subsuperscript", SyntaxForm -> S\
+ubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "1"}, {
+           RowBox[{"-", "1"}], "0"}}, RowSpacings -> 1, ColumnSpacings -> 1, 
+         RowAlignments -> Baseline, ColumnAlignments -> Center], "\[NoBreak]",
+         ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "0"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "1"}, {"1", "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+         1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+        "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"fa5e4b11-e309-4573-9fec-0ead97bb826f"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Gamma]2M", "[", "\[Mu]", "]"}], ".", 
+        RowBox[{"\[Gamma]2M", "[", "\[Nu]", "]"}]}], "+", 
+       RowBox[{
+        RowBox[{"\[Gamma]2M", "[", "\[Nu]", "]"}], ".", 
+        RowBox[{"\[Gamma]2M", "[", "\[Mu]", "]"}]}], "-", 
+       RowBox[{"2", 
+        RowBox[{
+         RowBox[{"DiagonalMatrix", "[", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", 
+            RowBox[{"-", "1"}]}], "}"}], "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{"\[Mu]", "+", "1"}], ",", 
+           RowBox[{"\[Nu]", "+", "1"}]}], "]"}], "]"}], "*", 
+        RowBox[{"Id", "[", "2", "]"}]}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "2", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", "d2M"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Nu]", ",", "d2M"}], "}"}]}], "]"}], "//", "Flatten"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Apply", "[", 
+  RowBox[{"And", ",", "%"}], "]"}]}], "Input",
+ CellLabel->"In[51]:=",ExpressionUUID->"1b7b359c-dd7d-457f-a011-ff29a62f679d"],
+
+Cell[BoxData["True"], "Output",
+ CellLabel->"Out[52]=",ExpressionUUID->"f8941acc-47bc-4e0b-81dc-bc5f326162df"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2M", "[", "\"\<ch\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"-", "I"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"2", "/", "2"}], "-", "1"}], ")"}]}]}], " ", 
+    RowBox[{
+     RowBox[{"\[Gamma]2M", "[", "1", "]"}], ".", 
+     RowBox[{"\[Gamma]2M", "[", "0", "]"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Subsuperscript", "[", 
+      RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "\"\<ch\>\""}], 
+      "]"}], ",", "\"\<=\>\"", ",", 
+     RowBox[{
+      RowBox[{"\[Gamma]2M", "[", "\"\<ch\>\"", "]"}], "//", "MatrixForm"}]}], 
+    "}"}], "]"}], "//", "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[53]:=",ExpressionUUID->"fd3b213d-44aa-42b4-a8bc-edfa21b9cc5a"],
+
+Cell[BoxData[
+ TemplateBox[{
+   TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"ch\""}, "Subsuperscript", 
+    SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{"-", "1"}], "0"}, {"0", "1"}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]},
+  "RowDefault"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"f7f40a73-fa4b-42f3-b518-6a6f8404c7e4"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Gamma]2M", "[", "\[Mu]", "]"}], "-", 
+       RowBox[{"ConjugateTranspose", "[", 
+        RowBox[{"\[Gamma]2M", "[", "\[Mu]", "]"}], "]"}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "2", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", 
+       RowBox[{"d2M", "~", "Join", "~", 
+        RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], "//", 
+   "Flatten"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"MapThread", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Row", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Subsuperscript", "[", 
+           RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "#2"}], "]"}], 
+          ",", 
+          RowBox[{"If", "[", 
+           RowBox[{"#1", ",", "\"\<=\>\"", ",", "\"\<\[NotEqual]\>\""}], 
+           "]"}], ",", 
+          RowBox[{"Row", "[", 
+           RowBox[{"{", 
+            RowBox[{"\"\<(\>\"", ",", 
+             RowBox[{"Subsuperscript", "[", 
+              RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "#2"}], 
+              "]"}]}], "}"}], "]"}], ",", 
+          "\"\<\!\(\*SuperscriptBox[\()\), \(\[Dagger]\)]\)\>\""}], "}"}], 
+        "]"}], "&"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"%", ",", 
+        RowBox[{"d2M", "~", "Join", "~", 
+         RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[55]:=",ExpressionUUID->"55389f10-2004-419b-86ce-abcc0ecb60e1"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "1"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"\[NotEqual]\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "1"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "0"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "0"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"ch\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"ch\""}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"577adc59-b503-4109-a2d0-785459863c71"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2M", "[", "\"\<+\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]2M", "[", "\"\<R\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "2", "]"}], "+", 
+       RowBox[{"\[Gamma]2M", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]2M", "[", "\"\<-\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]2M", "[", "\"\<L\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "2", "]"}], "-", 
+       RowBox[{"\[Gamma]2M", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"i", "===", "\"\<L\>\""}], ",", "\"\<-\>\"", ",", 
+             "\"\<+\>\""}], "]"}]}], "]"}], ",", "\"\<=\>\"", ",", 
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]2E", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<R\>\"", ",", "\"\<L\>\""}], "}"}]}], "}"}]}], "]"}], 
+    ",", "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[57]:=",ExpressionUUID->"bae2ce60-cc5e-401e-866d-4e44e467243e"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"+\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"R\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0"}, {"0", "1"}}, RowSpacings -> 1, ColumnSpacings -> 
+         1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+        "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"-\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"L\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"1", "0"}, {"0", "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+         1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+        "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"eceaf4bc-ed27-46ef-8134-8498f433e6a4"]
+}, {2}]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[CapitalSigma]2M", "[", 
+   RowBox[{"\[Mu]_", ",", "\[Nu]_"}], "]"}], ":=", 
+  RowBox[{
+   FractionBox["1", "4"], 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Gamma]2M", "[", "\[Mu]", "]"}], ".", 
+      RowBox[{"\[Gamma]2M", "[", "\[Nu]", "]"}]}], "-", 
+     RowBox[{
+      RowBox[{"\[Gamma]2M", "[", "\[Nu]", "]"}], ".", 
+      RowBox[{"\[Gamma]2M", "[", "\[Mu]", "]"}]}]}], 
+    ")"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"i", ",", "j", ",", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[CapitalSigma]2M", "[", 
+          RowBox[{"i", ",", "j"}], "]"}], "-", 
+         RowBox[{"ConjugateTranspose", "[", 
+          RowBox[{"\[CapitalSigma]2M", "[", 
+           RowBox[{"i", ",", "j"}], "]"}], "]"}]}], "\[Equal]", 
+        RowBox[{"0", 
+         RowBox[{"Id", "[", "]"}]}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "d2M"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "d2M"}], "}"}]}], "]"}], "//", "MatrixForm"}], 
+  ";"}]}], "Input",
+ CellLabel->"In[60]:=",ExpressionUUID->"9654af66-6e70-437c-876c-0733852c3c7d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{
+   "\"\<\[Gamma]2M[0]==\[Gamma]2E[2]\>\"", ",", 
+    "\"\<\[Gamma]2M[1]==-I*\[Gamma]2E[1]\>\"", ",", 
+    "\"\<\[Gamma]2M[\\\"ch\\\"]==\[Gamma]2E[\\\"ch\\\"]\>\""}], "}"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"#", ",", 
+      RowBox[{"ToExpression", "[", "#", "]"}]}], "}"}], "&"}], "/@", "%"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{"And", "@@", 
+    RowBox[{"%", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ",", 
+   RowBox[{"Row", "[", 
+    RowBox[{
+     RowBox[{"%", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", "\"\<, \>\""}], "]"}]}], 
+  "]"}]}], "Input",
+ CellLabel->"In[62]:=",ExpressionUUID->"1e301886-c749-4bce-af65-db339a786db3"],
+
+Cell[BoxData[
+ TemplateBox[{
+  ", ", "\", \"", "\"\[Gamma]2M[0]==\[Gamma]2E[2]\"", 
+   "\"\[Gamma]2M[1]==-I*\[Gamma]2E[1]\"", 
+   "\"\[Gamma]2M[\\\"ch\\\"]==\[Gamma]2E[\\\"ch\\\"]\""},
+  "RowWithSeparators"]], "Output",
+ CellLabel->"Out[64]=",ExpressionUUID->"0f0ad6c7-e3b7-468c-a9b3-538f5288e722"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "d=4 - Euclidian ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      SuperscriptBox["g", "\[Mu]\[Nu]"], ")"}], "\[Congruent]", 
+     RowBox[{"(", 
+      SuperscriptBox["\[Delta]", "\[Mu]\[Nu]"], ")"}]}], "=", 
+    RowBox[{"diag", "(", 
+     RowBox[{
+      RowBox[{"+", "1"}], ",", 
+      RowBox[{"+", "1"}], ",", 
+      RowBox[{"+", "1"}], ",", 
+      RowBox[{"+", "1"}]}], ")"}]}], TraditionalForm]],ExpressionUUID->
+  "4e17f7f7-73a2-46f6-bcb3-043315a05874"]
+}], "Subsection",ExpressionUUID->"809924bf-5c4d-4a51-a184-d82c4dadd53e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"d4E", "=", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], ";"}]], "Input",
+ CellLabel->"In[65]:=",ExpressionUUID->"f2221ce0-767d-495e-9f4b-1bee5cb4e960"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4E", "[", "4", "]"}], "=", 
+   RowBox[{"ArrayFlatten", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"0", 
+         RowBox[{"IdentityMatrix", "[", "2", "]"}]}], ",", 
+        RowBox[{"IdentityMatrix", "[", "2", "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"IdentityMatrix", "[", "2", "]"}], ",", 
+        RowBox[{"0", 
+         RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], "}"}]}], "}"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"i", "=", "1"}], ",", 
+   RowBox[{"i", "<", "4"}], ",", 
+   RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"\[Gamma]4E", "[", "i", "]"}], "=", 
+     RowBox[{"ArrayFlatten", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"0", 
+           RowBox[{"IdentityMatrix", "[", "2", "]"}]}], ",", 
+          RowBox[{"I", " ", 
+           RowBox[{"PauliMatrix", "[", "i", "]"}]}]}], "}"}], ",", 
+        RowBox[{"{", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "I"}], " ", 
+           RowBox[{"PauliMatrix", "[", "i", "]"}]}], ",", 
+          RowBox[{"0", 
+           RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], "}"}]}], "}"}], 
+      "]"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]4E", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "d4E"}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[66]:=",ExpressionUUID->"d8985cf7-9a73-4ff7-bcf4-89530602c49b"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "1"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "0", "\[ImaginaryI]"}, {
+          "0", "0", "\[ImaginaryI]", "0"}, {"0", 
+           RowBox[{"-", "\[ImaginaryI]"}], "0", "0"}, {
+           RowBox[{"-", "\[ImaginaryI]"}], "0", "0", "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "2"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "0", "1"}, {"0", "0", 
+           RowBox[{"-", "1"}], "0"}, {"0", 
+           RowBox[{"-", "1"}], "0", "0"}, {"1", "0", "0", "0"}}, RowSpacings -> 
+         1, ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "3"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "\[ImaginaryI]", "0"}, {"0", "0", "0", 
+           RowBox[{"-", "\[ImaginaryI]"}]}, {
+           RowBox[{"-", "\[ImaginaryI]"}], "0", "0", "0"}, {
+          "0", "\[ImaginaryI]", "0", "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+         1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+        "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "4"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "1", "0"}, {"0", "0", "0", "1"}, {
+          "1", "0", "0", "0"}, {"0", "1", "0", "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"6533e2d8-ab7f-4d78-b400-05a3017e450b"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Gamma]4E", "[", "\[Mu]", "]"}], ".", 
+        RowBox[{"\[Gamma]4E", "[", "\[Nu]", "]"}]}], "+", 
+       RowBox[{
+        RowBox[{"\[Gamma]4E", "[", "\[Nu]", "]"}], ".", 
+        RowBox[{"\[Gamma]4E", "[", "\[Mu]", "]"}]}], "-", 
+       RowBox[{"2", 
+        RowBox[{"KroneckerDelta", "[", 
+         RowBox[{"\[Mu]", ",", "\[Nu]"}], "]"}], 
+        RowBox[{"Id", "[", "]"}]}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", "d4E"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Nu]", ",", "d4E"}], "}"}]}], "]"}], "//", "Flatten"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Apply", "[", 
+  RowBox[{"And", ",", "%"}], "]"}]}], "Input",
+ CellLabel->"In[69]:=",ExpressionUUID->"3bf4952f-d2a5-4770-a0eb-ab37e07ae39a"],
+
+Cell[BoxData["True"], "Output",
+ CellLabel->"Out[70]=",ExpressionUUID->"ef004dfe-2710-4296-856e-946ed17d7456"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4E", "[", "\"\<ch\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"-", "I"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"4", "/", "2"}], "-", "0"}], ")"}]}]}], 
+    RowBox[{
+     RowBox[{"\[Gamma]4E", "[", "1", "]"}], ".", 
+     RowBox[{"\[Gamma]4E", "[", "2", "]"}], ".", 
+     RowBox[{"\[Gamma]4E", "[", "3", "]"}], ".", 
+     RowBox[{"\[Gamma]4E", "[", "4", "]"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Subsuperscript", "[", 
+      RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "\"\<ch\>\""}], 
+      "]"}], ",", "\"\<=\>\"", ",", 
+     RowBox[{
+      RowBox[{"\[Gamma]4E", "[", "\"\<ch\>\"", "]"}], "//", "MatrixForm"}]}], 
+    "}"}], "]"}], "//", "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[71]:=",ExpressionUUID->"5e902c83-b090-474f-b1a1-0fa033b78bb2"],
+
+Cell[BoxData[
+ TemplateBox[{
+   TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"ch\""}, "Subsuperscript", 
+    SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{"-", "1"}], "0", "0", "0"}, {"0", 
+         RowBox[{"-", "1"}], "0", "0"}, {"0", "0", "1", "0"}, {
+        "0", "0", "0", "1"}}, RowSpacings -> 1, ColumnSpacings -> 1, 
+       RowAlignments -> Baseline, ColumnAlignments -> Center], "\[NoBreak]", 
+      ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]},
+  "RowDefault"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"817e7244-1db2-4b09-add3-19e030845682"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4E", "[", "\"\<+\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]4E", "[", "\"\<R\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "4", "]"}], "+", 
+       RowBox[{"\[Gamma]4E", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4E", "[", "\"\<-\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]4E", "[", "\"\<L\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "4", "]"}], "-", 
+       RowBox[{"\[Gamma]4E", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"i", "===", "\"\<L\>\""}], ",", "\"\<-\>\"", ",", 
+             "\"\<+\>\""}], "]"}]}], "]"}], ",", "\"\<=\>\"", ",", 
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]4E", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<R\>\"", ",", "\"\<L\>\""}], "}"}]}], "}"}]}], "]"}], 
+    ",", "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[73]:=",ExpressionUUID->"253f147f-f5b7-443f-977e-4799712a31d7"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"+\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"R\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "0", "0"}, {"0", "0", "0", "0"}, {
+          "0", "0", "1", "0"}, {"0", "0", "0", "1"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"-\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"L\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"1", "0", "0", "0"}, {"0", "1", "0", "0"}, {
+          "0", "0", "0", "0"}, {"0", "0", "0", "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"c50778fe-0311-48e3-8746-727e509104f7"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Gamma]4E", "[", "\[Mu]", "]"}], "-", 
+       RowBox[{"ConjugateTranspose", "[", 
+        RowBox[{"\[Gamma]4E", "[", "\[Mu]", "]"}], "]"}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", 
+       RowBox[{"d4E", "~", "Join", "~", 
+        RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], "//", 
+   "Flatten"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"MapThread", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Row", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Subsuperscript", "[", 
+           RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "#2"}], "]"}], 
+          ",", 
+          RowBox[{"If", "[", 
+           RowBox[{"#1", ",", "\"\<=\>\"", ",", "\"\<\[NotEqual]\>\""}], 
+           "]"}], ",", 
+          RowBox[{"Row", "[", 
+           RowBox[{"{", 
+            RowBox[{"\"\<(\>\"", ",", 
+             RowBox[{"Subsuperscript", "[", 
+              RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<E\>\"", ",", "#2"}], 
+              "]"}]}], "}"}], "]"}], ",", 
+          "\"\<\!\(\*SuperscriptBox[\()\), \(\[Dagger]\)]\)\>\""}], "}"}], 
+        "]"}], "&"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"%", ",", 
+        RowBox[{"d4E", "~", "Join", "~", 
+         RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[76]:=",ExpressionUUID->"dbc692c8-f1f5-45fc-acbd-82ca24b91401"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "1"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "1"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "2"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "2"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "3"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "3"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "4"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "4"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"ch\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"E\"", "\"ch\""}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"302bb7a2-9703-4fb7-8ecd-78e654df3be3"]
+}, {2}]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[CapitalSigma]4E", "[", 
+   RowBox[{"\[Mu]_", ",", "\[Nu]_"}], "]"}], ":=", 
+  RowBox[{
+   FractionBox["1", "4"], 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Gamma]4E", "[", "\[Mu]", "]"}], ".", 
+      RowBox[{"\[Gamma]4E", "[", "\[Nu]", "]"}]}], "-", 
+     RowBox[{
+      RowBox[{"\[Gamma]4E", "[", "\[Nu]", "]"}], ".", 
+      RowBox[{"\[Gamma]4E", "[", "\[Mu]", "]"}]}]}], 
+    ")"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"i", ",", "j", ",", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[CapitalSigma]4E", "[", 
+          RowBox[{"i", ",", "j"}], "]"}], "-", 
+         RowBox[{"ConjugateTranspose", "[", 
+          RowBox[{"\[CapitalSigma]4E", "[", 
+           RowBox[{"i", ",", "j"}], "]"}], "]"}]}], "\[Equal]", 
+        RowBox[{"0", 
+         RowBox[{"Id", "[", "]"}]}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "d4E"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "d4E"}], "}"}]}], "]"}], "//", "MatrixForm"}], 
+  ";"}]}], "Input",
+ CellLabel->"In[78]:=",ExpressionUUID->"5567aa90-4d07-4b6b-9022-a1ce01eaf7da"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "d=4 - Minkowski ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     SuperscriptBox["g", 
+      RowBox[{
+       SubscriptBox["\[Mu]", "M"], 
+       SubscriptBox["\[Nu]", "M"]}]], ")"}], "=", 
+    RowBox[{"diag", "(", 
+     RowBox[{
+      RowBox[{"-", "1"}], ",", 
+      RowBox[{"-", "1"}], ",", 
+      RowBox[{"-", "1"}], ",", 
+      RowBox[{"+", "1"}]}], ")"}]}], TraditionalForm]],ExpressionUUID->
+  "5dfe87d9-21fb-4284-af84-e199954da749"]
+}], "Subsection",ExpressionUUID->"d5eeea3a-0c23-4f0d-89a4-d22b7f4a2c56"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"d4M", "=", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "0"}], "}"}]}], ";"}]], "Input",
+ CellLabel->"In[80]:=",ExpressionUUID->"62e56893-c91e-46ad-960b-4be9d208fbff"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4M", "[", "0", "]"}], "=", 
+   RowBox[{"ArrayFlatten", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"0", 
+         RowBox[{"IdentityMatrix", "[", "2", "]"}]}], ",", 
+        RowBox[{"IdentityMatrix", "[", "2", "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"IdentityMatrix", "[", "2", "]"}], ",", 
+        RowBox[{"0", 
+         RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], "}"}]}], "}"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"i", "=", "1"}], ",", 
+   RowBox[{"i", "<", "4"}], ",", 
+   RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"\[Gamma]4M", "[", "i", "]"}], "=", 
+     RowBox[{"ArrayFlatten", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"0", 
+           RowBox[{"IdentityMatrix", "[", "2", "]"}]}], ",", " ", 
+          RowBox[{"PauliMatrix", "[", "i", "]"}]}], "}"}], ",", 
+        RowBox[{"{", " ", 
+         RowBox[{
+          RowBox[{"-", 
+           RowBox[{"PauliMatrix", "[", "i", "]"}]}], ",", 
+          RowBox[{"0", 
+           RowBox[{"IdentityMatrix", "[", "2", "]"}]}]}], "}"}]}], "}"}], 
+      "]"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]4M", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "d4M"}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[81]:=",ExpressionUUID->"960fd332-5b6e-4089-8288-0f63c26dab2b"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "1"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "0", "1"}, {"0", "0", "1", "0"}, {"0", 
+           RowBox[{"-", "1"}], "0", "0"}, {
+           RowBox[{"-", "1"}], "0", "0", "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "2"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "0", 
+           RowBox[{"-", "\[ImaginaryI]"}]}, {
+          "0", "0", "\[ImaginaryI]", "0"}, {"0", "\[ImaginaryI]", "0", "0"}, {
+           RowBox[{"-", "\[ImaginaryI]"}], "0", "0", "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "3"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "1", "0"}, {"0", "0", "0", 
+           RowBox[{"-", "1"}]}, {
+           RowBox[{"-", "1"}], "0", "0", "0"}, {"0", "1", "0", "0"}}, 
+         RowSpacings -> 1, ColumnSpacings -> 1, RowAlignments -> Baseline, 
+         ColumnAlignments -> Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "0"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "1", "0"}, {"0", "0", "0", "1"}, {
+          "1", "0", "0", "0"}, {"0", "1", "0", "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"b6aea504-1f90-442b-8019-b7ac3d0d71b7"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Gamma]4M", "[", "\[Mu]", "]"}], ".", 
+        RowBox[{"\[Gamma]4M", "[", "\[Nu]", "]"}]}], "+", 
+       RowBox[{
+        RowBox[{"\[Gamma]4M", "[", "\[Nu]", "]"}], ".", 
+        RowBox[{"\[Gamma]4M", "[", "\[Mu]", "]"}]}], "-", 
+       RowBox[{"2", 
+        RowBox[{
+         RowBox[{"DiagonalMatrix", "[", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", 
+            RowBox[{"-", "1"}], ",", 
+            RowBox[{"-", "1"}], ",", 
+            RowBox[{"-", "1"}]}], "}"}], "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{"\[Mu]", "+", "1"}], ",", 
+           RowBox[{"\[Nu]", "+", "1"}]}], "]"}], "]"}], "*", 
+        RowBox[{"Id", "[", "]"}]}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", "d4M"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Nu]", ",", "d4M"}], "}"}]}], "]"}], "//", "Flatten"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Apply", "[", 
+  RowBox[{"And", ",", "%"}], "]"}]}], "Input",
+ CellLabel->"In[84]:=",ExpressionUUID->"693e44dc-3bca-4bab-91d3-03e7bb1d9ae5"],
+
+Cell[BoxData["True"], "Output",
+ CellLabel->"Out[85]=",ExpressionUUID->"5ad5e95d-7c48-4588-8af4-634745a2ad41"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4M", "[", "\"\<ch\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"-", "I"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"4", "/", "2"}], "-", "3"}], ")"}]}]}], " ", 
+    RowBox[{
+     RowBox[{"\[Gamma]4M", "[", "1", "]"}], ".", 
+     RowBox[{"\[Gamma]4M", "[", "2", "]"}], ".", 
+     RowBox[{"\[Gamma]4M", "[", "3", "]"}], ".", 
+     RowBox[{"\[Gamma]4M", "[", "0", "]"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Subsuperscript", "[", 
+      RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "\"\<ch\>\""}], 
+      "]"}], ",", "\"\<=\>\"", ",", 
+     RowBox[{
+      RowBox[{"\[Gamma]4M", "[", "\"\<ch\>\"", "]"}], "//", "MatrixForm"}]}], 
+    "}"}], "]"}], "//", "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[86]:=",ExpressionUUID->"f546caa4-458b-4ade-9b77-d95c8dd40c3e"],
+
+Cell[BoxData[
+ TemplateBox[{
+   TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"ch\""}, "Subsuperscript", 
+    SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{"-", "1"}], "0", "0", "0"}, {"0", 
+         RowBox[{"-", "1"}], "0", "0"}, {"0", "0", "1", "0"}, {
+        "0", "0", "0", "1"}}, RowSpacings -> 1, ColumnSpacings -> 1, 
+       RowAlignments -> Baseline, ColumnAlignments -> Center], "\[NoBreak]", 
+      ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]},
+  "RowDefault"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"776584a9-0367-4db8-b8da-9044ca5fff8e"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Gamma]4M", "[", "\[Mu]", "]"}], "-", 
+       RowBox[{"ConjugateTranspose", "[", 
+        RowBox[{"\[Gamma]4M", "[", "\[Mu]", "]"}], "]"}]}], "\[Equal]", 
+      RowBox[{"0", 
+       RowBox[{"Id", "[", "]"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]", ",", 
+       RowBox[{"d4M", "~", "Join", "~", 
+        RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], "//", 
+   "Flatten"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"MapThread", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Row", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Subsuperscript", "[", 
+           RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "#2"}], "]"}], 
+          ",", 
+          RowBox[{"If", "[", 
+           RowBox[{"#1", ",", "\"\<=\>\"", ",", "\"\<\[NotEqual]\>\""}], 
+           "]"}], ",", 
+          RowBox[{"Row", "[", 
+           RowBox[{"{", 
+            RowBox[{"\"\<(\>\"", ",", 
+             RowBox[{"Subsuperscript", "[", 
+              RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "#2"}], 
+              "]"}]}], "}"}], "]"}], ",", 
+          "\"\<\!\(\*SuperscriptBox[\()\), \(\[Dagger]\)]\)\>\""}], "}"}], 
+        "]"}], "&"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"%", ",", 
+        RowBox[{"d4M", "~", "Join", "~", 
+         RowBox[{"{", "\"\<ch\>\"", "}"}]}]}], "}"}]}], "]"}], ",", 
+    "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[88]:=",ExpressionUUID->"dbbf8f43-075e-41e4-b429-13da274c340b"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "1"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"\[NotEqual]\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "1"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "2"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"\[NotEqual]\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "2"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "3"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"\[NotEqual]\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "3"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "0"}, "Subsuperscript", SyntaxForm -> 
+      SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "0"}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"ch\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"(\"", 
+       TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"ch\""}, "Subsuperscript", 
+        SyntaxForm -> SubsuperscriptBox]}, "RowDefault"], 
+     "\"\\!\\(\\*SuperscriptBox[\\()\\), \\(\[Dagger]\\)]\\)\""}, 
+    "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"85fdf331-20c9-4c11-9a59-0ee14483ed62"]
+}, {2}]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4M", "[", "\"\<+\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]4M", "[", "\"\<R\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "4", "]"}], "+", 
+       RowBox[{"\[Gamma]4M", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Gamma]4M", "[", "\"\<-\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"\[Gamma]4M", "[", "\"\<L\>\"", "]"}], "=", 
+    RowBox[{
+     RowBox[{"1", "/", "2"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Id", "[", "4", "]"}], "-", 
+       RowBox[{"\[Gamma]4M", "[", "\"\<ch\>\"", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Row", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"i", "===", "\"\<L\>\""}], ",", "\"\<-\>\"", ",", 
+             "\"\<+\>\""}], "]"}]}], "]"}], ",", "\"\<=\>\"", ",", 
+         RowBox[{"Subsuperscript", "[", 
+          RowBox[{"\"\<\[Gamma]\>\"", ",", "\"\<M\>\"", ",", "i"}], "]"}], 
+         ",", "\"\<=\>\"", ",", 
+         RowBox[{
+          RowBox[{"\[Gamma]4M", "[", "i", "]"}], "//", "MatrixForm"}]}], 
+        "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<R\>\"", ",", "\"\<L\>\""}], "}"}]}], "}"}]}], "]"}], 
+    ",", "\"\<,\[ThickSpace]\>\""}], "]"}], "//", 
+  "CellPrintDisplayFormulaNumbered"}]}], "Input",
+ CellLabel->"In[90]:=",ExpressionUUID->"a6235237-ffc7-497b-8027-eb9cb4dc8ac9"],
+
+Cell[BoxData[
+ TemplateBox[{",\[ThickSpace]", "\",\[ThickSpace]\"", 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"+\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"R\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"0", "0", "0", "0"}, {"0", "0", "0", "0"}, {
+          "0", "0", "1", "0"}, {"0", "0", "0", "1"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"], 
+   TemplateBox[{
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"-\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TemplateBox[{"\"\[Gamma]\"", "\"M\"", "\"L\""}, "Subsuperscript", 
+      SyntaxForm -> SubsuperscriptBox], "\"=\"", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", 
+        GridBox[{{"1", "0", "0", "0"}, {"0", "1", "0", "0"}, {
+          "0", "0", "0", "0"}, {"0", "0", "0", "0"}}, RowSpacings -> 1, 
+         ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+         Center], "\[NoBreak]", ")"}], 
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]}, "RowDefault"]},
+  "RowWithSeparators"]], "DisplayFormulaNumberedPrinted",
+ CellGroupingRules->"OutputGrouping",
+ GeneratedCell->False,
+ CellAutoOverwrite->True,
+ CellFrameLabels->{{None, 
+    Cell[
+     TextData[{"(", 
+       CounterBox["Chapter"], ".", 
+       CounterBox["DisplayFormulaNumbered"], ")"}], 
+     "DisplayFormulaEquationNumber"]}, {None, None}},
+ ShowStringCharacters->
+  False,ExpressionUUID->"c5921db3-3daa-4c04-8bad-11d14edae439"]
+}, {2}]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[CapitalSigma]4M", "[", 
+   RowBox[{"\[Mu]_", ",", "\[Nu]_"}], "]"}], ":=", 
+  RowBox[{
+   FractionBox["1", "4"], 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Gamma]4M", "[", "\[Mu]", "]"}], ".", 
+      RowBox[{"\[Gamma]4M", "[", "\[Nu]", "]"}]}], "-", 
+     RowBox[{
+      RowBox[{"\[Gamma]4M", "[", "\[Nu]", "]"}], ".", 
+      RowBox[{"\[Gamma]4M", "[", "\[Mu]", "]"}]}]}], 
+    ")"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"i", ",", "j", ",", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[CapitalSigma]4M", "[", 
+          RowBox[{"i", ",", "j"}], "]"}], "-", 
+         RowBox[{"ConjugateTranspose", "[", 
+          RowBox[{"\[CapitalSigma]4M", "[", 
+           RowBox[{"i", ",", "j"}], "]"}], "]"}]}], "\[Equal]", 
+        RowBox[{"0", 
+         RowBox[{"Id", "[", "]"}]}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "d4M"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "d4M"}], "}"}]}], "]"}], "//", "MatrixForm"}], 
+  ";"}]}], "Input",
+ CellLabel->"In[93]:=",ExpressionUUID->"2d14919e-6d8e-498c-8f3c-892ebfcc329d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{
+   "\"\<\[Gamma]4M[0]==\[Gamma]4E[4]\>\"", ",", 
+    "\"\<\[Gamma]4M[1]==-I*\[Gamma]4E[1]\>\"", ",", 
+    "\"\<\[Gamma]4M[2]==-I*\[Gamma]4E[2]\>\"", ",", 
+    "\"\<\[Gamma]4M[3]==-I*\[Gamma]4E[3]\>\"", ",", 
+    "\"\<\[Gamma]4M[\\\"ch\\\"]==\[Gamma]4E[\\\"ch\\\"]\>\""}], "}"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"#", ",", 
+      RowBox[{"ToExpression", "[", "#", "]"}]}], "}"}], "&"}], "/@", "%"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{"And", "@@", 
+    RowBox[{"%", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ",", 
+   RowBox[{"Row", "[", 
+    RowBox[{
+     RowBox[{"%", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", "\"\<, \>\""}], "]"}], 
+   ",", "%"}], "]"}]}], "Input",
+ CellLabel->"In[95]:=",ExpressionUUID->"0bb9017f-24c1-422b-b29a-b1bc2ecab29b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  ", ", "\", \"", "\"\[Gamma]4M[0]==\[Gamma]4E[4]\"", 
+   "\"\[Gamma]4M[1]==-I*\[Gamma]4E[1]\"", 
+   "\"\[Gamma]4M[2]==-I*\[Gamma]4E[2]\"", 
+   "\"\[Gamma]4M[3]==-I*\[Gamma]4E[3]\"", 
+   "\"\[Gamma]4M[\\\"ch\\\"]==\[Gamma]4E[\\\"ch\\\"]\""},
+  "RowWithSeparators"]], "Output",
+ CellLabel->"Out[97]=",ExpressionUUID->"898cce8a-bf6c-4c29-9792-9a153da1ed9d"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+PrintingStyleEnvironment->"Printout",
+EvaluationCompletionAction->{"ShowTiming"},
+PrintAction->"PrintToNotebook",
+NotebookEventActions:>{"WindowClose" :> If[
+    MemberQ[NB`UUIDs, 
+     ReplaceAll["ExpressionUUID", 
+      NotebookInformation[]]], If[NB`DumpSaveQ === True, 
+      NB`DumpSave[]]; If[NB`DeleteGeneratedCellsQ === True, FrontEndExecute[{
+         FrontEndToken["DeleteGeneratedCells"]}]; Null]; 
+    If[NB`NotebookSave === True, NotebookSave[]; Null]; Null]},
+WindowSize->{1440., 752.25},
+WindowMargins->{{Automatic, 1434}, {Automatic, -6}},
+DockedCells->{},
+PrintingCopies->1,
+PrintingStartingPageNumber->1,
+PrintingPageRange->{32000, 32000},
+PageHeaders->{{
+   Cell[
+    TextData[{
+      StyleBox[
+       CounterBox["Page"], "PageNumber"], 
+      StyleBox["/", "PageNumber"], 
+      StyleBox[
+       CounterBox["LastPage", CounterFunction :> Identity], "PageNumber"]}], 
+    "Header", CellMargins -> {{0, Inherited}, {Inherited, Inherited}}], None, 
+   None}, {
+   Cell[
+    TextData[{
+      StyleBox[
+       CounterBox["Page"], "PageNumber"], 
+      StyleBox["/", "PageNumber"], 
+      StyleBox[
+       CounterBox["LastPage", CounterFunction :> Identity], "PageNumber"]}], 
+    "Header", CellMargins -> {{0, Inherited}, {Inherited, Inherited}}], None, 
+   None}},
+PageFooters->{{
+   Cell[
+    TextData[
+     StyleBox["D:\\Desktop\\field_space_20210316.nb", "FooterText"]], 
+    "Header", CellMargins -> {{0, Inherited}, {Inherited, Inherited}}], None, 
+   Cell[
+    TextData[
+     StyleBox[
+     "2021-03-16T20:23:26 | v3.81 | M. J. Steil | \
+msteil@theorie.ikp.physik.tu-darmstadt.de | TU Darmstadt", "FooterText"]], 
+    "Header", CellMargins -> {{0, Inherited}, {Inherited, Inherited}}]}, {
+   Cell[
+    TextData[
+     StyleBox["D:\\Desktop\\field_space_20210316.nb", "FooterText"]], 
+    "Header", CellMargins -> {{0, Inherited}, {Inherited, Inherited}}], None, 
+   Cell[
+    TextData[
+     StyleBox[
+     "2021-03-16T20:23:26 | v3.81 | M. J. Steil | \
+msteil@theorie.ikp.physik.tu-darmstadt.de | TU Darmstadt", "FooterText"]], 
+    "Header", CellMargins -> {{0, Inherited}, {Inherited, Inherited}}]}},
+PageHeaderLines->{False, False},
+PageFooterLines->{False, False},
+PrintingOptions->{"FacingPages"->True,
+"FirstPageFace"->Right,
+"FirstPageFooter"->True,
+"FirstPageHeader"->True,
+"Magnification"->1,
+"PageSize"->{595.32, 841.92},
+"PaperOrientation"->"Portrait",
+"PaperSize"->{595.32, 841.92},
+"PrintingMargins"->{{28.3465, 28.3465}, {50, 50}}},
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+ShowGroupOpener->False,
+TrackCellChangeTimes->False,
+Magnification:>1.25 Inherited,
+FrontEndVersion->"13.0 for Microsoft Windows (64-bit) (February 4, 2022)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[StyleDefinitions -> "Default.nb"]], 
+   Cell[
+    CellGroupData[{
+      Cell["Style Environment Names", "Section"], 
+      Cell[
+       StyleData[All, "WorkingDark"], CellInsertionPointCell -> 
+       FEPrivate`FrontEndResource["FEExpressions", "CellInsertionMenu"], 
+       MenuSortingValue -> 1101], 
+      Cell[
+       StyleData[All, "Printout"], PageWidth :> PaperWidth, 
+       CellHorizontalScrolling -> True, 
+       CellLabelMargins -> {{2, Inherited}, {Inherited, Inherited}}, 
+       ShowAutoStyles -> False, ShowAutoSpellCheck -> False, ShowSyntaxStyles -> 
+       False, AutoStyleOptions -> {"HighlightMisspelledWords" -> False}, 
+       ScriptMinSize -> 5, MenuSortingValue -> 1500, 
+       PrivateFontOptions -> {"FontType" -> "Outline"}, Magnification -> 
+       0.5]}, Open]], 
+   Cell[
+    CellGroupData[{
+      Cell[
+      "Notebook Style", "Section", 
+       CellChangeTimes -> {3.8070389616379795`*^9}], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["Notebook"]], 
+         Cell[
+          StyleData[
+          "Notebook", "WorkingDark", StyleDefinitions -> 
+           StyleData["Notebook"]], 
+          AutoStyleOptions -> {
+           "CommentStyle" -> {
+             FontColor -> RGBColor[0.596078, 0.462745, 0.666667], 
+              ShowAutoStyles -> False, ShowSyntaxStyles -> False, 
+              AutoNumberFormatting -> False}, 
+            "FunctionLocalVariableStyle" -> {
+             FontColor -> RGBColor[0.8, 0.470588, 0.196078]}, 
+            "GraphicsCompatibilityProblemStyle" -> {
+             FontColor -> RGBColor[1, 0, 0]}, 
+            "LocalScopeConflictStyle" -> {FontColor -> RGBColor[1, 0, 0]}, 
+            "LocalVariableStyle" -> {
+             FontColor -> RGBColor[0.733333, 0.709804, 0.160784]}, 
+            "MissingArgumentStyle" -> {FontColor -> RGBColor[1, 0, 0]}, 
+            "MisspelledWordStyle" -> {FontColor -> RGBColor[1, 0, 0]}, 
+            "NoKernelPresentStyle" -> {FontColor -> RGBColor[1, 0, 0]}, 
+            "PatternVariableStyle" -> {
+             FontColor -> RGBColor[0.8, 0.470588, 0.196078], FontSlant -> 
+              "Italic"}, 
+            "StringStyle" -> {
+             FontColor -> RGBColor[0.415686, 0.529412, 0.34902], 
+              ShowAutoStyles -> False, ShowSyntaxStyles -> False, 
+              AutoNumberFormatting -> False}, 
+            "UndefinedSymbolStyle" -> {
+             FontColor -> RGBColor[0.407843, 0.592157, 0.733333]}, 
+            "UnknownOptionStyle" -> {FontColor -> RGBColor[1, 0, 0]}, 
+            "UnwantedAssignmentStyle" -> {FontColor -> RGBColor[1, 0, 0]}}, 
+          CodeAssistOptions -> {
+           "AutoConvertEnable" -> False, 
+            "HeadHighlightStyle" -> {
+             Background -> RGBColor[0.276471, 0.380392, 0.25098], FontColor -> 
+              RGBColor[0.662745, 0.717647, 0.776471], FontWeight -> Bold}, 
+            "MatchHighlightStyle" -> {
+             Background -> RGBColor[0.276471, 0.380392, 0.25098], FontColor -> 
+              RGBColor[0.662745, 0.717647, 0.776471], FontWeight -> Bold}}, 
+          TranslationOptions -> {"Language" -> None}, FontColor -> 
+          RGBColor[0.662745, 0.717647, 0.776471], Background -> 
+          RGBColor[0.168627, 0.168627, 0.168627]], 
+         Cell[
+          StyleData[
+          "Hyperlink", "WorkingDark", StyleDefinitions -> StyleData["Link"]], 
+          CellChangeTimes -> {{3.808730972161214*^9, 3.808730982545971*^9}}, 
+          LineColor -> RGBColor[0.596078, 0.462745, 0.666667], FrontFaceColor -> 
+          RGBColor[0.596078, 0.462745, 0.666667], BackFaceColor -> 
+          RGBColor[0.596078, 0.462745, 0.666667], GraphicsColor -> 
+          RGBColor[0.596078, 0.462745, 0.666667], FontColor -> 
+          RGBColor[0.596078, 0.462745, 0.666667]], 
+         Cell[
+          StyleData[
+          "HyperlinkActive", "WorkingDark", StyleDefinitions -> 
+           StyleData["HyperlinkActive"]], 
+          CellChangeTimes -> {{3.808730972165733*^9, 3.808730982545971*^9}}, 
+          FontColor -> RGBColor[0.8, 0.470588, 0.196078]]}, Open]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["CellExpression"]], 
+         Cell[
+          StyleData[
+          "CellExpression", "WorkingDark", StyleDefinitions -> 
+           StyleData["CellExpression"]], CellFrame -> 0.5, CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.662745, 0.717647, 0.776471], Background -> 
+          RGBColor[0.168627, 0.168627, 0.168627]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["NotebookHeader"], CellFrame -> {{0, 0}, {0.5, 0.5}}, 
+          CellMargins -> {{5, 0}, {5, 5}}, 
+          CellGroupingRules -> {"SectionGrouping", 40}, 
+          CellFrameMargins -> {{0, 10}, {5, 5}}, CellFrameColor -> 
+          GrayLevel[0], TextAlignment -> Right, FontFamily -> 
+          "Source Sans Pro", FontSize -> 16, FontWeight -> "Normal", 
+          FontSlant -> "Plain", FontColor -> GrayLevel[0.5], Background -> 
+          GrayLevel[0.85]], 
+         Cell[
+          StyleData[
+          "NotebookHeader", "WorkingDark", StyleDefinitions -> 
+           StyleData["NotebookHeader"]], FontColor -> 
+          RGBColor[0.662745, 0.717647, 0.776471], Background -> 
+          RGBColor[
+           0.25176470588235295`, 0.25176470588235295`, 
+            0.25176470588235295`]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell["InitializationSecion and -Cell", "Subsection"], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             StyleData["InitializationSection"], 
+             CellFrame -> {{3, 0}, {0, 0}}, 
+             CellMargins -> {{27, Inherited}, {10, 15}}, 
+             CellGroupingRules -> {"SectionGrouping", 30}, 
+             LineSpacing -> {1, 4}, FontFamily -> "Source Sans Pro", FontSize -> 
+             24, FontColor -> 
+             RGBColor[
+              0.7612268253604944, 0.29576562142366675`, 0.08555733577477684]], 
+            Cell[
+             StyleData[
+             "InitializationSection", "WorkingDark", StyleDefinitions -> 
+              StyleData["InitializationSection"]], CellFrameColor -> 
+             RGBColor[
+              0.33137254901960783`, 0.3588235294117647, 0.38823529411764707`],
+              FontColor -> 
+             RGBColor[
+              0.3843137254901961, 0.592156862745098, 0.3333333333333333]]}, 
+           Closed]], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             StyleData["InitializationCell"], ShowCellTags -> True, 
+             Background -> GrayLevel[0.92]], 
+            Cell[
+             StyleData["InitializationCell", "WorkingDark"], Background -> 
+             RGBColor[0.251765, 0.251765, 0.251765]]}, Closed]]}, Open]], 
+      Cell[
+       CellGroupData[{
+         Cell["Author, Affiliation and Abstract", "Subsection"], 
+         Cell[
+          StyleData["Author"], CellMargins -> {{80, 100}, {2, 6}}], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             StyleData["Affiliation"], CellMargins -> {{80, 100}, {8, 2}}], 
+            Cell[
+             StyleData[
+             "Affiliation", "WorkingDark", StyleDefinitions -> 
+              StyleData["Affiliation"]], FontColor -> 
+             RGBColor[0.596078, 0.462745, 0.666667]]}, Closed]], 
+         Cell[
+          StyleData["Abstract"], CellMargins -> {{80, 100}, {6, 6}}, FontSize -> 
+          15, FontSlant -> "Plain"]}, Closed]]}, Open]], 
+   Cell[
+    CellGroupData[{
+      Cell["Styles for Title and Section Cells", "Section"], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["Title"], CellFrame -> {{0, 0}, {4, 4}}, CellFrameColor -> 
+          GrayLevel[0]], 
+         Cell[
+          StyleData[
+          "Title", "WorkingDark", StyleDefinitions -> StyleData["Title"]], 
+          CellFrameColor -> RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.384314, 0.592157, 0.333333]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["Chapter"], CellFrame -> {{0, 0}, {3, 3}}, 
+          CellGroupingRules -> {"SectionGrouping", 20}, TextAlignment -> Left,
+           TextJustification -> 1, LineSpacing -> {1, 3}, 
+          CounterAssignments -> {{"DisplayFormulaNumbered", 0}}, FontColor -> 
+          RGBColor[
+           0.7612268253604944, 0.29576562142366675`, 0.08555733577477684]], 
+         Cell[
+          StyleData[
+          "Chapter", "WorkingDark", StyleDefinitions -> StyleData["Chapter"]],
+           CellFrameColor -> RGBColor[0.331373, 0.358824, 0.388235], 
+          FontColor -> RGBColor[0.384314, 0.592157, 0.333333]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["Section"], CellFrame -> {{0, 0}, {0.5, 0.5}}, 
+          CellGroupingRules -> {"SectionGrouping", 30}, CellFrameColor -> 
+          GrayLevel[0.5]], 
+         Cell[
+          StyleData[
+          "Section", "WorkingDark", StyleDefinitions -> StyleData["Section"]],
+           CellFrameColor -> 
+          RGBColor[
+           0.33137254901960783`, 0.3588235294117647, 0.38823529411764707`], 
+          FontColor -> RGBColor[0.384314, 0.592157, 0.333333]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["Subsection"], CellFrame -> {{3, 0}, {0, 0.5}}, 
+          CellFrameColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData[
+          "Subsection", "WorkingDark", StyleDefinitions -> 
+           StyleData["Subsection"]], CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.384314, 0.592157, 0.333333]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["Subsubsection"], CellFrame -> {{3, 0}, {0, 0}}, 
+          CellFrameColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData[
+          "Subsubsection", "WorkingDark", StyleDefinitions -> 
+           StyleData["Subsubsection"]], CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.384314, 0.592157, 0.333333]]}, Closed]], 
+      Cell[
+      "NonEvaluating ", "Subsection", 
+       CellChangeTimes -> {{3.8070354431248274`*^9, 3.8070354578354144`*^9}}], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData[
+          "NonEvaluatingChapter", StyleDefinitions -> StyleData["Chapter"]], 
+          CellFrame -> {{0, 0}, {3, 3}}, 
+          PrivateCellOptions -> {
+           "CellGroupBaseStyle" -> {Evaluatable -> False}}, 
+          CellGroupingRules -> {"SectionGrouping", 20}, TextAlignment -> Left,
+           TextJustification -> 1, LineSpacing -> {1, 3}, MenuSortingValue -> 
+          10000, FontSlant -> "Italic", FontColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData[
+          "NonEvaluatingChapter", "WorkingDark", StyleDefinitions -> 
+           StyleData["NonEvaluatingChapter"]], CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235]]}, Open]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData[
+          "NonEvaluatingSection", StyleDefinitions -> StyleData["Section"]], 
+          PrivateCellOptions -> {
+           "CellGroupBaseStyle" -> {Evaluatable -> False}}, MenuSortingValue -> 
+          10000, FontSlant -> "Italic", FontColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData[
+          "NonEvaluatingSection", "WorkingDark", StyleDefinitions -> 
+           StyleData["NonEvaluatingSection"]], CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData[
+          "NonEvaluatingSubsection", StyleDefinitions -> 
+           StyleData["Subsection"]], 
+          PrivateCellOptions -> {
+           "CellGroupBaseStyle" -> {Evaluatable -> False}}, MenuSortingValue -> 
+          10000, FontSlant -> "Italic", FontColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData[
+          "NonEvaluatingSubsection", "WorkingDark", StyleDefinitions -> 
+           StyleData["NonEvaluatingSubsection"]], CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData[
+          "NonEvaluatingSubsubsection", StyleDefinitions -> 
+           StyleData["Subsubsection"]], 
+          PrivateCellOptions -> {
+           "CellGroupBaseStyle" -> {Evaluatable -> False}}, AllowGroupClose -> 
+          Automatic, MenuSortingValue -> 10000, FontSlant -> "Italic", 
+          FontColor -> GrayLevel[0.5]], 
+         Cell[
+          StyleData[
+          "NonEvaluatingSubsubsection", "WorkingDark", StyleDefinitions -> 
+           StyleData["NonEvaluatingSubsubsection"]], CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], FontColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235]]}, Closed]], 
+      Cell["Styles for Input and Output Cells", "Section"], 
+      Cell[
+       StyleData["Input"], LinebreakAdjustments -> {0.85, 2, 1, 0, 0}], 
+      Cell[
+       StyleData[
+       "NonEvaluatingInput", StyleDefinitions -> StyleData["Input"]], 
+       Evaluatable -> False, 
+       AutoStyleOptions -> {
+        "CommentStyle" -> {
+          FontColor -> GrayLevel[0.5], ShowAutoStyles -> False, 
+           ShowSyntaxStyles -> False, AutoNumberFormatting -> False}, 
+         "EmphasizedSyntaxErrorStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "FunctionLocalVariableStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "LocalScopeConflictStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "LocalVariableStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "PatternVariableStyle" -> {
+          FontColor -> GrayLevel[0.5], FontSlant -> Italic}, 
+         "StringStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "SymbolShadowingStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "UndefinedSymbolStyle" -> {FontColor -> GrayLevel[0.5]}}, 
+       MenuSortingValue -> 1500, FontColor -> GrayLevel[0.5]], 
+      Cell["Code", "Subsection"], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["Code"], CellFrame -> {{0.5, 0}, {0, 0}}, 
+          CellMargins -> {{66, 10}, {5, 5}}, InitializationCell -> False, 
+          CellFrameMargins -> {{8, 0}, {5, 5}}], 
+         Cell[
+          StyleData[
+          "Code", "WorkingDark", StyleDefinitions -> StyleData["Code"]], 
+          CellFrameColor -> RGBColor[0.331373, 0.358824, 0.388235]]}, Open]], 
+      Cell[
+       StyleData["NonEvaluatingCode", StyleDefinitions -> StyleData["Code"]], 
+       Evaluatable -> False, InitializationCell -> False, CellFrameColor -> 
+       GrayLevel[0.5], 
+       AutoStyleOptions -> {
+        "CommentStyle" -> {
+          FontColor -> GrayLevel[0.5], ShowAutoStyles -> False, 
+           ShowSyntaxStyles -> False, AutoNumberFormatting -> False}, 
+         "EmphasizedSyntaxErrorStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "FunctionLocalVariableStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "LocalScopeConflictStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "LocalVariableStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "PatternVariableStyle" -> {
+          FontColor -> GrayLevel[0.5], FontSlant -> Italic}, 
+         "StringStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "SymbolShadowingStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "UndefinedSymbolStyle" -> {FontColor -> GrayLevel[0.5]}}, 
+       LanguageCategory -> "Formula", MenuSortingValue -> 1450, FontColor -> 
+       GrayLevel[0.5]], 
+      Cell["CodePackage ", "Subsection"], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["CodePackage", StyleDefinitions -> StyleData["Code"]], 
+          CellFrame -> {{3, 0}, {0, 0}}, MenuSortingValue -> 1451], 
+         Cell[
+          StyleData[
+          "CodePackage", "WorkingDark", StyleDefinitions -> 
+           StyleData["CodePackage"]], CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235]]}, Open]], 
+      Cell[
+       StyleData[
+       "NonEvaluatingCodePackage", StyleDefinitions -> 
+        StyleData["CodePackage"]], Evaluatable -> False, InitializationCell -> 
+       False, CellFrameColor -> GrayLevel[0.5], 
+       AutoStyleOptions -> {
+        "CommentStyle" -> {
+          FontColor -> GrayLevel[0.5], ShowAutoStyles -> False, 
+           ShowSyntaxStyles -> False, AutoNumberFormatting -> False}, 
+         "EmphasizedSyntaxErrorStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "FunctionLocalVariableStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "LocalScopeConflictStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "LocalVariableStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "PatternVariableStyle" -> {
+          FontColor -> GrayLevel[0.5], FontSlant -> Italic}, 
+         "StringStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "SymbolShadowingStyle" -> {FontColor -> GrayLevel[0.5]}, 
+         "UndefinedSymbolStyle" -> {FontColor -> GrayLevel[0.5]}}, 
+       LanguageCategory -> "Formula", MenuSortingValue -> 1451, FontColor -> 
+       GrayLevel[0.5]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+         "Iconized object ", "Subsection", 
+          CellChangeTimes -> {{3.8070354431248274`*^9, 
+           3.8070354578354144`*^9}, {3.811809860450386*^9, 
+           3.8118098640067024`*^9}}], 
+         Cell[
+          StyleData[
+          "IconizedFrame", "WorkingDark", StyleDefinitions -> 
+           StyleData["IconizedFrame"]], 
+          TemplateBoxOptions -> {
+           DisplayFunction -> (
+             FrameBox[#, BaselinePosition -> Baseline, 
+              FrameMargins -> {{0, 0}, {2, 1}}, FrameStyle -> 
+              RGBColor[0.5, 0.5, 0.5], Background -> 
+              RGBColor[0.35, 0.35, 0.35], RoundingRadius -> 4, 
+              DefaultBaseStyle -> {
+               "DialogStyle", FontFamily -> "Roboto", FontSize -> 11}]& ), 
+            Tooltip -> None}], 
+         Cell[
+          StyleData[
+          "IconizedItem", "WorkingDark", StyleDefinitions -> 
+           StyleData["IconizedItem"]], FontColor -> 
+          RGBColor[0.662745, 0.717647, 0.776471], 
+          TagBoxOptions -> {Selectable -> True}], 
+         Cell[
+          StyleData[
+          "IconizedLabel", "WorkingDark", StyleDefinitions -> 
+           StyleData["IconizedLabel"]], FontColor -> 
+          RGBColor[0.596078, 0.462745, 0.666667]], 
+         Cell[
+          StyleData[
+          "IconizedCustomName", "WorkingDark", StyleDefinitions -> 
+           StyleData["IconizedCustomName"]], FontColor -> 
+          RGBColor[0.662745, 0.717647, 0.776471]], 
+         Cell[
+          StyleData[
+          "IconizedDefaultName", "WorkingDark", StyleDefinitions -> 
+           StyleData["IconizedDefaultName"]], 
+          TemplateBoxOptions -> {DisplayFunction -> (DynamicBox[
+              FEPrivate`Switch[#, "ListIcon", 
+               FEPrivate`FrontEndResource["FEBitmaps", "IconizeListIcon"], 
+               "AssociationIcon", 
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "IconizeAssociationIcon"], "StringIcon", 
+               FEPrivate`FrontEndResource["FEBitmaps", "IconizeStringIcon"], 
+               "SequenceIcon", 
+               FEPrivate`FrontEndResource["FEBitmaps", "IconizeSequenceIcon"], 
+               Blank[], #], 
+              BaseStyle -> {
+               FontColor -> RGBColor[0.662745, 0.717647, 0.776471], FontSize -> 
+                12, PrivateFontOptions -> {
+                 "OperatorSubstitution" -> False}}]& )}]}, Open]], 
+      Cell[
+      "Styles for Formulas", "Section", 
+       CellChangeTimes -> {3.8070355288234005`*^9}], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["DisplayFormula"], CellFrame -> {{0.5, 3}, {3, 0.5}}, 
+          CellMargins -> {{66, 31}, {Inherited, Inherited}}], 
+         Cell[
+          StyleData[
+          "DisplayFormula", "WorkingDark", StyleDefinitions -> 
+           StyleData["DisplayFormula"]], 
+          CellMargins -> {{66, 68}, {Inherited, Inherited}}, CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], 
+          AutoStyleOptions -> {
+           "StringStyle" -> {
+             FontColor -> 
+              RGBColor[
+               0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+              ShowAutoStyles -> False, ShowSyntaxStyles -> False, 
+              AutoNumberFormatting -> False}}, FontColor -> 
+          RGBColor[
+           0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+          Background -> 
+          RGBColor[
+           0.16862745098039217`, 0.16862745098039217`, 
+            0.16862745098039217`]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData[
+          "DisplayFormulaPrinted", StyleDefinitions -> 
+           StyleData["DisplayFormula"]], 
+          CellFrame -> {{0.5, 1.5}, {1.5, 0.5}}, CellDingbat -> 
+          Cell["\[RightGuillemet] ", FontSize -> 3 + Inherited]], 
+         Cell[
+          StyleData[
+          "DisplayFormulaPrinted", "WorkingDark", StyleDefinitions -> 
+           StyleData["DisplayFormula"]], 
+          CellMargins -> {{66, 65}, {Inherited, Inherited}}, CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], 
+          AutoStyleOptions -> {
+           "StringStyle" -> {
+             FontColor -> 
+              RGBColor[
+               0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+              ShowAutoStyles -> False, ShowSyntaxStyles -> False, 
+              AutoNumberFormatting -> False}}, FontColor -> 
+          RGBColor[
+           0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+          Background -> 
+          RGBColor[
+           0.16862745098039217`, 0.16862745098039217`, 
+            0.16862745098039217`]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData["DisplayFormulaNumbered"], 
+          CellFrame -> {{0.5, 3}, {3, 0.5}}, CellFrameLabels -> {{None, 
+             Cell[
+              TextData[{"(", 
+                CounterBox["Chapter"], ".", 
+                CounterBox["DisplayFormulaNumbered"], ")"}], 
+              "DisplayFormulaEquationNumber"]}, {None, None}}], 
+         Cell[
+          StyleData[
+          "DisplayFormulaNumbered", "WorkingDark", StyleDefinitions -> 
+           StyleData["DisplayFormulaNumbered"]], 
+          CellMargins -> {{66, 40}, {Inherited, Inherited}}, CellFrameColor -> 
+          RGBColor[
+           0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+          AutoStyleOptions -> {
+           "StringStyle" -> {
+             FontColor -> RGBColor[0.415686, 0.529412, 0.34902], 
+              ShowAutoStyles -> False, ShowSyntaxStyles -> False, 
+              AutoNumberFormatting -> False}}, FontColor -> 
+          RGBColor[
+           0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+          Background -> 
+          RGBColor[
+           0.16862745098039217`, 0.16862745098039217`, 
+            0.16862745098039217`]]}, Closed]], 
+      Cell[
+       CellGroupData[{
+         Cell[
+          StyleData[
+          "DisplayFormulaNumberedPrinted", StyleDefinitions -> 
+           StyleData["DisplayFormulaNumbered"]], 
+          CellFrame -> {{0.5, 1.5}, {1.5, 0.5}}, CellDingbat -> 
+          Cell["\[RightGuillemet] ", FontSize -> 3 + Inherited]], 
+         Cell[
+          StyleData[
+          "DisplayFormulaNumberedPrinted", "WorkingDark", StyleDefinitions -> 
+           StyleData["DisplayFormulaNumbered"]], 
+          CellMargins -> {{66, 40}, {Inherited, Inherited}}, CellFrameColor -> 
+          RGBColor[0.331373, 0.358824, 0.388235], 
+          AutoStyleOptions -> {
+           "StringStyle" -> {
+             FontColor -> 
+              RGBColor[
+               0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+              ShowAutoStyles -> False, ShowSyntaxStyles -> False, 
+              AutoNumberFormatting -> False}}, FontColor -> 
+          RGBColor[
+           0.6627450980392157, 0.7176470588235294, 0.7764705882352941], 
+          Background -> 
+          RGBColor[
+           0.16862745098039217`, 0.16862745098039217`, 
+            0.16862745098039217`]]}, Closed]], 
+      Cell["Styles for Printed Runningheads and Footers", "Section"], 
+      Cell[
+       StyleData["PageNumber"], MenuSortingValue -> None, FontFamily -> 
+       "Arial", FontSize -> 6, FontSlant -> Plain], 
+      Cell[
+       StyleData["FooterText"], MenuSortingValue -> None, FontFamily -> 
+       "Arial", FontSize -> 4, FontSlant -> Plain]}, Open]]}, Visible -> 
+  False, FrontEndVersion -> 
+  "13.0 for Microsoft Windows (64-bit) (February 4, 2022)", StyleDefinitions -> 
+  "PrivateStylesheetFormatting.nb"],
+ExpressionUUID->"5fba4b5c-2a02-4de7-95f9-df21f1fb2030"
+]
+

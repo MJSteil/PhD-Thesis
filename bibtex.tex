@@ -1,0 +1,375 @@
+\usepackage[% 
+	backend=biber,
+	hyperref=true, % use hyperref for links (DOI, arXiv, URLs)
+	natbib=true, % natbib provides functionalities related to numeric-comp
+	isbn=false, % do not show ISBN numbers
+	style=numeric-comp, % numeric citation scheme including compressions, e.g., [8, 3, 1, 7, 2] => [1–3, 7, 8]
+	sorting=none, % all entries are processed in citation order
+	giveninits=true, % only render given name initials
+	maxbibnames=3, % use et al. for more than three authors
+	date=year, % use year only 
+	urldate=iso, % use iso-date, e.g, 2021/01/01, for urldates
+	seconds=true, % print seconds when specified (urldate=iso wants this option)
+	isbn=true % print isbn numbers
+]{biblatex}
+
+% ************ Citing *********** %
+%[https://tex.stackexchange.com/a/399170/148765]
+\NewBibliographyString{refname}
+\NewBibliographyString{refsname}
+\DefineBibliographyStrings{english}{%
+  refname = {Ref\adddot},
+  refsname = {Refs\adddot}
+}
+
+\DeclareCiteCommand{\ccite}
+  {%
+  \ifnum\thecitetotal=1
+    \bibstring{refname}%
+  \else%
+    \bibstring{refsname}%
+  \fi%
+  \addspace\bibopenbracket%
+  \usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:comp}}
+  {}
+  {\usebibmacro{cite:dump}%
+   \usebibmacro{postnote}%
+   \bibclosebracket}
+
+\newrobustcmd*{\Ccite}{\bibsentence\ccite}
+
+\newcommand{\nbcite}[1]{\mbox{\cite{#1}}} % prevent linebreaks in cite -- [https://tex.stackexchange.com/q/261832/148765]
+\newcommand{\nbccite}[1]{\mbox{\ccite{#1}}} % prevent linebreaks in cite -- [https://tex.stackexchange.com/q/261832/148765]
+
+% ************ Bibliography *********** %
+\bibliography{PhD-Thesis}
+%\bibliography{bib/general,bib/gn,bib/inhomo,bib/instanton,bib/lattice,bib/math,bib/numerics,bib/qcd,bib/rg,bib/software,bib/steilPhDaux,bib/symmetries,bib/thermal_qft,bib/thies,bib/virasoro_algebra,bib/zero-dim-qft,bib/time_Crystals}
+
+% ************ Citation commands ************ %
+\preto\fullcite{\AtNextCite{\defcounter{maxnames}{99}}} % Render up to 99 names when using \fullcite
+
+% ************ Bibliography style adjustments ************ %
+% Font sizes
+\renewcommand*{\bibfont}{\footnotesize} % general font for bibliography
+\newcommand{\bibfontsmall}{\scriptsize} % smaller font for bibliography (used in URLs, DOIs, arXiv Links)
+\newcommand{\bibfontsmaller}{\scriptsize}%\fontsize{7.5pt}{8pt}\selectfont} % even smaller font for bibliography (arXiv class)
+% Redefine bibstrings
+\DefineBibliographyStrings{english}{%
+	urlseen = {accessed on},
+}
+
+% General formatting
+\DeclareFieldFormat{journaltitle}{\mkbibemph{#1}\isdot} % title in italic
+\DeclareFieldFormat[article,online,unpublished,software,misc]{title}{\mkbibquote{#1\isdot}} % title in quotes
+\DeclareFieldFormat[thesis]{title}{\mkbibemph{#1\isdot}} % title in italic
+\DeclareFieldFormat[article]{volume}{\textbf{#1}} % bold volume
+\DeclareFieldFormat[article]{pages}{#1} % show page range instead of first page (\mkfirstpage[]{#1})
+\DeclareFieldFormat[book]{isbn}{\mkbibacro{ISBN}\addcolon\space#1}
+
+\renewcommand*{\newunitpunct}{\addcomma\space} % use comma as seperator instead of dots
+
+% Allow for line breaks in hrefs, doi, ... [https://tex.stackexchange.com/questions/22854/url-line-breaks-with-biblatex/22871#22871]
+\setcounter{biburlnumpenalty}{100}  % allow breaks at numbers
+\setcounter{biburlucpenalty}{100}   % allow breaks at uppercase letters
+\setcounter{biburllcpenalty}{100}   % allow breaks at lowercase letters
+
+% New bibmacro for article driver to display journal+volume+date+pages (e.g. Nature 59 (1898) 200–200)
+\makeatletter
+\newbibmacro*{journal+volume+date+pages}{%
+	\usebibmacro{journal}%
+	\setunit*{\addspace}%
+	\iffieldundef{series}%
+		{}%
+		{\newunit\printfield{series}\setunit{\addspace}}%
+	\printfield{volume}%
+	\setunit{\addspace}%
+	\printtext[parens]{\usebibmacro{date}}
+	\setunit*{\addspace}%
+	\printfield{pages}%
+	\newunit
+}
+\makeatother
+
+% New bibmacro for article driver to display epring+url [compare standard.bbx, line 901]
+\newtoggle{bbx:urlPrint}
+\toggletrue{bbx:urlPrint}
+\makeatletter
+\newbibmacro*{eprint+url}{%
+	\iftoggle{bbx:eprint}
+		{\usebibmacro{eprint}}
+		{}
+	\newunit\newblock
+	\iftoggle{bbx:url}
+		{\iftoggle{bbx:urlPrint}{\usebibmacro{url+urldate}}}
+		{}
+}
+\makeatother
+
+% New bibmacro for linked isbn
+\newbibmacro*{isbn}{%
+	\iffieldundef{isbn}{}{
+	\addcomma\space
+	\iffieldundef{url}{%
+		% No URL, just print the ISBN
+		\printfield{isbn}
+	}{%
+		% URL is available, print ISBN with hyperlink
+		\mkbibacro{ISBN}\addcolon\space\href{\thefield{url}}{\thefield{isbn}}
+	}
+	\newunit
+}}
+
+% New bibmacro for book driver [compare standard.bbx, line 901]
+\makeatletter
+\newbibmacro*{doi+eprint+url+isbn}{%
+  \iftoggle{bbx:doi}
+    {\printfield{doi}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:url}
+    {\iffieldundef{isbn}{\usebibmacro{url+urldate}}{}}
+    {}%
+}
+\makeatother
+
+% et al. in italic [modifies biblatex.def, line 1157]
+\renewbibmacro*{name:andothers}{%
+	\ifboolexpr{
+		test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+		and
+		test \ifmorenames
+	}{
+		\ifnumgreater{\value{liststop}}{1}
+		{\finalandcomma}
+		{}%
+		\printdelim{andothersdelim}\bibstring[\emph]{andothers}
+	}{}
+}
+
+% Use new variable (font size) to format url [modifies biblatex.def, line 582]
+\DeclareFieldFormat{url}{\mkbibacro{URL}\addcolon\space{\bibfontsmall\url{#1}}}
+
+% Use new variable (font size) to format url [modifies biblatex.def, line 495]
+\DeclareFieldFormat{doi}{%
+	\mkbibacro{DOI}\addcolon\space
+	\ifhyperref
+		{\bibfontsmall\href{https://doi.org/#1}{\nolinkurl{#1}\allowbreak}}
+		{\bibfontsmall\nolinkurl{#1}\allowbreak}
+}
+
+% Use new variable (font size) to format url [modifies biblatex.def, line 521]
+\makeatletter
+\DeclareFieldFormat{eprint:arxiv}{%
+	arXiv\addcolon\space
+	\ifhyperref
+		{\bibfontsmall\href{https://arxiv.org/\abx@arxivpath/#1}{%
+			\nolinkurl{#1}%
+			\iffieldundef{eprintclass}
+			{}
+			{\bibfontsmaller\addspace\texttt{\mkbibbrackets{\thefield{eprintclass}}}}}%
+		}
+		{%
+			\nolinkurl{#1}%
+			\iffieldundef{eprintclass}
+			{}
+			{\bibfontsmaller\addspace\texttt{\mkbibbrackets{\thefield{eprintclass}}}}%
+		}%
+}
+\makeatother
+
+% Add parentheses around block [modifies standard.bbx, line 851]
+\renewbibmacro*{publisher+location+date}{%
+	\nopunct
+	\printtext[parens]{%
+		\printlist{publisher}%
+		\setunit*{\addcomma\space}%
+		\printlist{location}%
+		\setunit*{\addcomma\space}%
+		\usebibmacro{date}%
+	}%
+}
+
+% Custom driver for article [modifies standard.bbx, line 28]
+\DeclareBibliographyDriver{article}{%
+	\toggletrue{bbx:urlPrint}%
+	\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author/translator+others}%
+	\setunit{\printdelim{nametitledelim}}\newblock%
+	\usebibmacro{title}%
+	\newunit%
+	\printlist{language}%
+	\newunit\newblock%
+	\usebibmacro{byauthor}%
+	\newunit\newblock%
+	\usebibmacro{bytranslator+others}%
+	\newunit\newblock%
+	\printfield{version}%
+	\newunit\newblock%
+	\addcomma%
+	\iffieldundef{doi}{%
+		\iffieldundef{url}{%
+			\usebibmacro{journal+volume+date+pages}%
+		}{
+			\href{\thefield{url}}{\usebibmacro{journal+volume+date+pages}}%
+			\togglefalse{bbx:urlPrint}%
+		}%
+	}{%else -- field doi is defined
+		\href{https://doi.org/\thefield{doi}}{\usebibmacro{journal+volume+date+pages}}%
+	}%
+	\newunit%
+	\iffieldundef{booktitle}{}{%
+		\usebibmacro{in:}%
+		\usebibmacro{bybookauthor}%
+		\newunit\newblock
+		\usebibmacro{maintitle+booktitle}%
+		\newunit\newblock
+	}%
+  \usebibmacro{byeditor+others}%
+	\newunit\newblock
+	\iftoggle{bbx:isbn}
+		{}%\printfield{issn}
+		{}%
+	\newunit\newblock
+	\usebibmacro{eprint+url}%
+	\newunit\newblock%
+	\printfield{note}%
+	\newunit\newblock
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+		{\usebibmacro{related:init}%
+		 \usebibmacro{related}}
+		{}%
+	\usebibmacro{finentry}
+}
+
+% Custom driver for book [modifies standard.bbx, line 66]
+\DeclareBibliographyDriver{book}{%
+\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author/translator+others}%
+	\setunit{\labelnamepunct}\newblock
+	\usebibmacro{maintitle+title}%
+	\iffieldundef{edition}{\setunit{\addspace}}{\addcomma\space \printfield{edition}}%
+	\newunit\newblock
+	\printlist{language}%
+	\newunit\newblock
+	\usebibmacro{byauthor}%
+	\newunit\newblock
+	\usebibmacro{byeditor+others}%
+	\newunit
+	\printfield{volumes}%
+	\newunit\newblock
+	\usebibmacro{series+number}%
+	\newunit\newblock
+	\usebibmacro{publisher+location+date}%
+	\newunit\newblock
+	\printfield{note}%
+	\newunit\newblock
+	\usebibmacro{chapter+pages}%
+	\newunit\newblock
+	\printfield{pagetotal}%
+	\newunit\newblock
+	\iftoggle{bbx:isbn}%
+		{\usebibmacro{isbn}}%
+		{}%
+	\newunit\newblock
+	\usebibmacro{doi+eprint+url+isbn}%
+	\newunit\newblock
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+		{\usebibmacro{related:init}%
+		 \usebibmacro{related}}
+		{}%
+	\usebibmacro{finentry}%
+}
+
+% Custom driver for misc [modifies standard.bbx, line 434]
+\DeclareBibliographyDriver{misc}{%
+	\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author/editor+others/translator+others}%
+	\setunit{\printdelim{nametitledelim}}\newblock
+	\usebibmacro{title}%
+	\newunit
+	\printlist{language}%
+	\newunit\newblock
+	\usebibmacro{byauthor}%
+	\newunit\newblock
+	\usebibmacro{byeditor+others}%
+	\newunit\newblock
+	\ifkeyword{auxFile}
+		{\textnormal{\texttt{\smaller\printfield{howpublished}}}}%
+		{\printfield{howpublished}}%
+	\newunit\newblock
+	\printfield{type}%
+	\newunit
+	\printfield{version}%
+	\newunit\newblock
+	\usebibmacro{journal}
+	\nopunct
+	\newunit\newblock
+	\printtext[parens]{\usebibmacro{organization+location+date}}%
+	\newunit\newblock
+	\usebibmacro{doi+eprint+url}%
+	\newunit\newblock
+	\printfield{note}%
+	\newunit\newblock
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+		{\usebibmacro{related:init}%
+		 \usebibmacro{related}}
+		{}%
+	\usebibmacro{finentry}%
+}
+
+% Custom driver for unpublished [modifies standard.bbx, line 695]
+\DeclareBibliographyDriver{unpublished}{%
+	\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author}%
+	\setunit{\printdelim{nametitledelim}}\newblock
+	\usebibmacro{title}%
+	\newunit
+	\printlist{language}%
+	\newunit\newblock
+	\usebibmacro{byauthor}%
+	\newunit\newblock
+	\printfield{howpublished}%
+	\newunit\newblock
+	\printfield{type}%
+	\newunit\newblock
+	\usebibmacro{event+venue+date}%
+	\newunit\newblock
+	\usebibmacro{location+date}%
+	\newunit\newblock
+	\usebibmacro{doi+eprint+url}%
+	\newunit\newblock
+	\printfield{note}%
+	\newunit\newblock
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+		{\usebibmacro{related:init}%
+		 \usebibmacro{related}}
+		{}%
+	\usebibmacro{finentry}%
+}

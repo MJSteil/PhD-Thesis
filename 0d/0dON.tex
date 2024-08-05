@@ -1,0 +1,770 @@
+\section{The \ON{} model --  strongly interacting scalars}\label{sec:0dON}
+\begin{disclaimer}
+	The introduction of this section follows the discussion presented in Sec.~III.A of \nbccite{Koenigstein:2021syz}.
+\end{disclaimer}
+Zero-dimensional \ON{} models \dash{} \ie{}, models of $N$ scalars interacting in a point with $\ON{}$ symmetry \dash{} are predominantly studied for pedagogical and conceptual purposes~\cite{Bessis:1980ss,Zinn-Justin:1998hwu,DiVecchia:1990ce,Hikami:1978ya,Nishigaki:1990sk,Schelstraete:1994sc,Catalano:2019,Fl_rchinger_2010,Keitel:2011pn,SkinnerScript,Moroz:2011thesis,Pawlowski:talk,Strocchi:2013awa,Kemler:2013yka,Rosa:2016czs,Millington:2019nkw,Millington:2020Talk,Millington:2021ftp}.
+The zero-dimensional $O(N)$~model is also referred to as $O(N)$-vector model and can be seen as the high-temperature limit of a quantum mechanical system~\cite{Moroz:2011thesis}.
+It was also considered as a statistical model for the formation of polymers~\cite{Nishigaki:1990sk}.
+In \ccite{Keitel:2011pn} the model was used to compare the quality of perturbation theory, the large-$N$ expansion, and the \frg{} vertex/Taylor expansion with the exact result.
+The primary focus of the present work is to push this analysis even further and to study the limits of untruncated \frg{} flow equations as well as the \frg{} Taylor expansion.
+
+\ON{} models in higher dimensions play an important role in understanding spin systems, like the Ising model~\cite{Ising:1925em,Canet:2003qd,Delamotte:2007pf}, and magnetization phenomena.
+Furthermore, they are often used as toy models and are of utmost importance for understanding the Anderson-Brout-Englert-Guralnik-Hagen-Higgs-Kibble mechanism and the formation of a chiral condensate in strong-interaction matter.
+In the context of numerical methods for the \frg{} the $O(N)$ model in three dimensions and in the large-$N$ limit is discussed in detail in \ccite{Grossi:2019urj}.
+
+In the following we introduce the zero-dimensional $O(N)$ model on the level of the classical action and the functional integral and comment on the calculation of expectation values and \ipi{} vertex functions, which are our observables of interest.\bigskip
+
+Consider a zero-dimensional theory of $N$ bosonic scalars $\phi_a$, which transform according to
+\begin{align}
+	\phi_a \mapsto \phi^\prime_a = O_{a b} \, \phi_b \, ,
+\end{align}
+where $O \in O(N)$ and $a, b \in \{ 1, \, \ldots , \, N \}$.
+In vector notation, this reads
+\begin{align}
+	\vec{\phi} \mapsto \vec{\phi}^{\, \prime} = O \, \vec{\phi} \, ,
+\end{align}
+where $\vec{\phi} \equiv ( \phi_1 , \, \phi_2 , \, \ldots, \, \phi_N )$.
+If the action $\mathcal{S} [ \vec{\phi} \, ]$ of the model possesses an $O(N)$ symmetry, it can contain all possible terms that are functions of the $O(N)$ invariant
+\begin{align}
+	\rho \equiv \tfrac{1}{2} \, \phi_a \, \phi_a \equiv \tfrac{1}{2} \, \vec{\phi}^{\, 2}	\label{eq:definition_so_3_invariant}
+\end{align}
+This implies that the most general action obeying this symmetry is given by
+\begin{align}
+	\mathcal{S}[ \vec{\phi} \, ] = U ( \vec{\phi} \, ) = U ( \rho ) \, ,
+\end{align}
+where $U ( \rho )$ is the effective potential, in analogy to models from higher-dimensional space-times.
+This effective potential might for example include a bosonic ``mass term'' $m^2 \rho$ as well as other interaction terms containing arbitrary powers of $\rho$.
+Although one may now be tempted to assume that the effective potential $U ( \rho )$ must be a power series or an analytic function of $\rho$, as long as it fulfills all symmetries it can be any continuous function of $\rho$ which is bounded from below, \cf{} the discussion in \cref{sec:0dQFT} for the special case of the $O ( 1 )$ model.
+
+In the remainder of this section we will summarize relevant relations for the $O(N)$ model.
+For a more detailed discussion, we refer the interested reader to \ccite{Keitel:2011pn} and references therein.
+All generating functionals of the theory retain the $O(N)$ symmetry of the action, which makes them functionals of the invariants $\tfrac{1}{2} \, \vec{J}^{\, 2}$ for $\mathcal{Z}$ and $\mathcal{W}$ and $\varrho \equiv \frac{1}{2} \, \vec{\varphi}^{\, 2}$ for $\Gamma$.
+This entails that all \nptFunctions{} for odd $n$ vanish by symmetry and all correlation functions of a given order of even $n$ are proportional to each other, \eg{}, for the four-point function we find
+\begin{align}
+	\langle \phi_i \, \phi_i \, \phi_j \, \phi_j \rangle = \tfrac{1}{3} \, \langle \phi_i \, \phi_i \, \phi_i \, \phi_i \rangle\, ,
+\end{align}
+for $i\neq j$ and $i, j \in \{ 1, \ldots, N \}$ (no summation over repeated indices implied here).
+For the proof, use that $\tfrac{\delta}{\delta J_i} \mathcal{Z} \big( \tfrac{1}{2} \vec{J}^{\, 2} \big) = J_i \, \mathcal{Z}^\prime \big( \tfrac{1}{2} \, \vec{J}^{\, 2} \big)$ and set the source $\vec{J} = 0$ at the end of the calculation.
+Using the $O(N)$ symmetry on the \rhs{} of
+\begin{align}
+	\langle \phi_{i_1} \, \cdots \, \phi_{i_n} \rangle &= \, \frac{1}{\mathcal{Z} [0]} \, \int_{-\infty}^{+\infty} \dif^{\,N}\! \phi \, \phi_{i_1} \, \cdots \, \phi_{i_n} \, \eu^{- U ( \vec{\phi}^{\, 2}/2 ) } \, , \label{eq:def_corr_func_ON}
+\end{align}
+one can relate correlation functions of even order $2n$ to the expectation value $\langle ( \vec{\phi}^{\, 2} )^n \rangle$.
+For the two-, four-, and six-point functions, which are studied in this work, we find
+\begin{align}
+	\langle \phi_i \, \phi_j \, \rangle = \, & \frac{1}{N} \, \delta_{i, j} \, \langle \vec{\phi}^{\, 2} \rangle \, ,\label{eq:on-model_relation_2pfi}
+	\\[.1em]
+	\langle \phi_i \, \phi_j \, \phi_k \, \phi_l \rangle = \, & \frac{1}{N ( N + 2 )} \, ( \delta_{i, j} \, \delta_{k,l} + \delta_{i, k} \, \delta_{j, l} + \delta_{i, l} \, \delta_{j, k} ) \, \langle ( \vec{\phi}^{\, 2} )^2 \rangle \, ,	\label{eq:on-model_relation_4pfi}
+	\\[.1em]
+	\langle \phi_i \, \phi_j \, \phi_k \, \phi_l \, \phi_m \, \phi_n \rangle = \, & \frac{1}{N ( N + 2 ) ( N + 4)} \, ( \delta_{i, j} \, \delta_{k, l} \, \delta_{m, n} + \skeleton{14} ) \, \langle ( \vec{\phi}^{\, 2} )^3 \rangle \, .	\label{eq:on-model_relation_6pfi}
+\end{align}
+Connected correlation functions and 1PI vertex functions are related to correlation functions in the usual manner, \cf{} Sec.~II.E of \nbccite{zerod1} or \nbccite{Keitel:2011pn}.
+Using the fact that, for odd $n$, all $n$-point correlation functions and all $n$-point \ipi{} vertex functions vanish by symmetry, the following relations hold for the two-, four-, and six-point functions (no summation over repeated indices):
+\begin{align}
+	\langle \phi_i \, \phi_i \rangle^{c} = \, & \langle \phi_i \, \phi_i \rangle = \big( \Gamma^{(2)}_{\varphi_i\varphi_i} \big)^{-1} \, ,	\label{eq:on-model_relation_2pf}
+	\\[.2em]
+	\langle \phi_i \, \phi_i \, \phi_i \, \phi_i \rangle^{c} = \, & \langle \phi_i \, \phi_i \, \phi_i \, \phi_i \rangle - 3 \, \langle \phi_i \, \phi_i \rangle^2 = - \langle \phi_i \phi_i \rangle^4 \, \Gamma^{(4)}_{\varphi_i \varphi_i \varphi_i \varphi_i} \, ,\label{eq:on-model_relation_4pf}
+	\\[.2em]
+	\langle \phi_i \, \phi_i \, \phi_i \, \phi_i \, \phi_i \, \phi_i \rangle^{c} = \, & \langle \phi_i \, \phi_i \, \phi_i \, \phi_i \, \phi_i \, \phi_i \rangle -	15 \, \langle \phi_i \, \phi_i \, \phi_i \, \phi_i \rangle \, \langle \phi_i \, \phi_i \rangle + 30 \, \langle \phi_i \, \phi_i \rangle^3 \,=\,	\nonumber
+	\\*[.2em] % no page break here
+	= \, & - \langle \phi_i \, \phi_i \rangle^6 \, \Gamma^{(6)}_{\varphi_i \varphi_i \varphi_i \varphi_i \varphi_i \varphi_i} + 10 \, \langle \phi_i \, \phi_i \rangle^{-1} \, ( \langle \phi_i \, \phi_i \, \phi_i \, \phi_i \rangle^{c} )^2 \, . \label{eq:on-model_relation_6pf}
+\end{align}
+Inserting \cref{eq:on-model_relation_2pfi} \dash{} \eqref{eq:on-model_relation_6pfi} into \cref{eq:on-model_relation_2pf} \dash{} \eqref{eq:on-model_relation_6pf} and solving for the 1PI vertex functions yields
+\begin{align}
+	\Gamma^{(2)} \equiv \, & \Gamma^{(2)}_{\varphi_i \varphi_i} = N \, \frac{1}{ \langle \vec{\phi}^{\, 2} \rangle} \, ,	\label{eq:on-model_relation_2pf_phi2}
+	\\
+	\Gamma^{(4)} \equiv \, & \Gamma^{(4)}_{\varphi_i \varphi_i \varphi_i \varphi_i} = 3 \, N^2 \, \frac{1}{\langle \vec{\phi}^{\, 2} \rangle^2} \, \bigg[ 1 - \frac{N}{N + 2} \, \frac{\langle ( \vec{\phi}^{\, 2} )^2 \rangle}{\langle \vec{\phi}^{\, 2} \rangle^2} \bigg] \, ,	\label{eq:on-model_relation_4pf_phi2}
+	\\
+	\Gamma^{(6)} \equiv \, & \Gamma^{(6)}_{\varphi_i \ldots \varphi_i} = 60 \, N^3 \, \frac{1}{ \langle \vec{\phi}^{\, 2} \rangle^3} \bigg[ 1 - \frac{9 \, N}{ 4 \, ( N + 2 )} \, \frac{\langle ( \vec{\phi}^{\, 2} )^2 \rangle}{\langle \vec{\phi}^{\, 2} \rangle^2} +\frac{3 \, N^2}{2 \, ( N + 2 )^2} \, \frac{\langle ( \vec{\phi}^{\, 2} )^2 \rangle^2}{\langle \vec{\phi}^{\, 2} \rangle^4} - \nonumber\\* % no page break here
+	&\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad- \frac{N^2}{4 \, ( N + 2 ) \, ( N + 4 )} \, \frac{\langle ( \vec{\phi}^{\, 2} )^3 \rangle}{\langle \vec{\phi}^{\, 2} \rangle^3} \bigg] \, .	\label{eq:on-model_relation_6pf_phi2}
+\end{align}
+
+In summary, computing arbitrary correlation functions (or \ipi{} vertex functions) of the zero-dimensional $O(N)$ model boils down to computing expectation values $\langle ( \vec{\phi}^{\, 2} )^n \rangle$.
+The latter can be computed using \cref{eq:def_corr_func_ON}.
+Because of the $O(N)$ symmetry of the integrand, this is most easily done in spherical coordinates.
+Performing the integration over spherical coordinates, we have
+	\begin{align}
+		\int_{-\infty}^{+\infty} \dif \phi_1 \cdots \int_{-\infty}^{+\infty} \dif \phi_N 	
+	= \frac{2 \, \piu^{\frac{N}{2}}}{\Gamma \big( \frac{N}{2} \big)} \int_{0}^{\infty} \dif \rho \, ( 2 \rho )^{\frac{N}{2} - 1} \, ,
+	\end{align}
+Then the expectation value is a simple one-dimensional integral,
+	\begin{align}
+		\langle ( \vec{\phi}^{\, 2} )^n \rangle = \frac{2^n \int_0^\infty \dif\rho \, \rho^{\frac{N}{2} - 1} \,  \rho^n \, \eu^{-U ( \rho )}}{\int_0^\infty \dif \rho \, \rho^{\frac{N}{2} - 1} \, \eu^{- U ( \rho )}} \, .	\label{eq:ON_expectation_value}
+	\end{align}
+For certain potentials $U(\rho)$, the integral \eqref{eq:ON_expectation_value} can even be computed symbolically in terms of known functions~\cite{Keitel:2011pn,Kemler:2013yka,Steil:2021cbu}, whereas for general $U ( \rho )$ a numerical evaluation to high precision is straightforward using standard methods~\cite{Press:1992zz,PresTeukVettFlan92}.
+Thus, the zero-dimensional $O(N)$ model is an ideal testing ground for alternative methods to calculate correlation functions, such as, \eg{}, the \frg{}.
+
+\subsection{Symmetry restoration during the FRG flow}\label{subsec:symmetry_restoration}
+\begin{disclaimer}
+	This subsection follows the discussion presented in Sec.~III.B of \nbccite{Koenigstein:2021syz}.
+\end{disclaimer}
+Besides being invariant under $O(N)$ transformations the classical action (potential) ${\mathcal{S} [ \vec{\phi} \, ] = U ( \vec{\phi} \, )}$ is also invariant under the discrete \ZII{} transformation
+\begin{align}
+	\phi_a \rightarrow - \phi_a \, ,
+\end{align}
+which, as already mentioned, implies that all \nptFunctions{} with odd $n$ vanish, \eg{}, the one-point function $\varphi_a=\langle\phi_a\rangle=0$.
+
+However, it is possible to consider actions (potentials) $\mathcal{S} [ \rho ] = U ( \rho )$ which possess non-trivial minima $\rho_0 \neq 0$.
+This means that the \frg{} flow of $\bar{\Gamma}_t [ \vec{\varphi} \, ]$ of such models is initialized in a symmetry-broken regime in the \uv{}, where the $O(N)$ symmetry is broken to its $O ( N - 1 )$ subgroup for $N>1$ and for $N=1$ this reduces just to the breaking of the \ZII{} symmetry.
+Following the discussion in \MWApp{}, this property of the classical action neither translates to the full quantum effective action $\Gamma [ \vec{\varphi} \, ]$ in the \ir{} nor to the \nptFunctions{}, due to a limiting case of the \cmwhTheoremWithRefs{}.
+The theorem states that there is no long-range order in $d \leq 2$ dimensions if the interactions between the constituents are sufficiently short of range.
+Therefore, there is no breaking of a (continuous) symmetry in such systems in the \ir{}, \ie{}, after integrating out all quantum fluctuations, even when starting with a classical action in the \uv{} that has non-trivial minima.
+This is the equivalent of the statement that $\varphi_a = \langle \phi_a \rangle = 0$, which follows directly from the integral \eqref{eq:def_corr_func_ON} in zero dimensions.
+The ``Nambu-Goldstone modes''~\cite{Nambu:1960tm,Goldstone:1961eq,Goldstone:1962es}%
+\footnote{%
+	We put the term ``Nambu-Goldstone modes'' in quotation marks, because in zero dimensions the concept of ``massless modes'' can only refer to the curvature masses in the corresponding bosonic field direction, which are obtained from the effective potential $U(\rho)$.
+	But the actual particle masses in a higher-dimensional \qft{} are derived from the poles of the real-time propagators, which simply do not exist in zero dimensions.
+}%
+, which we will also call pions%
+\footnote{%
+	We adopt the high-energy terminology. Condensed-matter physicists  associate the pions with quasiparticles \dash{} the Anderson-Bogoliubov modes.%
+}	$\vec{\pi}$ in the zero-dimensional $O(N)$ model, and the radial \sigmaMode{} ``vaporize" any condensate and smear out all cusps in $\bar{\Gamma}_t [ \vec{\varphi} \, ]$ during the \frg{} flow.
+In the \ir{} all modes are then ``massive'' again.
+
+There are two reasons, why this feature of symmetry restoration on the level of $\bar{\Gamma}_t [ \vec{\varphi} \, ]$ is desirable for our numerical tests:
+	\begin{enumerate}
+		\item	Symmetry breaking/restoration associated with condensation/``vaporization" is an essential property of all kinds of \qfts{}~\cite{Weinberg:1996kr,Peskin:1995ev,ZinnJustin:2002ru} and we have to show that it is correctly captured by our numerical tools.
+		This is especially important, because it was shown in Refs.~\cite{Grossi:2019urj,Grossi:2021ksl} that non-analytic behavior in the effective potential $U ( t, \vec{\varphi} \, )$, \cf{}\ Refs.~\cite{Bonanno:2004pq,Aoki:2017rjl}, which is directly associated with dynamical symmetry breaking/restoration, is realized as shock and rarefaction waves in field space during the \frg{} flow.
+		
+		\item	The possibility of dynamical symmetry restoration on the level of $\bar{\Gamma}_t [ \vec{\varphi} \, ]$ is also a desired feature in order to demonstrate that it is of utmost importance to choose the \uv{} scale $\Lambda$ and the \ir{} cutoff $r_\mathrm{IR}$ as well as initial and \bcs{} in numerical \frg{} flow calculations carefully.
+		For our example it is expected that if the \ir{} cutoff time $t_\mathrm{IR}$ is chosen too small, such that the regulator $r ( t )$ is still too large, the system might still be in the symmetry-broken phase (indicated by a non-trivial minimum).
+		This means that the scale-dependent effective average action $\bar{\Gamma}_{t_\mathrm{IR}} [ \vec{\varphi} \, ]$ at this \rgscale{} cannot be interpreted as the full quantum effective action $\Gamma [ \vec{\varphi} \, ]$, because the \cmwhTheorem{} is still violated.
+		The same applies to a problematic implementation \bcs{}, especially at $\varrho =  0$, which can lead to a violation of the \cmwhTheorem{} such that the system is not in the restored phase in the \ir{}.
+		
+		We will discuss subtleties in the dynamical symmetry restoration on the level of $\bar{\Gamma}_t [ \vec{\varphi} \, ]$ further especially in \cref{subsec:0dLargeN,sec:0dSU2} and \cref{chap:GN}.
+	\end{enumerate}
+
+\subsection{Exact FRG flow equation of the zero-dimensional \ON{} model}\label{subsec:FRG-formulationONmodel}
+\begin{disclaimer}
+	This subsection follows the discussion presented in Sec.~III.C of \nbccite{Koenigstein:2021syz}.
+\end{disclaimer}
+This subsection is dedicated to the \frg{} formulation of the $O(N)$ model introduced in this \cref{sec:0dON}.
+To this end, we explicitly demonstrate how to arrive at the exact, untruncated \frg{} flow equation of the $O(N)$ model.
+Furthermore, we will comment on the \frg{} Taylor expansion, introduced in \teRef{} in this context, as a truncation scheme for the exact flow equation in zero dimensions.
+
+In general zero-dimensional \qfts{} take up a very special place in the discussion of truncation schemes, \cf{} \cref{subsubsec:truncation}.
+Due to the absence of space-time and momentum-dependencies of the fields, the \eaa{} $\bar{\Gamma}_t [ \chi ] = \bar{\Gamma}_t ( \chi )$ is merely a function (not a functional).
+As such it can be parameterized by a finite set of $\chi$- and of the $t$-dependent coupling functions.
+In the general \frg{} context this simply means that the derivative expansion of \deRef{} is exact already at zeroth-order and the \eaa{} is just given by (a set of) local potential(s).
+In consequence, truncating the system is superfluous and the \pdes{}, which are derived via projections from the Wetterich equation, constitute an exact and complete system.
+Solving this system must therefore lead to the exact effective action $\Gamma [ \chi ]$ in the \ir{} and is therefore formally equivalent to solving the functional integral.
+In other words, calculating \nptFunctions{} via the (functional) integral or via the Wetterich equation (if done properly) must yield identical results without systematic truncation errors.
+
+This feature makes zero-dimensional \qft{} particularly interesting for several reasons:
+	\begin{enumerate}
+		\item	It can be used to test the quality of numerical schemes which are used to solve the flow equations.
+		
+		\item	It can be used to estimate the errors resulting from the choices of various parameters entering the \frg{} flow equations like \uv{} and \ir{} cutoff scales, \etc{}
+		
+		\item	It can be used to test commonly used truncation schemes by artificially truncating the exact system of \pdes{} to a truncated set of \odes{}.
+	\end{enumerate}
+All these tests can be performed on a quantitative level, by studying the relative errors of the \frg{} results for \nptFunctions{} compared to the exact results from the functional integral.
+We provide results for various precision tests in \cref{subsec:0dONresults}.
+
+For the remainder of this section, we will proceed as follows: First, we will derive the untruncated exact \frg{} flow equation for the zero-dimensional $O(N)$ model.
+Afterwards, we introduce \frg{} Taylor expansion as a truncation of this system.
+
+\subsubsection{The exact FRG flow equation of the \texorpdfstring{$O(N)$}{O(N)} model in \texorpdfstring{\dzero{}}{d=0}}
+\label{subsubsec:exact_flow_equation_potential}
+For the special case of the zero-dimensional $O(N)$ model, the most general ansatz for the \eaa{} is given by a scale-dependent effective potential
+\begin{align}
+	\bar{\Gamma}_t [ \vec{\varphi} \vts ] = U ( t, \vec{\varphi} \vts ) = U ( t, \varrho )  \, .	\label{eq:ansatz_effective_average_action}
+\end{align}
+This ansatz can describe arbitrary $O(N)$ invariant effective actions and can include terms at all orders of $\varrho = \tfrac{1}{2} \, \vec{\varphi}^{\, 2}$.
+However, it is in principle not restricted to analytic (Taylor-expandable) functions.
+Truncations of $\bar{\Gamma}_t [ \vec{\varphi} \, ]$ are not required to facilitate practical computations.
+
+In order to arrive at the exact flow equation for $U ( t, \vec{\varphi} \vts )$ one has to perform the following steps:
+\begin{enumerate}
+	\item	Insert the function \eqref{eq:ansatz_effective_average_action} into the \frgEquation{}.
+	
+	\item	Invert the full field-dependent two-point function in field space
+		\begin{align}
+			\big( \bar{\Gamma}^{(2)}_{t , \varphi \varphi} [ \vec{\varphi} \vts ] + R_t \big)_{i j} \, ,	\label{eq:full_two-point_function}
+		\end{align}
+	to obtain the propagator $G_{t,\varphi\varphi}[ \vec{\varphi}\vts ]_{i,j}$. 
+	\item	Take the trace in field space.
+	
+	\item	Remove the redundant $N - 1$ field space directions in $\vec{\varphi}$.
+\end{enumerate}
+For the last step, the \frg{} flow equation can be evaluated on a constant background field configuration%
+\footnote{%
+	Here we adopt terminology from higher-dimensional \frg{}: The word ``constant'' is therefore somewhat misleading in a \qft{} which cannot vary in space-time, but it is used anyhow.
+}
+$\varphi_1 = \ldots = \varphi_{N - 1} = 0$ and $\varphi_N = \underline{\varphi}_N=\sigma\equiv\sqrt{2\varrho}$.
+\WlogA{} the $\varphi_N$-direction is singled out as the direction of the radial \sigmaMode{} and the constant background field.
+
+The inversion of the full field-dependent two-point function \eqref{eq:full_two-point_function} can be performed analytically~\cite{Tetradis:1995br,Wetterich:1991be,PawlowskiScript,Delamotte:2007pf} by introducing the complete, orthogonal, and idempotent field space projection operators
+	\begin{align}
+		&	\mathcal{P}^\perp_{i j} ( \vec{\varphi} \, ) \equiv \delta_{i, j} - \frac{\varphi_i\, \varphi_j}{\vec{\varphi}^{\, 2}} \, ,	&&	\mathcal{P}^\parallel_{i j} ( \vec{\varphi} \, ) \equiv \frac{\varphi_i\, \varphi_j}{\vec{\varphi}^{\, 2}} \, .	\label{eq:field_space_projection_operators}
+	\end{align}
+The projection operators are used to decompose the full field-dependent two-point function~\eqref{eq:full_two-point_function} into components perpendicular ($\perp$) and parallel ($\parallel$) to $\vec{\varphi}$, which can be inverted separately.
+The regulator $R_t$ is matrix-valued but diagonal in field space,
+	\begin{align}
+		( R_t )_{i, j} = \delta_{i, j} \, r ( t ) \, ,\label{eq:0dONR}
+	\end{align}
+where $r ( t )$ again is denoted as \textit{regulator shape function}, \cf{}\ \cref{eq:regulator_insertion} and \eqref{eq:exponential_regulator}.
+One finds that
+	\begin{align}
+		G_{t,\varphi_i\varphi_j}[ \vec{\varphi}\vts ] &= \,\big( \bar{\Gamma}^{(2)}_{t,\varphi \varphi} [ \vec{\varphi} \, ] + R_{t} \big)^{-1}_{i j} \, = \notag\\
+	&= \, \mathcal{P}^\parallel_{i j} ( \vec{\varphi} \, ) \, \frac{1}{ r ( t ) + \partial_\varrho U ( t, \varrho ) + 2 \varrho \, \partial_\varrho^2 U ( t, \varrho ) } 
+		 + \mathcal{P}^\perp_{i j} ( \vec{\varphi} \, ) \, \frac{1}{ r(t) + \partial_\varrho U ( t, \varrho ) } \, , \label{eq:0dONG}
+	\end{align}
+which can be inserted directly into the \frgEquation{}.
+A summary of these results, ``Feynman'' rules to translate the following diagrams, and expressions for additional vertices can be found in \cref{app:zerodONvpr}.
+
+After taking the field space trace in \cref{eq:WetterichEq} and evaluating the resulting equation on the constant background field configuration, we arrive at the \frg{} flow equation for the effective potential
+\begin{align}
+	\partial_t U ( t, \sigma ) &= \, \frac{1}{2} \, \frac{N - 1}{r ( t ) + \frac{1}{\sigma} \, \partial_\sigma U ( t, \sigma )}\,\partial_t r ( t ) 
+	+ \frac{1}{2} \, \frac{1}{r ( t ) + \partial_\sigma^2 U ( t, \sigma )}\,\partial_t r ( t )\label{eq:flow_equation_effective_potential}\\[.1em]
+	&=
+	\newEqBlockPrime
+	\input{0d/diagrams/SU2model0d-Uflow_00103_1.tex}
+	+\input{0d/diagrams/SU2model0d-Uflow_00014_1.tex}\, .\eqTagPrime
+\end{align}
+This \frg{} flow equation is an exact non-linear \pde{} for the effective potential $U ( t, \sigma )$, which is of first-order in \rgtime{} $t$ and of first- and second-order in the field space direction $\sigma$.
+It also includes an explicit $\sigma$-dependence.
+A detailed analysis of the structure of this \pde{}, including its relation to the \cfd{} systems, discussed in \cref{sec:conservationLaws}, is provided in \cref{subsubsec:conservative_form}.
+
+For the special case $N = 1$, the $O(N)$ model reduces to the $O(1)$ model.
+Such a theory of a single scalar field in zero dimensions, was used in the introductory \cref{sec:0dQFT}.
+In this limit, the pion contributions to the flow equation vanish.
+As already hinted in \cref{subsubsec:exact_rg_equation}, we find that for non-zero pion contributions ($N > 1$) the flow equation for $U ( t, \sigma )$ acquires a term that is of first-order in the spatial derivative, $\partial_\sigma U ( t, \sigma )$, which no longer has diffusive character, but corresponds to advection in field space.
+
+\subsubsection{FRG Taylor (vertex) expansion}
+\label{subsubsec:vertex_expansion}
+The \frg{} Taylor expansion is based on the assumption that the effective (average) action $\bar{\Gamma}_t [ \vec{\varphi} \, ]$ can be expanded in a series in field space with \rgtimedependent{} expansion coefficients~\cite{Berges:2000ew}.
+Due to the absence of momenta in zero dimensions the \customref{paragraph:taylorExpansion}{FRG Taylor expansion} and the \customref{paragraph:vertexExpansion}{Vertex expansion} of \cref{subsubsec:truncation} are identical and we will use both terms or the combined term \textit{\frg{} Taylor (vertex) expansion} for our discussion.
+
+This expansion in zero dimensions effectively reduces to an expansion of the effective potential $U ( t, \varrho )$, \cf{}\ \cref{eq:ansatz_effective_average_action}.
+The \rgscaledependent{} expansion coefficients $\bar{\Gamma}^{(2n)} ( t )$ correspond directly to the scale-dependent vertex functions $\bar{\Gamma}^{(2n)}_{t,\varphi_i \ldots \varphi_i}$ of the \qft{}.
+For $d > 0$, these expansion coefficients are usually momentum-dependent in the vertex expansion, whereas in $d = 0$ the coefficients depend only on the \rgtime{} $t$.
+
+The assumption of expandability and thus differentiability significantly restricts the form of the effective action $\bar{\Gamma}_t [ \vec{\varphi} \, ] = U ( t, \vec{\varphi} \, )$, \cf{}\ \ccite{Pangon:2009pj,Pangon:2010uf}.
+In fact, it neither allows for the formation of any non-analytic behavior throughout the \frg{} flow nor for any non-analytic \ics{}.
+However, non-analytic \ics{} are by no means forbidden, as we will see in \cref{subsec:0dONresults}.
+Furthermore, it is well known that non-analyticities can (and in some models have to) form in the effective potential during the \frg{} flow~\cite{Aoki:2017rjl,Grossi:2019urj,Grossi:2021ksl,Borchardt:2016pif} \dash{} especially in the context of dynamic symmetry breaking.
+Considering these caveats, an expansion in vertices of a given theory must \apriori{} be approached with caution.
+Still, this expansion scheme is widely used in certain applications, \cf{} \veRef{}.
+
+In our work, we restrict our analysis of the precision of this truncation scheme to \frg{} flows with rather specific properties: We study \ics{} that are analytic.
+Furthermore, we know, \cf{} \MWApp{}, that the \ir{} effective action is smooth for the special case of zero dimensions, which is a necessary condition for the convergence of a (Taylor) series.
+It should, however, be noted that smoothness is only a necessary but not a sufficient condition for the convergence of a Taylor series%
+\footnote{%
+	A textbook example for a smooth function which has a non-converging Taylor series around $x = 0$ is $$f ( x ) = \begin{cases} \eu^{-1/x} & \text{if } x>0, \\ 0 &\text{else.}\end{cases}$$
+}.
+Only analyticity would formally imply the convergence of a Taylor series at all $\vec{\varphi}$.
+Additionally, we argue that for sufficiently small $N$, the diffusive contributions to the \frg{} flow are important, which smear out any possible cusps.
+In summary, we expect that for these extremely special scenarios it is unlikely that non-analyticities will form and disappear again during the \frg{} flow.
+Nevertheless, we do not know if a limited number of expansion coefficients is always enough to reach a reliable approximation of $\bar{\Gamma}_t [ \vec{\varphi} \vts ]$ during the \frg{} flow or if it is always necessary to flow the effective potential as a \pde{} without additional assumptions.
+This (rather limited) applicability of the \frg{} Taylor expansion to analytic \ics{} will be tested by calculating the relative errors of \ipi{} \nptFunctions{} in the \frg{} Taylor expansion in comparison with the exact results and the results from the flows of a full field-dependent $U ( t, \sigma )$ in \cref{subsec:0dONresults}.\bigskip
+
+The \frg{} Taylor expansion of the zero-dimensional $O(N)$ model is given by the following ansatz~\cite{Keitel:2011pn,Moroz:2011thesis,Pawlowski:talk,Kemler:2013yka},
+\begin{align}
+	\bar{\Gamma}_t [ \vec{\varphi} \, ] =\, \sum_{n = 0}^{m} \frac{\bar{\Gamma}^{(2n)}(t)}{(2n - 1)!!}\, \frac{1}{n!}\, \bigg( \frac{\vec{\varphi}^{\, 2}}{2} \bigg)^n 
+	=\, \bar{\Gamma}^{(0)}(t) + \bar{\Gamma}^{(2)}(t)\,  \frac{\vec{\varphi}^{\, 2}}{2} + \frac{\bar{\Gamma}^{(4)}(t)}{3}\, \frac{1}{2}\, \bigg( \frac{\vec{\varphi}^{\, 2}}{2} \bigg)^2 + \ldots \, ,	\label{eq:vertex_expansion_varphi}
+\end{align}
+where $\bar{\Gamma}^{(2n)}(t)$ are $t$-dependent expansion coefficients and $m$ is the truncation order.
+The factors of $(2n - 1)!!$ and $n!$ were introduced in order to have $\bar{\Gamma}^{(2n)}(t_\mathrm{IR}) = \Gamma^{(2n)}_{\varphi_i \ldots \varphi_i}$ in the \ir{}, where $\Gamma^{(2n)}_{\varphi_i \ldots \varphi_i}$ are the 1PI $2n$-point vertex functions in the \ir{}, with all indices being identical (no summation over $i$ here), see also \cref{eq:on-model_relation_2pf_phi2} \dash{} \eqref{eq:on-model_relation_6pf_phi2}.
+In order to arrive at the corresponding flow equations, we proceed in a similar manner as before in \cref{subsubsec:exact_flow_equation_potential}:
+We insert our ansatz \eqref{eq:vertex_expansion_varphi} into the full field-dependent two-point function \eqref{eq:full_two-point_function} and use the field space projection operators \eqref{eq:field_space_projection_operators} to invert the latter.
+We obtain
+\begin{align}
+	\big( \bar{\Gamma}^{(2)}_{t,\varphi \varphi} [ \vec{\varphi} \, ] + R_t \big)^{-1}_{i j} =\, \mathcal{P}^\perp_{i j} ( \vec{\varphi} \, ) \, G^{\pi\pi}_t ( \vec{\varphi} \, ) + \mathcal{P}^\parallel_{i j} ( \vec{\varphi} \, ) \, G^{\sigma\sigma}_t ( \vec{\varphi} \, ) \, ,
+\end{align}
+where
+\begin{subequations}
+\begin{align}
+	G^{\pi \pi}_t ( \vec{\varphi} \, ) \equiv\, & \Bigg[ r ( t ) + \sum_{n = 1}^{m+1} \frac{\bar{\Gamma}^{(2n)}(t)}{(2n - 1)!!}\, \frac{1}{(n - 1)!}\, \bigg( \frac{\vec{\varphi}^{\, 2}}{2} \bigg)^{n-1} \Bigg]^{-1} \, ,
+	\\
+	G^{\sigma \sigma}_t ( \vec{\varphi} \, ) \equiv\, & \Bigg[ r ( t ) + \sum_{n = 1}^{m+1} \frac{\bar{\Gamma}^{(2n)}(t)}{(2n - 3)!!}\, \frac{1}{(n - 1)!}\, \bigg( \frac{\vec{\varphi}^{\, 2}}{2} \bigg)^{n-1} \Bigg]^{-1} \, ,
+\end{align}
+\end{subequations}
+are the field-dependent propagators of the pion and sigma field in the Taylor expansion.
+
+This result can be inserted into the \frgEquation{}, where the trace in field space is evaluated to
+\begin{align}
+	\partial_t\, \bar{\Gamma}_t [ \vec{\varphi} \, ] = \, \frac{1}{2} \big[  \partial_t r ( t ) \big] \, \big[  ( N - 1 ) \, G^{\pi \pi}_t ( \vec{\varphi} \, ) + G^{\sigma \sigma}_t ( \vec{\varphi} \, ) \big] \, .\label{eq:wetterich_equation_vertex_expansion}
+\end{align}
+Finally, we insert the ansatz \eqref{eq:vertex_expansion_varphi} for the \eaa{} into the \lhs{} of this equation and expand the propagators $G^{\circ \circ}_t ( \vec{\varphi} \, )$ up to order $n=m$ in the expansion coefficients $\bar{\Gamma}^{(2n)} ( t )$.
+This can also be achieved by successively taking derivatives \wrt{} the fields and setting $\vec{\varphi} = 0$ afterwards.
+By comparing the expansion coefficients on the left- and right-hand sides of the equation, one arrives at a coupled set of ordinary differential equations for the $\bar{\Gamma}^{(2n)} ( t )$ with $0 \leq n \leq m$.
+The flow equation for $\bar{\Gamma}^{(2m)} ( t )$ contains $\bar{\Gamma}^{(2m+2)} ( t )$ on the right-hand side.
+We truncate the system by neglecting the flow of $\bar{\Gamma}^{(2m+2)} ( t )$, \ie{}, assuming $\partial_t \bar{\Gamma}^{( 2 m + 2 )} ( t ) = 0$.
+
+For an automatization of the derivation of the flow equations (the system of \odes{}) via computer algebra routines such as \WAMwR{}, it is advisable to formulate the \frg{} Taylor expansion in the invariant ${\varrho = \tfrac{1}{2} \, \vec{\varphi}^{\, 2}}$,
+\begin{align}
+	\bar{\Gamma}_t [ \varrho ] =\, & \sum_{n = 0}^{m} \frac{\bar{\Gamma}^{(2n)} (t)}{(2n - 1)!!}\, \frac{\varrho^n}{n!} \, ,
+\end{align}
+for which \cref{eq:wetterich_equation_vertex_expansion} manifests as
+\begin{align}
+	\partial_t\, \bar{\Gamma}_t [ \varrho ] =\, & \frac{1}{2} \big[ \partial_t r ( t ) \big] \, \big[ ( N - 1 ) \, G^{\pi\pi}_t ( \varrho ) + G^{\sigma\sigma}_t ( \varrho ) \big] \, ,
+\end{align}
+while
+\begin{subequations}
+\begin{align}
+	G^{\pi \pi}_t ( \varrho ) \equiv\, & \bigg[ r ( t ) + \sum_{n = 1}^{m+1} \frac{\bar{\Gamma}^{(2 n)} (t)}{( 2 n - 1)!!}\, \frac{\varrho^{n-1}}{(n - 1)!} \bigg]^{-1} \, ,\\
+	G^{\sigma \sigma}_t ( \varrho ) \equiv\, & \bigg[ r ( t ) + \sum_{n = 1}^{m+1} \frac{\bar{\Gamma}^{(2 n)} (t)}{( 2 n - 3)!!}\, \frac{\varrho^{n - 1}}{(n - 1)!} \bigg]^{-1} \, .
+\end{align}
+\end{subequations}
+The coupled set of \odes{} for the expansion coefficients $\bar{\Gamma}^{(2n)} ( t )$ is given by~\cite{Keitel:2011pn,Moroz:2011thesis},
+\begin{subequations}\label{eq:example_vertex_expansion}
+\begin{align}
+	\partial_t \bar{\Gamma}^{(0)}( t ) = \, & \frac{N}{2} \,\, \frac{\partial_t r ( t )}{r ( t ) + \bar{\Gamma}^{(2)}( t ) } \, ,	 \label{eq:example_vertex_expansion_zero}	\\
+	\partial_t \bar{\Gamma}^{(2)}( t ) = \, & - \frac{N + 2}{6} \, \frac{\partial_t r ( t )}{\big[ r ( t ) + \bar{\Gamma}^{(2)}( t ) \big]^2}  \, \bar{\Gamma}^{(4)}( t ) \, ,	 \label{eq:example_vertex_expansion_two}\\
+	\partial_t \bar{\Gamma}^{(4)}( t ) = \, & \frac{N + 8}{3} \, \frac{\partial_t r ( t )}{\big[ r ( t ) + \bar{\Gamma}^{(2)}( t ) \big]^3} \, \big[ \bar{\Gamma}^{(4)}( t ) \big]^2 - \frac{N + 4}{10} \, \frac{\partial_t r ( t )}{\big[ r (t) + \bar{\Gamma}^{(2)}( t ) \big]^2} \, \bar{\Gamma}^{(6)}( t ) \, , \label{eq:example_vertex_expansion_four}\\* % no page break here
+	\vdots \mkern7.0mu  &	\nonumber
+\end{align}
+\end{subequations}
+with
+\begin{align}
+	\forall n \geq 2m+2 \quad \partial_t \bar{\Gamma}^{(n)}(t) = 0 \,
+\end{align}
+in this approximation.
+The system \eqref{eq:example_vertex_expansion} is an explicit example for the tower of equations \nolinebreak[3]\eqref{eq:vertexTower} discussed in \veRef{}.
+An alternative derivation to the explicit expansion discussed here can be obtained by using the \textit{higher-order flow equations} of \cref{subsec:higherOrderFlowEquations} for the 
+the expansion coefficients $\bar{\Gamma}^{(2n)} ( t )$.
+
+\subsubsection{Conservative form} \label{subsubsec:conservative_form}
+\begin{disclaimer}
+	This subsubsection follows the discussion presented in Sec.~IV.A of \nbccite{Koenigstein:2021syz}.
+\end{disclaimer}
+In this subsubsection, we discuss the formulation of the \frg{} flow equation \eqref{eq:flow_equation_effective_potential} as an advection-diffusion equation, as well as its interpretation in the context of \cfd{}, \cf{} \cref{sec:conservationLaws}. 
+The fluid-dynamical formulation of the \frg{} flow equation for the effective potential $U ( t, \varrho )$ of models of $O(N)$-type (in the large-$N$ limit~\cite{Tetradis:1995br}) is also presented in recent publications~\cite{Grossi:2019urj,Grossi:2021ksl} by some of our collaborators.
+It was shown that the \frg{} flow equation can be recast in the form of a pure advection equation (a hyperbolic conservation law) for the derivative of the effective potential $u ( t, \varrho ) = \partial_\varrho U ( t, \varrho )$, where $u ( t, \varrho )$ serves as the conserved quantity (the fluid), the \rgtime{} $t$ as a temporal coordinate and $\varrho$ as a spatial coordinate.
+In this subsubsection, we generalize this result and discuss various consequences for the numerical implementation and interpretation of \frg{} flow equations.
+Generalizations of the fluid-dynamical picture of \frg{} flow equations from the large-$N$ results of \ccite{Grossi:2019urj} to systems with finite $N$ as well as the inclusion of fermions were initially presented in various talks, see, \eg{}, \nbccite{WinkHirschegg,Koenigstein:2020Talk}.
+Further early developments in this context are discussed in the master thesis~\cite{Ihssen2020} of Friederike Ihssen, the PhD thesis~\cite{Wink:2020tnu} of Nicolas Wink, and also in \ccite{Grossi:2021ksl}.
+Furthermore, \ccite{Aoki:2017rjl} includes a formulation of the flow equation as a conservation law and a discussion of shock waves based on the characteristics is presented, however, without really elaborating on a fluid-dynamical interpretation and its consequences.\bigskip
+
+The formulation of \frg{} flow equations in terms of a fluid-dynamical language has two  major advantages:
+\begin{enumerate}
+	\item It provides an intuitive explanation for different kinds of phenomena observed in \frg{} flow equations, \eg{}, the flattening of the effective potential for small $\sigma$ in the \ir{}, which occurs in conjunction with a non-differentiable point of the effective potential at the ground state.
+	Such non-analytic behavior cannot be handled and systematically analyzed by commonly used numerical schemes such as the Taylor expansion or related discretization schemes for the effective potential, since the latter strongly rely on differentiability.
+	However, these phenomena have a direct impact on the physics, for instance on the occurrence of phase transitions~\cite{Aoki:2017rjl,Bonanno:2004pq,Pangon:2009pj,Pangon:2010uf,Grossi:2019urj,Wipf:2013vp,Ehrenfest1933,Grossi:2021ksl}, and therefore must be resolved and analyzed accurately also on a numerical level.
+	
+	\item The formulation of the \frg{} flow equations in terms of fluid-dynamical concepts provides access to the highly developed and extremely powerful toolbox of \cfd{}, \cf{} \cref{sec:conservationLaws}, which finds applications in a wide area of fields, ranging from the natural sciences and engineering all the way to economics.
+	Recasting \frg{} flow equations as conservation laws allows a direct application of the numerical methods, \viz{} the \ktScheme{}, and the related \cfd{} concepts established in \cref{sec:conservationLaws}.
+\end{enumerate}	
+Interestingly, the idea of interpreting \rg{} flow equations as ``flow'' equations in the true sense of the word is not new and explains the term ``\textit{RG flow equations}'': A discussion of analogies between ``RG flow'' and hydro-dynamical flow can be found in widely used textbooks~\cite{Peskin:1995ev,Coleman:1985rnk} and is discussed via the example of field-independent coupling constants in the context of perturbative renormalization.
+Furthermore, the \rg{} flow was already associated with gradient flow and dissipative processes in \ccite{Wallace:1974dx,Wallace:1974dy,Zamolodchikov:1986gt,Zumbach:1994vg,Zumbach:1994kc,Zumbach:1994vg,Rosten:2010vm}, even though a stringent fluid-dynamical interpretation and formulation was not presented. 
+
+It is therefore also not accidental that the \grg{} community has chosen the term ``\rgtime{}'' for the logarithm of the \rgscale{} $k$ over the \uv{} scale $\Lambda$, $\tilde{t} = \ln \big( \tfrac{k}{\Lambda} \big)$. 
+In contrast, we find that $t = - \tilde{t} \in [ 0, \, \infty )$ can be naturally identified as a temporal coordinate in the fluid-dynamical picture of \grg{} flow equations, see below.
+Hence we outright adopted the latter convention for this thesis, \cf{} \cref{eq:def_rg_time}.
+An interpretation of the scale-dependent generation functionals $\mathcal{Z}_t [ J ]$ or $\mathcal{W}_t [ J ]$ as functional flow equations in \cref{subsec:RGflow} was part of our methodological introduction in \cref{chap:methods}.
+We now want to discuss this explicitly in zero dimensions unburdened by the functional nature of the general expressions.
+
+Considering the obvious analogies between flow equations arising in the \frg{} framework and fluid-dynamical equations, it is remarkable that the \frgEq{} has not been more systematically investigated and compared to well-known fluid-dynamic equations.
+For the related \rg{} flow equations the situation is slightly different and the mathematical analysis on the level of \pdes{} was more systematic, see, \eg{}, \ccite{Felder:1987,Hasenfratz:1985dm,Zumbach:1994kc,Zumbach:1994vg,Rosten:2010vm}.
+Furthermore, certain phenomena well-known in fluid dynamics, such as discontinuities (shock waves), rarefaction waves, or cusps, occur in the solution of such \pdes{}.
+These require a careful numerical treatment to resolve them, but their occurrence was very often ignored by numerical approaches to solve the Wetterich equation by erroneously assuming that the solution $U ( t, \sigma )$ is continuous, smooth, and differentiable.
+Still, there are some publications which use numerical schemes to systematically capture non-analytic behavior or discuss the limitations of numerical methods in the presence of these effects, see, \eg{}, \ccite{Borchardt:2016pif,Aoki:2017rjl}.
+
+In order to make the fluid-dynamical analogy apparent, we present a formulation of the \frg{} flow equation \eqref{eq:flow_equation_effective_potential} for the effective potential $U ( t, \sigma )$ in terms of a conservation law.
+Furthermore, we discuss its fluid-dynamical interpretation on a qualitative level and classify the various contributions to the \pde{} \dash{} the \grg{} flow \dash{} in the fluid-dynamical picture.
+This sets the stage for an adequate qualitative interpretation of the \frg{} flow equation and a direct application of the \ktScheme{} established in \cref{subsec:hydroKT}.\bigskip
+
+{%
+\hypersetup{linkcolor=black}%
+\paragraph{The conservative form of Eq. \textbf{(\protect\ref{eq:flow_equation_effective_potential})}}\phantomsection\label{paragraph:conservative_form_equation}\mbox{}%
+}\\
+Starting from the \frg{} flow equation \eqref{eq:flow_equation_effective_potential} of the effective potential $U ( t, \sigma )$, we have several options to recast the flow equation in a conservative form, two of which are:
+\begin{enumerate}
+	\item	Following \ccite{Aoki:2017rjl,Grossi:2019urj,Grossi:2021ksl,WinkHirschegg,Wink:2020tnu,Ihssen2020}, we can take an overall derivative of \cref{eq:flow_equation_effective_potential} \wrt{} the $O(N)$ invariant $\varrho = \tfrac{1}{2}\,\sigma^2$ and express the resulting equation in terms of $\varrho$ and $u ( t, \varrho ) \equiv \partial_\varrho U ( t, \varrho )$,
+		\begin{align}
+			\partial_t u ( t, \varrho ) = \dod{}{\varrho}\! \bigg( \frac{1}{2} \, \frac{N - 1}{r ( t ) + u ( t, \varrho )}\,\partial_t r ( t )  + \frac{1}{2} \, \frac{1}{r ( t ) + u ( t, \varrho ) + 2 \varrho \, \partial_\varrho u ( t, \varrho )}\,\partial_t r ( t )  \bigg) \, .	\label{eq:conservation_law_u_rho}
+		\end{align}
+
+	\item	Another option is to formulate the problem on the level of the background field $\sigma$ itself~\cite{Koenigstein:2020Talk} and by alternatively defining $u ( t, \sigma ) \equiv \partial_\sigma U ( t, \sigma )$. 
+	Taking an overall derivative of \cref{eq:flow_equation_effective_potential} \wrt{} $\sigma$ yields,
+		\begin{align}
+			\partial_t u ( t, \sigma ) = \dod{}{\sigma} \! \bigg( \frac{1}{2} \, \frac{N - 1}{r ( t ) + \frac{1}{\sigma} \, u ( t, \sigma )}\,\partial_t r ( t )  + \frac{1}{2} \, \frac{1}{r ( t ) + \partial_\sigma u ( t, \sigma )}\,\partial_t r ( t )  \bigg) \, .	\label{eq:conservation_law_u_phi}
+		\end{align}
+\end{enumerate}
+In both cases one ends up with a one-dimensional conservation law, where $u$ plays the role of the conserved quantity (the fluid), $t$ can be identified with the time variable and $\varrho$ or $\sigma$ are identified as the spatial variable.
+
+The conservative form of the \frg{} flow equation \eqref{eq:flow_equation_effective_potential} for the effective potential $U$ on the level of its derivative $u$ is not restricted to zero space-time dimensions or models with purely bosonic field content, see also \ccite{Aoki:2017rjl,Grossi:2019urj,Grossi:2021ksl,WinkHirschegg,Koenigstein:2020Talk,Wink:2020tnu,Ihssen2020} and \cref{chap:GN,chap:QMM}.
+As a matter of fact, this formulation generalizes to arbitrary dimensions and also to models which include fermionic degrees of freedom on the level of the \lpa{}.
+In particular, the flow equation for the effective potential for models of strong-interaction matter, such as the quark-meson, the Nambu-Jona-Lasinio, and the Gross-Neveu(-Yukawa) model can be formulated in this fashion~\cite{Ihssen2020,Grossi:2021ksl,Stoll:2021ori,Ihssen:2022xkr,Ihssen:2023xlp}.
+
+In this context, it is also worthwhile to note that \cref{eq:conservation_law_u_phi} can be derived not only by taking a derivative of the \frg{} flow equation for the effective potential $U ( t, \sigma )$ \wrt{} the background field $\sigma$.
+It is also possible to use the flow equation for the one-point function \eqref{eq:FS1} directly and hence deriving the flow equation for $u ( t, \sigma )$ via a projection on the one-point function $\bar{\Gamma}_t^{(1)} ( \sigma \, )$,
+	\begin{align}
+		\partial_t u ( t, \sigma ) &= \, \big( \partial_t \bar{\Gamma}_t^{,\sigma} [ \vec{\varphi} \, ] \big)_{\varphi_1 = \ldots = \varphi_{N - 1} = 0 , \, \varphi_{N} = \sigma}\equiv\partial_t \FSvertexArg{\FSeaaEoM}{\sigma}\label{eq:0dON1pt}\\[.2em]
+		&=\,
+		\input{0d/diagrams/SU2model0d-dUFlow_00203_1.tex}
+		\input{0d/diagrams/SU2model0d-dUFlow_00024_1.tex}\\
+		&=\, - \frac{1}{2} \, \frac{N - 1}{\big[ r ( t ) + \frac{1}{\sigma} \, u ( t, \sigma ) \big]^2} \, \partial_\sigma \big[ \tfrac{1}{\sigma} \, u ( t, \sigma ) \big]\,\partial_t r ( t ) -\nonumber\\
+		&\qquad\qquad\qquad\qquad\qquad\qquad- \frac{1}{2} \,  \frac{1}{\big[ r ( t ) +  \partial_\sigma u ( t, \sigma ) \big]^2} \, \partial_\sigma^2 u ( t, \sigma )\,\partial_t r ( t ) \\
+		&=\, \dod{}{\sigma}\! \Bigg(
+		\input{0d/diagrams/SU2model0d-Uflow_00103_1.tex}
+		+\input{0d/diagrams/SU2model0d-Uflow_00014_1.tex}
+		\Bigg) \, .
+	\end{align}
+This corresponds to an interchange in the order of operations (evaluating the Wetterich equation on the background field configuration and taking derivatives \wrt{} the background field versus taking functional derivatives of the \frg{} equation and afterwards evaluating on the background field) and it is non-trivial (especially for flow equations for more complex models in higher dimensions and with truncation beyond \lpa{}) that the resulting equations are identical, \cf{} \cref{app:SU2}.
+
+Before we turn to the fluid-dynamical interpretation of the conservation laws~\eqref{eq:conservation_law_u_rho} and \eqref{eq:conservation_law_u_phi}, we comment on the question whether one of the two formulations~\eqref{eq:conservation_law_u_rho} and \eqref{eq:conservation_law_u_phi} is preferable or if even others should be considered.
+The answer to this question is not yet settled. 
+From our present understanding, a formulation of the conservation equation in terms of $\sigma$ is preferable, for reasons of numerical implementability in the \fv{} scheme we use.
+This is discussed at length in the context of the \pde{} \bcs{} for the \frg{} flow equation in \cref{subsec:boundary_conditions_finite_volume}.
+Therefore, our discussion in the next sections is based on \cref{eq:conservation_law_u_phi}, and hence we identify $\sigma$ with the spatial coordinate $x$ and $u ( t, \sigma ) \equiv \partial_\sigma U ( t, \sigma )$ as the conserved quantity.\bigskip
+
+The rest of this subsubsection is dedicated to the fluid-dynamical interpretation of the \frg{} flow equation \eqref{eq:conservation_law_u_phi}.
+To this end, we split the flux (current) on the \rhs{} of the conservation law \eqref{eq:conservation_law_u_phi} and rewrite the whole equation in terms of an advection-diffusion equation, \cf{} \cref{eq:FVadsEq} and \cref{subsec:hydroAdvection,subsec:hydroDiffusion}, in one spatial dimension $x = \sigma$ and one temporal dimension $t$,
+\begin{align}
+	\partial_t u ( t, x ) + \dod{}{x} F [ t, x, u ( t, x ) ] = \dod{}{x} Q [ t, \partial_x u ( t, x ) ] \, .	\label{eq:advection_diffusion_equation_zero-dimensional}
+\end{align}
+The pionic contributions to the \frg{} flow,
+\begin{align}
+	F [ t, x, u ( t, x ) ] = \, & - \frac{1}{2} \, \frac{N - 1}{r ( t ) + \frac{1}{x} \, u ( t, x )}\, \partial_t r ( t ) = -\input{0d/diagrams/SU2model0d-Uflow_00103_1.tex} \, ,\label{eq:advection_flux_pion_propagator}
+\end{align}
+are identified with a non-linear, position-dependent advection flux, while the contribution of the radial \sigmaMode{},
+\begin{align}
+	Q [ t, \partial_x u ( t, x ) ] = \, & + \frac{1}{2} \,  \frac{1}{r ( t ) + \partial_x u ( t, x )}\, \partial_t r ( t ) = \input{0d/diagrams/SU2model0d-Uflow_00014_1.tex}\, ,\label{eq:diffusion_flux_sigma_propagator}
+\end{align}
+corresponds to a non-linear diffusion flux.
+We discussed conservation equations like \cref{eq:advection_diffusion_equation_zero-dimensional} in a \cfd{} context at length in our methodological introduction~\ref{sec:conservationLaws}.
+In the following paragraphs we want to comment on the nature of the pionic/advective and radial $\sigma$/diffusive contributions using the established \cfd{} terminology.
+
+\paragraph{Advection}\phantomsection\label{paragraph:conservative_form_advection}\mbox{}\\
+If we ignore the contribution of the \sigmaMode{} for a moment (which \dash{} after rescaling \dash{} corresponds to the large-$N$ limit of the $O(N)$ model~\cite{Grossi:2019urj,Tetradis:1995br,Grossi:2021ksl,Steil:2021cbu}), we can rewrite the \lhs{} of \cref{eq:advection_diffusion_equation_zero-dimensional} as follows,
+\begin{align}
+	\partial_t u ( t, x )& + \dod{}{x} F [ t, x, u ( t, x ) ] =  0 \label{eq:advection_zero-dimensional} \\[.2em]
+	\partial_t u ( t, x )& + \partial_u F [ t, x, u ( t, x ) ] \, \partial_x u ( t, x ) +\partial_x F [ t, x, u ( t, x ) ] = 0 \label{eq:advection_zero-dimensional_primitive}
+\end{align}
+This is a hyperbolic, non-linear advection equation for $u ( t, x )$, \cf{} \cref{eq:FVadsEqFonly}, and its accompanying \textit{primitive form}, \cf{} \cref{eq:FVFprimitive}, including an internal source term.
+$\partial_u F [ t, x, u ( t, x ) ]$ is identified with the velocity of the characteristics (the local $u$-dependent flow velocity of the quantity $u$) and $\partial_x F [ t, x, u ( t, x ) ]$ acts like an $x$- and $u$-dependent internal source term.  
+Hence $F [ t, x, u ( t, x ) ]$ is not purely advective nevertheless we will continue to refer to it as advection term.
+
+The form of \cref{eq:advection_zero-dimensional} motivated our discussion of linear and non-linear advection equations in \cref{sububsec:LAEBBE} with the \laeq{} and \bbeq{} as instructive examples.
+When compared to the \bbeq{} we notice that in our pionic \frg{} flow the local flow velocity is highly non-linear in $t$, $x$ and $u$ and explicitly reads
+\begin{align}
+	\partial_u F [ t, x, u ( t, x ) ] = \, & \frac{1}{2}\,\frac{ N - 1 }{x \, \big[ r ( t ) + \frac{1}{x} \, u ( t, x ) \big]^2}\,\partial_t r ( t ) \, .	\label{eq:advection_velocity}
+\end{align}
+Considering for example the exponential regulator shape function \eqref{eq:exponential_regulator}, one finds that the advection velocity $\partial_u F [ t, x, u ( t, x ) ]$ is always negative (positive) for $x > 0$ ($x < 0$).
+In a fluid-dynamical picture, this means that the conserved quantity $u ( t, x )$ is always propagated from larger values of $|x|$ towards the point $x = 0$ by advection.
+Furthermore, the closer the fluid $u ( t, x )$ is to $x = 0$, the faster the fluid moves, due to the factor $\frac{1}{x}$.
+Since $u ( t, x )$ is antisymmetric in $x$, because of the $O(N)$ symmetry of $U ( t, \vec{\varphi} \, )$, this implies that ``waves'' of positive and negative $u ( t, x )$ collide with huge velocity at $x = 0$ and annihilate.
+At large $|x|$, the fluid velocity tends to zero.
+
+We also observe that the advection velocity \eqref{eq:advection_velocity} is proportional to the number of pions, $ N - 1 $.
+Hence, in the large-$N$ limit the system, discussed at length in \cref{subsec:0dLargeN}, is completely advection driven, while for small $N$ the diffusive contributions \eqref{eq:diffusion_flux_sigma_propagator} gain in importance.
+In the case $N = 1$, discussed at length in \cref{subsec:0dO1Entropy}, there is no advection at all and the dynamics of the fluid $u ( t, x )$ is purely diffusive.
+
+At this point we want to remind the reader of the general properties and features of non-linear advection equations \dash{} like shock formation, (numerical) entropy production, and irreversibility \dash{}
+discussed in general in \cref{subsec:hydroAdvection}.
+Naturally those properties also play an important role in the dynamics of \frg{} flows, which we will discuss in the following conceptually and also using explicit examples.
+
+\paragraph{Diffusion}\phantomsection\label{paragraph:conservative_form_diffusion}\mbox{}\\
+Next, we turn to the contribution of the radial \sigmaMode{} to the \frg{} flow. 
+We find that it enters the conservation law \eqref{eq:advection_diffusion_equation_zero-dimensional} as a non-linear diffusion flux \eqref{eq:diffusion_flux_sigma_propagator}, because it is overall of second-order in spatial derivatives of $u ( t, x )$. 
+The characteristic property of diffusive processes is that they transport a quantity, in this case $u ( t, x )$, from regions where its density or concentration is high to regions where it is low~\cite{LeVeque:1992,LeVeque:2002,RezzollaZanotti:2013,Ames:1992}, \cf{} \cref{subsec:hydroDiffusion}.
+Diffusive processes are therefore usually important in regions of high gradients and smear out cusps, shocks \etc{}, which might form via advection.
+Besides this, diffusive processes are generically undirected, which is also the case for the diffusion flux \eqref{eq:diffusion_flux_sigma_propagator} which propagates the quantity $u ( t, x )$ in both directions, depending on the local gradients of $u ( t, x )$, which is especially relevant for models in their symmetry-broken phase with rather weak advection (small $N$). 
+The effective transport velocities via diffusion are usually much slower than those via advection, which is, due to the non-linearity, not necessarily true for \frg{} flow equations.
+We discussed the \heq{} as an archetypal linear diffusion equation at length in \cref{paragraph:HE}.
+The diffusion flux \eqref{eq:advection_diffusion_equation_zero-dimensional} can be formulated as a non-linear time-dependent realization of the heat equation.
+By performing the spatial derivative in the advection-diffusion equation \eqref{eq:advection_diffusion_equation_zero-dimensional} for the purely diffusive ($N = 1$) case, one finds
+\begin{align}
+	\partial_t u ( t, x ) = \, & \alpha[t,\partial_x u ( t, x )] \, \partial_x^2 u ( t, x ) \, ,\label{eq:0ddifprim}
+\end{align}
+where
+\begin{align}
+	\alpha[t,\partial_x u ( t, x )] \equiv - \frac{\tfrac{1}{2} \, \partial_t r ( t )}{[ r ( t ) + \partial_x u ( t, x ) ]^2} \, ,	\label{eq:diffusion_coefficient}
+\end{align}
+plays the role of a non-linear time-dependent, strictly positive \dash{} parabolic \dash{} diffusion coefficient. 
+The positivity of the diffusion coefficients ensures that $u ( t, x )$ is only dispersed and never accumulates locally, \ie{}, that $u ( t, x )$ tends to equilibrate towards a linear function in space. 
+A positive diffusion coefficient also ensures stability and uniqueness of (numerical) weak solutions, as discussed in the beginning of \cref{subsec:hydroDiffusion}.
+
+Directly comparing these findings with the \he{}, we can already qualitatively predict the behavior of the diffusion transport for the \frg{} flow of $u ( t, x )$, as long as $N$ is small and the system is diffusion-dominated.
+At a constant \rgtime{} $t$, we find that the diffusion coefficient is much larger in regions where the gradient $\partial_x u ( t, x )$ is negative with a large absolute value, compared to regions where it is positive, because in the first case the denominator of \cref{eq:diffusion_coefficient} is smaller than in the second case.
+This plays a crucial role for systems that involve symmetry breaking, where $\partial_x u ( t, x )$ is negative for at least some small $|x|$, while asymptotically for $|x| \rightarrow \infty$ the sign of $\partial_x u ( t, x )$ is always positive.
+Hence, for diffusion-dominated problems in \frg{} flow equations (small number $N$ of pions), the symmetry restoration is driven by the negative gradients $\partial_x u ( t, x )$ at small $|x|$.
+Furthermore, we find that for $t \rightarrow \infty$, the numerator of the diffusion coefficient \eqref{eq:diffusion_coefficient} tends to zero such that the diffusion stops, the system equilibrates and the dynamics freezes, even though there are still gradients in $u ( t, x )$.
+This would not happen for the linear \he{} with its constant diffusion coefficient.
+The same is true for $t = 0$, where the diffusion coefficient is suppressed by $1/\Lambda$.
+
+\paragraph{Irreversibility and entropy production}\phantomsection\label{paragraph:conservative_form_entropy}\mbox{}\\
+In a fluid-dynamical setting, it is very easy to understand the role of the radial \sigmaMode{}: Due to its diffusive character, it is directly responsible for the irreversibility of the \grg{} flow and \rg{} transformations in general. 
+Diffusion is a particular example of a dissipative process, which is irreversible and increases the entropy of the system\footnote{%
+	Interestingly, \ccite{Zamolodchikov:1986gt} comes to the same conclusion arguing in reverse order:
+	``Some of the information on the ultraviolet behavior of the field theory is lost under renormalization transformations with $t>0$, since in the field theory it is not legitimate to examine correlations at scales smaller than the cutoff.
+	We would therefore expect that a motion of the space $Q$ [a change of the set of all couplings] under the influence of the renormalization group would become an `irreversible' process, similar to the time evolution of dissipative systems.''
+	We remark that also \ccite{Zumbach:1994vg} stated that a term of second-order in field space derivatives in related \rg{} flow equations ``[\ldots] corresponds to a dissipation in the flow and is responsible for the semi-group property of the \rg{}''.%
+}.
+The dissipative and irreversible character can be seen as a ``thermodynamic'' version of the irreversible Kadanoff block-spin transformations~\cite{Kadanoff:1966wm,Wilson:1979qg,Delamotte:2007pf}.
+Hence, the dissipation clearly singles out the \rgtime{} $t$ as a temporal direction, because it introduces a ``thermodynamic arrow of time'' and ``thermodynamic time asymmetry'' via entropy production~\cite{Lebowitz:2008}.
+This also explains why our definition \eqref{eq:def_rg_time}:
+\begin{align}
+	&t \equiv - \ln \big( \tfrac{k}{\Lambda} \big) =  \ln \big( \tfrac{\Lambda}{k} \big) \, ,	\qquad	t \in [ 0, \infty ) \, .	\label{eq:rg-time-scale}
+\end{align}
+is a natural choice for a temporal coordinate also in higher dimensions, see also \ccite{Hasenfratz:1985dm,Zumbach:1993zz,Zumbach:1994vg,Zumbach:1994kc,Grossi:2019urj}.
+
+Interestingly, the irreversibility and the dissipative character of the system is lost if one does not include the full field-dependence of the effective potential in the flow equation, but instead uses a truncated system like the Taylor expansion \eqref{eq:example_vertex_expansion}.
+Then, the system \eqref{eq:example_vertex_expansion} of coupled \odes{} for the vertices can theoretically be integrated in either direction in \rgtime{}, as long as it consists of a finite number of couplings\footnote{%
+	In momentum space this enables an integration to higher energy scales, which corresponds to a reversion of the coarse-graining in position space.
+	More generally speaking, this implies that it is possible to resolve the microphysics from the macrophysics.
+	Both are physically not possible and solely an artifact of the truncation.%
+}.
+The most extreme examples are the \rg{} flows of one single $t$-dependent coupling, \eg{}, the quartic coupling of $\phi^4$ theory or the \qcd{} beta function~\cite{Politzer:1973fx,Gross:1973id,Gross:1973ju,Gross:1974cs}, see also the textbooks~\cite{ZinnJustin:2002ru,Peskin:1995ev}.
+Here the integration to both higher and smaller \rgscales{} is possible, which is the well-known result for the universal one-loop beta function and is an artifact of the restriction (truncation) to a finite number of couplings~\cite{Wilson:1979qg}.
+However, this reversibility of \rg{} transformations is not possible for the field-dependent effective potential, which is obvious from the advection-diffusion equation~\eqref{eq:advection_diffusion_equation_zero-dimensional}, where entropy increases and the information about the \ic{} in the \uv{} cannot be recovered from the \ir{} anymore.
+
+This point of view was already shared, presented, and discussed by K.~G.~Wilson:
+In \nbccite{Wilson:1979qg} he pointed out the differences between his ``coarse-graining'' version of the \rg{}, which is also applicable in highly non-perturbative regimes, and the \rg{} flow equations used by C.~Callan, K.~Symanzik, M.~Gell-Mann, F.~Low, G.~t'Hooft, S.~Weinberg, H.~Georgi, D.~Politzer and others to calculate the running of a single (or small number of) coupling constants, which solely describes a system correctly in a perturbative regime.
+
+The irreversibility of the \frg{} flow and entropy production is also directly related to the presence of discontinuities in the solution, which can arise from the advective contributions to the flow.
+As shown in \ccite{Aoki:2017rjl,Grossi:2019urj,Grossi:2021ksl,Steil:2021cbu} for the large-$N$ limit, a shock wave arises when the weak solution of the \pde{} is multi-valued. 
+The correct solution is usually constructed by means of the Rankine-Hugoniot condition~\cite{Rankine:1870,Hugoniot:1887,LeVeque:1992,LeVeque:2002,RezzollaZanotti:2013,Ames:1992}.
+This would lead to ambiguities when one tries to invert the flow (integrating backwards in time) in the presence of a shock.
+Hence, shock formation is an irreversible process and produces entropy.
+In summary, these are further strong arguments why the assumption of expandability of the effective average action in terms of vertices as well as the truncation of the system should in general be considered with care.
+
+Therefore, it would be extremely interesting to explicitly construct an entropy function for the flow equation, \ie{}, a quantity that is either non-decreasing or non-increasing under the \rg{} transformations during the \frg{} flow (depending on the sign convention), and that is a functional of the quantity $u ( t, x )$.
+The entropy for the flow equation will be a helpful instrument to design a stable numerical scheme for generic truncations~\cite{LeVeque:1992,LeVeque:2002,RezzollaZanotti:2013} and will also highlight general properties of the \grg{} flow.
+In this context we also have to mention the recent publication~\cite{Cotler:2022fze} by J. Cotler and S. Rezchikov who were able to interpret the Polchinski equation as an ``optimal transport gradient flow of a field-theoretic relative entropy'' thus establishing a firm and explicit connection between an information-theoretic entropy and (F)RG flows.
+
+Additionally, a numeric entropy (function) might provide a direct link to $\mathcal{C}$-/$\mathcal{A}$-theorems~\cite{Zamolodchikov:1986gt,Banks:1987qs,Cardy:1988cwa,Osborn:1989td,Jack:1990eb,Komargodski:2011vj,Curtright:2011qg,Rosten:2010vm}, which state that in certain \qfts{} there exists some positive real function $\mathcal{C} ( \{ g_i \} , t )$, which depends on all coupling constants of the QFT and which is monotonically increasing\footnote{%
+	It can also be defined as a monotonically decreasing function.
+	This flip of sign corresponds to the difference of the mathematicians' and physicists' definition of entropy.
+	We chose to the ``thermodynamic convention'' of increasing entropy for this and subsequent publications.
+} during \rg{} flows (transformations), while it stays constant at (critical) fixed points,
+	\begin{align}
+		\dod{}{t} \mathcal{C} ( \{ g_i \} , t ) \geq 0 \, .
+	\end{align}
+Here, $\{ g_i \}$ denotes the set of all (possibly infinitely many) dimensionless coupling constants.
+In contrast to previous formulations~\cite{Haagensen:1993by,Generowicz:1997he,Forte:1998dx,Codello:2013iqa,Codello:2015ana,Becker:2014pea,Becker:2016zcn}, a non-local version, which is directly linked to the numerical entropy function (similar to versions presented in \ccite{Zumbach:1993zz,Zumbach:1994vg,Rosten:2010vm} for related field-dependent flow equations), would not rely on expandability in the couplings or vertices and could naturally display the dissipative character of \rg{} transformations, which was already described by \ccite{Zamolodchikov:1986gt,Zumbach:1994vg}.
+Fixed-point solutions of the \frg{} flow would directly correspond to steady-state or thermal-equilibrium solutions~\cite{LeVeque:1992} in the fluid-dynamical picture\footnote{%
+	This actually brings up the interesting question whether previous studies about global fixed-point solutions for field-dependent flow equations, which seemed to deliver interesting results, \eg{}, \ccite{Borchardt:2015rxa,Zumbach:1994vg,Yabunaka:2018mju}, should be reanalyzed from the fluid-dynamical steady-flow perspective, especially regarding their interpretation and the spatial discretization methods~\cite{LeVeque:1992}.
+}.
+A caveat at this point is that a $\mathcal{C}$ function is based on the rescaled dimensionless \rg{} flow equations.
+Hence, also a numerical entropy should be formulated in this framework, if one seeks a direct link to a $\mathcal{C}$ function.
+The dimensionless flow equations in the \lpa{} can be recast in terms of conservation laws, which might be a good starting point.
+
+An explicit discussion of (numerical) entropy for the zero-dimensional $O(1)$ model as well as possible links to $\mathcal{C}$ functions is discussed in great detail in \cref{subsec:0dO1Entropy}.
+The situation for the $O(N)$ model in the limit $N\rightarrow\infty$ is discussed in \cref{subsec:0dLargeN}.
+The construction of an explicit (numerical) entropy has proven to be elusive in the case of finite $N>1$ for the $O(N)$ model~\cite{Koenigstein:2021rxj,Steil:2021cbu} due to the explicit position-dependencies in \cref{eq:conservation_law_u_phi} and \eqref{eq:conservation_law_u_rho} and the related internal source terms, \cf{} \cref{eq:advection_zero-dimensional}.
+
+\paragraph{Generalizations}\phantomsection\label{paragraph:conservative_form_generalizations}\mbox{}\\
+At this point we want to briefly comment on the generalization of the fluid-dynamical picture to \frg{} flow equations in higher-dimensional \qfts{}, systems with more (field-dependent) couplings, and \frg{} flow equations that involve fermions.
+
+In higher-dimensional \qfts{}, the fluid-dynamical interpretation of the \frg{} flow of the effective potential survives, see for example \ccite{Grossi:2019urj,Grossi:2021ksl,Koenigstein:2020Talk,Stoll:2021ori,Ihssen:2022xkr,Ihssen:2023xlp} and especially \cref{chap:GN}.
+In zero dimensions, $t$ merely parametrizes some dimensionless (mass-like) scale $r ( t )$, see \cref{eq:exponential_regulator}. 
+In contrast, in higher dimensions, the \rgtime{} is defined as the negative logarithm of the ratio between the \rg{} momentum scale $k$ and the \uv{} reference scale $\Lambda$, see \cref{eq:rg-time-scale}.
+The fluxes gain further $t$-dependent prefactors via the momentum integrals of the trace in the Wetterich equation.
+This leads to a different time scaling but does not affect the overall discussion. 
+The inclusion of further field-independent but scale-dependent couplings (such as a scale-dependent Yukawa coupling) adds \odes{} to the advection-diffusion equation for the effective potential, which does not spoil its conservative fluid-dynamical character.
+It is currently investigated by us and collaborators~\cite{Ihssen2020,Grossi:2021ksl,Ihssen:2022xkr,Ihssen:2023nqd,Ihssen:2023xlp} whether the inclusion as well as the conservative formulation of further field-dependent couplings (such as a field- and scale-dependent wave-function renormalization $Z ( t, \vec{\varphi} \, )$ in higher-dimensional models) is possible.
+In any case, simply adding fermions in the \lpa{} does not destroy the fluid-dynamical character of the \frg{} flow equation at all: On the level of the \lpa{} for the \frg{} flow equation of the effective potential, the contributions from fermion loops can be interpreted as a source/sink term, which only depends on $\sigma$, \ie{}, the spatial position $x$.
+We discuss such fermionic source/sink terms in zero dimensions in \cref{sec:0dSU2} and in non-zero, \ie{}, $1\dimSpacer + \dimSpacer 1=2$ dimensions, at zero and non-zero temperature and especially quark chemical potential in \cref{chap:GN}.
+Another possible generalization concerns models with more than one invariant of the underlying symmetry group of the model and respective condensation directions in field space, see, \eg{}, \ccite{Strodthoff:2011tz,Mitter:2013fxa,Rennecke:2016tkm,Lakaschus:2020caq,Fukushima:2010ji,Fejos:2020lli}.
+Here, the fluid-dynamical framework should still be applicable.
+However, a suitable identification of a complete basis of field space directions with ``spatial directions'' of the fluid-dynamical problem and a clear separation of the single contributions into advection, diffusion, and source terms might be challenging and calls for future investigations \dash{} especially when it comes to an actual numerical implementation.
+For first attempts of generalizing our findings to a quark-meson-diquark model, we refer to \ccite{Lakaschus:2021ewd}.
+
+Summarizing we find that the fluid-dynamical interpretation of flow equations has tremendous benefits, because it allows for a rather intuitive understanding of the dynamics of the system. Furthermore, it allows for a novel, physically intuitive interpretation of the \frg{} flow and provides an understanding of its irreversibility.
+Finally, it opens up the opportunity to employ extremely powerful numerical tools from \cfd{}.
+
+\subsubsection{Boundary conditions and computational domain}\label{subsec:boundary_conditions_finite_volume}
+\begin{disclaimer}
+	This subsubsection follows the discussion presented in Sec.~IV.D of \nbccite{Koenigstein:2021syz}.
+\end{disclaimer}
+In the form of the conservation laws \eqref{eq:conservation_law_u_rho} or \eqref{eq:conservation_law_u_phi}, the \frg{} flow equation \eqref{eq:flow_equation_effective_potential} is a non-linear \pde{} which has contributions of parabolic (diffusion terms) as well as hyperbolic (advection terms) nature.
+In this subsubsection, we specify the \bcs{} for Eqs.~\eqref{eq:conservation_law_u_rho} or~\eqref{eq:conservation_law_u_phi} in field space (the effective spatial $x$-direction).
+
+For (non-linear) \pdes{} of hyperbolic and parabolic type, the spatial \bcs{} are needed (in addition to the \ic{}) to make finding a (weak) solution a well-defined problem, \cf{} \cref{subsec:hydroAdvection,subsec:hydroDiffusion}.
+We are dealing with a \textit{Cauchy} or to be even more specific an \textit{initial-boundary-value} problem.
+Thus, without explicitly specifying the \bcs{}, \eg{}, of Neumann- or Dirichlet-type, as well as the \ics{}, the problem of finding a unique (weak) solution is actually ill-posed and therefore impossible to solve \dash{} a well-known mathematical fact with particular and severe implications in, \eg{}, classical electrodynamics~\cite{Jackson:1998nia}, fluid dynamics~\cite{BuckleyLeverett:1942}, soliton and instanton solutions of classical field equations~\cite{Rajaraman:1982is,Shifman:1994ee}, general relativity~\cite{Weinberg:1972kfs,Misner:1974qy,Ryder:2009zz}, and other fields of research.
+This \dash{} unsurprisingly \dash{} also holds true for the \frg{}. 
+However, explicit \bcs{} and especially their numerical implementation are rarely discussed in \frg{} literature, with, \eg{}, \ccite{Caillol:2012zz,Pangon:2009pj,Pangon:2010uf,Codello:2013iqa} as notable exceptions before the advent of \cfd{} methods for the \frg{}~\cite{Grossi:2019urj,zerod1,zerod2,zerod3,Ihssen2020,Stoll:2021ori,Grossi:2021ksl,Ihssen:2022xkr,Ihssen:2023nqd,Ihssen:2023xlp}.
+
+For the derivative of the effective potential $u ( t, \sigma )$, we find that the spatial \bcs{} must be imposed at $\sigma = \pm \infty$, because the field space domain of $u ( t, \sigma )$ is given by $\Reals{}$.
+Thus, when considering the flow equation on the non-compact domain $( - \infty, \infty )$ the problem represents a \textit{pure initial-value/Cauchy problem}~\cite{Ames:1992,LeVeque:1992,LeVeque:2002} and, given the asymptotics of the flow equation and the \ic{}, explicit \bcs{} at $\sigma\rightarrow\pm\infty$ are not required.
+However, spanning a non-compact computational interval from $ - \infty$ to $ + \infty$ is practically impossible on a finite computational grid.
+A possible solution is a compactification~\cite{Borchardt:2016pif} of $\Reals{}$ to the interval $[ - 1, + 1 ]$, via a suitable mapping $\sigma \mapsto x ( \sigma )$ usually supplemented with a mapping $u \mapsto v(u)$ rendering $v$ finite on~${[ - 1, + 1 ]}$.
+Another popular solution is a truncation of the computation interval at a large value $\sigma_\text{max} \sim x_\mathrm{max}$ with a suitable \bc{}~\cite{Pangon:2009pj,Caillol:2012zz,Borchardt:2015rxa,Borchardt:2016pif}.
+We will return to this issue below.
+
+In any case, one of the boundaries at spatial infinity can already be replaced by a finite value by making use of the $O ( N )$ symmetry of the potential $U ( t, \vec{\varphi} \, )$ and the flow equations, which implies a \ZII{} antisymmetry of $u ( t, \sigma ) = \partial_\sigma U ( t, \sigma )$,
+\begin{align}
+	U ( t, \sigma ) = U ( t, - \sigma ) \qquad\Longleftrightarrow\qquad	u ( t, \sigma ) = - u ( t, - \sigma ) \, .	\label{eq:anti-symmetry_small_u}
+\end{align}
+This reduces the spatial domain to the half-open interval $\sigma \in [ 0, + \infty )$, but now we need an additional artificial \bc{} at $\sigma = 0$, see, \eg{}, \ccite{Pangon:2009pj}.
+In previous studies, the use of the $O(N)$ symmetry was usually implemented right from the beginning by replacing the variable $\vec{\varphi}$ by the $O(N)$ invariant $\varrho = \tfrac{1}{2}\,\vec{\varphi}^{\, 2}$, whose domain is already by definition $[ 0, \infty )$.\footnote{%
+	In any case, independent of the implementation of the \bc{} itself, one should make use of symmetries of the flow equations in numerical implementations.
+	First of all, this leads to a reduction of the number of computational grid points in spatial direction, while keeping the spatial resolution fixed, which significantly speeds up the calculations (independently of the specific numerical method for spatial discretization).
+	An additional consequence is the reduction of numerical errors: It is highly unlikely that the numerical errors are symmetric in $x$, if a symmetric interval around $x=\sigma=0$ is used.
+	This might lead to an artificial breaking of the \ZII{} antisymmetry by unbalanced numerical errors.
+	Although these errors might be tiny and almost negligible they can be easily circumvented by exploiting the symmetries.
+	Using the symmetries of a problem is a standard procedure in practical computations and of particular importance in, \eg{}, numerical fluid dynamics and numerical (general) relativity, see \ccite{Baumgarte2010Jun,Alcubierre2008,Grandclement:2007sb,Gourgoulhon:2007ue}.%
+} 
+In this case one has to define 
+\begin{align}
+	u ( t, \varrho ) \equiv \partial_\varrho U ( t, \rho ) = \tfrac{1}{\sigma} \, \partial_\sigma U ( t, \sigma ) = \tfrac{1}{\sigma} \, u ( t, \sigma ) \, ,
+\end{align}
+to obtain a flow equation for $u ( t, \varrho )$ in a manifestly conservative form, see \cref{eq:conservation_law_u_rho,eq:conservation_law_u_phi}.
+Before returning to the remaining \bc{} at $+ \infty$, we first consider the newly introduced artificial \bc{} at ${x = \sigma =0}$ or, correspondingly, at $ \varrho=0$.
+
+\paragraph{The boundary condition at $\sigma = 0$}\phantomsection\label{paragraph:BC0}\mbox{}\\
+At first sight it might be appealing to formulate the whole problem \dash{} the conservation equation and the \bc{} at $\sigma = 0$ \dash{} in the variable $\varrho$.
+However, we believe that a formulation in $\sigma$ is more suitable and easier to implement in our numerical \fv{} setup.\footnote{%
+	We do not claim that it is impossible to formulate well-defined discrete \bcs{} in $\varrho$ at $\varrho = 0$, as can be seen for example in \ccite{Grossi:2019urj,Grossi:2021ksl,Steil:2021cbu} for the specific case of the large-$N$ limit of the $O(N)$ model and generalizations to finite $N$~\cite{Ihssen:2022xkr,Ihssen:2023xlp}. 
+	However, we were not able to provide a suitable discretization of the \bc{} at $\varrho = 0$ in the implementation of the \fv{} method for flow equations that include diffusion via the radial \sigmaMode{}.
+}
+A key feature of (non-linear) hyperbolic/parabolic conservation equations is that their weak solutions may exhibit non-analyticities in the form of shock and rarefaction waves \etc{}, which manifest themselves in the solution in cusps or discontinuities in spatial direction during the time evolution, \cf{} \cref{subsec:hydroEuler}.
+These effects can develop during the time evolution even if the \ic{} is smooth/analytic, see, \eg{}, \ccite{KTO2-0,Chen:2001,Bateman1915,Burgers1948,LeVeque:1992,LeVeque:2002,Borchardt:2016pif} and our discussion of the \bbeq{} in \cref{paragraph:BBE}.
+As demonstrated in \ccite{Aoki:2017rjl,Wink:2020tnu,WinkHirschegg,Grossi:2019urj,Grossi:2021ksl,Ihssen2020,Stoll:2021ori,Ihssen:2022xkr,Ihssen:2023xlp} this also holds for \frg{} flow equations, where non-analyticities are inherent properties of the effective \ir{} potential $U ( t_\mathrm{IR}, \sigma )$.
+These statements are also true for the point $\sigma = 0$, where $U ( t, \sigma )$ and $u ( t, \sigma )$ do not need to be analytic, see \cref{subsubsec:sc4}.
+Hence, there might be a scenario where the potential $U ( t, \sigma )$, although it is symmetric in $\sigma$, has a cusp at $\sigma = 0$, which would correspond to a jump in a weak solution for $u ( t, \sigma ) = \partial_\sigma U ( t, \sigma )$ at $\sigma = 0$.
+If formulated in $\varrho$, any scenario (analytic or non-analytic at $\sigma = 0$) merely corresponds to some arbitrary value for $u ( t, \varrho ) = \partial_\varrho U ( t, \varrho )$ at $\varrho = 0$, which seems to be of great advantage, because one does not have to deal with possible discontinuities in the conserved quantity $u$.
+Furthermore, the problematic factors of $\frac{1}{\sigma}$ in the pion propagator and the advection flux \eqref{eq:advection_flux_pion_propagator}, which are diverging at $\sigma = 0$, can be avoided when formulating the flow equations in $\varrho$.
+
+Nevertheless, a problem with the variable $\varrho$ becomes apparent when turning to the discretized form of $u$ within the \fv{} scheme introduced in \cref{sec:conservationLaws} and specifically \cref{subsec:hydroKT}: \fv{} methods (and also other discretization schemes) usually require ghost cells at the boundaries of the computational domain, since the in- and out-flows for the \ith{i} cell are calculated from the cell averages $\bar{u}$ of its neighboring cells, \cf{}\ \cref{eq:kt_stencil}.
+However, initially these values are not specified for the cells at the boundaries of the computational domain.
+Thus, artificial ghost cells must be introduced and the numerical values for $\bar{u}$ in these ghost cells have to be implemented by hand or reconstructed from the cells within the computational domain in accordance with the \bcs{}~\cite{LeVeque:1992,LeVeque:2002}, \cf{} \cref{subsec:hydroAdvection,subsec:hydroDiffusion} and \cref{eq:BClinExt,eq:BCperiodic,eq:heICS1DBCFV,eq:heICS2NBCFV,eq:eulerReflectiveBC}.
+In the second-order formulation of the one-dimensional \kt{} scheme one needs two ghost cells at each of the two spatial boundaries, \cf{} \cref{eq:kt_stencil}.
+
+However, implementing ghost cells for $u ( t, \varrho )$ at $\varrho = 0$ is conceptually difficult, because these ghost cells must be centered at negative values for $\varrho$ outside the computational domain $[ 0, \infty)$, which by definition do not exist due to the positivity of $\varrho = \tfrac{1}{2}\,\sigma^2$.
+\Apriori{}, it is therefore not clear how numerical values $\bar{u} ( t, \varrho_i )$ should be assigned to ghost cells at negative $\varrho_i$, because symmetry arguments cannot be applied anymore.
+
+Furthermore, it is also not a feasible option to move the ghost cells to positive values of $\varrho_i$, such that the point $\varrho = 0$ is no longer part of the computational domain.\
+Namely, having ghost cells centered at small but positive $\varrho_i$ implies that one has to extrapolate the numerical values $\bar{u} ( t, \varrho_i )$ to these ghost cells and to the point $\varrho = 0$ from the other ordinary cells of the computational domain.
+However, the functional behavior of $u ( t, \varrho )$ is unknown for small $\varrho$ and is actually exactly what we want to calculate in the first place by solving the \pde{}.
+Thus, any extrapolation at small $\varrho$ can only be considered an educated guess.
+It is especially dangerous, because the physical point will be part of the extrapolated ghost cells if it is located at $\varrho = 0$, which is the case for all models in their symmetric phase~\cite{Stoll:2021ori}, irrespective of the dimensionality of space-time.
+Consequently, extrapolation errors at the physical point have the potential to spoil the numerical values of all \nptFunctions{}, which are calculated at the physical point via derivatives of $u$ and contain the physics of the model.
+Even if the physical point is at finite non-zero $\varrho$ far away from the ghost cells and the boundary at $\varrho = 0$, any kind of extrapolation at small $\varrho$ leads to numerical errors, because the diffusive contributions of the radial \sigmaMode{} will propagate this information from smaller to larger $\varrho$ and hence to the physical point.
+Similar problems in formulating appropriate \bcs{} at $\varrho = 0$ also exist in other discretization schemes like finite-difference or finite-element methods.
+
+There is one exception to this conclusion: In the large-$N$ limit of the $O(N)$ model the flow equation for $u$ reduces to a pure advection equation.
+Studying the characteristic velocities, which are given by $\partial F/\partial u$, respectively, see \cref{eq:advection_velocity}, we find that these cannot change their sign, and information (or the conserved quantity $u$) is always propagated via advection in the direction of smaller $\varrho$ or $|\sigma|$.
+In this scenario, ghost cells can be positioned at negative $\varrho_i$ and the corresponding cell averages $\bar{u}_i$ in the ghost cells can take any numerical value since information from the ghost cells is never propagated back into the computational domain and cannot cause any errors, \cf{}\ \ccite{Grossi:2019urj,Grossi:2021ksl,Steil:2021cbu} and especially \cref{subsec:0dLargeN}.
+Shifting the ghost cells into regions of positive $\varrho$ is still not suitable for the reasons already discussed above.\bigskip
+
+In order to avoid all these difficulties when formulating the problem in the variable $\varrho$, we suggest a formulation in $\sigma$ and an implementation of the \bc{} at $\sigma = 0$.
+The key argument for using $\sigma$ instead of $\varrho$ is that positioning ghost cells at negative $\sigma$ poses no problem at all, since negative $\sigma$ exist in the first place. 
+Furthermore, it is clear how the cell averages $\bar{u} ( t, \sigma_i )$ in the ghost cells have to be chosen: Using the antisymmetry \eqref{eq:anti-symmetry_small_u}, one merely has to mirror the last physical cells of the computational domain at $\sigma = 0$ to the ghost cells (including a flip in sign).
+The only issue that requires careful consideration is the choice of the position of the first physical cell $x_0$ next to $\sigma = 0$: The flux term of our \pde{} contains factors $\frac{1}{\sigma}$ via the pion propagators, which diverge if evaluated at $\sigma = 0$.
+Therefore, we must avoid evaluating the fluxes $F [ t, x, u ( t, x ) ]$ at $x = \sigma = 0$.
+However, inspecting the \kt{} scheme, we find that the fluxes as well as the Jacobian $ \frac{\partial F[u]}{\partial u}$ must only be evaluated at the cell boundaries $x_{j \pm \ttfrac{1}{2}}$, \cf{}\ \cref{eq:FVajp12} and \eqref{eq:definition_h_kt_scheme}.
+Consequently, the natural choice for the position of the cell center $x_0$ of the first physical cell in the computational domain is at $x = \sigma = 0$, such that the in- and out-fluxes of this cell are evaluated at $x_{\pm \ttfrac{1}{2}}$, which is not problematic.
+Incidentally, this automatically cures the problem of the possibility of non-analyticities in $u ( t, \sigma )$ at $\sigma = 0$: Even if $u ( t, \sigma )$ is discontinuous at $\sigma = 0$ we do not run into problems, because all numerical calculations are performed on the level of cell averages $\bar{u} ( t, \sigma_i )$.
+The cell average of an antisymmetric function in a cell that is centered at $\sigma = 0$ must always vanish identically, independent of all other properties of the function, see also \ccite{Pangon:2009pj,Pangon:2010uf}.
+
+\halfWidthFigure%
+	[t]% Placement
+	{0d/figures/boundary_condition_finite_volume.pdf}% Graphics
+	[]% Sublabels
+	{%
+		Second-order accurate \fv{} implementation of the spatial \bc{} for $u ( t, x)$ or $\bar{u}_i (t)$, respectively, at $x = 0$ using \cref{eq:phi0BC0}. 
+		We use the fact that $u ( t, x )$ is an odd function in $x$ by positioning the first computational cell $x_0$ at $x = 0$, such that the cell average is exactly zero, $\bar{u}_0 = 0$, which is true for $u (t, x)$ which are continuous (blue-dashed) as well as discontinuous (green-solid) at $x = 0$.
+		Corresponding cell averages $\bar{u}_i$ are depicted as horizontal bars (magenta-dashed and yellow-solid).
+		This \bc{} can be generalized to lower- and higher-order accurate \fv{} schemes as well as finite-difference or finite-element schemes.
+		\fromFig{3}{zerod1}%
+	}%Caption
+	{fig:numerical_boundary_conditions_phi=0}%Label
+In summary, we switch from the open computational interval $ ( - \infty, + \infty ) $ to the half-open computational interval $ [ 0, + \infty ) $ by means of the \ZII{} (anti-)symmetry using
+\begin{align}
+	\bar{u}_{-2} ( t ) = - \bar{u}_{2} ( t )\,,\quad \bar{u}_{- 1} ( t ) = - \bar{u}_{1} ( t )\,,\quad \bar{u}_0 ( t ) = 0\,,
+	\label{eq:phi0BC0}
+\end{align}
+for the cell averages in the ghost cells left of $x_0 = 0$ and in the cell at $x_0$ itself.
+This construction is visualized in \cref{fig:numerical_boundary_conditions_phi=0} for exemplary continuous and discontinuous initial conditions. 
+It effectively corresponds to reflective \bcs{} frequently imposed in \cfd{}~\cite{LeVeque:1992,LeVeque:2002,SpringelLectureNotes}, see, \eg{}, \cref{eq:eulerReflectiveBC}.
+
+\paragraph{The boundary condition at $\sigma \rightarrow \infty$}\phantomsection\label{paragraph:BCinf}\mbox{}\\
+Now we return to the \bc{} at $\sigma \rightarrow + \infty$.
+\WlogA{} we discuss the interval ${\sigma \in [ 0, + \infty )}$ since the situation in $\sigma \in (- \infty,0]$ follows from \ZII{} antisymmetry of $u(t,\sigma)$.
+
+We have already argued that there are no real \bcs{} at spatial infinity on a non-compact domain.
+The behavior of $u$ at $\sigma \rightarrow \infty$ is rather given by the asymptotics of the Wetterich equation, which makes the \pde{} an pure initial-value problem.
+The \bc{} at spatial infinity is actually fixed implicitly: As long as the initial potential $U ( t = 0, \sigma )$ is bounded from below and grows faster than $\sigma^2$ for $\sigma \rightarrow \infty$ both pion and sigma propagator tend to zero for sufficiently large $\sigma$, such that the \rhs{} of the \pde{} \eqref{eq:conservation_law_u_phi} vanishes during the entire \frg{} flow.
+In the fluid-dynamical picture this corresponds to vanishing advection~\eqref{eq:advection_flux_pion_propagator} and diffusion fluxes~\eqref{eq:diffusion_flux_sigma_propagator} at $\sigma \rightarrow \infty$, which is a zero-influx \bc{} for $u ( t, \sigma )$.
+The derivative of the effective potential $u ( t, \sigma )$ is therefore fixed to its initial value $u ( t = 0, \sigma )$ at $\sigma \rightarrow \infty$.
+
+The limiting case, when the asymptotic behavior of the \uv{} initial potential is quadratic,
+\begin{align}
+	\lim\limits_{\sigma \rightarrow \infty} U ( t = 0, \sigma ) \sim \sigma^2 \qquad\Longleftrightarrow\qquad	\lim\limits_{\sigma \rightarrow \infty} u ( t = 0, \sigma ) \sim \sigma \, ,
+\end{align}
+is more delicate.
+In this case, the advection and diffusion fluxes \eqref{eq:advection_flux_pion_propagator} and \eqref{eq:diffusion_flux_sigma_propagator} do not vanish for $\sigma \rightarrow \infty$ for all \rgtimes{}.
+However, for small \rgtimes{} $t \approx 0$, the fluxes are actually independent of $\sigma$ at large $\sigma$ due to the constant asymptotic slope of the \ic{} $u ( t = 0, \sigma )$. 
+This in turn implies that the in- and out-flux for all volume cells at large $\sigma$ only depend on $t$ and must cancel exactly, such that the net flux of these cells vanishes.
+Therefore, also in this scenario $u ( t, \sigma )$ is fixed to its \ic{} at $\sigma \rightarrow \infty$ not only for small $t$, but rather for all \rgtimes{} $t$.
+For late \rgtimes{} $t \rightarrow \infty$, the advection and diffusion fluxes \eqref{eq:advection_flux_pion_propagator} and \eqref{eq:diffusion_flux_sigma_propagator} vanish anyhow, due to the derivatives of the regulator shape functions in the numerators, \ie{}, $\partial_t r ( t ) = - \Lambda \, \eu^{-t}$.
+In the language of fluid dynamics, \ics{} with quadratic asymptotics can therefore be interpreted as \bcs{} with time-dependent but spatially constant influx, \cf{}\ \textsc{Examples}~7 and~9 in \ccite{KTO2-0}.
+
+However, both cases cannot be implemented directly on a finite computational domain and we basically have two options:
+\begin{enumerate}
+	\item	We could map the interval $[ 0, \infty )$ to a compact interval $[0, 1]$ via a suitable map $\sigma \mapsto x ( \sigma )$.
+	This also includes a suitable mapping of $u \mapsto v ( u )$ to keep the values for the conserved quantity finite on $[0, 1]$.
+	This option has the advantage that the correct asymptotic behavior $u ( t, \sigma )$ can be implemented as \bcs{} for $v ( t, x )$ at $x = 1$.
+	However, the same question then arises as before in the discussion of an appropriate choice of ghost cells for negative values of $\varrho$: It is highly non-trivial how the cell averages $\bar{v}_i$ should be fixed for ghost cells which no longer belong to the physical values of $x$ within the interval $[0, 1]$.
+	Additionally, the two mappings would introduce at least two new numerical functional-mapping parameters.
+	A suitable choice of these parameters is not obvious.
+	Still, these mappings would have to ensure dense grids and high resolution around the physical point and low resolution at large field values.
+	All this is extremely hard to achieve.
+	Therefore, we propose and favor another option.
+	
+	\item	The second option, which is our preferred choice, is to split the physical domain $[ 0, \infty )$ into a compact domain $[ 0, \sigma_\mathrm{max} ]$ and a non-compact domain $[ \sigma_\mathrm{max} , \infty )$.
+	Here, $\sigma_\mathrm{max}$ should be chosen much larger than the physical scales of the problem and the position of the physical point, see, \eg{}, \ccite{Grossi:2019urj,Ihssen2020,Stoll:2021ori,Pangon:2009pj,Borchardt:2015rxa,Caillol:2012zz,Ihssen:2022xkr,Ihssen:2023xlp}.
+	We will provide explicit tests for an appropriate choice of 	$\sigma_\mathrm{max}$ later on in \cref{subsec:0dONresults}.
+	For the compact domain $[ 0, \sigma_\mathrm{max} ]$, we  keep a direct identification of the field $\sigma$ and the computational spatial variable $x$, thus $x = \sigma$.
+	For higher-dimensional models this might be replaced by a linear map of $\sigma$ to a dimensionless spatial variable $x$ via appropriate rescaling with some characteristic dimensionful quantity, \eg{}, the \uv{} scale $\Lambda$ or a non-vanishing condensate.
+	
+	In the compact domain $[ 0, \sigma_\mathrm{max} ]$, we have to ensure a high spatial resolution via a sufficiently large number of cells, in order to capture all aspects of the dynamics around the physical point.
+	Explicit tests to find an appropriate spatial resolution are also presented in \cref{subsec:0dONresults}.
+	
+	For the non-compact domain $[ \sigma_\mathrm{max}, \infty )$, instead of using a discretization scheme like the \fv{} method, we suggest an expansion or approximation of $u ( t, \sigma )$ via polynomials or complete sets of functions with $t$-dependent expansion coefficients, which account for the asymptotic behavior of the \ic{} $u ( t = 0, \sigma )$ for large $\sigma$. 
+	As discussed before, it is expected that for large $\sigma$ the deviations of $u ( t, \sigma )$ from the \ic{} $u ( t = 0, \sigma )$ are small during the \frg{} flow, such that a finite amount of expansion coefficients should be satisfactory to capture this minimal dynamics.
+	
+	At the point $\sigma_\mathrm{max}$, the ghost cells for the FV method in $[ 0, \sigma_\mathrm{max} ]$ can therefore be fixed via the values $u ( t, \sigma )$ from the asymptotic expansion in the non-compact interval $[ \sigma_\mathrm{max}, \infty )$.
+\end{enumerate}
+Interestingly, our numerical tests showed that, as long as $\sigma_\mathrm{max}$ is chosen sufficiently large, the fluxes at $\sigma_\mathrm{max}$ are already negligibly small.
+As a consequence, the deviation of $u ( t, \sigma )$ from the \ic{} in the non-compact interval $[ \sigma_\mathrm{max}, \infty )$ is extremely small and can be ignored.
+In this case, the computational \bcs{} for the ghost cells at $\sigma_\mathrm{max}$ can be fixed via an extrapolation using the asymptotics of the \ic{}.
+For extremely high spatial resolution, hence rather small $\Delta x$, even a simple linear extrapolation might be sufficient:
+\begin{align}
+	\bar{u}_{n}(t)&=2\bar{u}_{n-1}(t)-\bar{u}_{n-2}(t)\,,\quad\bar{u}_{n+1}(t)=3\bar{u}_{n-1}(t) -2\bar{u}_{n-2}(t)\,,
+	\label{eq:phi0BCinf}
+\end{align}
+\cf{} \cref{eq:BClinExt}.
+On the other hand, choosing $\sigma_\mathrm{max}$ rather large while keeping a high spatial resolution in the compact computational domain $[ 0, \sigma_\mathrm{max} ]$ requires a large number of cells.
+However, this slows down the computations drastically.
+For problems where this issue becomes relevant, we suggest to further divide the compact domain $[ 0, \sigma_\mathrm{max} ]$ into several smaller subdomains.
+In each of these subdomains one can implement the \fv{} method with different spatial resolution $\Delta x$ for each domain. 
+This ensures high resolution at small $\sigma$ next to the physical point and also allows to truncate the spatial interval at large $\sigma_\mathrm{max}$, while keeping a decent and manageable total number of cells~\cite{Grossi:2019urj,Grossi:2021ksl,Ihssen:2022xkr,Ihssen:2023xlp}.
+An alternative approach would be switching from equally sized volume cells on a uniform grid to a non-uniform (potentially even moving/time-dependent) grid, see, \eg{}, \ccite{KTmovingMesh}.
+Such numerical improvements over our approach using just one uniform \fv{} grid might become especially relevant in the context of \frg{} flow equations for models with multiple condensate directions, see, \eg{}, \ccite{Strodthoff:2011tz,Mitter:2013fxa,Rennecke:2016tkm,Lakaschus:2020caq}.
+For our computations within this work a further subdivision of the compact interval $[ 0, \sigma_\mathrm{max} ]$ or a formulation on non-uniform grids was, however, not necessary.
+Our specific choice and implementation \eqref{eq:phi0BCinf} might not be the best option at hand for arbitrary (higher-dimensional) models and arbitrary \ics{} within the \frg{} framework.
+In the current context of the zero-dimensional $O(N)$ model \ics{} without a proper large-$| \vec{\phi} \, |$ asymptotics, \eg{}, $[ 2 - \sin ( \vec{\phi}^{\, 2} )] \, \vec{\phi}^{\, 2}$ or even worse $[ 2 - | \sin( \vec{\phi}^{\, 2} ) | ] \, \vec{\phi}^{\, 2}$, and/or periodic potentials could be a very interesting topics for further research.
+
+\subsection{The \ON{} model at finite \texorpdfstring{$N$}{N}}\label{subsec:0dONresults}
+\begin{disclaimer}
+	In this subsection we follow the discussion of results presented in Sec. V of \ccite{Koenigstein:2021syz}.
+	The plots of \ccite{Koenigstein:2021syz} and the underlying numerical data were produced by A. Koenigstein and numerically cross-checked by my own computations with the KT scheme.
+
+	Selected numerical results and accompanying symbolic computations are included in the digital auxiliary file~\cite{Steil:2023zeroD}.
+	The single thread wall time on various consumer processors for the numeric results of this subsection is of the order of several days.
+\end{disclaimer}
+After our general discussion of the theoretical basis for the solution of \frg{} flow equations, it is again high time to ``show some pictures'': we will discuss concrete applications of the zero-dimensional \ON{} at finite $N$ in the following subsubsections. 
+To this end, we study the \frg{} flow of various zero-dimensional field theories \dash{} \textit{test cases} \dash{} which differ by distinct initial conditions.
+Our choices for the initial conditions range from smooth potentials to extreme choices featuring non-analyticities.
+Note that such extreme choices are not only relevant to demonstrate the numerical performance and stability of our implementation but also for phenomenological reasons.
+In fact, in higher dimensions we expect non-analytic behavior to build up, \eg{}, in the \ir{} limit, as a consequence of spontaneous symmetry breaking and the emergence of convexity of the effective action.\clearpage
+
+\input{0d/0dONsc1.tex}
+\FloatBarrier
+\input{0d/0dONsc2.tex}
+\FloatBarrier
+\input{0d/0dONsc3.tex}
+\FloatBarrier
+\input{0d/0dONsc4.tex}
+	
+\FloatBarrier
+\input{0d/0dO1.tex}
+
+\FloatBarrier
+\input{0d/0dOinf.tex}

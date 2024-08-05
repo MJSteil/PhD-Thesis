@@ -1,0 +1,32 @@
+\section{Units}
+For equations and numerical computations in this work we use a \nun{} system in which the units are defined such that the Boltzmann constant $k_\mathrm{B}$, the reduced Planck constant $\hbar$, and the speed of light in vacuum $c$ are dimensionless and exactly unity, \ie{},
+\begin{align}
+	(\kB)_\mathrm{NU}  \equiv  (\hbar)_\mathrm{NU}  \equiv  (c)_\mathrm{NU}  \equiv  1 \, .
+\end{align}
+This \nun{} system simplifies equations and numerical computations and it is realized by using energy as dimension for the quantities mass and temperature and reciprocal energy as dimensions for time and length.
+We chose electronvolt ($\mathrm{eV}$) as the base unit of energy in our \nun{} system.
+For discussions and figures which benefit/require the use of units, we usually adopt units common in \hep{} which are obtained from results in \nun{} by multiplication with appropriate powers of the conversion factor
+\begin{align}
+	\hbarc = 197.328\,980\,4\ldots\, \MeVfm \,,
+\end{align}
+see, \eg{}, \cref{eq:MeV4fm3,eq:MeV4MeVfm3}.
+
+Selected conversion factors to SI units and derived units are
+\begin{alignat}{2}
+	\big(1\,\MeV\big)_\mathrm{NU} &= 1\,\MeV \cdot c^{-2} &&= 1.782\,661\,9\ldots\,\times10^{-30}\,\mathrm{kg} \, ,\\
+	\big(1\,\MeV^{-1}\big)_\mathrm{NU} &= 1\,\MeV^{-1} \cdot \hbarc &&= 1.973\,269\,8\ldots\,\times10^{-13}\,\mathrm{m} \, ,\\
+	\big(1\,\MeV^{-1}\big)_\mathrm{NU} &= 1\,\MeV^{-1} \cdot \hbar &&= 6.582\,119\,5\ldots\,\times10^{-22}\,\mathrm{s} \, ,\\
+	\big(1\,\MeV\big)_\mathrm{NU} &= 1\,\MeV \cdot 1&&= 1.602\,176\,6\ldots\,\times10^{-13}\,\mathrm{J} \, ,\\
+	\big(1\,\MeV\big)_\mathrm{NU} &= 1\,\MeV \cdot \kB^{-1} &&= 1.160\,451\,8\ldots\,\times10^{+10}\,\mathrm{K} \, ,\\
+	\big(1\,\MeV^3\big)_\mathrm{NU} &= 1\,\MeV^3 \cdot (\hbarc)^{-3} &&= 1.301\,489\,2\ldots \times10^{-7}\,\fmIII \, , \label{eq:MeV4fm3}\\
+	\big(1\,\MeV^4\big)_\mathrm{NU} &= 1\,\MeV^4 \cdot (\hbarc)^{-3} &&= 1.301\,489\,2\ldots \times10^{-7}\,\MeVfmIII \, ,\label{eq:MeV4MeVfm3}
+\end{alignat}
+for mass, length, time, energy, temperature, number density, and energy density respectively.
+Depending on the context pressure and density are typically expressed in units of $\MeVfmIII$ in \hep{} with the following conversion factors
+\begin{align}
+	1\,\MeVfmIII& \mathrel{\widehat{=}} 1.602\,176\,6\ldots\,\times10^{+32}\,\mathrm{Pa}%
+	\mathrel{\widehat{=}} 1.782\,661\,9\ldots\,\times 10^{+15}\, \mathrm{kg}\mkern1.0mu\mathrm{m}^{-3}
+\end{align}
+to the respective (derived) SI units. 
+
+For the exact SI values of the fundamental constants \dash{} \viz{} $k_\mathrm{B}$, $\hbar$, $c$, and the electronvolt in joules \dash{} used in our numerical computations we use the recommended values of CODATA~\cite{CODATA2018}.

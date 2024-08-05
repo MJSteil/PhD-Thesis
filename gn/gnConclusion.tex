@@ -1,0 +1,59 @@
+\clearpage
+\section{Conclusion and outlook}\label{sec:gnConclusion}
+\begin{disclaimer}
+	This section has been compiled from Secs.~VII and IV of \nbccite{Stoll:2021ori,Koenigstein:2021llr} respectively.
+\end{disclaimer}
+In the introduction of this chapter, in \cref{subsec:phenomenology}, and with our literature review in \cref{subsec:z2breaking} \dash{} regarding the fate of \ZII{} symmetry breaking at finite $N$, we provided a broad phenomenological overview of the \gnm{}. Nevertheless, we have considered the \gnm{} within this chapter just as our next testing ground in \dtwo{} after leaving the roam of \dzero{}.
+Within this chapter we have studied the \gnm{} at infinite-$N$ and the \gnym{} \dash{} as a closely related bosonized variant of the \gnm{} \dash{} at finite $N$.
+Identifying the \gnym{} as a suitable candidate for an \lpa{} \frg{} study of the partially bosonized \gn{} model we considered its formulation in our \cfd{} frame work for the \frg{}
+
+\paragraph{The LPA flow equation of the GNYM as a highly non-linear diffusion-source/sink equation}\phantomsection\label{paragraph:gnConSetup}\mbox{}\\%
+Setting up the framework for numerical computation with the \lpa{} flow equation of the \gnym{}, included as a first step the reformulation of the flow equation in conservative form.
+Using the previously established methodology we formulate the \lpa{} flow equation as a non-linear diffusion equation with a source/sink term.
+The diffusive contributions can be clearly attributed to bosonic quantum fluctuations, of a massive radial mode, which we studied at length already in \dzero{}.
+While we already encountered source/sink-like contributions from Grassmann numbers, the manifestation of the source/sink term in the \gnym{} as a real \qft{} with a chemical potential is novel to our discussion.
+We have dedicated \cref{paragraph:chemical_potential_shock_wave} to a discussion of its dynamic: depending on \rgscale{}, location in field space, chemical potential, and temperature  it can either act like a source or a sink. Fermionic fluctuations can therefore both act towards a breaking and a restoration of \ZII{} symmetry.
+
+\paragraph{The homogeneous phase at infinite $N$}\phantomsection\label{paragraph:gnConHomo}\mbox{}\\%
+For infinite $N$ the bosonic fluctuations are completely suppressed within the \gnym{}, which is then equivalent to the \gnm{}.
+Within the \frg{} framework in the limit $N \rightarrow \infty$ we recover well-known infinite-$N$ (mean-field) results for the homogeneous phase diagram of the \gnm{}. 
+The discrete chiral \ZII{} symmetry is spontaneously broken at small chemical potentials and temperatures and gets restored at high temperatures and chemical potentials across a second-order (first-order) phase transition for high temperatures (low temperatures). The restoration of \ZII{} symmetry in the infinite-$N$ limit is purely driven by fermionic thermal and density fluctuations.
+
+\paragraph{The inhomogeneous phases at infinite $N$}\phantomsection\label{paragraph:gnConInhomo}\mbox{}\\%
+Before turning our attention to the \frg{} studies at finite $N$. We make use of the well established explicit results for the inhomogeneous phase in the \gnm{} to benchmark the stability analysis as one of the most popular indirect detection methods for inhomogeneous condensation.
+
+It was shown in \cref{subsubsec:phase_diagram_stability_analysis} that the stability analysis is able to accurately predict the second-order phase transition between the \gls{ip} and \gls{sp} as the amplitude of the inhomogeneous condensate $\smin$ at this phase boundary becomes infinitesimal and its functional form is described by a harmonic wave.
+Matching the initial expectation, the stability analysis fails to correctly detect the phase boundary between the \gls{hbp} and \gls{ip}, because large perturbations would be required.
+Such perturbations can not be captured within the present expansion scheme.
+Therefore, the region of the \gls{ip}, where $\sminhom (\mu, T)\neq 0$, is completely undetected by the stability analysis. 
+
+Moreover, we compared the wave vector that minimizes the bosonic two-point function $\qmin $ with the dominating wave vector of the inhomogeneous condensate $\qs$ in \cref{subsubsec:wavevector}.
+Inside the \gls{ip} close to the phase boundary between the \gls{sp} and \gls{ip} these two quantities agree very well.
+Further away from this phase boundary, the amplitude of the inhomogeneous condensate is large, thus violating an assumption of the stability analysis.
+This is reflected in a small but finite tension of $\qmin$ and $\qs$.
+
+Also, the bosonic wave-function renormalization $Z$ was investigated.
+The existence of a region where the wave-function renormalization is negative and the homogeneous minimum is stable under inhomogeneous perturbations, \ie{}, $Z<0$ and $\forall q, \ \gtwovar{\sminhom (\mu, T)}{\mu}{T}{q} >0$, explicitly shows that a negative $Z$ is only a necessary condition for an inhomogeneous phase.
+
+In summary, these findings show that the stability analysis can indeed be an appropriate tool in the search for second-order phase boundaries of inhomogeneous phases.
+By using the \twoDimensional{} \gls{gn} model as a test ground the shortcomings of this methods were quantified and it was demonstrated that it can also give a reasonable estimate of quantities within the inhomogeneous phase like the dominating wave vector of the condensate.\bigskip
+
+In \cref{subsec:GNggl} we briefly discuss the related \ggla{} and identify it as a very simple jet potent tool in the vicinity of \glspl{lp}.
+
+\paragraph{The Gross-Neveu-Yukawa model at finite \texorpdfstring{$N$}{N}}\phantomsection\label{paragraph:gnConFinN}\mbox{}\\%
+Using the \frg{} framework and the established finite volume methods for it, we have performed computations for the \gnym{} at finite and infinite number of flavor $N$ at finite temperature $T\geq0$ and quark chemical potential $\mu\geq0$.\bigskip
+
+At finite $N$ the \gny{} and \gnm{} are not equivalent in \lpa{} truncation. We argue however that, due to our specific choice for the classical action of the \gnym{}, the phenomenology of both at least on \lpa{} level should be similar. Direct computations with the \gn{} model in \lpa{} truncation within the \frg{} framework are not feasible. 
+A proper resolution of the differences between the two models at finite $N$ would be possible by improving the truncation scheme. Especially the addition of a scale-dependent wave-function renormalization for the scalar $\sigma$-channel is a natural next step in this direction. First results in this direction are discussed in \ccite{Koenigstein:2023wso} and indicate that due to the intricate dynamics on the level of the two-point function, discussed here in the context of the stability analysis, higher orders in the derivative expansion might indeed be crucial to properly resolve the underlying \frg{} flow.
+
+Numerical results for various finite $N$ and especially $N=2$ at non-zero temperature and/or chemical potential were presented and discussed in \cref{subsec:gnyFiniteNresults} and have revealed that there is no spontaneous \ZII{} symmetry breaking at non-zero temperature for finite $N$. This binary result is in agreement with heuristic arguments of L.~D.~Landau \etal{}~\cite{Landau:1980mil} and in the context of the \gn{} model of R.~F.~Dashen \etal{}~\cite{Dashen:1974xz}, which were summarized and discussed in \cref{subsec:z2breaking}. The situation at vanishing temperature is not completely settled yet. 
+
+Direct computations in vacuum are numerically challenging but possible and suggest spontaneous \ZII{} symmetry breaking even for finite $N$ at $T=\mu=0$.
+Computations at zero and very low temperatures and non-zero chemical potentials within the used \lpa{} flow equation are also challenging and arguably, see \cref{paragraph:chemical_potential_shock_wave}, impossible at zero temperature. This novel aspect of \lpa{} flow equations arising in the \cfd{} framework certainly warrants further research and development.
+Direct computations beyond very low temperatures are however possible without conceptual or numerical challenges even at non-zero chemical potentials.
+Considering the vacuum results and an extrapolation from results at low temperatures we have strong reasons to believe that a quantum phase transition between a phase of broken \ZII{} symmetry at low chemical potentials and a restored phase at higher chemical potentials is a highly likely scenario at $T = 0$ and finite $N$. 
+
+\paragraph{Outlook}\phantomsection\label{paragraph:gnConOut}\mbox{}\\%
+Beyond the aforementioned further research directions in regards to truncation and a more refined understanding of the involved sources, studies in related models in \dimPlus{1}{1} dimensions might be very interesting. Another extremely interesting research direction is the study of the \gnyBm{} in finite volumes.
+ 
+Further remarks regarding the application of the more and more refined \cfd{} framework for \frg{} flow equations will be made in \cref{chap:conclusion}.

@@ -1,0 +1,750 @@
+\pdfoptionpdfminorversion=7 % fixes warning: "PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed"
+\pdfsuppresswarningpagegroup=1 % disables/fixes warning: "PDF inclusion: multiple pdfs with page group included in a single page"
+\documentclass[10pt]{beamer}
+%\setbeameroption{show notes} %for handout on seperate page
+%\setbeameroption{show notes on second screen=right} %for presentation next to slide on one PDF page
+
+\input{setup}
+\input{bibtex}
+
+\title[Disputationsvortrag]{Von null-dimensionalen Theorien zu inhomogenen Phasen mit der \texorpdfstring{\\}{} Funktionalen Renormierungsgruppe}
+\subtitle{Disputationsvortrag}
+\date{15.05.2024}
+\author[M.~J.~Steil]{Martin Jakob Steil}
+\institute{%
+\srcsize\vspace{3em}
+\begin{vwcol}[widths={30mm,35mm,30mm},rule=0.0pt,presep=false,postsep=false,sep=5mm] 
+	\textbf{Prüfende} \newline
+	\vspace{.3em}
+	Priv.-Doz. Dr. Michael Buballa\newline
+	Prof. Dr. Jens Braun\newline
+	Prof. Dr. Tetyana Galatyuk\newline
+	Prof. Dr. Michael Vogel\newpage\noindent
+	%
+	\textbf{Ver\"offentlichungen}\newline
+	\vspace{.3em}
+	\hypersetup{urlcolor=normal text.fg}
+	\cite{Koenigstein:2021syz}\hbox{\citejournal{Koenigstein:2021syz}}\newline %0d part I paper -- zerod1
+	\cite{Koenigstein:2021rxj}\hbox{\citejournal{Koenigstein:2021rxj}}\newline %0d part II paper -- zerod2
+	\cite{Steil:2021cbu}\hbox{\citejournal{Steil:2021cbu}}\newline %0d part III paper -- zerod3
+	\cite{Stoll:2021ori}\hbox{\citejournal{Stoll:2021ori}}\newline %GN published manuskript/preprint -- gn
+	\cite{Koenigstein:2021llr}\hbox{\citejournal{Koenigstein:2021llr}}\newline % GN stability analysis paper -- gns
+	\newpage
+	%
+	\textbf{Koautoren}\newline
+	\vspace{.3em}
+	J.~Braun\textsuperscript{\cite{zerod1,zerod2}}, %
+	M.~Buballa\textsuperscript{\cite{zerod1}}, %
+	E.~Grossi\textsuperscript{\cite{zerod1,zerod2}}, %
+	A.~Koenigstein\textsuperscript{\cite{zerod1,zerod2,zerod3,gn,gns}}, %
+	L.~Pannullo\textsuperscript{\cite{gns}}, %
+	S.~Rechenberger\textsuperscript{\cite{gns}}, %
+	D.~H.~Rischke\textsuperscript{\cite{zerod1}}, %
+	J.~Stoll\textsuperscript{\cite{gn}}, %
+	N.~Wink\textsuperscript{\cite{zerod1,zerod2}}, %
+	M.~Winstel\textsuperscript{\cite{gns}} und %
+	N.~Zorbach\textsuperscript{\cite{gn}}
+\end{vwcol}
+	%\tikz[overlay, remember picture]{
+		%\node[anchor=south, inner sep=0.2cm] at ($(current page.south west)!0.125!(current page.south east)$) {\includegraphics[width=1.5cm]{../logos/tuda_logo.pdf}};
+		%\node[anchor=south, inner sep=0.2cm] at ($(current page.south west)!0.375!(current page.south east)$) {\includegraphics[width=1cm]{../logos/crctr211.eps}};
+		%\node[anchor=south, inner sep=0.2cm] at ($(current page.south west)!0.625!(current page.south east)$) {\includegraphics[width=1cm]{../logos/dfg.eps}};
+		%\node[anchor=south, inner sep=0.2cm] at ($(current page.south west)!0.875!(current page.south east)$) {\includegraphics[width=1.5cm]{../logos/hgs-hire.eps}};
+	%}
+
+	\note{
+		\begin{itemize}
+			\item Vielen Dank Prof. X für die Vorstellung
+			\item Auch ich möchte Sie alle ganz herzlich zu meinem Vortrag (mit dem Titel) willkommen heißen.
+			\item In den nächsten 20 Minuten werde ich Ihnen einen kurzen Überblick über die Forschung im Rahmen meiner Promotion präsentieren.
+			\item Die meisten im Folgenden vorgestellten Ergebnisse sind bereits publiziert und in enger Zusammenarbeit mit den hier gelisteten Koautoren entstanden.
+			\item Ich möchte an dieser Stelle ganz herzlich bei meinen Kollegen fü ihre Unterstützung und die sehr produktive Zusammenarbeit bedanken.
+			\item Wenn ich gleich stellenweise von uns und wir statt ich spreche meine ich meine Kollegen und mich.
+		\end{itemize}
+	}
+}
+
+\begin{document}
+
+\maketitle % Title Slide
+
+\begin{frame}{Übersicht}
+	\hypersetup{linkcolor=goetheBlauDarker}
+	\setbeamercolor{structure}{fg=goetheBlauDarker}
+	\setbeamertemplate{section in toc}[sections numbered]
+	\tableofcontents[hideallsubsections]
+
+	\note{
+		\begin{itemize}
+			\item Ich werde gleich mit einer \textbf{Einleitung und Motivation} fortfahren um \textbf{meine Forschung in Kontext zu stellen}.
+			\item Anschließend werde ich die \textbf{funktionale Renomierungsgruppe als zentrale Methode} meiner Untersuchungen vorstellen.
+			Dabei werde ich speziell auf \textbf{technische Entwicklungen mit nulldimensionalen Theorien} zu sprechen kommen.
+			\item Dann werde ich Anwendungen in zwei und vier Dimensionen vorstellen.
+			\item Und abschließen werde ich meinen Vortrag mit einer \textbf{Zusammenfassung und einem Ausblick}.
+		\end{itemize}
+	}
+\end{frame}
+
+\section{Einleitung und Motivation}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{graphics/matter.png}}
+\begin{frame}{Von Quarks zu makroskopischer Materie}
+	
+	\tikz[overlay, remember picture]{
+		%\draw[gray, thin, step=1cm] (current page.south west) grid (current page.north east);  % Draw a grid over the slide
+		\node[above] at (0.5,1.2) {Materie};
+		\draw[<-, thick] (1.1,2.5) .. controls (1.5,2.6) and (1.75,2.4) .. (2.4,2.5);
+		\node[above] at (3.5,1.) {Molekül $\sim10^{-9}\,\mathrm{m}$ };
+		\draw[<-, thick] (4.8,2.5) .. controls (5.2,2.3) and (5.8,2.7) .. (6.2,2.5);
+		\node[above] at (7.2,3.3) {Atom $\sim10^{-10}\,\mathrm{m}$ };
+		\draw[<-, thick] (7.9,1.4) .. controls (8.4,0.7) and (8.4,0.7) .. (9.5,0.5);
+		\node[above] at (10.1,1) {Atomkern $\sim10^{-15}\,\mathrm{m}$ };
+		\draw[<-, thick] (9.65,-0.65) .. controls (9.2,-1.1) and (9.2,-1.1) .. (8.5,-1.5);
+		\draw[<-, thick] (9.25,-0.1) .. controls (8,.1) and (8,.1) ..  (6.9,-0);
+		\node[above] at (7,-1) {Nukleonen $\sim0.8\times10^{-15}\,\mathrm{m}$ };
+		\draw[<-, thick] (6,-0) .. controls (5.5,.-0.4) and (4.4,0.4) ..  (3.8,-0.3);
+		\draw[<-, thick] (7.65,-1.8) .. controls (7.4,.-2) and (7.13,-1.8) ..  (6.85,-2);
+		\node[above] at (3.5,-3) {Quarks};
+		\draw[->, thick] (4.1,-2.7) --  (4.7,-2.3);
+		\draw[->, thick] (3,-2.5) --  (2.35,-1.7);
+		\draw[->, thick] (3.5,-2.5) --  (3.4,-1.45);
+		\node[above] at (0.5,-1) {Gluon};
+		\draw[->, thick] (1,-0.8) --  (2.3,-0.7);
+	}
+
+	\blfootnote{%
+		Grafiken: Motiviert von \href{https://stock.adobe.com/de/images/a-quark-is-a-type-of-elementary-particle-and-a-fundamental-constituent-of-matter-quarks-combine-to-form-composite-particles-called-hadrons-the-protons-and-neutrons-the-atomic-nuclei-vector/623226755}{stock.adobe.com} und Elemente mit \href{https://chat.openai.com}{OpenAI, “DALL-E 2” (2024)}%
+		}
+		
+	\note{
+		\begin{itemize}
+			\item In meiner Forschung beschäftigte ich mich mit der \textbf{Wechselwirkung von Quarks}.
+			\item Quarks sind fermionische Elementarteilchen welche durch den Austausch von Gluonen stark wechselwirken.
+			\item Quarks und Gluonen formen als elementare Bausteine Protonen und Neutronen.
+			\item Welche wiederum als Nukleonen Atomkerne bilden.
+			\item Diese Kerne verbinden sich mit Elektronen zu Atomen, deren Bindungszuständen letztlich makroskopische Materie bilden.
+			\item Wie wir an dieser Hierarchie hier sehen forschen wir beim Studium von Quarks auf subatomaren Längenskalen von Femtometern, das sind $10^{-15}$ Meter.
+		\end{itemize}
+	}
+\end{frame}
+\usebackgroundtemplate{}
+
+\begin{frame}{Starke und elektromagnetische Wechselwirkung im Vergleich}
+	\hspace*{-0.5em}
+	\begin{minipage}{\textwidth}
+	\begin{table}[ht]
+	\centering
+		\begin{tabular}{C{0.45\framewidth} C{0.45\framewidth}}
+			\hspace{-0.6em}\textbf{Proton}&
+			\textbf{Wasserstoff Atom}\\
+			%
+			\hspace{-0.6em}\includegraphics[width=2cm]{graphics/proton.png}&
+			\includegraphics[width=2cm]{graphics/hydrogen.png}\\
+			
+			$\begin{aligned}
+				\phantom{}m_u&\approx 2 \,\mathrm{MeV}\\ % 2.16
+				m_d&\approx 5\,\mathrm{MeV}\\ % 4.67
+				m_p&\approx 938 \,\mathrm{MeV}\\ % 938.272
+				\alpha_\mathrm{s}&=\frac{\mathrm{g}^2}{4\piu}\sim 1 \vphantom{\Bigg\{}
+			\end{aligned}$&
+			$\begin{aligned}
+				\phantom{1111}m_p&\approx 938 \,\mathrm{MeV}\\ % 938.272
+				m_e&\approx 511\,\mathrm{keV}\\
+				m_H&\approx 939\, \mathrm{MeV}\\ % 938.783
+				\alpha_\mathrm{em}&=\frac{e^2}{4\piu}\sim7\times 10^{-3} \vphantom{\Bigg\{}
+			\end{aligned}$\\
+	stark gebunden & elektromagnetisch gebunden\\
+	$O(E_b)=1\,\mathrm{GeV}$&$E_b=13.6\,\mathrm{eV}$\\
+	\end{tabular}
+	\end{table}
+	\end{minipage}
+	
+	\blfootnote{%
+		Einheiten: $1\,\mathrm{MeV} \approx 1.6\times 10^{-13}\,\mathrm{J} = 1.8\times 10^{-30}\,\mathrm{kg}$
+	}
+	\blfootnote{%
+		Folienaufbau: Motiviert von \fnciteay{Philipsen:2010Antritt}, Grafiken: \href{https://chat.openai.com}{OpenAI, “DALL-E 2” (2024)}%
+	}
+	
+	\note{
+		\begin{itemize}
+			\item In Nukleonen -- hier exemplarisch dem Proton -- sind Quarks und Gluonen stark gebunden. Mit einer entsprechenden dimensionslosen \textbf{Kopplungskonstante von etwa $1$}.
+			\item Zum Vergleich: Im Wasserstoff Atom sind das Proton und Elektron elektromagnetisch gebunden. Mit einer wesentlich geringeren \textbf{ Kopplungskonstante von nur circa $7$ Promille}.
+			\item Die Bindungs- bzw. Ionisierungsenergie von Wasserstoff ist mit $13.6\, \mathrm{eV}$ vergleichsweise gering.
+			\item Im Proton hingegen ist die Bindungsenergie mit etwa $1$ GeV circa und damit $8$ Größenordnungen über der im Wasserstoff.
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Phasendiagramm stark wechselwirkender Materie}
+\begin{center}
+  \begin{overlayarea}{\framewidth}{6.2cm}
+			\only<1|handout:1>{\includegraphics[width=\framewidth]{graphics/qcd_phasediagram_defense_exp.pdf}}
+			\only<2|handout:2>{\includegraphics[width=\framewidth]{graphics/qcd_phasediagram_defense.pdf}}
+	\end{overlayarea}
+\end{center}
+	
+	\blfootnote{%
+		Einheiten: $1\,\mathrm{MeV} \approx 1.2\times 10^{10}\,\mathrm{K}$ und  % 100 MeV = 1.16*10^12 = 3.96*10^9*(293K Raumtemperatur)
+		$1\,\mathrm{fm}^{-3}=1\times10^{45}\,\mathrm{m}^{-3}$ % 0.16fm^-3 = 1.88*10^15*(8.5*10^28 Iron Atoms/m^3)
+	}
+	\blfootnote{%
+		Grafik: Siehe Fig. 1.1 in \fncitec{Steil:2024phd}{Steil (2023)} und zusätzliche Elemente mit \href{https://chat.openai.com}{OpenAI, “DALL-E 2” (2024)}
+	}
+	
+	\only<1|handout:1>{\note{
+		\begin{itemize}
+			\item Um die Bestandteile von Kernmaterie zu untersuchen werden \textbf{hohe Energien benötigt}, welche unter verschiedenen extreme thermodynamischen Bedingungen vorliegen -- das bringt uns zum \textbf{Phasendiagramm stark wechselwirkender Materie}.
+			\item Bei niedrigen Temperaturen und nuklearer Dichte -- das entspricht Energien von etwa $1\,\mathrm{GeV}$ -- liegt \textbf{stark WW Materie in Form von Nukleonen} vor.
+			Wenn wir jedoch die Temperatur und Dichte ändern können wir andere Zustände stark WW Materie untersuchen.
+			\item Dazu sind jedoch extreme Bedingungen nötig:
+				\item Hier entsprechen $100\,\mathrm{MeV}$ auf der Temperatur-Achse etwa dem $4$-Milliarden-fachen $(1.16*10^{12}/293=3.96*10^9)$ der Raumtemperatur
+				\item Und die nukleare Dichte von $0.16$ Baryonen pro Kubikfemtometer selbst ist circa $2$-Billiarden-mal $(0.16*10^{45}/(8,5*10^{28})=1.88*10^{15})$ höher als die Atomdichte in Eisen.
+			\item Derartig extreme Bedingungen erwarten wir im \textbf{frühen Universum}, in \textbf{Neutronensternen} und sie können mit \textbf{Teilchenbeschleuniger} erzeugt werden.
+		\end{itemize}
+	}}
+	\only<2|handout:2>{\note{
+		\begin{itemize}
+			\item Aus experimentellen und theoretische Arbeiten wissen wir das stark WW Materie \textbf{bei hohen Dichten und Temperaturen als ein Gas aus ungebundenen Quarks und Gluonen} vorliegt.
+			Man spricht hier von einem Quark-Gluon Plasma.
+			\item Ebenfalls experimentell und theoretisch gesichert ist, dass bei niedrigen Temperaturen und Dichten Quarks und Gluonen in farb-neutralen Hadronen gebunden sind.
+			\item Wie genau der \textbf{Übergang von gebundenen zu ungebunden Quarks und Gluonen stattfindet} ist bei gerade mittleren Dichten \textbf{noch unklar}.
+			\item Ein wichtiger Ordnungsparameter hier ist das chirale Kondensat, dass in der hadronischen Phase einen nicht-verschwindenden Wert hat, welcher im QGP auf fast Null abfällt.
+			\item Meine Forschungsarbeit beschäftigt sich \textbf{mit chiraler Symmetriebrechung: d.h. dem Bilden und Verschwinden von chiralen Kondensaten} gerade in diesem Bereich\textbf{ mittlerer Dichten und niedriger Temperaturen}. Speziell an der Möglichkeit für inhomogene chirale Phasen habe ich geforscht. Dazu später mehr.
+		\end{itemize}
+	}}
+
+\end{frame}
+
+\begin{frame}{Die Quantenchromodynamik (QCD)}
+	Generierendes Funktional
+	\begin{align*}
+	 Z[J\mkern1.0mu]=\int \mathcal{D}[\chi] \exp\del{-S_\mathrm{QCD} + J^\mathbf{a}\chi_\mathbf{a}}
+	\end{align*}
+	als Zustandssumme/euklidisches Funktionalintegral über die Wirkung
+	\begin{align*}
+		S_\mathrm{QCD}&= \int_x\, \bigg(
+		\frac{1}{4} F_{\mu\nu}^a F_{\mu\nu}^a
+		+\bar{q}(\gamma_\mu D_\mu +\hat{m}- \gamma_4 \hat{\mu}){q}\,+ \ldots
+		\bigg )
+	\end{align*}\vspace{-1em}
+	\begin{itemize}
+		\item<2-|handout:1> Funktionale Ableitungen von $Z[J\mkern1.0mu]$ $\Rightarrow$ Korrelationsfunktionen
+		\item<2-|handout:1> Thermodynamisches Potential $\Omega(\mu,V,T)=-T\ln Z[J=0]$
+		\item<2-|handout:1> Herausforderung: Explizite Berechnung von $Z[J\mkern1.0mu]$
+			\uncover<3-|handout:1>{\begin{itemize}
+				\item Störungstheoretische Berechnung für $\alpha_s\ll 1$
+				\item Direkte numerische Simulation: Gitter QCD
+				\item \textbf{Funktionale Methoden}
+				\item $\ldots$
+			\end{itemize}}
+	\end{itemize}
+	\note{
+		\begin{itemize}
+			\item Die \textbf{grundlegende theoretische Beschreibung der stark WW findet im Rahmen der Quantenchromodynamik} kurz QCD statt.
+			Die QCD ist eine Quantenfeldtheorie, welche die WW von Quarks durch den Austausch von farbgeladenen Gluonen als Eichbosen beschreibt.
+			\item Mathematisch lässt sich dies durch ein \textbf{generiertes Funktional} beschreiben. Welches in Form einer Zustandssumme als \textbf{euklidisches Funktionalintegral über die Wirkung der QCD} gegeben ist. \textbf{Diese Wirkung kodiert die starke WW mikroskopisch.} \switch
+			\item \textbf{Aus dem generieren Funktional können alle makroskopischen Observablen und die Thermodynamik stark WW Materie formal extrahiert werden.}
+			\item Die Herausforderung besteht nun in der expliziten Berechnung der Zustandssumme, dies \textbf{nicht nach Belieben möglich.}\switch
+			\item Eine Vielzahl verschiedener Methoden werden verwendet um es zu berechnen oder zu nähern. Vielversprechend und flexibel sind hierbei Funktionale Methoden.
+		\end{itemize}
+	}
+\end{frame}
+
+\section[FRG und Theorien in \dimcomp{0}]{Funktionale Renormierungsgruppe und Theorien in \dimcomp{0}}
+
+\begin{frame}{Die Funktionale Renormierungsgruppe (FRG)}
+	\begin{itemize}
+		\item Implementierung von K.~G.~Wilsons Ansatz zur RG:
+
+			\vspace{0.25cm}
+			\begin{overlayarea}{\framewidth}{2.2cm}
+				\begin{center}%
+				\only<1|handout:0>{\includegraphics{figures/frg_flow.pdf}}%
+				\only<2-|handout:1>{\includegraphics{figures/frg_flow_t.pdf}}%
+				\end{center}%
+			\end{overlayarea}
+		\item<2-|handout:1> Evolutionsgleichung ($t\equiv -\ln(k/\Lambda)$) statt Funktionalintegral
+			\begin{align*}
+				\partial_t\FSeaa_{k}[\FSsf] = \frac{1}{2}\, \mathrm{STr} \Big( \big[\mkern2mu \overline{\Gamma}_k^{(2)}[\chi] + R_k \big]^{-1}\, \partial_t R_k \Big) =\frac{1}{2}\,\input{diagrams/FRG-wetterichEq-FS0_1_1.tex}
+			\end{align*}
+	\item<2-|handout:1> Exakte funktionale Differentialgleichung \textbf{aber} zur expliziten Lösung sind Trunkierungen nötig!
+	\end{itemize}
+	
+	\blfootnote{%
+		\fncitec{Wilson:1971bg,Wilson:1971dh,Wilson:1979qg}{Wilson 1971, Wilson 1979} und \fncitec{\frgWetterichEq}{Wetterich 1993, Reuter und Wetterich 1994, Morris 1994, Tetradis und
+	Wetterich 1994, Ellwanger 1994}%
+	}
+	
+	\note{
+		\begin{itemize}
+			\item Die funktionale Renormierungsgruppe (kurz) FRG ist eine dieser funktionalen Methoden.
+			\item Die grundlegende Idee der FRG ist das \textbf{Ausintegrieren von Quantenfluktuationen} Impulsschale für Impulsschale nach Wilson.
+			\item In der FRG interpoliert man mit einem \textbf{geeigneten Skalen abhängigem Funktional} -- hier groß Gamma:
+			\item \textbf{zwischen der mikroskopischen, klassischen Wirkung bei hohen RG-Impuls-Skalen im UV}
+			\item \textbf{zu einer makroskopischen Quanten Wirkung bei verschwindenden RG-Impulsskalen-Skalen im IR.} \switch
+			\item Diese \textbf{Skalenevolution ist durch die Wetterich Gleichung in Form einer exakten, funktionale Differential Gleichung} beschrieben. Hier formuliert als eine Evolutionsgleichung in \textbf{RG Zeit}. Die RG Zeit $t$ ist eine \textbf{dimensionslose logarithmische Parametrisierung} der RG-Impuls-Skala $k$ \textbf{und wir evolvieren damit von $t=0$ im UV nach $t$ gegen $\infty$ im IR.} \switch
+			\item \textbf{Explizite Lösungen der vollen funktionalen Differentialgleichungen lassen sich jedoch im Allgemeinen nicht berechnen.}
+			\item \textbf{Für praktische Rechnungen sind Problem- und Theorie-spezifische Trunkierungen und Näherungen nötig.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Forschungsprojekte im Rahmen der Dissertation}
+	\vspace{-0.1cm}
+	\begin{itemize}
+		\item<1-|handout:1> \textbf{Problem:} Etablierte Diskretisierungsverfahren für trunkierte FRG Flussgleichungen sind numerisch unzuverlässig für
+		\begin{itemize}
+			\item Stark im Feldraum gekoppelte Probleme mit Phasenübergängen
+			\item Probleme mit intern/externen getriebenen Schocks/Diskontinuitäten
+			\item Anwendungen bei kleinen $T$, $k$ und besonders bei hohem $\mu$
+		\end{itemize}\vspace{0.25em}
+		\item<2-|handout:1> \textbf{Lösung:} Reformulierung der Flussgleichungen in konservativer Form $\Rightarrow$ Behandlung im Rahmen der Strömungsmechanik\vspace{0.6em}
+		\item<3-|handout:1> \textbf{Adaption von Konzepten und numerischen Methoden aus dem Feld der Strömungsmechanik auf FRG Flussgleichungen}
+		\item<3-|handout:1> \textbf{Einfluss von bosonischen und fermionischen Fluktuationen auf homogene und inhomogene chirale Kondensate}
+	\end{itemize}
+	
+	\uncover<3-|handout:1>{\tikz[overlay, remember picture]{
+		%\draw[gray, thin, step=1cm] (current page.south west) grid (current page.north east);  % Draw a grid over the slide
+		\draw[rounded corners, thick,goetheBlau] (0., 2.8) rectangle (11, 0.55);
+		\node[align=left,anchor=east, font=\normalsize, text=goetheBlau] at (11.14, 0.27) {\textbf{Zentrale Forschungsprojekte}};
+	}}
+
+	\blfootnote{%
+		\fnciteay{Grossi:2019urj}, \fnciteay{zerod1,zerod2,zerod3} und \fnciteay{gn,gns}%
+	}
+	
+	\note{
+		\begin{itemize}
+			\item Ein großes Problem, welches im Rahmen unserer Forschung auftrat, war jedoch das etablierte Lösungsverfahren für tunkierte Flussgleichungen sich als unzuverlässig erwiesen haben. Zumindest für die Art von Fragestellungen hier an denen wir interessiert sind.\switch
+			\item Kollegen aus Heidelberg haben damals die Lösung angestoßen. Diese besteht in einer Reformulierung von Flussgleichungen in konservativer Form.
+			Dies wiederum erlaubt die direkte Anwendung von \textbf{hoch-entwickelten numerischen Methoden aus dem Feld der Strömungsmechanik}.\switch
+			\item Es haben sich damit \textbf{zwei zentrale Forschungsprojekte} im Rahmen meiner Promotion gebildet. 
+			\item Zum Einen\textbf{ methodische Entwicklungen zur Adaption von Konzepten aus der Strömungsmechanik auf FRG Flussgleichungen}. 
+			\item Und zum Anderen, die \textbf{Anwendung dieser Methoden zum Studium von homogenen und inhomogenen chiralen Kondensaten}.
+			Hierbei lag der \textbf{ Fokus auf dem Einfluss von fermionischen und bosonischen Fluktuationen}.
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Das \only<1|handout:0>{$O(N)$}\only<2>{$O(1)$}-Modell in \dimcomp{0} -- Die perfekte Testumgebung}
+	Untersuchung von gewöhnlichen \only<1>{$N$-dimensionalen}\only<2>{eindimensionalen} Integralen der Form
+		\only<1|handout:0>{
+			\begin{align*}
+				Z(\vec{J}\,) = \vphantom{\int_{-\infty}^{+\infty} }\int_{\Reals{}^N} \dif\vec{\phi}\, \exp\big(- \mathcal{S} ( \vec{\phi}\, )  +\vec{J}\cdot\vec{\phi}\,\big)
+			\end{align*}
+		}%
+		\only<2>{
+			\begin{align*}
+				Z(J\,) = \int_{-\infty}^{+\infty} \dif\phi\, \exp\big(- \mathcal{S} ( \phi )  +J \phi \,\big)
+			\end{align*}
+		}%
+	mit der Funktionalen Renormierungsgruppe:
+
+	\begin{itemize}
+		\item \textbf{Perfekte Testumgebung:} 
+		\begin{itemize}
+			\item Exakte Referenzwerte für alle Theorien \only<1|handout:0>{$\mathcal{S}(\vec{\phi}\,)$ mit $O(N)$ Symmetrie}\only<2>{$\mathcal{S}(\phi)$ mit $\mathbb{Z}_2$ Symmetrie}
+			\item Keine Trunkierung nötig
+			\item FRG Flussgleichungen: nicht-trivial und strukturell ähnlich zu $d>0$
+			\item Ideal für konzeptionelle und numerische Entwicklungen
+		\end{itemize}
+	\end{itemize}
+
+	\blfootnote{ \fnciteay{Keitel:2011pn} und \fnciteay{zerod1,zerod2,zerod3}}
+	
+	\note{
+		\begin{itemize}
+			\item Für die angesprochenen \textbf{technischen Entwicklungen haben wir null-dimensionale $O(N)$ Modelle verwendet}.
+			\item Ein nulldimensionales $O(N)$-Modell ist ein sehr einfaches mathematisches Objekt: nämlich ein $N$-dimensionales, gewöhnliches Integral.
+			Im Grenzfall für nur eine Skalar hier noch expliziter als ein eindimensionales Integral. \switch
+			\item \textbf{Diese Art von Integral können wir für beliebige $\mathcal{S}$ und $J$ ganz einfach numerisch berechnen.}
+			Wir können sie aber auch \textbf{alternativ mit exakten, nicht-trivialen FRG Flussgleichungen} lösen.
+			\textbf{Exakte Flussgleichungen und exakte Referenzwerte machen null-dimensionale Modelle zur idealen Testumgebung.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Die FRG als Integraldeformation für $N=1$ mit $r(t)\equiv \Lambda\mkern1.5mu \eu^{-t}$}
+	\centering
+	\includegraphics[width=0.47\framewidth]{../0d/figures/rg_flow_integrand_z_smooth.pdf}
+	
+	\blfootnote{\fnciteay{zerod1}}
+	
+	\note{
+		\begin{itemize}
+			\item In \textbf{null Dimensionen } kann ich Ihnen jetzt auch \textbf{anschaulich erklären was die FRG jetzt eigentlich ist} und wie wir mit Ihr Integrale berechnen.
+			\item \textbf{Mit der FRG Lösen wir Integrale in dem wir sie verformen.}
+			\item Wir deformieren die komplizierten Integranden, die wir im IR berechnen wollen durch einen skalenabhänigen Massenterm auf einfache Glockenkurven im UV.
+			\item Die Integrale im UV lassen sich dann einfach als Gauß'sche Integrale berechnen.
+			\item Wir nehmen diese einfachen Integrale als Anfangsbedingung im UV und berechnen die komplizieren Integrale im IR durch sukzessive Deformation der Anfangsbedingung.
+		\end{itemize}
+	}
+\end{frame}
+
+
+\begin{frame}{FRG und numerische Strömungsmechanik}
+	\begin{itemize}
+		\item<1-|handout:1>	 FRG Flussgleichung für das $O(N)$-Modell in \dimcomp{0} als \textbf{Erhaltungsgleichung}:
+			\begin{align*}
+				\partial_\sigma \partial_t U(t,\sigma) \equiv \partial_t u ( t, \sigma ) = -\partial_\sigma \textcolor{emoRot}{F [ t, \sigma, u ( t, \sigma ) ]} + \partial_\sigma \textcolor{goetheBlau}{ Q [ t, \partial_\sigma u ( t, \sigma ) ]}
+			\end{align*}
+	\item<2-|handout:1>	\textbf{FRG-Fluss} im wahrsten Sinne des Wortes:\\[-1.75em]
+		\begin{align*}
+			\text{\textcolor{emoRot}{\textbf{Advektion:~}}}\textcolor{emoRot}{F [ t, \sigma, u ( t, \sigma ) ]} = \, & - ( N - 1 )\, \frac{\tfrac{1}{2} \, \partial_t r ( t )}{r ( t ) + \frac{1}{\sigma} \, u ( t, \sigma )} \, = \input{diagrams/SU2model0d-Uflow_00103_1.tex}
+			\\[-0.5em]
+			\text{\textcolor{goetheBlau}{\textbf{Diffusion:~}}}\textcolor{goetheBlau}{ Q [ t, \partial_\sigma u ( t, \sigma ) ]} = \, & \frac{\tfrac{1}{2} \, \partial_t r ( t )}{r ( t ) + \partial_\sigma u ( t, \sigma )} \, = \input{diagrams/SU2model0d-Uflow_00014_1.tex}
+			\end{align*}\vspace{-1.6em}			
+\item<2-|handout:1> Adaption eines \textit{``finite volume''} Verfahrens für die FRG Flussgleichung
+		\end{itemize}
+
+\blfootnote{ \fnciteay{Grossi:2019urj} und \fnciteay{zerod1} mit Adaption von \fnciteay{KTO2-0} }
+
+	\note{
+		\begin{itemize}
+			\item Diese \textbf{Deformation} wird auf dem Level eines \textbf{Skalen abhängigen WW Potenzial} in der FRG durch eine \textbf{partielle Differentialgleichung}
+		beschrieben.
+			\item Wenn wir eine \textbf{Ableitung dieser Gleichung in Feldrichtung} betrachten finden wir eine \textbf{Erhaltungsgleichung}: eine Flussgleichungen im wahrsten Sinne. \switch
+			\item Wir behandeln hier eine konservative Gleichung mit einem \textbf{Advektions- und einem Diffusionsterm}.\switch
+			\item Für die numerische Lösung dieser Gleichungen haben wir ein,\textbf{ in der Strömungsmechanik fest etabliertes, \textit{finite volume} Verfahren adaptiert}.
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{FRG Fluss für $N = 1$ und $\mathcal{S}(\phi)=U(t=0,\phi)=-\tfrac{1}{2}\phi^2+\tfrac{1}{4!}\phi^4$}
+	\centering
+	\includegraphics[width=0.47\framewidth]{../0d/figures/sc_ii_n_on=1_n=800_xmax=10_lambda=1.0e12_tir=60_rg_flow.pdf}
+
+	\blfootnote{\fnciteay{zerod1}}
+
+	\note{
+		\begin{itemize}
+			\item Damit nun die besprochene Integral Deformation als numerischer FRG Fluss: \textbf{oben der Fluss des Potentials} und \textbf{unten der zu Grunde liegende Fluss der Ableitung}.
+			\item \textbf{Wir haben im UV bei $t=0$ die klassische, mikroskopische Wirkung als Anfangsbedienung und evolvieren diese in RG Zeit durch numerisches Lösen der Flussgleichungen ins IR zu hohen RG Zeiten und erhalten so die volle makroskopische Quantenwirkung.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Und noch viel mehr $\ldots$}
+	\hypersetup{linkcolor=goetheBlauDarker} 
+	\begin{itemize}
+		\item \hyperlink{0dScII}{Weitere Testszenarien}
+		\item \hyperlink{0dadvection}{Advektion vs. Diffusion -- Pionen vs. Sigma}
+		\item \hyperlink{0dscaling}{Skalierungs- und Konvergenztests}
+		\item \hyperlink{0dxmax}{Randbedingungen}
+		\item \hyperlink{0dLambda}{RG-Konsistenz und UV Skalen $\Lambda$}
+		\item \hyperlink{0dTaylor}{Vergleich mit Taylor-/Vertex-Entwicklung}
+		\item \hyperlink{0dkrange}{Dynamische Reichweite und IR Cutoffs}
+		\item \hyperlink{0dentropie}{Irreversibilität und ``Entropie''-Produktion}
+		\item \hyperlink{0dlargeN}{Advektive Flüsse bei großem $N$}
+		\item \hyperlink{0dfermion}{\textbf{Graßmann-Zahlen: ``Fermionen'' in null Dimensionen}}
+	\end{itemize}
+
+	\blfootnote{ \fnciteay{zerod1,zerod2,zerod3}}
+	\note{
+		\begin{itemize}
+			\item \textbf{An dieser Stelle würde ich gerne viel mehr von unseren Entwicklungen in null Dimensionen präsentieren, aber dann würde mir die Zeit fehlen, die folgenden Anwendungen auf physikalische Modelle zu besprechen.}
+		\end{itemize}
+	}
+\end{frame}
+
+\section[GNY-Modell in \dimcomplus{1}{1}]{Gross-Neveu-Yukawa-Modell in \dimcomplus{1}{1}}
+
+\begin{frame}{Gross-Neveu-Yukawa-Modell in \dimcomplus{1}{1}}
+	\textbf{Testmodell in $1+1$ Dimensionen zum Studium von diskreter chiraler ($\mathbb{Z}_2$) Symmetriebrechung}
+	\begin{align*}
+		\bar{\Gamma}_t [\chi] = \, &\intx[x]\!\!\, \Big( \bar{\psi} \, \big( \slashed{\partial} - \mu \gamma^2 + \tfrac{h}{\sqrt{N}} \, \varphi \big) \, \psi - \tfrac{1}{2} \, \varphi \, ( \Box \varphi ) + U ( t, \varphi ) \Big)
+	\end{align*}\vspace{-.5cm}
+	\begin{itemize}
+		\item $N$ über eine Yukawa-Kopplung ($h$) wechselwirkende Fermionen
+		\item Asymptotisch frei und renormierbar
+		\item $\ldots$
+	\end{itemize}
+	$\Rightarrow$ Gut geeignet für Untersuchungen verschiedener technischer -- für QCD Materie relevanter -- Aspekte.
+	
+	\blfootnote{\fnciteay{gn,gns}}
+	
+	\note{
+		\begin{itemize}
+			\item \textbf{Daher nun direkt von Null zu Zwei Dimensionen: Hier haben wir das sog. Gross-Neveu-Yukawa-Modell mit der FRG studiert. Dieses eignet sich sehr gut als Testmodell zum Studium von dynamischer chiraler Symmetriebrechung.}
+			\item Dieser Mechanismus ist äußerst relevant für QCD.
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Trunkierte Flussgleichung in \textit{``local potential approximation''}}
+	\begin{itemize}
+		\item<all:+->	LPA Flussgleichung für das GNY-Modell in  \dimcomplus{1}{1}:
+			\begin{align*}
+				\partial_t \partial_\sigma U ( t, \sigma ) \equiv \partial_t u ( t, \sigma ) = \partial_\sigma \textcolor{goetheBlau}{ Q [ t, \partial_\sigma u ( t, \sigma ) ]} + \textcolor{gruen}{ S [ t, \sigma]}
+			\end{align*}
+		\item	\textbf{\textcolor{goetheBlau}{Diffusion}sgleichung mit \textcolor{gruen}{Quellen/Senken}:}\\[-1.25em]
+			\begin{align*}
+				\textcolor{goetheBlau}{ Q [ t, \partial_\sigma u ( t, \sigma ) ]} = \, & \input{diagrams/SU2model0d-Uflow_00014_1.tex}
+				=\,  - \frac{1}{\piu N} \, \frac{k_t^3}{2 E_{\textrm{b}} ( t, \partial_\sigma u )} \, \big[ 1 + 2 \, n_\mathrm{b} ( \beta E_{\textrm{b}} ( t, \partial_\sigma u ) ) \big]\\[.2cm]
+				\textcolor{gruen}{S [ t, \sigma ]} =\,&-\frac{1}{2}\partial_\sigma \,\begin{gathered}\includegraphics{diagrams/SU2model0d-UFlow_10002_1.pdf}\end{gathered}
+				=\, \partial_\sigma  \bigg( \frac{1}{\piu} \, \frac{k_t^3}{E_{\textrm{f}} ( t, \sigma )} \, \big[ 1 -\\&\qquad - n_\mathrm{f} ( \beta [ E_{\textrm{f}} ( t, \sigma ) + \mu ] ) - n_\mathrm{f} ( \beta [ E_{\textrm{f}} ( t, \sigma ) - \mu ] ) \big] \bigg)
+			\end{align*}\vspace{.2cm}
+			mit $E_\mathrm{b} ( t, \partial_\sigma u ) \equiv \,  \sqrt{ k_t^2 + \partial_\sigma^2 U ( t, \sigma ) }$ und $E_\mathrm{f} ( t, \sigma ) \equiv \,  \sqrt{ k_t^2 + ( h \, \sigma )^2 }$.
+	\end{itemize}
+	
+	\blfootnote{\fnciteay{gn}}
+	
+	\note{
+		\begin{itemize}
+			\item Lassen Sie mich\textbf{ direkt zur Flussgleichungen} kommen. In der sogenannten local potential approximation kurz LPA manifestiert sich die Flussgleichung wieder als Erhaltungsgleichung.
+			Diesmal als eine Diffusionsgleichung mit Quellen und Senken. 
+			\item \textbf{Hier liefert das Boson den diffusen Beitrag und die Fermionen sind für die Quellen und Senken verantwortlich.}
+		\item \textbf{Auf diese Gleichung können wir im Prinzip direkt die in null Dimensionen entwickelten Konzepte anwenden.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{FRG Flüsse im GNY-Modell}
+	\begin{columns}
+		\begin{column}{0.47\framewidth}
+			\centering
+			nur fermionische Fluktuationen (MF: $N\rightarrow\infty$)\\\vspace{.2cm}
+			\includegraphics[width=0.47\framewidth]{../gn/figures/flow_MF_T=0.00625,mu=0.6.pdf}
+		\end{column}\hspace{.5cm}
+		%
+		\uncover<2-|handout:1>{\begin{column}{0.47\framewidth}
+			\centering
+			fermionische und bosonische Fluktuationen (LPA: $N=2$)\\\vspace{.2cm}
+			 \includegraphics[width=0.47\framewidth]{../gn/figures/flow_N=2,T=0.00625,mu=0.6.pdf}
+		\end{column}}
+	\end{columns}
+	
+	\blfootnote{\fnciteay{gn}}
+	\note{
+		\begin{itemize}
+			\item \textbf{Hier ein exemplarischer FRG Fluss zunächst nur unter Berücksichtigung der Fermionen.} Wir
+			starten im \textbf{UV mit einer freien Theorie }und fließen ins IR. Dabei agieren die \textbf{Fermionen auf
+			Level des Potenzials als Senken} und es bildet sich ein \textbf{nicht triviales Minimum}.
+			Dieses \textbf{Minimum signalisiert eine spontane chirale Symmetriebrechung} welche dynamisch durch das Ausintegrieren der fermionischen Fluktuationen ermöglicht wird.
+			Es bildet sich als Konsequenz ein \textbf{nichtverschwindendes chirales Kondensat} aus. \switch
+			\item \textbf{Betrachten wir nun rechts die Rolle von bosonsichen Fluktuationen}. \textbf{Zunächst dominieren wieder die Fermionen} und es bildet sich ein Minimum aber auf Grund der \textbf{Diffusion durch die bosonischen Fluktuationen} überlebt dieses nicht bis ins IR.
+			Im \textbf{IR ist die chirale Symmetrie nicht mehr spontan gebrochen}.
+			\textbf{Sprich die Bosonen verdampfen das durch die Fermionen gebildete chirale Kondensat.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Das homogene Phasendiagramm}
+	\hypersetup{linkcolor=goetheBlauDarker} 
+	\begin{columns}
+		\begin{column}{0.47\framewidth}
+			\centering
+			\includegraphics[width=0.47\framewidth]{../gn/figures/phase_boundaries.pdf}
+		\end{column}\hspace{.1cm}
+		%
+		\begin{column}{0.5\framewidth}
+			\begin{itemize}
+				\item Keine Symmetriebrechung im IR für endliche $N$ und $T>0$
+				\item \hyperlink{2dvac}{Symmetriebrechung im Vakuum ($T=\mu=0$)}
+				\item \hyperlink{2dqpt}{Anzeichen für Symmetriebrechung bei $T=0$ und $\mu>0$}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\blfootnote{\fnciteay{gn}}
+	
+	\note{
+		\begin{itemize}
+			\item \textbf{Derartige Flüsse können wir nun bei verschiedenen Temperaturen und chemischen Potenzialen berechnen und so ein Phasendiagramm ermitteln.}
+			\item\textbf{Generell haben unsere Untersuchungen gezeigt, dass das chirale Kondensat mit sinkender RG Skala immer weiter schrumpft und letztlich im IR für nicht-verschwindende Temperaturen komplett von den Bosonen verdampft wird.}
+			\item \textbf{Nur bei verschwindenden Temperaturen finden wir Anzeichen für Kondensation.}
+			\item \textbf{Mit formal undenklich vielen Fermionen lassen sich die bosonischen Fluktuationen komplett unterdrücken und wir reproduzieren das bekannte Literaturergebnis (hier links in Gelb) mit einer gebrochenen Phase bei niedrigen Temperaturen und chemischen Potentialen und einer Restaurierten Phase bei höheren.}
+			\item \textbf{Das Literaturergebnis ohne bosonische Fluktuationen in der sog. Mean-Field Näherung basiert jedoch auf der restriktiven Annahme, dass das chirale Kondensat homogen in der einen Raumrichtung des Modells vorliegt.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Inhomogene Phasen im MF/Limes $N\rightarrow\infty$}
+	\includegraphics[width=0.47\framewidth]{../gn/figures/largeN_pd.pdf}\hspace{.5cm}
+	\includegraphics[width=0.47\framewidth]{../gn/figures/condensate.pdf}
+	
+	\uncover<2-|handout:1>{
+	\begin{itemize}
+		\item Semi-analytische Methoden zur direkten Berechnung einer inhomogenen Phase (IP) für $N\rightarrow\infty$
+		\item Stabilitätsanalyse als flexible indirekte Detektionsmethode
+	\end{itemize}
+	}
+	
+	\blfootnote{Literaturergebnisse \fnciteay{Schnetz:2004vr,Schnetz:2005ih,Schnetz:2005vh,Basar:2009fg} und Stabilitätsanalyse \fnciteay{gns}}
+	
+	\note{
+		\begin{itemize}
+			\item Arbeiten die ein \textbf{inhomogenen Kondensat zulassen} finden zwar auch eine \textbf{homogen-gebrochene Phase} hier, aber bei höheren chemischen Potenzialen und entsprechenden Dichten findet man eine\textbf{ äußerst dominante inhomogene Phase} hier.
+			In dieser Phase oszilliert das Kondensat wie hier links veranschaulicht im Raum.
+			Bei hohen Temperaturen finden wir dann wieder die homogen restaurierte Phase. \switch
+		\item \textbf{Dieses Literatur Ergebnis wurde mit äußerst speziellen und komplizierten semi-analytischen Methoden berechnet, welche sich nicht direkt vom MF auf die FRG übertragen lassen.}
+			\item \textbf{Daher haben wir dieses Modell zur Hand genommen um eine Stabilitätsanalyse der homogenen Phase als alternative und flexiblere Methode im Detail zu testen.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Stabilitätsanalyse der homogenen Phase im MF/Limes $N\rightarrow\infty$}
+	\hypersetup{linkcolor=goetheBlauDarker} 
+	\begin{columns}
+		\begin{column}{0.47\framewidth}
+			\centering
+			\includegraphics[width=0.47\framewidth]{../gn/figures/stab_pd.pdf}
+		\end{column}\hspace{.1cm}
+		%
+		\begin{column}{0.5\framewidth}
+			\begin{itemize}
+				\item LP und (SP$\leftrightarrow$IP)-Phasengrenze sind mit der Stabilitätsanalyse \hyperlink{2dstab}{detektierbar}
+				\item (HBP$\leftrightarrow$IP)-Phasengrenze \hyperlink{2dstab}{nicht detektierbar}
+				\item \textit{``Moat regime''} mit $Z<0$ als Vorläufer der inhomogenen Phase
+			\end{itemize}
+		\end{column}
+	\end{columns}
+
+	\blfootnote{\fnciteay{gns} und Arbeiten zum \textit{``Moat regime''} \fnciteay{Rennecke:2021ovl,Pisarski:2020gkx,Pisarski:2021qof, Pisarski:2020dnx}}
+	
+	\note{
+		\begin{itemize}
+			\item \textbf{Mit dieser indirekten Methode ist man in der Lage eine inhomogene Phase und dessen Vorläufer zu finden und auch gewisse quantitative Aussagen sind möglich.}
+		\end{itemize}
+	}
+\end{frame}
+
+\section[QM-Modell in \dimcomplus{3}{1}]{Quark-Meson-Modell in \dimcomplus{3}{1}}
+
+\begin{frame}{Zwei Flavor Quark-Meson-Modell in \dimcomplus{3}{1}}
+	\textbf{Effektive Niederenergietheorie der QCD im Rahmen der FRG hier wieder in LPA} 
+		\begin{align*}
+			\FSeaa_k[\chi]&= \intx[x]\!\,\Big( 
+			\bar{\psi}\big(\gamma_\mu \partial_\mu -\gamma_4\mu + h( \suIItup{0}\MFphi_0 + \iu\gammach \suIItup{a}\MFphi_a )\big)\psi 
+			+\tfrac{1}{2}\big(\partial_\mu\MFphi\big)^2
+			+U_{k}(\tfrac{\MFphi^2}{2})
+			\Big)
+		\end{align*}\vspace{-.5cm}
+		\begin{itemize}
+			\item Explizites inhomogenes Kondensat: chirale Dichtewelle (CDW)
+			\begin{align*}
+				\MFphi(\vec{x}\vts)\equiv (\sigma(\vec{x}\vts),0,0,\pi_3(\vec{x}\vts)) \equiv \Delta(\cos(\vec{q}\cdot\vec{x}\vts),0,0,\sin(\vec{q}\cdot\vec{x}\vts))
+			\end{align*}
+			\item Analytische Konstruktion der \textbf{\hyperlink{cdwFlow}{expliziten LPA Flussgleichung der CDW}} mittels {\hypersetup{linkcolor=goetheBlauDarker}\hyperlink{cdwU}{unitärer Transformationen}}
+		\end{itemize}
+
+	\blfootnote{\fnciteay{FuQCDRev}, \fnciteay{Dautry:1979bk} und \fnciteay{Steil:2024phd}}
+	
+	\note{
+		\begin{itemize}
+			\item Damit möchte ich zum Abschluss kurz zu meinen \textbf{Rechnungen in vier Dimensionen} kommen. Hier habe ich das\textbf{ Quark-Meson-Modell als effektive Niederenergietheorie der QCD} studiert.
+			\item \textbf{Das Ziel hier ist explizite inhomogene chirale Phasen in einem QCD nahen Modell im Rahmen der FRG zu studieren. Diese Untersuchung dient als komplementäre Rechnung zu existierenden und geplanten Stabilitätsanalysen.}
+			\item \textbf{Ich habe in local potential approximation ein sehr spezielles inhomogenes Kondensat betrachtet. Und zwar die sog. chirale Dichtewelle in der das Kondensat zwischen einer Pion und Sigma Richtung spiralförmig im Raum rotiert.}
+			\item \textbf{Diese Art von Kondensat hat eine Vielzahl mathematisch angenehmer Eigenschaften, welche es mir ermöglicht haben eine explizite Flussgleichung abzuleiten.}
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Das inhomogene Phasendiagramm in MF}
+	\textbf{RG-konsistente MF Rechnungen -- nur fermionische Fluktuationen -- als erster Schritt zur vollen Lösung und als Konsistenzcheck zu existierenden MF Rechnungen}\\\vspace{.4cm}
+	\centering
+	\includegraphics[width=0.7\framewidth]{../qmm/figures/eMFA_QMMCDW_PD_BC_04_all_88_300_600.pdf}
+	
+	\blfootnote{Existierenden MF Rechnungen \fnciteay{Adhikari:2017ydi,Carignano:2014jla}}
+	
+	\note{
+		\begin{itemize}
+			\item Mit der hergeleiteten Flussgleichungen habe ich zunächst \textbf{MF Rechnungen unter Vernachlässigung der bosonischen Fluktuationen }angestellt.
+			Diese Rechnungen dienen als \textbf{erster Schritt hin zu einer vollständigen Lösung }und ermöglicht als \textbf{Konsistenzcheck einen Vergleich mit MF Literaturergebnissen}.
+			\item Wie für \textbf{rein fermionischen Rechnungen} in dieser Art von Modellen üblich, findet man auch mit der FRG als Regularisierung, eine \textbf{inhomogene Phase — hier in diesem schmalen Streifen}.
+		\end{itemize}
+	}
+\end{frame}
+
+\section{Zusammenfassung und Ausblick}
+
+\begin{frame}{Zusammenfassung}
+	\begin{itemize}
+		\item (Numerische) Strömungsmechanik für die FRG
+		\begin{itemize}
+			\item Methodische, konzeptionelle und didaktische Entwicklungen in \dimcomp{0}
+			\item Anwendung im Gross-Neveu-Yukawa-Modell: Bosonische Fluktuationen verhindern Kondensation bei $T\neq 0$ in \dimcomplus{1}{1}
+		\end{itemize}\vspace{0.2em}
+		\item Stabilitätsanalyse als indirekte Detektionsmethode für inhomogene Phasen\vspace{0.2em}
+		\item Quark-Meson-Modell mit explizitem inhomogenen Kondensat im Rahmen der FRG
+		\begin{itemize}
+			\item FRG Flussgleichung für CDW Kondensat mittels unitärer Transformationen
+			\item RG-konsistente MF Rechnung als erster Schritt zur vollen numerischen Lösung
+		\end{itemize}
+	\end{itemize}
+	
+	\blfootnote{\fnciteay{zerod1,zerod2,zerod3}, \fnciteay{gn} und \fnciteay{gns}}
+	
+	\note{
+		\begin{itemize}
+			\item \textbf{Damit bin ich quasi am Ende meines Vortrags angelangt. Lassen sie mich kurz Zusammenfassen:}
+			\item Ich habe mich im Rahmen meiner Promotion mit numerischer Strömungsmechanik für FRG Flussgleichungen beschäftigt
+			\item und homogene und inhomogene chirale Kondensate in zwei und vier dimensionalen Modellen untersucht.
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Ausblick}
+	\begin{itemize}
+		\item (Numerische) Strömungsmechanik für die FRG in \dimcomp{0}
+		\begin{itemize}
+			\item \textbf{Modelle mit Graßmann-Zahlen} $\Rightarrow$ Laufende Yukawa Kopplung
+			\item Entropie Funktion in Anwesenheit von Quelltermen
+		\end{itemize}\vspace{0.2em}
+		\item Gross-Neveu-Yukawa-Modell in \dimcomplus{1}{1}
+		\begin{itemize}
+			\item Stabilitätsanalyse mit bosonischen Fluktuationen
+			\item Verbesserung der Trunkierung
+		\end{itemize}\vspace{0.2em}
+		\item Quark-Meson-Modell in \dimcomplus{3}{1}
+		\begin{itemize}
+			\item \textbf{Veröffentlichung der RG-konsistenten MF Rechnung und Flussgleichung mit der CDW}
+			\item \textbf{Numerische Lösung der hergeleiteten Flussgleichung für die CDW $\Rightarrow$ Einfluss von bosonischen Fluktuationen auf explizites inhomogenes Kondensat}
+			\item Komplementäre Stabilitätsanalyse $\Rightarrow$ Direkte vs. indirekte Detektion inhomogener Phasen
+		\end{itemize}
+	\end{itemize}
+
+	\blfootnote{\fncitec{Steil:partIVminimal}{Steil und Koenigstein (in Vorbereitung)} und \fncitec{Steil:2024RGMF}{Steil, Buballa und Schaefer (in Vorbereitung)}}
+	
+	\note{
+		
+		\begin{itemize}
+			\item \textbf{Abschließen will ich letztlich mit diesem Ausblick über geplante und mögliche weiterführende Forschung.}
+			\item In Bezug auf\textbf{ Null dimensionale Modelle } sind \textbf{Grassmann-Zahlen als das Analogon zu Fermionen in null Dimensionen} noch ein großer Forschungsschwerpunkt.\textbf{ Hier haben wir ein Manuskript in Arbeit.}
+			\item \textbf{Im Gross-Neveu-Yukawa-Modell gibt es auch noch vielversprechende und wichtige Weiterentwicklungen aber mein Fokus liegt aktuell auf den begonnen Arbeiten im Quark-Meson-Modell.}
+			\item Hier steht die \textbf{Veröffentlichung der MF Rechnungen und Flussgleichungen für die CDW} noch aus. \textbf{Auch hierzu ist ein Manuskript in Arbeit.}
+			\item \textbf{Der logische nächste große Schritt ist dann die volle Lösung der hergeleiteten Flussgleichungen mit den nun etablierten numerischen Methoden.}
+		\end{itemize}\vspace{1em}
+		\begin{itemize}
+			\item \textbf{Damit bin ich am Ende meines Vortrags angelangt und ich Danke vielmals für Ihre Aufmerksamkeit!}
+		\end{itemize}
+	}
+\end{frame}
+
+% Black slide using TikZ
+{
+\usebackgroundtemplate{
+\tikz[overlay,remember picture] \fill[deepblack] (current page.south west) rectangle (current page.north east);
+}
+\begin{frame}[plain,noframenumbering]
+\end{frame}
+}
+
+\appendix
+\begin{backup}
+
+\section{Referenzen}
+\setbeamertemplate{frametitle continuation}{}
+\begin{frame}[allowframebreaks]{Referenzen}
+	\begingroup
+		\printbibliography[heading=none]
+	\endgroup
+\end{frame}
+
+\input{app_0d}
+\input{app_2d}
+\input{app_4d}
+
+\end{backup}
+\end{document}

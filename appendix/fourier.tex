@@ -1,0 +1,90 @@
+\section{Fourier transformations and functional derivatives}\label{app:fourier}
+\def\pmsL{true}
+For $d$-dimensional Euclidean \qfts{} at zero temperature and the corresponding \dxyDimensional{s}{1} theories at non-zero temperature $T=1/\beta$, see also \cref{app:thermalQFT}, we use the following conventions for Fourier transformations of bosonic ($\MFphi$) and fermionic ($\MFpsi$, $\MFpsib$) fields
+\begin{alignat}{2}
+	\MFphi(x) &= \intp\, \MFphi(p)\, \eu^{+\iu p\cdot x} \, ,%
+		&&\quad \MFphi(\vec{x},\tau) = \sumintpn\, \MFphi(\vec{p},\omega_n) \, \eu^{+\iu(\vec{p}\cdot\vec{x}+\omega_n \tau)} \, ,\label{eq:FTphi}\\
+	\MFpsi(x) &= \intp\, \MFpsi(p)\, \eu^{+\iu p\cdot x},%
+		&&\quad \MFpsi(\vec{x},\tau) = \sumintpn\, \MFpsi(\vec{p},\nu_n) \, \eu^{+\iu(\vec{p}\cdot\vec{x}+\nu_n \tau)} \, ,\label{eq:FTpsi}\\
+	\MFpsib(x) &= \intp\, \MFpsib(p)\, \eu^{-\iu p\cdot x},%
+		&&\quad \MFpsib(\vec{x},\tau) = \sumintpn\, \MFpsib(\vec{p},\nu_n) \, \eu^{-\iu(\vec{p}\cdot\vec{x}+\nu_n \tau)} \, .\label{eq:FTpsib}
+\end{alignat}
+
+The corresponding inverse transformations are given by
+\begin{alignat}{2}
+	\MFphi(p) &= \intx\, \MFphi(x)\, \eu^{-\iu p\cdot x} \, ,%
+		&&\quad \MFphi(\vec{p},\omega_n) = \intxt\, \MFphi(\vec{x},\tau)\, \eu^{-\iu(\vec{p}\cdot\vec{x}+\omega_n \tau)} \, ,\\
+	\MFpsi(p) &= \intx\, \MFpsi(x)\, \eu^{-\iu p\cdot x} \, ,%
+		&&\quad \MFpsi(\vec{p},\nu_n) = \intxt\, \MFpsi(\vec{x},\tau)\, \eu^{-\iu(\vec{p}\cdot\vec{x}+\nu_n \tau)} \, ,\\
+	\MFpsib(p) &= \intx\, \MFpsib(x)\, \eu^{+\iu p\cdot x} \, ,%
+		&&\quad \MFpsib(\vec{p},\nu_n) = \intxt\, \MFpsib(\vec{x},\tau)\, \eu^{+\iu(\vec{p}\cdot\vec{x}+\nu_n \tau)} \, .
+\end{alignat}
+Appropriate boundary conditions for the fields \dash{} (anti-)periodic ones for fermionic/bosonic fields \dash{} in position space at non-zero temperature are implemented by series using discrete bosonic $\omega_n = 2n \tfrac{\piu}{\beta}$ and fermionic $\nu_n=(2n+1)\tfrac{\piu}{\beta}$ Matsubara frequencies, \cf{} \cref{app:grandCanonicalPartitionFunction,app:matsubaraSums}.
+
+Throughout this work we usually abbreviate momentum and position space integrals and sums over internal indices with a single $\int$ or $\sumint$.
+Appropriate factors of $1/\beta$ for Matsubara sums and powers of $1/(2\piu)$ for momentum-space integrals are included in the $\sumint$- and $\int$-symbols:
+\begin{align}
+\intxL[x_1,\ldots,x_m] &\rightarrow \intxS[x_1,\ldots,x_m]\,,\\[.1em]
+\intpL[p_1,\ldots,p_m] &\rightarrow \intpS[p_1,\ldots,p_m]\,,\\[.1em]
+\intxtL[x_1,\ldots,x_m][s][V_s][\tau_1,\ldots,\tau_m] &\rightarrow \intxtS[x_1,\ldots,x_m][s][V_s][\tau_1,\ldots,\tau_m] \,,\\[.1em]
+\sumintpnL[p_1,\ldots,p_m][s][n_1,\ldots,n_m][m] &\rightarrow \sumintpnS[p_1,\ldots,p_m][s][n_1,\ldots,n_m][m]\,.
+\end{align}
+
+Conventions for Fourier transformations of operators follow from the identities for the fields, \eg{},
+\def\pmsL{false}%
+\begin{alignat}{2}
+	\bar{\Gamma}^{,\MFphi_1\MFphi_2}_k(p_1,p_2)=\intx[x_1,x_2]\,\eu^{-\iu p_1\cdot x_1}\bar{\Gamma}_k^{,\MFphi_1\MFphi_2}(x_1,x_2)\eu^{-\iu p_2\cdot x_2} \, ,\\
+	\bar{\Gamma}^{,\MFpsib_1\MFpsi_2}_k(p_1,p_2)=\intx[x_1,x_2]\,\eu^{+\iu p_1\cdot x_1}\bar{\Gamma}_k^{,\MFpsib_1\MFpsi_2}(x_1,x_2)\eu^{-\iu p_2\cdot x_2} \, ,\\
+	\bar{\Gamma}^{,\MFpsi_1\MFpsib_2}_k(p_1,p_2)=\intx[x_1,x_2]\,\eu^{-\iu p_1\cdot x_1}\bar{\Gamma}_k^{,\MFpsi_1\MFpsib_2}(x_1,x_2)\eu^{+\iu p_2\cdot x_2} \, .
+\end{alignat}
+
+Apart from the introduced conventions for (inverse) Fourier transformations of fields and operators the following identities for delta distributions are very useful in practical computations
+\def\pmsL{true}%
+\begin{align}
+\intx\, \eu^{+\iu p\cdot x} &= (2\piu)^d\delta^{(d)}(p) \, ,\label{eq:Deltap}\\
+%\intp\,\eu^{+\iu p\cdot x} &= \delta^{(d)}(x) \, ,\\
+\intxt\, \eu^{+\iu(\vec{p}\cdot\vec{x}+\upsilon\tau)} &= \beta(2\piu)^s\delta^{(s)}(\vec{p}\vts)\delta(\upsilon) \, ,\label{eq:DeltapT}
+\end{align}
+where $\upsilon$ usually manifests as a sum/difference of Matsubara frequencies, \eg, $\omega_{n_1}+\omega_{n_2}=\omega_{n_1+n_2}$ or $\nu_{n_1}-\nu_{n_2}=\omega_{n_1-n_2}$ in which case $\delta(\upsilon)$ manifests as ${\delta_{0,n_1\pm n_2}=\delta_{n_1,\mp n_2}}$ and is strictly speaking not understood as a distribution.
+Note that \cref{eq:Deltap,eq:DeltapT} are the identity operators in momentum space, given our conventions for momentum integrals and Matsubara sums.
+In the expressions and computations of \cref{app:gn} we will routinely encounter expressions like
+\begin{align}
+	\deltapL[\vec{p}_1\pm \vec{p}_2][s]\equiv \deltapS[\vec{p}_1\pm \vec{p}_2][s]\, ,\label{eq:deltapAbbr}\\[.1em]
+	\deltapnL[\vec{p}_1\pm \vec{p}_2][s][n_1\pm n_2]\equiv \deltapnS[\vec{p}_1\pm \vec{p}_2][s][n_1\pm n_2]\, ,\label{eq:deltapnAbbr}
+\end{align}
+where we introduced the compact notations using $\tilde{\delta}$. 
+This entails in momentum space
+\begin{align}
+	\intpL\deltapL \equiv \intpS\deltapS = 1 \label{eq:psId}\\
+	\sumintpnL\deltapnL \equiv \sumintpnS\deltapnS = 1 \label{eq:psIdT}
+\end{align}
+summarizing the previously introduced compact notations in momentum space.\bigskip
+
+Functional derivatives in position space are understood as
+\begin{alignat}{2}
+	\frac{\delta \MFphi_1(x_1)}{\delta \MFphi_2(x_2)} &= \delta_{a_1 a_2}\delta^{(d)}(x_1-x_2) \, ,\qquad%
+	\frac{\delta \MFphi_1(\vec{x}_1,\tau_1)}{\delta \MFphi_2(\vec{x}_2,\tau_2)} &&=\delta_{a_1 a_2}\delta^{(s)}(\vec{x}_1-\vec{x}_2) \delta(\tau_1-\tau_2) \, ,\\[.5em]
+	\frac{\delta \MFpsi_1(x_1)}{\delta \MFpsi_2(x_2)} &= \delta^{\alpha_1}{}_{\alpha_2} \delta^{(d)}(x_1-x_2) \, ,\qquad%
+	\frac{\delta \MFpsi_1(\vec{x}_1,\tau_1)}{\delta \MFpsi_2(\vec{x}_2,\tau_2)} &&= \delta^{\alpha_1}{}_{\alpha_2} \delta^{(s)}(\vec{x}_1-\vec{x}_2) \delta(\tau_1-\tau_2) \, ,\\[.5em]
+	\frac{\delta \MFpsib_1(x_1)}{\delta \MFpsib_2(x_2)} &= \delta^{\alpha_2}{}_{\alpha_1} \delta^{(d)}(x_1-x_2) \, ,\qquad%
+	\frac{\delta \MFpsib_1(\vec{x}_1,\tau_1)}{\delta \MFpsib_2(\vec{x}_2,\tau_2)} &&= \delta^{\alpha_2}{}_{\alpha_1} \delta^{(s)}(\vec{x}_1-\vec{x}_2) \delta(\tau_1-\tau_2) \, ,
+\end{alignat}
+where discrete bosonic indices are collected in $a$ and discrete fermionic indices are collected in $\alpha$.
+Corresponding functional derivatives in momentum space are given by
+\begin{alignat}{2}
+	\frac{\delta \MFphi_1(p_1)}{\delta \MFphi_2(p_2)} &= \delta_{a_1 a_2}\delta^{(d)}(p_1-p_2) \, ,\qquad%
+		\frac{\delta \MFphi_1(\vec{p}_1,\omega_{n_1})}{\delta \MFphi_2(\vec{p}_2,\omega_{n_2})} &&= \delta_{a_1 a_2}\delta^{(s)}(\vec{p}_1-\vec{p}_2) \delta_{n_1 n_2} \, ,\\[.5em]
+	\frac{\delta \MFpsi_1(p_1)}{\delta \MFpsi_2(p_2)} &= \delta^{\alpha_1}{}_{\alpha_2} \delta^{(d)}(p_1-p_2) \, ,\qquad%
+		\frac{\delta \MFpsi_1(\vec{p}_1,\nu_{n_1})}{\delta \MFpsi_2(\vec{p}_2,\nu_{n_2})} &&= \delta^{\alpha_1}{}_{\alpha_2} \delta^{(s)}(\vec{p}_1-\vec{p}_2) \delta_{n_1 n_2} \, ,\\[.5em]
+	\frac{\delta \MFpsib_1(p_1)}{\delta \MFpsib_2(p_2)} &= \delta^{\alpha_2}{}_{\alpha_1} \delta^{(d)}(p_1-p_2) \, ,\qquad%
+		\frac{\delta \MFpsib_1(\vec{p}_1,\nu_{n_1})}{\delta \MFpsib_2(\vec{p}_2,\nu_{n_2})} &&= \delta^{\alpha_2}{}_{\alpha_1} \delta^{(s)}(\vec{p}_1-\vec{p}_2) \delta_{n_1 n_2} \, ,
+\end{alignat}
+which in combination with the transformations of \cref{eq:FTphi,eq:FTpsi,eq:FTpsib} lead to the rather useful identities for mixed functional derivatives
+\begin{alignat}{2}
+	\frac{(2\piu)^d \delta \MFphi_1(x_1)}{\delta \MFphi_2(p_2)} &= \delta_{a_1 a_2} \eu^{+\iu p_2\cdot x_1} \, ,\qquad%
+		\frac{\beta (2\piu)^s\delta \MFphi_1(\vec{x}_1,\tau_1)}{\delta \MFphi_2(\vec{p}_2,\omega_{n_2})} &&= \delta_{a_1 a_2}\eu^{+\iu(\vec{p}_2\cdot\vec{x}_1+\omega_{n_2} \tau_1)} \, ,\\[.5em]
+	\frac{(2\piu)^d \delta \MFpsi_1(x_1)}{\delta \MFpsi_2(p_2)} &= \delta^{\alpha_1}{}_{\alpha_2} \eu^{+\iu p_2\cdot x_1} \, ,\qquad%
+		\frac{\beta (2\piu)^s\delta \MFpsi_1(\vec{x}_1,\tau_1)}{\delta \MFpsi_2(\vec{p}_2,\nu_{n_2})} &&= \delta^{\alpha_1}{}_{\alpha_2} \eu^{+\iu(\vec{p}_2\cdot\vec{x}_1+\nu_{n_2} \tau_1)} \, ,\\[.5em]
+	\frac{(2\piu)^d \delta \MFpsib_1(x_1)}{\delta \MFpsib_2(p_2)} &= \delta^{\alpha_2}{}_{\alpha_1} \eu^{-\iu p_2\cdot x_1} \, ,\qquad%
+		\frac{\beta (2\piu)^s\delta \MFpsib_1(\vec{x}_1,\tau_1)}{\delta \MFpsib_2(\vec{p}_2,\nu_{n_2})} &&= \delta^{\alpha_2}{}_{\alpha_1} \eu^{-\iu(\vec{p}_2\cdot\vec{x}_1+\nu_{n_2} \tau_1)} \, .
+\end{alignat}\bigskip

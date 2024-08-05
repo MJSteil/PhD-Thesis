@@ -1,0 +1,169 @@
+% ****** Mathematical commands ****** %
+% *** Miscellaneous commands ***
+\newcommand{\ttfrac}[2]{\raisebox{0.78pt}{\scalebox{0.8}{$\genfrac{}{}{}{3}{#1}{#2}$}}} % Small fraction for use in inline text/subscripts
+
+% Spaces
+\newcommand{\verthinmuskip}{1.0mu}
+\newcommand{\vts}{\mskip\verthinmuskip}
+% cf. [https://www.overleaf.com/learn/latex/Spacing_in_math_mode]
+%\quad 	space equal to the current font size (= 18 mu)
+%\, 	3/18 of \quad (= 3 mu) % thin space
+%\: 	4/18 of \quad (= 4 mu) % medium space
+%\; 	5/18 of \quad (= 5 mu) % thick space
+%\! 	-3/18 of \quad (= -3 mu) % negative thin space
+%\ (space after backslash!) 	equivalent of space in normal text
+%\qquad 	twice of \quad (= 36 mu) 
+
+% Symbols
+\newcommand{\skeleton}[1]{%
+	\mathchoice%
+		{\displaystyle\ll\mkern-5mu#1\mkern-5mu\gg}%
+		{\ll\mkern-5mu#1\mkern-5mu\gg}%
+		{\scriptstyle\ll#1\gg}%
+		{\scriptscriptstyle\ll#1\gg}%
+}
+
+% Raise \chi slightly
+\let\oldchi\chi
+\renewcommand{\chi}{%
+\mathchoice%
+	{\raisebox{0.75pt}{$\displaystyle\oldchi$}}
+	{\raisebox{0.75pt}{$\oldchi$}}
+	{\raisebox{0.50pt}{$\scriptstyle\oldchi$}}
+	{\raisebox{0.25pt}{$\scriptscriptstyle\oldchi$}}
+}
+
+% uwave
+\NewDocumentCommand{\Uwave}{mO{-1.2}O{0.8}O{-2}}{%
+	\ooalign{\raisebox{#2\height}{\scalebox{#3}{$\mkern#4mu\sim$}}\cr$#1$\cr}
+}
+\newcommand{\uwave}[1]{\Uwave{#1}[-1.2][0.8][-2]}
+
+% Equal with text
+\newcommand\hastobe{\stackrel{!}{=}}
+\newcommand\stackequals[1]{\stackrel{\normalfont\footnotesize\mbox{#1}}{=}}
+\newcommand\eqrefequals[1]{\stackrel{\normalfont\footnotesize\mbox{\eqref{#1}}}{=}}
+
+% \thickzero since \mathds{0} does not exist
+\newcommand{\thickzero}{
+	\mathchoice%
+		{\mkern5mu\ooalign{\raisebox{.394\height}{\scalebox{.59}{$\mkern-6.3mu\textstyle|\mkern-4.5mu|\mkern-4.5mu|$}}\cr\hidewidth$\displaystyle 0$\hidewidth\cr}\mkern5mu}
+		{\mkern5mu\ooalign{\raisebox{.394\height}{\scalebox{.59}{$\mkern-6.3mu\textstyle|\mkern-4.5mu|\mkern-4.5mu|$}}\cr\hidewidth$\textstyle 0$\hidewidth\cr}\mkern5mu}
+		{\mkern5mu\ooalign{\raisebox{.394\height}{\scalebox{.59}{$\mkern-6.3mu\scriptstyle|\mkern-4.5mu|\mkern-4.5mu|$}}\cr\hidewidth$\scriptstyle 0$\hidewidth\cr}\mkern5mu}
+		{\mkern5mu\ooalign{\raisebox{.394\height}{\scalebox{.59}{$\mkern-6.3mu\scriptstyle|\mkern-4.5mu|\mkern-4.5mu|$}}\cr\hidewidth$\scriptstyle 0$\hidewidth\cr}\mkern5mu}
+}
+
+
+% *** Matrices  ***
+\newcommand{\Id}{\mathds{1}} % Identity matrix
+\newcommand{\Zero}{\thickzero} % Zero matrix
+\newcommand{\tr}{\top} % transpose sign (alternative \intercal)
+
+% *** Sets of numbers in blackboard bold  ***
+\newcommand{\Reals}{\mathds{R}}
+\newcommand{\Integers}{\mathds{N}}
+\newcommand{\Complex}{\mathds{C}}
+
+% *** Mathematical constants ***
+\newcommand{\eu}{\mathrm{e}} % Euler's number
+\newcommand{\iu}{\mathrm{i}\mkern1mu} % Imaginary unit
+\newcommand{\piu}{\mkern1.0mu\uppi\mkern1.0mu} % pi 
+\newcommand{\gammau}{\upgamma} % upright gamma
+\newcommand{\emc}{\upgamma} % Euler–Mascheroni constant
+\newcommand{\emcApprox}{\upgamma\simeq0.577216} % Euler–Mascheroni constant \simeq 0.577215
+\newcommand{\const}{\mathrm{const.}} % constant addition
+\newcommand{\lcs}{\varepsilon} % Levi-Civita Symbol
+\newcommand{\grad}{\nabla} % gradient
+\newcommand{\order}{\mathcal{O}} % order symbol
+\newcommand{\ordern}[1]{\mathcal{O}(#1)} % order
+
+% *** Operators ***
+\newcommand{\difx}{\dif_{\mkern4mu x}} % total derivative w.r.t x
+\newcommand{\dift}{\dif_{\mkern4mu t}} % total derivative w.r.t t
+
+\DeclareMathOperator{\Tr}{Tr} % trace
+\DeclareMathOperator{\STr}{STr} % super trace
+
+\DeclareMathOperator{\arsinh}{\mathrm{arsinh}}
+\DeclareMathOperator{\arcoth}{arcoth}
+\DeclareMathOperator{\artanh}{artanh}
+
+\newcommand{\Det}{\ensuremath{\mathrm{Det}}}
+\newcommand{\diag}{\ensuremath{\mathrm{diag}}}
+
+\DeclareMathOperator{\DLi}{DLi} % DLi
+
+\DeclareMathOperator*{\sumint}{% Sum-Integral operator [https://tex.stackexchange.com/a/68357]
+\mathchoice%
+	{\ooalign{$\displaystyle\sum$\cr\hidewidth$\displaystyle\int$\hidewidth\cr}}
+	{\ooalign{\raisebox{.14\height}{\scalebox{.7}{$\textstyle\sum$}}\cr\hidewidth$\textstyle\int$\hidewidth\cr}}
+	{\ooalign{\raisebox{.2\height}{\scalebox{.6}{$\scriptstyle\sum$}}\cr$\scriptstyle\int$\cr}}
+	{\ooalign{\raisebox{.2\height}{\scalebox{.6}{$\scriptstyle\sum$}}\cr$\scriptstyle\int$\cr}}
+}
+
+\newcommand{\smallergtrsim}{\mkern1.5mu\raisebox{-0.5pt}{\scalebox{0.8}{$\gtrsim$}}\mkern1.5mu}
+\newcommand{\smallerlesssim}{\mkern1.5mu\raisebox{-0.5pt}{\scalebox{0.8}{$\lesssim$}}\mkern1.5mu}
+
+% *** O(N), SU(2), and Z_2 commands *** %
+\newcommand{\ON}{\texorpdfstring{$O(N)$}{O(N)}}
+\newcommand{\ONn}[1]{\texorpdfstring{$O(#1)$}{O(#1)}}
+
+\newcommand{\SU}[1]{\texorpdfstring{$SU(#1)$}{SU(#1)}}
+\newcommand{\suNt}[1]{T_{#1}}
+\newcommand{\suNtup}[1]{T^{#1}}
+\newcommand{\suNta}[1]{\tilde{T}^{#1}}
+\newcommand{\suNU}{\mathcal{U}}
+\newcommand{\suIIt}[1]{t_{#1}}
+\newcommand{\suIItup}[1]{t^{#1}}
+\newcommand{\suIItij}[3]{(t_{#1}){}^{#2}\vts{}_{#3}}
+\newcommand{\suIIIdij}[2]{(\Id_t){}^{#1}\vts{}_{#2}}
+\newcommand{\suIIta}[1]{\tilde{t}\mkern1.0mu{}^{#1}}
+\newcommand{\suIItvec}{\vec{t}}
+
+\newcommand{\uIIt}[1]{t_{#1}}
+\newcommand{\uIItup}[1]{t^{#1}}
+
+\newcommand{\suL}{\mathrm{L}}
+\newcommand{\suR}{\mathrm{R}}
+\newcommand{\suA}{\mathrm{A}}
+\newcommand{\suV}{\mathrm{V}}
+
+\newcommand{\ZII}{\texorpdfstring{$\mathds{Z}_2$}{Z2}}
+
+% *** Multiplication wrappers \cm and \ncm ***
+\newcommand{\cm}[1]{%
+	\foreach \entry [count=\ni] in {#1} {%
+		\ifnum\ni=1{\entry}\else{\mkern1mu\entry}\fi%
+	}%
+}
+
+\newcommand{\ncm}[1]{%
+	\foreach \entry [count=\ni] in {#1} {%
+		\ifnum\ni=1{\entry}\else{\mkern1.5mu\entry}\fi%
+	}%
+}
+
+% *** Primed equations ***
+% WARNING: Use this only inside align to avoid very weird referencing errors
+% WARNING: Never manually iterate an equation counter outside an equation environment! To again avoid very weird and incorrect crossreferencing without any warnings or errors
+\newcounter{eqPrime}
+\renewcommand{\theeqPrime}{\theequation$'$}
+\newcommand{\newEqBlockPrime}{\setcounter{eqPrime}{0}}
+\newcommand{\eqTagPrime}{\stepcounter{eqPrime}\tag{\theeqPrime}}
+
+% *** Subequations ***
+% WARNING: Use this only inside align to avoid very weird referencing errors 
+% WARNING: Never manually iterate an equation counter outside an equation environment! To again avoid very weird and incorrect crossreferencing without any warnings or errors
+% For a plain block of subequations use subequations environment: \begin{subequations}\label{eq:...}\begin{align}...\end{align}\end{subequations} 
+\newcounter{subeqMain}
+\setcounter{subeqMain}{0}
+\newcounter{subeq}
+\newcounter{subeqPrime}
+\renewcommand{\thesubeq}{\theequation\alph{subeq}}
+\renewcommand{\thesubeqPrime}{\theequation\alph{subeqPrime}$'$}
+
+\newcommand{\newSubEqBlock}{\setcounter{subeq}{0}}
+\newcommand{\newSubEqBlockPrime}{\setcounter{subeqPrime}{0}}
+
+\newcommand{\subEqTag}{\refstepcounter{subeqMain}\stepcounter{subeq}\tag{\thesubeq}}
+\newcommand{\subEqTagPrime}{\refstepcounter{subeqMain}\stepcounter{subeqPrime}\tag{\thesubeqPrime}}

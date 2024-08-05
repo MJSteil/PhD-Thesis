@@ -27,9 +27,18 @@
 *.glo
 *.gls
 *.ist
+*eps-converted-to.pdf
 
 #Python auxiliary files:
 __pycache__
+
+#Logos
+logos/crctr2112.eps
+logos/crctr211.eps
+logos/dfg.eps
+logos/hgs-hire.eps
+logos/MartinJSteil-Unterschrift.pdf
+logos/tuda_logo.pdf
 
 #Links
 *.lnk

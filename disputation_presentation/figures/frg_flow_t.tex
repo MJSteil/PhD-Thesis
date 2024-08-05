@@ -1,0 +1,72 @@
+\documentclass{standalone}
+\usepackage{graphicx} % Enhanced support for graphics -- include figure files
+\usepackage{import} % Use \import to load files relative to the \import-ed directory
+\usepackage{xcolor}
+
+% *** GUCD RGB converted CMYKs *** %
+\definecolor{goetheBlau}{RGB}{0, 123, 153}
+\definecolor{lichtBlau}{RGB}{49, 245, 231}
+\definecolor{gruen}{RGB}{89, 140, 31}
+\definecolor{hellesGruen}{RGB}{143, 197, 46}
+\definecolor{sonnenGelb}{RGB}{255, 225, 13}
+\definecolor{senfGelb}{RGB}{240, 182, 0}
+\definecolor{orange}{RGB}{245, 74, 0}
+\definecolor{emoRot}{RGB}{228, 0, 48}
+\definecolor{magenta}{RGB}{207, 32, 198}
+\definecolor{purple}{RGB}{151, 0, 115}
+\definecolor{hellGrau}{RGB}{240, 240, 238}
+\definecolor{sandGrau}{RGB}{225, 233, 222}
+\definecolor{dunkelGrau}{RGB}{48, 48, 45}
+
+\begin{document}
+\def\svgwidth{8cm}
+%% Modified version of Inkscape frg_flow_schematic.pdf_tex
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{211.90866762bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(0.86,0.27)%(0.86,0.26)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+		\put(0.148,0.11){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\infty$\end{tabular}}}}%
+		\put(0.148,0.05){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textcolor{emoRot}{IR}\end{tabular}}}}%
+		\put(0.714,0.11){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
+		\put(0.714,0.05){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textcolor{goetheBlau}{UV}\end{tabular}}}}%
+		
+		\put(0.431,0.01){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}RG Fluss\end{tabular}}}}%
+		\put(0.431,0.22){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{\Gamma}_{k(t)}[\chi]$\end{tabular}}}}%
+		
+    \put(0.75,0.16){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$t$\end{tabular}}}}%
+    
+    
+    \put(0.148,0.22){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\hspace{-0.8em}\begin{tabular}[t]{l}$\Gamma_\mathrm{1PI}[\chi]=\overline{\Gamma}_0[\chi]$\end{tabular}}}}%		
+    
+    \put(0.714,0.22){\color[rgb]{0,0.2,0.2509}\makebox(0,0)[ct]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{\Gamma}_{\Lambda}[\chi]=S_\Lambda[\chi]$\end{tabular}}}}%
+    
+    
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{frg_flow_schematic_t.pdf}}%
+  \end{picture}%
+\endgroup%
+\end{document}

@@ -1,0 +1,38 @@
+% ************ Backmatter ************ %
+\part*{Backmatter}
+\backmatter
+
+% ****** Bibliography ****** %
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}\label{chap:bibliography}
+\printbibliography
+\clearpage
+
+% ****** Acronyms ****** %
+\markright{Acronyms}
+\printglossary[type=\acronymtype,title={Acronyms\label{chap:acronyms}},nogroupskip=true,style=mcolindex]
+\clearpage
+
+\NewDocumentEnvironment{cv}{om}{%
+	\let\oldsection\section
+	\renewcommand{\section}[1]{\cvsection{##1}}
+	\chapter*{#2}\addcontentsline{toc}{chapter}{#2}\label{chap:cv}
+	\begingroup
+	\IfNoValueF {#1} {\begin{otherlanguage}{#1}}
+}{
+	\IfNoValueF {#1} {\end{otherlanguage}}
+	\endgroup
+	\let\section\oldsection
+}
+
+% ****** Curriculum Vitae ****** %
+\markright{Curriculum vitae}
+\begin{cv}{Curriculum vitae}
+\input{cv}
+\end{cv}
+
+% ****** Acknowledgments ****** %
+\markright{Acknowledgments}
+\begin{acknowledgement}{Acknowledgments}
+\input{acknowledgments}
+\end{acknowledgement}

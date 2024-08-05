@@ -1,0 +1,920 @@
+\section{Conservation laws, hydrodynamics, and the finite volume method}\label{sec:conservationLaws}
+\begin{disclaimer}
+	Parts of this section are based on Secs.~IV.B\dash{}C of \nbccite{Koenigstein:2021syz} and on the Apps.~B\dash{}E of \nbccite{Steil:2021cbu}. 
+\end{disclaimer}
+In this section we discuss systems of \pdes{} in one effective temporal direction $(t)$ and one effective spatial direction $(x)$ of the following generic form
+\begin{align}
+	&\dift\! u_i ( t, x ) + \difx\!  F_i [ t, x, \{u_i ( t, x )\} ] = \difx\! Q_i [ t, x, \{u_i ( t, x )\}, \{\partial_x u_i ( t, x )\} ]\,+\notag\\*[.2em] % no page break here
+	&\hphantom{\dift\! u_i ( t, x ) + \difx\!  F_i [ t, x, \{u_i ( t, x )\} ] = \difx\! Q_i [ t, x, \{u_i ( t, x )\}xxx}+S_i [ t, x, \{u_i ( t, x )\} ] \, , \label{eq:FVadsEq}\\[.2em]
+	&\dift\! u_i ( t, x ) + \difx\! C_i [ t, x, \{u_i ( t, x )\}, \{\partial_x u_i ( t, x )\} ] = S_i [ t, x, \{u_i ( t, x )\} ] \, , \label{eq:FVcsEq}
+\end{align}
+where we distinguish between advective contributions $\difx\! F_i[\ldots]$, diffusive contributions$\difx\! Q_i[\ldots]$, and source/sink contributions $S_i [\ldots]$.
+Whether $S_i$ acts as a source or sink in the dynamics of $\{u_i(t,x)\}$ depends on its explicit form.
+Nevertheless we will usually refer to $S_i$ as a source term.
+We also introduced the convective contribution $\difx\! C_i[\ldots]\equiv \difx\! F_i[\ldots] - \difx\! Q_i[\ldots]$, which incorporates both advective and diffusive contributions for the sake of discussion. 
+In this section we will explicitly distinguish between partial $(\partial_x\equiv\partial/\partial x)$ and total  $(\difx\!\equiv\!\dif/\!\dif x)$ derivatives.
+In the following, we occasionally suppress the $t$- and $x$-dependencies of $u_i$, $C_i$, $F_i$, $Q_i$, and $S_i$ for the sake of simplicity.
+Equation \eqref{eq:FVadsEq} is a system of \pdes{} describing the evolution of $m$ conserved quantities $\{u_i ( t, x )\}\equiv \{u_i\}\equiv\{ u_1 , \ldots , u_m \}$ in $t$ and $x$. 
+Depending on the problem at hand these two directions are not necessarily identical with physical spatial and temporal dimensions, but for the following discussion we denote them as such.
+The functions 
+\begin{itemize}
+	\item $F_i [ \{u_i\} ] \equiv F_i [ t, x, \{u_i ( t, x )\} ]$ are components of a non-linear advection flux, 
+	\item $ Q_i [ \{u_i\} , \{\partial_x u_i\} ] \equiv Q_i [ t, x, \{u_i ( t, x)\} , \{\partial_x u_i ( t, x )\} ]$ are components of a non-linear diffusion(dissipation) flux, and 
+	\item $S_i [ \{u_i\} ] \equiv S_i [ t, x, \{u_i ( t, x)\} ]$ are components of a source term.
+\end{itemize}
+The aforementioned fluxes are discussed in detail in \cref{subsec:hydroAdvection,subsec:hydroDiffusion,subsec:hydroSource} respectively.
+The concepts discussed in the following can be generalized beyond one spatial dimension to \dxyDimensional{s}{1} space-time: $( x, t ) \rightarrow ( \vec{x}, t ) = ( x_1, \ldots, x_d, t )$.
+Equation systems similar or even identical to \cref{eq:FVadsEq} are often referred to as conservation laws and appear in many areas of the natural sciences, engineering, and economics.
+They are extensively studied in the field of \acrrepeat{cfd}.
+
+A complete and self-contained introduction to conservation laws in the context of \cfd{} is beyond the scope of this thesis.
+We rather focus on introducing the computational methods we employ, establishing relevant nomenclature, and discussing selected properties of the system~\eqref{eq:FVadsEq}.
+We will discuss the different contributions to \cref{eq:FVadsEq} in \cref{subsec:hydroAdvection,subsec:hydroDiffusion,subsec:hydroSource,subsec:hydroEuler} using explicit educational examples.
+The methodological introduction of \cref{subsec:hydroFV,subsec:hydroKT} is meant to facilitate the computations and discussions in the main part of this thesis, \ie{}, \cref{chap:zeroONSU2,chap:GN}.
+For more details we refer the interested reader to the vast literature discussing conservation laws, \cf{} \ccite{LeVeque:1992,Eymard2000Jan,LeVeque:2002,Hesthaven2007,RezzollaZanotti:2013,Hunter2014,MishraLectureNotes,Vazquez-Cendon2015,polyanin2016handbook,Rezolla2020}.
+
+This section has a corresponding digital auxiliary file~\cite{Steil:2023PhDFVNB}, which includes our latest \WAM{}-implementation of the \acrshort{kt}/\acrshort{knp} scheme discussed in \cref{subsec:hydroKT} and the code to produce all the explicit (numerical) examples discussed in \cref{subsec:hydroAdvection,subsec:hydroDiffusion,subsec:hydroSource,subsec:hydroEuler}.
+
+\clearpage
+\subsection{The finite volume method}\label{subsec:hydroFV}
+\begin{disclaimer}
+	This subsection follows the discussion in Sec.~IV.B of \nbccite{Koenigstein:2021syz} with slight modifications due to the fact that we want to discuss a system of conservation laws for $\{u_i ( t, x )\}$ instead of a single conservation law for $u ( t, x )$. 
+\end{disclaimer}
+In this section we discuss a numerical solution scheme for convection/advection-diffusion equations\footnote{%
+	Oftentimes, such equations are also referred to as ``convection-diffusion equations''.
+	The semantically correct term is nevertheless ``advection-diffusion equation'' because ``convection'' also includes diffusive processes besides the transport by bulk motion (advection), see also \ccite{LeVeque:1992}.%
+} 
+with source terms of the generic type \eqref{eq:FVcsEq}. 
+Considering the convection equation~\eqref{eq:FVcsEq} with specified terms $F_i$, $Q_i$, and $S_i$ in a finite computational domain $\Omega = \mathcal{V} \times [ t_0, t_N ]$, where $\mathcal{V} \subset \Reals{}^1$ denotes the spatial volume, with an \ic{} $u_i( t_0, x )$ and Dirichlet (Neumann) \bcs{} specifying $( \partial_x ) u_i ( t, x ) |_{x \in \partial \mathcal{V}}$, the natural question arises how to evolve the \ic{} in time from $t_0$ to $t_N>t_0$ to acquire a solution $u ( t_N, x )$ respecting the specified \bcs{} \dash{} \ie{}, how to explicitly solve the posed initial-value problem.
+For most problems of the type~\eqref{eq:FVcsEq} an analytic/symbolic explicit solution is not known or even considered to be non-existent.
+Strategies for finding numerical (weak) solutions are required.
+Numerical schemes in the broad class of so-called \acrrepeat{fv} methods are very popular for the numerical solution of \pdes{} describing the conservation or balance of quantities.
+For additional details regarding especially the \fv{} method we refer the interested reader to the textbooks~\cite{LeVeque:2002,Vazquez-Cendon2015}.
+Alternative \hrsc{} schemes in modern computational fluid dynamics are among others: finite-difference schemes including flux limiters/numerical viscosity or finite-element methods.
+
+The concept that all numerical \fv{} methods share is a discretization of the computational domain into space-time control volumes $\mathcal{V}_j \times [ t^l, t^{l+1} ]$, where the set of spatial control volumes $\mathcal{V}_j$ covers the spatial computational domain $\mathcal{V}$.
+Integrating \cref{eq:FVcsEq} over such a control volume centered at $x$, using the divergence theorem (Gauss-Ostrogradsky theorem) on the convection flux, and introducing the sliding cell average
+\begin{align}
+	\bar{u}_{i} ( t, x ) &\equiv \frac{1}{| \mathcal{V}_j |} \int_{\mathcal{V}_j} \dif\xi \, u_i( \xi, t )\\
+	\Rightarrow \bar{u}_{i,j}(t)\equiv \bar{u}_{i} ( t, x_j ) &\equiv \frac{1}{\Delta x_j} \int_{x_{j-\frac{1}{2}}}^{x_{j+\frac{1}{2}}} \dif\xi \, u_i( \xi, t )\, ,\label{eq:FVaverage}
+\end{align}
+where $\mathcal{V}_j = \{ \xi : | \xi - x_j | \leq \Delta x_j/2 \}$, we arrive at an equivalent integral form of \cref{eq:FVcsEq},
+\begin{align}
+	\bar{u}_i ( t^{l+1}, x ) = \bar{u}_i ( t^l, x ) - \bar{C}_i[ t^{l+1},t^l, x,\{u_i\} ] + \bar{S}_i[ t^{l+1},t^l, x,\{u_i\} ]\label{eq:FVintEq}\,,
+\end{align}
+with the integral over the convection flux 
+\begin{align}
+	\bar{C}_i[ t^{l+1},t^l, x,\{u_i\} ]&\equiv \tfrac{1}{\Delta x_j}\int_{t^l}^{t^{l+1}} \dif\tau \, C_i \big[ \tau, x + \tfrac{\Delta x_j}{2}, u_i \big\{ \big( \tau, x + \tfrac{\Delta x_j}{2} \big) \big\} \big]\, -\notag\\* % no page break
+	&\qquad\qquad-\tfrac{1}{\Delta x_j}\int_{t^l}^{t^{l+1}} \dif\tau \, C_i \big[ \tau, x - \tfrac{\Delta x_j}{2},  \big\{u_i \big( \tau, x - \tfrac{\Delta x_j}{2} \big)  \big\}\big]\,,\label{eq:FVcIntEq}
+\end{align}
+and the integral over the source term
+\begin{align}
+	\bar{S}_i[ t^{l+1},t^l, x,\{u_i\} ]&\equiv \frac{1}{\Delta x_j}  \int_{t^l}^{t^{l+1}} \dif\tau \int_{x_{j-\frac{1}{2}}}^{x_{j+\frac{1}{2}}} \dif\xi \, S_i [ \tau, \xi, \{u_i ( \tau, \xi )\} ] \,,\label{eq:FVsIntEq}
+\end{align}
+with $x\in\mathcal{V}_j$.
+Considering a system without explicit source terms $(S_i=0)$, \cref{eq:FVintEq} with \cref{eq:FVcIntEq} implies that the change in the cell average $\bar{u}_i ( t^{l+1}, x )-\bar{u} ( t^l, x )$ is given by the time-integral over the convection flux \eqref{eq:FVcIntEq} \dash{} \ie{}, the time-integral over the in- and out-flux at the cell interfaces $x\pm\frac{\Delta x_j}{2}$.
+Assuming appropriate closed \bcs{} on the compact spatial volume $\mathcal{V}$, the spatial integral over the cell averages $\bar{u}_{i} ( t, x )$ is conserved since change in the individual control volumes is only possible due to in- or out-flux through the cell interfaces into the neighboring control volumes \dash{} hence the name conservation laws.
+In a system with closed \bcs{} changes in the sum/integral over the cell averages $\bar{u}_{i} ( t, x )$ are only possible due to source/sink terms $S_i$, which modify the conservation law according to \cref{eq:FVintEq} with \cref{eq:FVsIntEq}.
+The reformulation of \cref{eq:FVcsEq} in terms of cell averages has several advantages which we will discuss in the following.
+Arguably the most important one, which we want to mention right away, is the fact, that the integral/weak formulation of \cref{eq:FVintEq} in terms of cell averages allows for a proper treatment of discontinuous solutions $u_{i} ( t, x )$, which are notorious in the context of conservation laws.\bigskip
+
+The solution of \cref{eq:FVintEq} \dash{} \ie{}, the explicit computation of \cref{eq:FVcIntEq,eq:FVsIntEq} \dash{} presents the central challenge for an explicit \fv{} scheme.
+Details regarding the explicit resolution and computation of \cref{eq:FVcIntEq,eq:FVsIntEq} are discussed in \cref{subsec:hydroKT} and specifically in \cref{subsec:hydroAdvection,subsec:hydroDiffusion,subsec:hydroSource} respectively.
+
+A central aspect of each practical \fv{} scheme is an appropriate and informed choice of the space-time control volumes, which, depending on the scheme and problem at hand, might change during the time evolution. 
+Given a set of control volumes and a corresponding set of cell averages $\bar{u}_i ( t^l, x_j ) \equiv \bar{u}^l_{i,j}$ the time evolution to ${t^{l+1}\equiv t^l+\Delta t}$ requires the solution of the Riemann problems at each cell interface.
+A Riemann problem in this \cfd{} context is the \ivp{} related to the time evolution of two initially spatially constant states left and right of an initial interface, see, \eg{}, \ccite{Toro2009,Lax1973,Ames:1992,LeVeque:1992,LeVeque:2002,Hesthaven2007,RezzollaZanotti:2013,Vazquez-Cendon2015} for details.
+Part of these problems are the fluxes through the cell boundaries.
+The computation of those fluxes requires a reconstruction of the values of $u_i$ on the cell interfaces located at $x_{j + \ttfrac{1}{2}}$, which we denote as $u_{i,j + \ttfrac{1}{2}}^l$, from the given set of cell averages $\bar{u}_{i,j}^l$.
+This is usually done by means of a carefully constructed polynomial approximation respecting the given cell averages of the neighboring cells.
+The order of the chosen approximation is one of the factors contributing to the overall spatial order (of the error) of the scheme at hand.
+
+Given the cell averages $\bar{u}_{i,j}^l$ and fluxes through the cell interfaces at $t=t^l$ it remains to solve the Riemann problems at each cell interface.
+The solution of the Riemann problem amounts to the exact evaluation of the flux integrals on the \rhs{} of \cref{eq:FVintEq}.
+Depending on the complexity of the underlying conservation equation an exact solution of the Riemann problems at the cell boundaries might be either impossible or simply not feasible.
+Most explicit \fv{} schemes, especially those for general advection-diffusion equations, either use approximate Riemann solvers (\eg{}, the Roe~\cite{ROE1981357} or the HLLE~\cite{HLLE1,HLLE2} solver) or do not require Riemann solvers at all (\eg{}, the KT~\cite{KTO2-0} scheme).
+For a pedagogic introduction into the broad field of \fv{} methods and \hrsc{} schemes in general we refer the interested reader to \ccite{Ames:1992,LeVeque:1992,LeVeque:2002,Hesthaven2007,RezzollaZanotti:2013,Vazquez-Cendon2015} and references therein.
+
+In the following \cref{subsec:hydroKT} we will introduce the particular \fv{} scheme, which we have chosen for its flexibility, efficiency, and relative simplicity.
+
+\subsection{The \texorpdfstring{\acrshort{kt}/\acrshort{knp}}{KT/KNP} scheme and the \texorpdfstring{\acrshort{muscl}}{MUSCL} reconstruction}\label{subsec:hydroKT}
+\begin{disclaimer}
+	This subsection follows the discussion in Sec.~IV.C of \nbccite{Koenigstein:2021syz} and App.~E.1 of \nbccite{Steil:2021cbu} with slight modifications due to the fact that we want to discuss a system of conservation laws for $\{u_i ( t, x )\}$ instead of a single conservation law for $u ( t, x )$. 
+\end{disclaimer}
+In this subsection we will summarize the central scheme presented in \ccite{KTO2-0} by A.~Kurganov and E.~Tadmor, which we will refer to in the following as \acrrepeat{kt} scheme, and a variant of it introduced in \ccite{KTO2-1} by A.~Kurganov, S. Noelle, and G. Petrova, which we will refer to in the following as \knpScheme{}.
+The \kt{} and \knpScheme{} differ only in their implementation of the advection flux and we will use the term \knpScheme{} in the following only when discussing specifics of this variant.
+The \kt{} scheme can be implemented and applied as a black-box solver for systems of the type of \cref{eq:FVadsEq}.
+Apart from the \pdes{} with their initial and boundary conditions the only additional information about the system required for its solution using the \ktScheme{} are selected eigenvalues of the Jacobian of the advection term, see \cref{eq:FVajp12} and the related discussion.
+The scheme does not require a Riemann solver of any kind and as such does not rely on a characteristic decomposition of the advection flux.
+
+The \kt{} scheme provides a direct method for evaluating the flux integrals on the \rhs{} of \cref{eq:FVintEq}.
+The main focus lies on the treatment and implementation of the flux integrals for the advection flux $F_i[\ldots]$ \dash{} specific applications will be discussed in \cref{subsec:hydroAdvection}.
+A careful treatment of the advection flux $F_i[\ldots]$ is imperative when dealing with (non-linear) advection terms.
+The diffusion and source terms are treated separately and will be discussed at the end of this subsection with specific applications in \cref{subsec:hydroDiffusion,subsec:hydroSource}.
+
+The \ktScheme{} admits a meaningful ${t^{l+1}-t^l\equiv\Delta t\rightarrow 0}$ limit in the context of \cref{eq:FVintEq} and is thus an improvement on its predecessor: the \ntScheme{}~\cite{NT}, with which it shares its piecewise-linear \muscl{} reconstruction~\cite{MUSCL}.
+We will focus on the \ktScheme{} in its so-called semi-discrete from \dash{} \ie{}, in the limit $\Delta t\rightarrow 0$ \dash{} which involves only an explicit spatial discretization.
+The \ktScheme{} is formally second-order accurate in the spatial direction and as such an improved version of the first-order accurate \lxfScheme{}~\cite{LxF1,LxF2}.
+A semi-discrete form reduces the \pdes{} \eqref{eq:FVcsEq} or equivalently \eqref{eq:FVintEq} to a set of coupled \odes{}, which can be solved by a large class of general-purpose \ode{} solvers.
+This is especially useful when working on stiff problems or \pde{} systems coupled to additional \odes{}.
+We will proceed with the introduction of quantities involved in the semi-discrete form \eqref{eq:FVKTO2} of the \ktScheme{}.
+The following quantities are especially relevant for the numerical advection flux~\eqref{eq:definition_h_kt_scheme}.\bigskip
+
+Consider a set of volume averages $\bar{u}_{i,j}^l$ at $t^l$ based on an equidistant\footnote{%
+	The generalization of the \ktScheme{} to non-uniform grids is on a conceptual level straightforward and especially useful for higher-dimensional extensions and for adaptive or moving mesh variants, see, \eg{}, \ccite{KTmovingMesh}.
+	Such generalizations require a more involved implementation and are not needed in this work. 
+	However, in the context of \frg{} flow equations this might be relevant for models with multiple condensate directions, see, \eg{}, \ccite{Strodthoff:2011tz,Mitter:2013fxa,Rennecke:2016tkm,Lakaschus:2020caq,Fukushima:2010ji,Fejos:2020lli}.
+} grid of volume cells ${\mathcal{V}_j \equiv [ x_{j - \ttfrac{1}{2}}, x_{j + \ttfrac{1}{2}} ]}$, with $\forall j, \ x_{j + \ttfrac{1}{2}} - x_{j - \ttfrac{1}{2}}=\Delta x$.
+At the initial time $t_0$ an \ic{} \dash{} \ie{}, the corresponding set of volume averages $\bar{u}_{i,j}^0$ \dash{} has to be provided to initialize the flow. 
+If the \ic{} is provided in functional form $u_i(t_0,x)$, the corresponding cell averages $\bar{u}_{i,j}^0$ should be computed according to \cref{eq:FVaverage}.
+Approximating the averages at $t_0$, \eg{}, using the midpoint values $\bar{u}_{i,j}^0\approx u_i(t_0,x_j)$, can introduce significant errors \dash{} especially when the volume grid is coarse ($\Delta x$ is large) or when the \ic{} $u_i(t_0,x)$ contains significant discontinuities. 
+To prevent such errors we use the proper cell averages according to \cref{eq:FVaverage} either by integrating/averaging the \ic{} $u_i(t_0,x)$ symbolically or numerically.
+The implementation of \bcs{} in the \ktScheme{} will be discussed at the end of this section after the introduction of some useful nomenclature.
+
+The time evolution of the averages $\bar{u}_{i,j}^l$ at $t^l$ to averages at $\bar{u}_{i,j}^{l+1}$ at $t^{l+1}=t^l+\Delta t$ on the same volume grid is a three-step process:
+\begin{enumerate}[label=\textbf{\arabic*}.]
+	\item \textbf{The Reconstruction} (piecewise-linear \muscl{}) is computed from the cell averages:
+	\begin{align}
+		 \tilde{u}_i ( t^l, x ) &= \, \sum_{j=0}^{n-1} \big\{ \bar{u}_{i,j}^l + (\partial_x u )_{i,j}^l \, ( x - x_j ) \big\} \Id_{[ x_{j - \frac{1}{2}}, x_{j + \frac{1}{2}} ]} \, ,	\label{eq:FVmuscl}
+	\end{align}
+	where the sum runs over all $n$ volume cells and with the projection operator $ \Id_{[ x_{j - \ttfrac{1}{2}}, x_{j + \ttfrac{1}{2}} ]} $, which is one if $x_{j - \ttfrac{1}{2}}\le x \le x_{j + \ttfrac{1}{2}}$ and zero otherwise.
+	The reconstruction step is needed to gain access to the function values $\tilde{u}_i ( t^l, x )$ and it uses approximations to the exact derivatives $( \partial_x u )_{i,j}^l$ by employing a scalar \acrrepeatEmph{tvni}\footnote{%
+		In literature \tvd{} is often used as a less precise synonym for \acrrepeat{tvni}, \cf{} Sec.~9.2.2 of \ccite{RezzollaZanotti:2013}.
+		Throughout this work we will adopt the more precise term \tvni{}.
+	} reconstruction~\cite{LeVeque:1992,LeVeque:2002,HARTEN1983357},
+	\begin{align}
+		( \partial_x u )_{i,j}^l = \frac{\bar{u}_{i,j+1}^l - \bar{u}_{i,j}^l}{\Delta x} \, \phi \bigg( \frac{\bar{u}_{i,j}^l - \bar{u}_{i,j-1}^l}{\bar{u}_{i,j+1}^l - \bar{u}_{i,j}^l} \bigg) \, ,	\label{eq:FVuxjn}
+	\end{align}
+	with a \tvni{} limiter $\phi(r)$. An overview of \tvni{} flux limiters can be found, \eg{}, on the web page~\cite{wikiFluxLimiter}, in \ccite{LeVeque:1992,LeVeque:2002}, or in Sec.~9.3.1 of \ccite{RezzollaZanotti:2013}.
+	Here, we follow \nbccite{KTO2-0} and use the so-called \textit{minmod} limiter~\cite{MinModRoe}\footnote{%
+		We also implemented and tested other flux limiters, which however did not influence our numerical results in a significant manner \dash{} thus we restrict our discussions to results obtained with the \textit{minmod} limiter \eqref{eq:FVminmod}.
+		A problem specific optimization of the choice of flux limiters with regard to numerical performance could be part of future work.%
+	},
+	\begin{align}
+		\phi ( r ) = \, & \max[ 0, \min( 1, r )] \, .	\label{eq:FVminmod}
+	\end{align}
+	The limiter $\phi$ is used in \cref{eq:FVuxjn} to limit the slopes during the reconstruction process.
+	This is crucial to prevent spurious oscillations around discontinuities, \eg{}, shocks, in high-resolution schemes like the \ktScheme{}.
+	The \ktScheme{} can also be used with higher-order reconstruction schemes\footnote{%
+		Examples for such improvements are the use of the third-order central weighted essentially non-oscillatory (C-WENO) reconstruction~\cite{WENO,WENO-C,WENO-C2} outlined in \ccite{KTO3-0}, the fifth-order WENO scheme (WENO5)~\cite{WENO2,WENO5} employed in \ccite{KTO5-0}, or the fifth-order monotonicity-preserving (MP5) reconstruction~\cite{MP5} used in \ccite{KT-MP5}.
+	} to increase the spatial accuracy of the scheme.
+	
+	When using a piecewise-constant or -linear reconstruction the cell averages $\bar{u}_{i,j}^l$ coincide with the midpoint values $u_{i,j}^l$.
+	While we employ a piecewise-linear reconstruction, we still maintain the distinction between averages and midpoint values for the sake of clarity.
+	
+	\item	\textbf{The time step} from $t^{n}$ to $t^{l+1}$ is performed by computing the flux integrals on the \rhs{} of \cref{eq:FVintEq} using the reconstruction $\tilde{u}_i ( t^l, x )$ from \cref{eq:FVmuscl} and carefully chosen control volumes discussed below. In the limit ${t^{l+1}-t^l\equiv\Delta t\rightarrow 0}$ only the expressions for $a_{j + \ttfrac{1}{2}}^{l,-}$, $a_{j + \ttfrac{1}{2}}^{l,+}$, $u_{i,j + \ttfrac{1}{2}}^{l,-}$, and $u_{i,j + \ttfrac{1}{2}}^{l,+}$ from \cref{eq:FVampjp12,eq:FVumpjp12} respectively are relevant for the semi-discrete \ktScheme{}. The other quantities discussed for this second step of the \ktScheme{} are however necessary to understand the underlying algorithm.
+	
+	At each cell interface $x_{j + \ttfrac{1}{2}}$ the respective left- and right-sided local speed of propagation $a_{j + \ttfrac{1}{2}}^{l, \mp}$ is estimated in the \knpScheme{} using
+	\begin{subequations}\label{eq:FVampjp12}
+	\begin{align}
+		a_{j + \frac{1}{2}}^{l,-} &\equiv\,\max\bigg\{\lambda_m\Big[\Big\{ u_{i,j + \frac{1}{2}}^{l,-}\Big\} \Big],\lambda_m\Big[\Big\{ u_{i,j + \frac{1}{2}}^{l,+}\Big\} \Big], 0\bigg\}\label{eq:FVamjp12} \\[0.1em]
+		a_{j + \frac{1}{2}}^{l,+} &\equiv\,\min\bigg\{\lambda_1\Big[\Big\{ u_{i,j + \frac{1}{2}}^{l,-}\Big\} \Big],\lambda_1\Big[\Big\{ u_{i,j + \frac{1}{2}}^{l,+}\Big\} \Big], 0\bigg\}\label{eq:FVapjp12}
+	\end{align}
+	\end{subequations}
+	with the left- and right-sided intermediate values $u_{i,j + \ttfrac{1}{2}}^{l, \mp}$ of $\tilde{u}_i ( t^l, x )$ at the cell interface $x_{j + \ttfrac{1}{2}}$:
+	\begin{subequations}\label{eq:FVumpjp12}
+	\begin{align}
+		u_{i,j + \frac{1}{2}}^{l,-} = \, & \bar{u}_{i,j}^l + \tfrac{\Delta x}{2} \, ( \partial_x u )_{i,j}^l \, ,	\label{eq:FVumjp12}\\[0.1em]
+		u_{i,j + \frac{1}{2}}^{l,+} = \, & \bar{u}_{i,j+1}^l -\tfrac{\Delta x}{2}  \, ( \partial_x u )_{i,j+1}^l \, . \label{eq:FVupjp12}
+	\end{align}
+	\end{subequations}
+	The original \kt{} variant uses a simplified/balanced estimate for left- and right-sided local speed of propagation:
+	\begin{subequations}\label{eq:FVajp12}
+	\begin{align}
+		a_{j + \frac{1}{2}}^{l} &\equiv\, -a_{j + \frac{1}{2}}^{l, -,\mathrm{KT}}\equiv\, +a_{j + \frac{1}{2}}^{l, +,\mathrm{KT}}\,\equiv \label{eq:FVajpmKT}\\
+		&\equiv\, \max \bigg\{ \rho\bigg( \frac{\partial F}{\partial u} \Big[\Big\{ u_{i,j + \frac{1}{2}}^{l,+}\Big\} \Big] \bigg) , \rho\bigg( \frac{\partial F}{\partial u} \Big[\Big\{ u_{i,j + \frac{1}{2}}^{l,-}\Big\} \Big] \bigg) \bigg\}\, ,
+	\end{align}
+	\end{subequations}
+	with the spectral radius $\rho ( M ) \equiv \max_i | \lambda_i ( M ) |$.
+	\Cref{eq:FVampjp12,eq:FVajp12} include information from the eigenvalue spectrum $\lambda_1 < \ldots < \lambda_m$ of the Jacobian $\frac{\partial F}{\partial u}$.
+	The \kt{} and \knpScheme{} are limited to systems with \textit{strictly hyperbolic} advection fluxes signaled by a non-degenerate eigenvalue spectrum $\lambda_1 < \ldots < \lambda_m$ of the Jacobian~$ \frac{\partial F}{\partial u} $ for all $x$, $t$, and $u$~\cite{KTO2-0,KTO2-1}\footnote{%
+		A further improvement in terms of estimates of local speeds of propagation engineered for non-convex hyperbolic (systems of) conservation laws is presented in \ccite{KTO5-0} using further information about the eigensystem of the Jacobian $\frac{\partial F}{\partial u}$. 
+		When an explicit evaluation of the Jacobian is impossible or unfeasible numerical approximations can be employed~\cite{KTO2-0,LiuTadmore2000,Jiang97non-oscillatorycentral}.
+		Throughout this work, however, we employ the exact or symbolic expressions for the Jacobian.%
+	}.
+	For the numerical applications in this thesis, the simple balanced estimate \eqref{eq:FVajp12} \dash{} the \ktScheme{} \dash{} has proven to be sufficient for most computations.
+	The slightly more involved \knpScheme{} with its more refined estimates \eqref{eq:FVamjp12} and \eqref{eq:FVapjp12} is primarily used in \cref{paragraph:knpLargeN}.
+	For single-valued conserved quantities $u \equiv \{ u_1\}$ the expressions \eqref{eq:FVampjp12} and \eqref{eq:FVajp12} for local speed of propagation simplify significantly.
+	Details regarding advection phenomena and (hyperbolicity) constraints on advection fluxes are discussed in \cref{subsec:hydroAdvection}.
+
+	Using the estimated local speed of propagation, a space-time control volume
+	\begin{align}
+		[x_{j + \frac{1}{2}, \mathrm{L}}^l , x_{j + \frac{1}{2}, \mathrm{R}}^l ] \times [ t^l, t^l + \Delta t ]
+	\end{align}
+	around each cell interface $x_{j + \ttfrac{1}{2}}$ is chosen.
+	The spatial extent corresponds to the domain which is causally affected by information propagating with the local velocities away from the cell interface at $x_{j + \ttfrac{1}{2}}$.
+	The flux integrals of \cref{eq:FVintEq} are performed on these space-time control volumes separately using the midpoint rule to approximate the flux integrals and leading to averages $\bar{\omega}_{i,j}^{l+1}$ and $\bar{\omega}_{i,j+\ttfrac{1}{2}}^{l+1}$ based on the new intermediate spatial grid spanned by the points
+		\begin{subequations}
+		\begin{align}
+			x_{j + \frac{1}{2}, \mathrm{L}}^l = \, & x_{j + \frac{1}{2}} + a_{j + \frac{1}{2}}^{l,-}\Delta t \, ,\\[.1em]
+			x_{j + \frac{1}{2}, \mathrm{R}}^l = \, & x_{j + \frac{1}{2}} + a_{j + \frac{1}{2}}^{l,+}\Delta t \, .
+		\end{align}
+		\end{subequations}
+	In the regions $[ x_{j - \ttfrac{1}{2}, \mathrm{R}}^l, x_{j + \ttfrac{1}{2}, \mathrm{L}}^l ]$ the solutions underlying the computed averages $\bar{\omega}_{i,j}^{l+1}$ are smooth.
+	The solutions underlying the computed averages $\bar{\omega}_{j+\ttfrac{1}{2}}^{l+1}$ based on the regions $[ x_{j + \ttfrac{1}{2}, \mathrm{L}}^l, x_{j + \ttfrac{1}{2}, \mathrm{R}}^l ]$ are non-smooth.
+	Details of this step can be found in \ccite{KTO2-0,KTO2-1}.
+	
+	\item	\textbf{The projection:} A \muscl{}-type piecewise-linear reconstruction based on $\bar{\omega}_{i,j + \ttfrac{1}{2}}^{l+1}$ and $\bar{\omega}_{i,j}^{l+1}$ is used to project these averages back onto the original uniform grid spanned by $x_{j + \ttfrac{1}{2}}$.
+	This results in a fully discrete second-order central scheme, see Eq.~(3.9) of \ccite{KTO2-0} and Eq. (3.7) of \ccite{KTO2-1}, which gives an algebraic expression for $\bar{u}_{i,j}^{l+1}$ in terms of the averages
+		\begin{align}
+			\big\{ \{\bar{u}_{i,j - 2}^l\}, \{\bar{u}_{i,j - 1}^l\}, \{\bar{u}_{i,j}^l\}, \{\bar{u}_{i,j + 1}^l\}, \{u_{i,j + 2}^l\} \big\}	\label{eq:kt_stencil}
+		\end{align}
+	and $\{ a_{j \pm \frac{1}{2}}^{l,\pm} \}$.
+	A pictographic representation of the multi-step evolution procedure with the involved quantities and grids can be found in Fig.~3.2 of \ccite{KTO2-0} and the corresponding Fig.~3.1 of \ccite{KTO2-1}.
+	The numerical viscosity of this second-order scheme is $\order ( \Delta x^3 )$ and does not depend on $\Delta t$, which represents the mentioned an improvement when compared to the $\Delta t$-dependent numerical viscosities $\order ( \Delta x^2/\Delta t )$ and $\order ( \Delta x^4/\Delta t )$ of the \lxf{} and \nt{} schemes, respectively~\cite{KTO2-0,KTO2-1}.
+\end{enumerate}
+
+The $\Delta t$-independent numerical viscosity allows for a controlled limit $\Delta t \rightarrow 0$, in \cref{eq:FVintEq}, resulting in a reduction to a practical semi-discrete scheme in conservative form~\cite{KTO2-0}, which can be implemented straightforwardly:
+\begin{align}
+	\partial_t \bar{u}_{i,j} = - \frac{H_{i,j + \frac{1}{2}} - H_{i,j - \frac{1}{2}}}{\Delta x}\, + \skeleton{2} \, ,	\label{eq:FVKTO2H}
+\end{align}
+where $\skeleton{2}$ denotes the sum of the diffusion and source fluxes.
+The numerical advection flux $H_{i,j + \ttfrac{1}{2}}$ is given by
+	\begin{align}
+		H_{i,j + \frac{1}{2}}^\mathrm{KT} \equiv \, & \frac{F_i \Big[ t, x_{j + \frac{1}{2}}, \big\{u_{i,j + \frac{1}{2}}^+\big\} \Big] + F_i \Big[ t, x_{j + \frac{1}{2}}, \big\{u_{i,j + \frac{1}{2}}^-\big\} \Big]}{2} - a_{j + \frac{1}{2}} \, \frac{u_{i,j + \frac{1}{2}}^{+} - u_{i,j + \frac{1}{2}}^{-}}{2} \, ,	\label{eq:definition_h_kt_scheme}
+	\end{align}
+for the \kt{} variant and by
+\begin{align}
+	H_{i,j + \frac{1}{2}}^\mathrm{KNP} \equiv \, & \frac{a_{j + \frac{1}{2}}^+ F_i \Big[ t, x_{j + \frac{1}{2}}, \big\{u_{i,j + \frac{1}{2}}^-\big\} \Big] - a_{j + \frac{1}{2}}^- F_i \Big[ t, x_{j + \frac{1}{2}}, \big\{u_{i,j + \frac{1}{2}}^+\big\} \Big]}{a_{j + \frac{1}{2}}^+-a_{j + \frac{1}{2}}^-}\,+ \notag\\* % no page break here
+	&\qquad\qquad\qquad\qquad\qquad\qquad\qquad+ \frac{a_{j + \frac{1}{2}}^+a_{j + \frac{1}{2}}^+}{a_{j + \frac{1}{2}}^+-a_{j + \frac{1}{2}}^-} \,\del{u_{i,j + \frac{1}{2}}^{+} - u_{i,j + \frac{1}{2}}^{-}} \, ,	\label{eq:definition_h_knp_scheme}
+\end{align}
+for the \knp{} variant.
+Note that \cref{eq:definition_h_kt_scheme} presents as a simplification of \cref{eq:definition_h_knp_scheme} when using the balanced approximation \eqref{eq:FVajpmKT} for the left- and right-sided local speed of propagation.
+This semi-discrete scheme is formally second-order accurate in $\Delta x$ and can be used in conjunction with various \ode{} time-step algorithms.
+In this work, we use \WAM{}'s \textit{NDSolve}~\cite{Mathematica:12.1,Mathematica:13.0} and \textit{solve\_ivp} with the \textit{LSODA} option using an Adams/BDF method with automatic stiffness detection and switching from the \textit{SciPy~1.0} library~\cite{2020SciPy-NMeth}, \cf{} \cref{chap:zeroONSU2,chap:GN}.
+Time-stepping has not been a focus of our work and we refer the interested reader to the excellent \ccite{Ihssen:2023qaq} discussing the issue in the context of \frg{} in detail.
+
+The \kt{}/\knpScheme{} for a position-independent advection flux is conservative, meaning that detailed balance at the cell interfaces is maintained.
+It is also \tvni{}~\cite{HARTEN1983357,LeVeque:1992,LeVeque:2002} when used with appropriate flux limiters like the minmod limiter \eqref{eq:FVminmod}.
+The \tv{}~\cite{HARTEN1983357} \dash{} which is simply the arc length \dash{} of the solution $u ( t, x )$ is given by
+\begin{align}
+	\mathrm{TV}_i [ \partial_x u_i ( t, x ) ] \equiv \int_{x_{-\frac{1}{2}}}^{x_{n-\frac{1}{2}}} \dif x \, | \partial_x u_i ( t, x ) | \, ,	\label{eq:TVcontinuous}
+\end{align}
+on the (computational) interval $[ x_{-\ttfrac{1}{2}},x_{n-\ttfrac{1}{2}} ]$.
+On a \fv{} grid, a typical discretized version of \cref{eq:TVcontinuous} is given by, \cf{}\ \ccite{HARTEN1983357,LeVeque:1992,LeVeque:2002,RezzollaZanotti:2013},
+\begin{align}
+	\mathrm{TV}_i [ \{ \bar{u}_{i,j} ( t ) \} ] \equiv \sum_{j = 0}^{n-1} | \bar{u}_{i,j+1} ( t ) - \bar{u}_{i,j} ( t ) | \, ,	\label{eq:TVdiscrete}
+\end{align}
+where a first-order forward stencil is used to discretize the first derivative\footnote{
+	Please note that $\{ \bar{u}_{i,j} ( t ) \}$ in the definition \cref{eq:TVdiscrete} of $\mathrm{TV}_i$ refers to the set of all the \ith{i} component cell averages and not the set of all components in the \ith{j} volume cell.
+}. 
+(Weak) solutions of broad classes of hyperbolic and parabolic conservation laws \dash{} without source terms \dash{} are \tvni{} during time evolution when considered on a finite interval, see, \eg{}, \ccite{HARTEN1983357,LeVeque:1992,Toro2009} and especially \ccite{Redheffer1974Mar}: meaning their arc length only decreases.
+The differences $\mathrm{TV} [ \{ \bar{u}_i ( t^{m } ) \} ] - \mathrm{TV} [ \{ \bar{u}_i ( t^{m+1} ) \} ]$ on a discrete trajectory $\bar{u}_i ( t )$ of an admissible solution at different times separated by one time step $\Delta t$, where $t^{m+1} = t^m + \Delta t$, is greater or equal to zero for all $t^m$, \ie{}, \tv{} is non-increasing.
+This \tvni{} property of discrete weak solutions is an important guiding principle in the construction of numerical schemes in \cfd{} meant to resolve shocks and discontinuities, since \tvni{} schemes do not produce spurious oscillations around discontinuities.
+Such spurious oscillations would violate the TVNI property since they would increase arc-length.
+The \tv{} will be important for our discussion of numerical entropy and irreversibility of \rg{}-flows in \cref{subsec:0dO1Entropy} and we will also comment on it in \cref{subsec:hydroAdvection} in the context of backward time integration.
+	
+\paragraph{Diffusion and source/sink terms}\phantomsection\label{paragraph:KTQS}\mbox{} \\
+So far we only considered the advection term $\difx\! F[\ldots]$ in the discussion of the \ktScheme{}.
+We will now turn our attention to diffusion fluxes $\difx\! Q[\ldots]$ completing our discussion of convective contributions.
+When considering a non-linear diffusion flux $\difx\! Q_i [ t, x, \{u_i ( t, x )\}, \{\partial_x u_i ( t, x )\} ]$ \cref{eq:FVadsEq} can manifest as a strongly degenerate parabolic equation system admitting potentially non-smooth solutions.
+In the \ktScheme{} the hyperbolic and parabolic parts of the \pde{} \eqref{eq:FVadsEq} are treated simultaneously based on the strict splitting between $F$ and $Q$.
+Kurganov and Tadmor~\cite{KTO2-0} presented a discretization of the diffusion flux based on a central-difference approximation,
+\begin{align}
+	 P_{i,j + \frac{1}{2}} = \, & \tfrac{1}{2}\, Q_i \Big[ t, x_j, \big\{\bar{u}_{i,j}\big\},  \big\{\tfrac{\bar{u}_{i,j + 1} - \bar{u}_{i,j}}{\Delta x} \big\}\Big] + \tfrac{1}{2}\, Q_i \Big[ t, x_{j + 1}, \big\{\bar{u}_{i,j+1}\big\}, \big\{ \tfrac{\bar{u}_{i,j + 1} - \bar{u}_{i,j}}{\Delta x} \big\}\Big] \, .	\label{eq:kt_original_diffusion}
+\end{align}
+An alternative second-order discretization, like the one put forward in App.~B of \nbccite{Chertock2005}, can also be successfully employed with the \ktScheme{}, \cf{} Eq. (124) and (125) of \ccite{Koenigstein:2021syz} and the corresponding discussion.
+We will limit our discussion to results obtained with the diffusion flux \eqref{eq:kt_original_diffusion}.
+Improved \kt-type schemes employing higher-order reconstructions (like, \eg{}, C-WENO/WENO5 or MP5~\cite{KTO3-0,KTO5-0,KT-MP5}) also use higher-order discretizations for the diffusion flux like the fourth-order one put forward in Eqs.~(4.9) and (4.10) of \ccite{KTO3-0}.\bigskip
+
+The inclusion of source-/sink-terms in the semi-discrete \ktScheme{} is rather simple, but again relying on a strict separation from the convective terms, \cf{} Example 9 of \ccite{KTO2-0}.
+In the following we use $S_{i,j}$ as the source/sink contribution to the flow $\partial_t \bar{u}_{i,j}$ of the \ith{i} component in the \ith{j} volume cell.
+The implementation of $S_{i,j}$ is rather problem specific depending on the explicit structure of the source term $S_i [ t, x, \{u_i ( t, x )\} ]$.
+For simple $u$-independent source terms $S_i [ t, x]$ symbolically evaluating \cref{eq:FVsIntEq} can be a good choice.
+For more complicated $u$-dependent source terms an approximation based on the midpoint value $S_{i,j}=S_i [ t, x_j, \{\bar{u}_{i,j}\} ]$ can be beneficial.
+We reserve further discussion of source terms for our explicit application involving sources/sinks in \cref{subsec:hydroSource,subsec:hydroEuler} and especially in \cref{paragraph:chemical_potential_shock_wave}.
+
+\paragraph{Semi-discrete form and boundary conditions}\phantomsection\label{paragraph:KTBC}\mbox{} \\
+To summarize: in full semi-discrete \ktScheme{} the time evolution equation for the \ith{i} component of the \ith{j} cell average is given by
+\begin{align}
+	\partial_t \bar{u}_{i,j} = \, & - \frac{H_{i,j + \frac{1}{2}} - H_{i,j - \frac{1}{2}}}{\Delta x} + \frac{P_{i,j + \frac{1}{2}} - P_{i,j - \frac{1}{2}}}{\Delta x} 
+	+ S_{i,j}\, , \label{eq:FVKTO2}
+\end{align}
+which includes advection, diffusion, and source fluxes.
+\Cref{eq:FVKTO2} is second-order accurate in $\Delta x$ and presents as a \fv{} method-of-lines discretization of the original \pde{} system \eqref{eq:FVadsEq}.
+The initial cell averages $\bar{u}_{i,j}^0$ provide the \ic{} for the \ode{} system \eqref{eq:FVKTO2}.
+
+The adept reader might immediately point out that this system is underdetermined: at the \ith{j} cell the convection flux depends on the five-point stencil \eqref{eq:kt_stencil}, which in the first cell \nolinebreak[2]${(j=0)}$ includes $\{\bar{u}_{i,- 2}\}$ and $\{\bar{u}_{i,-1}\}$, while in the last cell $j=n-1$ it involves $\{\bar{u}_{i,n}\}$ and $\{\bar{u}_{i,n+1}\}$.
+Those so-called \textit{ghost cells} formally lie outside the computational spatial domain $\mathcal{V}: x_{-\ttfrac{1}{2}}\le x\le x_{n-\ttfrac{1}{2}}$ and are centered around $x_{-2}$, $x_{-1}$, $x_{n}$, and $x_{n+1}$, respectively.
+Specific spatial \bcs{} $( \partial_x ) u_i ( t, x ) |_{x \in \partial \mathcal{V}}$ can be implemented in the \ktScheme{} by an appropriate choice for the volume averages of those ghost cells. 
+The implementation of \bcs{} using ghost cells is not unique to the \ktScheme{} and in fact quite common in \fv{} methods, see, \eg{}, \ccite{LeVeque:1992,LeVeque:2002,Vazquez-Cendon2015} for a detailed discussion.
+Using ghost cells is a very flexible and programmatically simple way to practically implement \bcs{}.
+
+Specific \bcs{} for \frg{} flow equations are discussed at length in \cref{subsec:boundary_conditions_finite_volume} in the main part of this thesis.
+Additionally we will discuss \bcs{} for canonical examples in \cref{subsec:hydroAdvection,subsec:hydroDiffusion,subsec:hydroEuler} to conceptualize and facilitate the discussion of \bcs{} for the \frg{} flow equations.
+
+\paragraph{Total variation and explicit position- and time-dependent fluxes}\phantomsection\label{paragraph:KTxdep}\mbox{} \\
+At this point we have to remark that the original \kt{} numerical scheme presented in \ccite{KTO2-0} was constructed for position- and time-independent convection fluxes.
+Since we employ the \ktScheme{} in its semi-discrete form a resolution of potentially highly complicated and non-linear dynamics in $t$ is possible and ultimately outsourced to the \ode{} solver.
+Thus an explicit $t$-dependence in $H_{i,j + \ttfrac{1}{2}}$ and $P_{i,j + \ttfrac{1}{2}}$ is expected to be unproblematic when using \cref{eq:FVKTO2}.
+
+Explicitly position-dependent advection and diffusion terms on the other hand are more worrisome, since they spoil the proper split between advective, diffusive, and source contributions.
+By performing the total derivatives in \eqref{eq:FVadsEq} to study the equation in its primitive form, \cf{} \cref{subsec:hydroAdvection,subsec:hydroDiffusion}, we note that explicit $x$-dependencies in $F_i[\ldots]$ and $Q_i[\ldots]$ manifest as internal source-/sink-like contributions, see explicitly \cref{eq:FVFprimitive,eq:FVQprimitive}.
+Those internal and also explicit source terms spoil the \tvni{} property, which will be especially relevant for \cref{paragraph:cTheoremzerodO1}.
+Defining or constructing an explicit numerical entropy functional for general non-linear conservation laws is a difficult task, especially when source terms are involved, see, \eg{}, \ccite{Monthe:2001,Beneito2008,Chen2011May,Bessemoulin:2012} and references therein. 
+Similarly explicit $u$-dependencies $Q_i[\ldots]$ lead to advective contributions in primitive form which are not treated on the same level as the ones stemming from $F_i[\ldots]$, \cf{} again \cref{subsec:hydroDiffusion} and \cref{eq:FVQprimitive}. 
+
+In the scope of this work we could not trace any practical problems back to the explicit position- and time-dependence of the advection and diffusion fluxes.
+The comparisons in \cref{chap:zeroONSU2} between results obtained from a direct computation of correlation functions using the generating functional and the results computed using \frg{} flow equations via the \ktScheme{} (with $t$ and $x$-dependent fluxes) can be seen as hard tests for both \dash{} the \frg{} methodology as well as the (slightly modified) \ktScheme{} \dash{} depending on the respective perspective. 
+In total, the precision of our results for the non-trivial test cases gives us some confidence, that our approach is generically justified and the \ktScheme{} is suitable for our application throughout the main part of this thesis.
+
+\paragraph{First-order reduction}\phantomsection\label{paragraph:KTO1}\mbox{} \\
+An in $\Delta x$ first-order accurate reduction of the semi-discrete \kt{}/\knpScheme{} of \cref{eq:FVKTO2} can be obtained by switching from the piece-wise linear \muscl{} reconstruction \eqref{eq:FVmuscl} to a piecewise constant reconstruction with $(\partial_x u )_{i,j}^l=0$ in the numerical advection fluxes $H_{i,j + \ttfrac{1}{2}}$. 
+For explicit expressions we refer to Remark 3 in Sec. 3.1 of \ccite{KTO2-1}, Eq. (4.8) of \nbccite{KTO2-0}, and our explicit implementation in \ccite{Steil:2023PhDFVNB}.
+To have a consistent order in $\Delta x$ for the convective contributions, the numerical diffusion flux $P_{i,j + \ttfrac{1}{2}}$ has to be changed to a first-order accurate one, \ie{}, for our purposes to the first-order upwind flux
+\begin{align}
+	 P_{i,j + \frac{1}{2}}^{\ordern{1}} = \, & Q_i \Big[ t, x_j, \big\{\bar{u}_{i,j}\big\},  \big\{\tfrac{\bar{u}_{i,j + 1} - \bar{u}_{i,j}}{\Delta x} \big\}\Big] \, .	\label{eq:kt_original_diffusion_O1}
+\end{align}
+
+\paragraph{Implementation}\phantomsection\label{paragraph:KTimp}\mbox{} \\
+The semi-discrete, method-of-lines \fv{} discretization \eqref{eq:FVKTO2} of the \ktScheme{} and the \knp{} variant can be implemented in only a few lines of code in most modern programming languages using list or vector based operations.
+Its relative simplicity however should not unsettle the uninitiated: the scheme is almost shockingly powerful as a a black-box solver even for complicated, non-linear systems \eqref{eq:FVadsEq} when paired with a robust \ode{} time-stepper.
+Such time-steppers are available in libraries for most modern programming languages, \ie{}, \textit{NDSolve} for \WAM{}~\cite{Mathematica:12.1}, \textit{solve\_ivp} from \textit{SciPy~1.0} for \Python{}~\cite{2020SciPy-NMeth}, or \textit{SUNDIALS}~\cite{hindmarsh2005sundials,gardner2022sundials} for \Cpp{}.
+With the auxiliary file~\cite{Steil:2023PhDFVNB} we provide the \WAM{} notebook \textit{``Computational fluid dynamic''} which includes my latest \WAM{}-implementation of the \acrshort{kt}/\acrshort{knp} scheme. 
+It includes a completely modular black box solver using \textit{compiled} functions for performance\footnote{
+	The performance of a \WAM{} implementation with proper low-level \textit{compiled} functions is on a par with implementations in \Cpp{} and \Python{} using \textit{SUNDIALS}~\cite{hindmarsh2005sundials,gardner2022sundials} and \textit{solve\_ivp}~\cite{2020SciPy-NMeth} respectively.
+}.
+The auxiliary file~\cite{Steil:2023PhDFVNB} includes the numerical computations of the following \cref{subsec:hydroAdvection,subsec:hydroDiffusion,subsec:hydroSource,subsec:hydroEuler}.
+The numerical results in \cref{chap:zeroONSU2} and selected results of \cref{chap:GN} were obtained with older versions of this code~\cite{Steil:2023zeroD,Steil:2023zeroDN1,Steil:2023zeroDlargeN}.
+
+\subsection{Advection and shocks}\label{subsec:hydroAdvection}
+In this subsection we will discuss the advective contributions to \cref{eq:FVadsEq}, \viz{} the ones governed by the advection term $\difx\! F_i [ t, x, \{u_i ( t, x )\} ]$.
+Focusing on the latter, let us consider the non-linear system of advection equations
+\begin{align}
+	\dift\! u_i ( t, x )+\difx\!  F_i [ t, x, \{u_i ( t, x )\} ]=0\,,\label{eq:FVadsEqFonly}
+\end{align}
+which can be brought into \textit{primitive form}\footnote{
+	In the \fv{} context the following equation should be understood in integral form \eqref{eq:FVintEq} to avoid any conceptual and mathematical problems especially when dealing with discontinuities~\cite{LeVeque:2002,RezzollaZanotti:2013,Vazquez-Cendon2015}.
+}
+\begin{align}
+	\partial_t u_i ( t, x )+\frac{\partial F_i[ t, x, \{u_i ( t, x )\} ]}{\partial u_l(t,x)}\,\partial_x u_l ( t, x ) = -\partial_x F_i [ t, x, \{u_i ( t, x )\} ] \,.\label{eq:FVFprimitive}
+\end{align}
+\Cref{eq:FVFprimitive} includes the Jacobian $\frac{\partial F}{\partial u}$ \dash{} the matrix of advection speeds \dash{} in the actual advection term $\frac{\partial F_i}{\partial u_l}\partial_x u_l$ and on the \rhs{} an internal source term $-\partial_x F_i[\ldots]$ related to the explicit position dependency of the advection flux $F$.
+In this sense position-dependence of the advection flux can be understood in terms of additional/internal source terms.
+\Cref{eq:FVFprimitive} or in our context the flux $F$ itself is understood to be \textit{hyperbolic}, if the Jacobian/the matrix of advection speeds $\frac{\partial F}{\partial u}$ is diagonalizable with a set of real eigenvalues $\lambda_1 \le \ldots \le \lambda_m$ for all $t$, $x$, and $u_i ( t, x )$ under consideration.
+The application of the \kt{}/\knp{} numerical advection fluxes $H_{i,j + \frac{1}{2}}$ \eqref{eq:definition_h_kt_scheme}/\eqref{eq:definition_h_knp_scheme} requires \textit{strictly hyperbolic} systems with a non-degenerate eigenvalue spectrum $\lambda_1 < \ldots < \lambda_m$.
+When studying only one conserved quantity \dash{} not a system of $m$ conserved quantities $\{u_1 ( t, x ),\ldots,u_m ( t, x )\}$ \dash{} its conservation equation is hyperbolic if the advection speed $\frac{\partial F}{\partial u}$ is real and finite for all $t$, $x$, and $u( t, x )$ under consideration.
+For hyperbolic systems \ivps{} are well posed~\cite{LeVeque:2002,RezzollaZanotti:2013,Vazquez-Cendon2015}.
+Hyperbolic systems typically describe processes where information or disturbance are propagated through space-time in a wave-like manner with a finite advection speed~\cite{LeVeque:1992,LeVeque:2002,Hesthaven2007,Vazquez-Cendon2015,polyanin2016handbook}, \cf{} \cref{sububsec:LAEBBE} for instructive and canonical examples.
+
+For the remainder of this subsection we will limit our discussion to the single conservation law
+\begin{align}
+	&\partial_t u ( t, x )+\difx\! F[ t,x,u ( t, x )]=0\,,\\[.2em]
+	&\partial_t u ( t, x )+\frac{\partial F[ t,x,u ( t, x )]}{\partial u(t,x)}\,\partial_x u ( t, x ) = -\partial_x F[ t,x,u ( t, x )]\, ,\label{eq:FVFsimple}
+\end{align}
+for $u(t,x)$, which is the relevant scenario for our numerical computations in \cref{chap:zeroONSU2,chap:GN}. 
+An application to a canonical system of conservation laws, \ie{}, the Euler equations of ideal fluid dynamic, will be presented in \cref{subsec:hydroEuler}.
+
+\subsubsection{Method of characteristics and Rankine–Hugoniot (jump) condition}\label{subsec:MoC}
+\begin{disclaimer}
+	This subsubsection is based on the first parts of Apps. C and D of \ccite{zerod3}.
+\end{disclaimer}
+An important computational tool for \textit{quasilinear} \dash{} \ie{}, linear in the derivatives $\partial_t u$ and $\partial_x u$ but not necessarily linear in $u$ \dash{} hyperbolic \pdes{} of the form \eqref{eq:FVFsimple} is the \textit{method of characteristics}, \cf{} \ccite{Delgado2006Aug} and \ccite{polyanin2016handbook,LeVeque:2002} for a general overview.
+
+The method of characteristics states that a quasilinear hyperbolic \pde{}
+\begin{align}
+	a ( t, x, u ) \, \partial_t u ( t, x ) + b ( t, x, u ) \, \partial_x u ( t, x ) = c ( t, x, u )	\label{eq:MoC_pde}
+\end{align}
+presents as a set of \odes{} along so-called characteristic curves, which are given by the Lagrange–Charpit equations~\cite{Delgado2006Aug} (also called characteristic equations):
+\begin{subequations}\label{eq:MoC_odes}
+\begin{align}
+	\frac{\partial t ( \tau )}{\partial \tau} = \, & a ( t ( \tau ), x ( \tau ), u ( \tau ) ) \, ,
+	\label{eq:MoC_ode_1}\\
+	\frac{\partial x ( \tau )}{\partial \tau} = \, & b ( t ( \tau ), x ( \tau ), u ( \tau ) ) \, ,
+	\label{eq:MoC_ode_2}\\
+	\frac{\partial u( \tau )}{\partial \tau} = \, & c ( t ( \tau ), x ( \tau ), u ( \tau ) ) \, ,
+	\label{eq:MoC_ode_3}
+\end{align}
+\end{subequations}
+with the curve-parameter $\tau$ and \ics{}
+\begin{subequations}\label{eq:MoC_ics}
+\begin{align}
+	t ( \tau = 0 ) = \, & t_0 \, ,
+	\label{eq:MoC_ics_1}\\
+	x ( \tau = 0 ) = \, & x_0 \, ,
+	\label{eq:MoC_ics_2}\\
+	u ( \tau = 0 ) = \, & u_0 ( t_0, x_0 ) \, ,
+	\label{eq:MoC_ics_3}
+\end{align}
+\end{subequations}
+related to the original \pde{}~\eqref{eq:MoC_pde}. 
+Solving this \ode{} system yields the functions $t(\tau)$, $x(\tau)$ and $u(\tau)$, which can be used to extract information about the actual solution of the \pde{}~\eqref{eq:MoC_pde} including, in some cases, the full solution itself.
+More details can be found in the textbooks~\cite{Ames:1992,LeVeque:1992,LeVeque:2002,Hesthaven2007,polyanin2016handbook,Vazquez-Cendon2015} and explicit applications follow in \cref{sububsec:LAEBBE,subsec:0dLargeN} as well as in \cref{paragraph:largeNchars,app:method_of_characteristics}. 
+
+Using $t(\tau)$, $x(\tau)$ and $u(\tau)$ one can reconstruct the solution $u(t,x)$ as an implicit solution in terms of $\tau$.
+Such a reconstruction however is only valid as long as the characteristic curves $t(\tau)$ and $x(\tau)$ do not intersect.
+If they do, the implicit solution $u(t,x)$ becomes multivalued and the \pde{} no longer has a solution in the classical sense~\cite{Vazquez-Cendon2015,LeVeque:2002,RezzollaZanotti:2013}.
+The physical/weak-solution develops a \textit{shock} \dash{} a discontinuity in $u(t,x)$ \dash{} which can only be treated properly using a weak formulation, \eg{}, a \fv{} discretization like \cref{eq:FVintEq}.
+The speed $\partial_t\xi_s(t)$ of such a shock can be determined with the \textit{Rankine-Hugoniot condition}~\cite{Rankine:1870,Hugoniot:1887}
+\begin{align}
+	F_\mathrm{R}(t)-F_\mathrm{L}(t)=\partial_t\xi_s(t)(u_\mathrm{R}-u_\mathrm{L})\label{eq:FVRHcondition}\, ,
+\end{align}
+where the subscripts $\mathrm{R}$ and $\mathrm{L}$ denote the state to the right and left of the shock $\xi_s(t)$, see, \eg{}, \ccite{Ames:1992,LeVeque:2002,Hesthaven2007,Toro2009} for further details.
+The characteristic curves on both sides of the shock run into the shock wave with $\lambda(u_\mathrm{L})>\partial_t\xi_s(t)>\lambda(u_\mathrm{R})$.
+
+An instructive example of shock formation is part of \cref{sububsec:LAEBBE} with our discussion of the \acrlong{bbe} \eqref{eq:bbe} and the phenomenon is further discussed in \cref{subsec:hydroEuler,chap:zeroONSU2,chap:GN}.
+
+\subsubsection{Linear and non-linear advection equations}\label{sububsec:LAEBBE}
+\begin{disclaimer}
+	The part of this subsubsection discussing the \acrlongEmph{bbe} \eqref{eq:bbe} includes material from Sec.~III.A and App.~A of \nbccite{Koenigstein:2021numericalSchemes}.
+\end{disclaimer}
+Up to this point our discussion of \cfd{} has been extremely technical with the goal to introduce relevant nomenclature and the explicit \fv{} method we use for numerical computation, \viz{} the \ktScheme{}. 
+It is high time to ``show some pictures'' \dash{} discuss and present some applications of the framework to explicit problems.
+We will do so using two explicit examples: the \acrlongEmph{lae} and the non-linear \acrlongEmph{bbe}.\bigskip
+
+\paragraph{The linear advection equation}\phantomsection\label{paragraph:LAE}\mbox{} \\
+We begin this discussion with an archetypical advection equation, \viz{} the \lae{}
+\begin{align}
+	\partial_t u(t,x) +\partial_x u(t,x)&=0 \label{eq:lae}\, ,\\[.25em]
+	u(t,x)&=u(t=0,x-t)\label{eq:laeSol}\, ,\\[.25em]
+	\stepcounter{equation}\newSubEqBlock
+	u_\mathrm{I}(t=0,x)&=\Theta\!\del[1]{x-\tfrac{1}{8}}-\Theta\!\del[1]{x-\tfrac{3}{8}}\, ,\subEqTag\label{eq:laeICS1}\\
+	u_\mathrm{II}(t=0,x)&=\tfrac{1}{2}+\tfrac{1}{2}\sin\del[1]{2\piu x}\, ,\label{eq:laeICS2}\subEqTag
+\end{align}
+with the linear hyperbolic \pde{} \eqref{eq:lae}, its analytic solution \eqref{eq:laeSol}, and two explicit initial conditions~\eqref{eq:laeICS1} and~\eqref{eq:laeICS2}, which we will use in the following.
+With $F=u(t,x)$ in the \laeq{}, the characteristic speed is constant: $\partial F/\partial u=1$.
+The \lae{} with an \ic{} very similar to \cref{eq:laeICS1} is also discussed in Sec. 6.1 of \ccite{KTO2-0} as a standard benchmark problem.
+The analytic solution \eqref{eq:laeSol} follows directly from the method of characteristics, where the Lagrange–Charpit Eqs.~\eqref{eq:MoC_odes} can be integrated trivially for the \lae{} with $a=b=1$ and $c=0$, \cf{} \cref{subsec:MoC}.
+According to \cref{eq:laeSol} the \lae{} simply transports/advects the \ic{} through the computational domain from left to right with a constant speed of $1$ without changing its initial shape.
+
+\fullWidthFigure%
+	[t]%
+	{hydro/figures/lae_P1.pdf}% Graphics
+	[fig:lae_P1flow,fig:lae_P1error]% Sublabels
+	{%
+	Analytical (solid lines) and numerical solution (dots) to the \laeq{} with \ic{} \eqref{eq:laeICS1} and open \bc{} \eqref{eq:BClinExt} at different times on the left \subref{fig:lae_P1flow} and relative error \eqref{eq:L1error} between the analytical and numerical solution on the right \subref{fig:lae_P1error}.
+	The solution $u_{\mathrm{I}}^-(0.0,x)$ has been computed by numerically evolving $\{\bar{u}_{\mathrm{I},j}(t=0.4)\}$ back in time to $t=0$.
+	The numerical solution has been computed with the \ktScheme{} using $n=151$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{150}=1$, \cf{} subsection 2.1.1 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:lae_P1}%Label
+The analytical and numerical solution of the \laeq{} with the non-analytic \ic{} \eqref{eq:laeICS1} are visualized in \cref{fig:lae_P1flow} with open \bcs{} implemented in the \ktScheme{} by linear extrapolation for the ghost cells~\cite{LeVeque:1992,LeVeque:2002,Vazquez-Cendon2015}, \ie{},
+\begin{subequations}\label{eq:BClinExt}
+\begin{align}
+	\bar{u}_{-2}&=3\bar{u}_0-2\bar{u}_1,\quad\quad\ \ \bar{u}_{-1}=2\bar{u}_0-\bar{u}_1\,,\\
+	\bar{u}_{n}&=2\bar{u}_{n-1}-\bar{u}_{n-2},\quad\bar{u}_{n+1}=3\bar{u}_{n-1} -2\bar{u}_{n-2}\,.
+\end{align}
+\end{subequations}
+From a numerical standpoint, discretizing and evolving the \laeq{}, especially when allowing for discontinuous \ic{} like \cref{eq:laeICS1}, is quite challenging.
+Naive discretization schemes, like \fds{}, and even more involved global collocation methods are notoriously ill-suited to tackle this problem~\cite{Bernstein1951Jan,LeVeque:1992,LeVeque:2002,Hesthaven2007,Vazquez-Cendon2015,polyanin2016handbook}.
+The relative error in $L^1$-norm, \ie{}, the sum of all errors divided by the number of volume cells $n$:
+\begin{align}
+	\epsilon_{L^1}(t)=\frac{1}{n}\sum_{j=0}^{n-1}|\bar{u}_j(t)-u(t,x_j)|	\label{eq:L1error}
+\end{align}
+using \cref{eq:laeSol} as reference, is plotted in \cref{fig:lae_P1error}.
+After the uncertainty due to the initial discretization of the discontinuous \ic{} \eqref{eq:laeICS1}, the error starts to plateau, allowing for a stable numerical evolution of the discretized initial condition.
+
+The \lae{} is in theory time-reversible: switching the sign of the advection speed one can evolve a solution $u(t,x)$ backwards in time without any conceptual difficulties.
+The simple linear advection of the \ic{} prescribed by the \lae{} in an ideal case is free of numerical entropy production.
+In practice time-reversal is studied in \cref{fig:lae_P1} by evolving the computed solution $\{\bar{u}_{\mathrm{I},j}(t=0.4)\}$ back in time to $t=0$ by flowing with a reversed advection speed $\partial F/\partial u=-1$ arriving at a numerical solution $\{\bar{u}_{\mathrm{I},j}^-(t=0)\}$ visualized in green  in \cref{fig:lae_P1}.
+We notice that the relative $L^1$ error grows slowly as we try to reconstruct the \ic{} at $t=0$.
+This is due to inevitable inaccuracies in time integration and spatial discretion errors.
+Nevertheless we recover a solution $\{\bar{u}_{\mathrm{I},j}^-(t=0)\}$ very close to the discretized version of the \ic{} $u_\mathrm{I}(t=0,x)$.
+
+\fullWidthFigure%
+	[t]%
+	{hydro/figures/lae_P2.pdf}% Graphics
+	[fig:lae_P2flow,fig:lae_P2error]% Sublabels
+	{%
+	Analytical (solid lines) and numerical solution (dots) to the \laeq{} with \ic{}~\eqref{eq:laeICS2} and periodic \bc{} \eqref{eq:BCperiodic} at different times on the left \subref{fig:lae_P2flow} and relative error \eqref{eq:L1error} between the analytical and numerical solution on the right \subref{fig:lae_P2error}.
+	The numerical solution has been computed with the \ktScheme{} using $n=101$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{100}=1$, \cf{} subsection 2.1.2 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:lae_P2}%Label
+The analytical and numerical solution of the \laeq{} with the analytic \ic{}~\eqref{eq:laeICS2} are visualized in \cref{fig:lae_P2flow} with periodic \bcs{} implemented in the \ktScheme{} by mirroring the opposite end of the computational interval in the ghost cells\footnote{%
+	Whether or not to enforce $\bar{u}_0=\bar{u}_{n-1}$ depends on the explicit choice of the location of the first and last volume cell $x_0$ and $x_{n-1}$.
+	We chose to center both on the respective boundaries of the computational domain and thus enforce $\bar{u}_0=\bar{u}_{n-1}$.
+}~\cite{LeVeque:1992,LeVeque:2002,Vazquez-Cendon2015}, \ie{},
+\begin{align}
+	\bar{u}_{-2}&=\bar{u}_{n-3}\,,\quad \bar{u}_{-1}=\bar{u}_{n-2}\,,\quad \bar{u}_0=\bar{u}_{n-1}\,,\quad
+	\bar{u}_{n}=\bar{u}_1\,,\quad \bar{u}_{n+1}=\bar{u}_{2}\,.
+	\label{eq:BCperiodic}
+\end{align}
+Discretizing the smooth \ic{} \eqref{eq:laeICS2} even with slightly less volume cells ($n=101$ instead of $n=150$ in \cref{fig:lae_P1}) the overall error is around an order of magnitude lower when comparing \cref{fig:lae_P1error,fig:lae_P2error}.
+Forward and backward time integration with the \ktScheme{} is possible, but due to numerical errors we note a visible difference (most notable at $x=0.25$ and $x=0.75$ in \cref{fig:lae_P2flow}) between the initial set of volume averages $\{\bar{u}_{\mathrm{II},j}(t=0)\}$ and the one computed with backward time integration from $t=0.4$ to $\{\bar{u}_{\mathrm{II},j}^-(t=0)\}$.
+
+The relative errors in $L^1$ norm, the rate of convergence in the scheme $\mathrm{S}$
+\begin{align}
+	r_\mathrm{S} \equiv \, & \ln \big( \tfrac{\epsilon_{\mathrm{S}, i}}{\epsilon_{\mathrm{S}, i - 1}} \big)/\ln \big( \tfrac{n_{i - 1}}{n_{i}} \big) \, ,\label{eq:rateS}
+\end{align}
+and the wall time in seconds for different number of volume cells $n=\{32,\ldots,1024\}$ for the first- and second-order \ktScheme{}, \cf{} \cref{paragraph:KTO1}, are shown in \cref{tab:lae_P2convergence} for the smooth \ic{} \eqref{eq:laeICS2}.
+We observe a rather consistent rate of convergence of $\sim0.97$ for the formally first-order accurate scheme and $\sim1.89$ for the formally second-order accurate scheme.
+For this rather simple example we can numerically integrate up to $t=0.4$ in under two seconds using $n=1024$ cells and a notebook CPU from 2018.
+
+\begin{table}[t]
+	\centering
+	\caption{\label{tab:lae_P2convergence}
+		Relative errors in $L^1$-norm $\epsilon$ using \cref{eq:laeSol,eq:laeICS2} as reference in \cref{eq:L1error}, convergence rate $r$ from \cref{eq:rateS}, and wall time $t_\mathrm{w}$ in seconds for first- and second-order \ktScheme{} numerical solutions at $t=0.4$ of the \laeq{} with \ic{} \nolinebreak[3]\eqref{eq:laeICS2} and periodic \bc{} \eqref{eq:BCperiodic} in the interval $x_0=0$ and $x_{n}=1$ with varying number $n$ of equidistantly spaced volume cells, \cf{} subsection 2.1.3 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+		The wall time refers to a single run on an \intel{} running up to 6 threads simultaneously using the auxiliary notebook~\cite{Steil:2023PhDFVNB} with \WAMvwR{}.
+	}
+	\vspace{\TableAbovecaptionskip}
+	\renewcommand{\arraystretch}{1.15}
+	\small
+	\begin{tabular}{l c c c p{0.2em} c c c}
+		\toprule
+		&	\multicolumn{3}{c}{KT $\ordern{\Delta x^1}$}&														&	\multicolumn{3}{c}{KT $\ordern{\Delta x^2}$}
+		\\\cmidrule(lr){2-4}																	\cmidrule(lr){6-8}
+		$n$		&	$\epsilon_\mathrm{KTO1}$	&	$r_\mathrm{KTO1}$	&	$t_\mathrm{W}\,(\mathrm{s})$&	&	$\epsilon_\mathrm{KTO2}$	&	$r_\mathrm{KTO2}$	&	$t_\mathrm{W}\,(\mathrm{s})$
+		\\
+		\midrule\addlinespace[0.25em]
+			$32$	&	$1.43\cdot 10^{-1}$	&	-	&	$3.96\cdot 10^{-3}$	&		&	$3.12\cdot 10^{-2}$	&	-	&	$7.70\cdot 10^{-2}$\\
+			$64$	&	$7.51\cdot 10^{-2}$	&	$0.93$	&	$4.96\cdot 10^{-3}$	&		&	$8.67\cdot 10^{-3}$	&	$1.85$	&	$1.48\cdot 10^{-1}$\\
+			$128$	&	$3.84\cdot 10^{-2}$	&	$0.97$	&	$1.50\cdot 10^{-2}$	&		&	$2.38\cdot 10^{-3}$	&	$1.87$	&	$1.79\cdot 10^{-1}$\\
+			$256$	&	$1.94\cdot 10^{-2}$	&	$0.98$	&	$4.00\cdot 10^{-2}$	&		&	$6.36\cdot 10^{-4}$	&	$1.90$	&	$1.77\cdot 10^{-1}$\\
+			$512$	&	$9.76\cdot 10^{-3}$	&	$0.99$	&	$1.60\cdot 10^{-1}$	&		&	$1.69\cdot 10^{-4}$	&	$1.91$	&	$3.81\cdot 10^{-1}$\\
+			$1024$	&	$4.90\cdot 10^{-3}$	&	$1.00$	&	$4.43\cdot 10^{-1}$	&		&	$4.44\cdot 10^{-5}$	&	$1.93$	&	$1.32\cdot 10^{+0}$\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+		
+\paragraph{A non-linear advection equation}\phantomsection\label{paragraph:BBE}\mbox{} \\
+So far we discussed the arguably rather simple \laeq{}.
+In the following we want to focus on one particular non-linear but still quasilinear advection equation, \viz{} the \bbe{}~\cite{Bateman1915,Burgers1948}
+\begin{align}
+	\partial_t u(t,x) +\partial_x\del[1]{\tfrac{1}{2}u(t,x)^2}&=\partial_t u(t,x) +u(t,x)\partial_x u(t,x)=0\, , \label{eq:bbe}\\[.25em]
+	x(\tau)&=u(t=0,\tau)t+\tau\label{eq:bbeChar}\, ,\\
+	u(t,x)&=u(t=0,\tau)=u(t=0,x-u(t,x) t)\label{eq:bbeSolImp}\, ,\\[.25em]
+	u(t=0,x)&=\sin\del[1]{2\piu x},\label{eq:bbeICS}
+\end{align}
+with the \bbeq{} and an explicit \ic{} \eqref{eq:bbeICS}, which we will use in the following.
+The \bbe{} with this \ic{} \eqref{eq:bbeICS} is also discussed in Sec. 6.2 of \ccite{KTO2-0} as a standard benchmark problem.
+Using the method of characteristics with the \cref{eq:MoC_odes,eq:MoC_ics} yields the non-trivial characteristic curve \eqref{eq:bbeChar} and 
+in consequence the implicit symbolic solution \eqref{eq:bbeSolImp} in terms of the initial condition $u(t=0,x)$.
+\fullWidthFigure%
+	[t]%
+	{hydro/figures/bbe_flow.pdf}% Graphics
+	[fig:bbe_flow,fig:bbe_char]% Sublabels
+	{%
+	Analytical/reconstructed (solid lines) and numerical solution (dots) to the \bbe{} with \ic{} \eqref{eq:bbeICS} and periodic \bc{} \eqref{eq:BCperiodic} at different times on the left \subref{fig:bbe_flow} and corresponding characteristic curves on the right \subref{fig:bbe_char}.
+	The shock position at $\xi_s(t)=1/2$ for $t\ge 1/(2\uppi)$ is marked as a black line, the shock formation time is marked as a red-dashed line, and the constant function value on the characteristics are color coded (yellow for $+1$, green for $0$ and blue for $-1$) on the right \subref{fig:bbe_char}.
+	The numerical solution has been computed with the \ktScheme{} using $n=101$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{100}=1$, \cf{} section 2.2 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:bbe}%Label
+The analytical and numerical solution of the \bbe{} with the \ic{} \eqref{eq:bbeICS} are visualized in \cref{fig:bbe} including the corresponding characteristic curves.
+We observe that the first characteristic curves intersect at $x=1/2\equiv \xi_s$ and $t=1/(2\uppi)\equiv t_s$, thus, according to \cref{subsec:MoC}, a shock forms.
+Specifically, by means of the Rankine-Hugoniot condition \eqref{eq:FVRHcondition}, we find a standing shock at $\xi_s(t)=1/2$ for $t\ge 1/(2\uppi)$.
+Since the flow is exactly mirrored around $x=1/2$, we observe that the opposing waves annihilate since they travel at opposite velocity according to $\partial F/\partial u = u$.
+For times $t>t_s$ \dash{} after the shock formation \dash{} the implicit solution \eqref{eq:bbeSolImp} becomes multi-valued, but due to the symmetry of the problem and the fact that the shock is standing, it is not difficult to reconstruct the solution for $t>t_s$, \cf{} section 2.2 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+For $0\le t\le t_s$ we use the implicit solution \eqref{eq:bbeSolImp} and for $t>t_s$ we use the reconstructed solution as reference.
+Intuitively (imaging the situation in terms of waves) and for the \cfd{} initiated this example of shock formation might seem rather natural, but let us make one important mathematical observation:
+non-linear advection equations can develop shocks \dash{} even if the initial condition is smooth and even if the advection flux is simple, \ie{}, for the \bbeq{} $F[u]=\frac{1}{2}u^2$.
+In turn, any numerical scheme deployed in practice for non-linear advection equations or equations involving such non-linear hyperbolic contributions should be able to handle discontinuities in $u(t,x)$. 
+This simple statement outright disqualifies large classes of methods for \pdes{} for this application.
+Such methods are for example naive \acrpllong{fd} (the large gradients induced by the shock will destabilize the method-of-lines \ode{} system) and global collocation methods, which in principle rely on analyticity or at least smoothness (the shock discontinuity will again destabilize the \ode{} system in spectral space due to the Wilbraham-Gibbs phenomenon~\cite{Wilbraham:1848,Gibbs:1898,Gibbs:1899}, see, \eg{}, the textbook~\cite{boyd2001chebyshev}). 
+Recall the related discussion of such issues in the context of truncated flow equations in \cref{paragraph:taylorExpansion}.
+
+\fullWidthFigure%
+	[t]%
+	{hydro/figures/bbe_errors.pdf}% Graphics
+	[fig:bbe_tvd,fig:bbe_L1errorrs]% Sublabels
+	{%
+	Numerical entropy $\mathcal{C}_\mathrm{TV}$ for the \bbe{} with \ic{} \eqref{eq:bbeICS} and periodic \bc{} \eqref{eq:BCperiodic} at different times on the left \subref{fig:bbe_tvd} and related relative errors on the right \subref{fig:bbe_L1errorrs}.
+	The solid line corresponds to forward time integration and the three dashed lines in the right figure \subref{fig:bbe_L1errorrs} are errors of three attempts of backwards time integration starting from $t=1/(2\uppi)$, $t=1.25/(2\uppi)$, and $t=2/(2\uppi)$ respectively.
+	The numerical solution has been computed with the \ktScheme{} using $n=101$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{100}=1$, \cf{} section 2.1 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:bbe_errors}%Label
+The shock formation in this example also has implications for the reversibility of non-linear advection equations.
+It is well known from the study of non-linear advection equations, see, \eg{}, the textbooks~\cite{Lax1973,Ames:1992,LeVeque:1992,LeVeque:2002,Hesthaven2007,Toro2009,RezzollaZanotti:2013}, that there is a meaningful notion of numerical entropy and that its increase is linked to the appearance and/or interaction of discontinuities like shocks.
+An increase in numerical entropy signals the irreversibility of the underlying flow, see, \eg{}, \ccite{LeVeque:2002,RezzollaZanotti:2013} for this in the context of non-linear (especially hyperbolic) conservation laws.
+It turns out that the \tv{} \dash{} arc-length \dash{} from \cref{eq:TVdiscrete} can, due to the \tvni{} property, be used to define a numeric entropy functional
+\begin{align}
+	\mathcal{C}_\mathrm{TV}[\{ \bar{u}_j (t) \}]\equiv \mathrm{TV}[ \{ \bar{u}_j ( 0 ) \} ]-\mathrm{TV}[ \{ \bar{u}_j (t) \} ]\, ,\label{eq:TVDentropy}
+\end{align}
+which is due to the chosen sign convention only increasing: $\partial_t \mathcal{C}_\mathrm{TV}[\{ \bar{u}_j (t) \}]\ge 0$ during time evolution.
+The notion of numerical entropy (and \tv{} as a possible candidate for it) is very important in the study, construction and numerical computation of physical weak solutions of conservative equations, see, \eg{}, the textbooks~\cite{Lax1973,Ames:1992,LeVeque:1992,LeVeque:2002,Hesthaven2007,Toro2009,RezzollaZanotti:2013} for further details.
+We plot $\mathcal{C}_\mathrm{TV}$ for the current example in \cref{fig:bbe_tvd} and observe an increase of numerical entropy in general as expected.
+However, after shock formation \dash{} if only delayed at $t\sim1.5$ \dash{} a massive increase in numerical entropy can be observed, which we identify with a delayed signal of the shock formation in $\mathcal{C}_\mathrm{TV}$.
+\Cref{fig:bbe_L1errorrs} includes the corresponding relative $L^1$ errors, including three attempts at backwards time integration. 
+The first one starting exactly at  $t=1/(2\uppi)$ \dash{} the point where the shock forms \dash{}  and integrating back to $t=0$ is comparable to the ones in \cref{fig:lae_P1error,fig:lae_P2error} and is successful in reproducing the \ic{} up to an observed accuracy.
+The two attempts of starting from $t=1.25/(2\uppi)$ and $t=2/(2\uppi)$ fail: the numerical error is significantly increased and even more severe since the qualitative features of the \ic{} at $t=0$ are not reproduced correctly. 
+
+We conclude the discussion of the \bbe{} with remarks on the rate of convergence and errors, \cf{} \cref{tab:BBEconvergence}.
+The wall time for the $n=1024$ computation in \cref{tab:BBEconvergence} is still below two seconds, \cf{} \cref{tab:lae_P2convergence}, even for this non-linear advection equation.
+Before the shock at $t=0.5/(2\uppi)$ we observe a rate of convergence of $\sim 1.9$ for $\epsilon_{L^1}$ and $\sim 1.3$ for $\epsilon_{L^\infty}$, which quantifies the largest deviation in the \fv{} grid from the reference solution:
+\begin{align}
+	\epsilon_{L^\infty}(t)=\sup_j|\bar{u}_j(t)-u(t,x_j)|\,.	\label{eq:Linftyerror}
+\end{align}
+After the shock at $t=1.5/(2\uppi)$ we observe a reduced rate of convergence of $\sim 1.1$ for $\epsilon_{L^1}$ and no convergence in $\epsilon_{L^\infty}$, since there are always some outliers directly at the shock front. 
+For a more refined discussion of errors and scaling post-shock-formation in this scenario we refer the interested reader to \ccite{KTO2-0,Nessyahu2006Jul}.
+\begin{table}[t]
+	\centering
+	\caption{\label{tab:BBEconvergence}
+		Relative errors in $L^1$-norm $\epsilon_{L^1}$ using \cref{eq:L1error} and errors in $L^\infty$-norm  $\epsilon_{L^\infty}$ using \cref{eq:Linftyerror} and corresponding convergence rates at $t=0.5/(2\uppi)<t_s$ and $t=1.5/(2\uppi)>t_s$ \dash{} before and after shock formation \dash{} between the constructed reference solution and the numerical solutions obtained with the \ktScheme{} for the \bbeq{} with \ic{} \eqref{eq:bbeICS} and periodic \bc{} \eqref{eq:BCperiodic} in the interval $x_0=0$ and $x_{n}=1$ with varying number $n$ of equidistantly spaced volume cells, \cf{} subsection 2.2.3 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}
+	\vspace{\TableAbovecaptionskip}
+	\renewcommand{\arraystretch}{1.15}
+	\small
+	\begin{tabular}{l c c c c  p{0.2em}  c c c c}
+		\toprule
+		&	\multicolumn{4}{c}{$t=0.5/(2\uppi)<t_s$}							&						&	\multicolumn{4}{c}{$t=2.0/(2\uppi)>t_s$}
+		\\\cmidrule(lr){2-5}	\cmidrule(lr){7-10}
+		$n$		&	$\epsilon_{L^1}$	&	$r$	&	$\epsilon_{L^\infty}$	&	$r$	&	&$\epsilon_{L^1}$	&	$r$	&	$\epsilon_{L^\infty}$	&	$r$	
+		\\
+		\midrule\addlinespace[0.25em]
+			$32$	&	$6.50\cdot 10^{-3}$	&	-	&	$2.42\cdot 10^{-2}$	&	-	&		&	$2.01\cdot 10^{-2}$	&	-	&	$2.68\cdot 10^{-1}$	&	-\\
+			$64$	&	$1.75\cdot 10^{-3}$	&	$1.89$	&	$1.04\cdot 10^{-2}$	&	$1.22$	&		&	$9.02\cdot 10^{-3}$	&	$1.16$	&	$2.64\cdot 10^{-1}$	&	$+0.02$\\
+			$128$	&	$4.59\cdot 10^{-4}$	&	$1.93$	&	$4.21\cdot 10^{-3}$	&	$1.30$	&		&	$4.32\cdot 10^{-3}$	&	$1.06$	&	$2.68\cdot 10^{-1}$	&	$-0.02$\\
+			$256$	&	$1.20\cdot 10^{-4}$	&	$1.93$	&	$1.70\cdot 10^{-3}$	&	$1.31$	&		&	$2.16\cdot 10^{-3}$	&	$1.00$	&	$2.68\cdot 10^{-1}$	&	$-0.00$\\
+			$512$	&	$3.23\cdot 10^{-5}$	&	$1.90$	&	$6.88\cdot 10^{-4}$	&	$1.30$	&		&	$1.07\cdot 10^{-3}$	&	$1.01$	&	$2.68\cdot 10^{-1}$	&	$+0.00$\\
+			$1024$	&	$8.46\cdot 10^{-6}$	&	$1.93$	&	$2.79\cdot 10^{-4}$	&	$1.30$	&		&	$3.91\cdot 10^{-4}$	&	$1.45$	&	$1.96\cdot 10^{-1}$	&	$+0.46$\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Diffusion and the heat equation}\label{subsec:hydroDiffusion}
+\begin{disclaimer}
+	Parts of this subsubsection include material from Sec.~III.B and App.~B of \nbccite{Koenigstein:2021numericalSchemes}.
+\end{disclaimer}
+In this subsection we will discuss the diffusive contributions to \cref{eq:FVadsEq}, \viz{} the ones governed by the diffusive term $\difx\! Q_i [ t, x, \{u_i ( t, x )\}, \{\partial_x u_i ( t, x )\} ]$.
+Focusing on the latter, let us consider the non-linear system of equations
+\begin{align}
+	\dift\! u_i ( t, x )=\difx\! Q_i [ t, x, \{u_i ( t, x )\}, \{\partial_x u_i ( t, x )\} ]\,,\label{eq:FVadsEqQonly}
+\end{align}
+which can be brought into primitive form
+\begin{align}
+	\partial_t u_i ( t, x )-\frac{\partial Q_i [ \ldots ]}{\partial (\partial_x u_l)} \partial_x^2 u_l(t,x) = \frac{\partial Q_i [\ldots]}{\partial u_l} \partial_x u_l(t,x) +\partial_x Q_i [\ldots]\,.\label{eq:FVQprimitive}
+\end{align}
+\Cref{eq:FVQprimitive} includes the matrix of diffusion coefficients $\frac{\partial Q_i}{\partial (\partial_x u_l)}$ on the \lhs{} in the actual diffusion term $\frac{\partial Q_i}{\partial (\partial_x u_l)} \partial_x^2 u_l$ and on the \rhs{} an advection term $\frac{\partial Q_i}{\partial u_l} \partial_x u_l$ and an internal source term $\partial_x Q_i$ related to the explicit $u$- and $x$-dependency of the diffusion flux $Q$.
+In this sense position dependency of the diffusion flux can be understood in terms of additional/internal source terms and dependency on the velocities $u$ manifest as additional advective contributions.
+Depending on the application it might be advantageous to separate those out to integrate them properly in the (numerical) advection flux $F$ ($H_{i,j+\ttfrac{1}{2}}$).
+\Cref{eq:FVQprimitive}, or in our context the flux $Q$ itself, is understood to be \textit{parabolic}, if the matrix of diffusion coefficients satisfies the \textit{(weak) parabolicity condition} $\frac{\partial Q_i}{\partial (\partial_x u_l)}\ge 0$ for all $t$, $x$, and $u_i ( t, x )$ under consideration~\cite{KTO2-0}.
+In the following we will usually refer to this constraint using the more descriptive term: \textit{positivity of diffusion coefficient(s)}.
+The numerical \kt{} diffusion flux \eqref{eq:kt_original_diffusion} $P_{i,j + \ttfrac{1}{2}}$ is applicable to such diffusion fluxes.
+Diffusive systems fulfilling the (weak) parabolicity condition typically have well posed \ivps{}, if suitable boundary conditions are supplied~\cite{Krylov1987,Lieberman1996,Hunter2014,KTO2-0}.
+Parabolic systems typically describe diffusive/dissipative processes which involve a smoothing of information through space-time with formally infinite propagation speeds\footnote{\label{footnote:HEinf}%
+	This infinite speed of information propagation can be studied with the fundamental solution (heat kernel) of the heat \cref{eq:he}: a point-like heat source spreads out like a Gaussian function.
+	This implies that, even after an infinitesimal time-step, the effect of the heat source is felt in the entire computational domain.
+	Albeit only exponentially suppressed at large distances, this still formally constitutes a propagation of information at infinite speed.
+	For details, see, \eg{}, Chap. 5 of \ccite{Hunter2014} and Sec. 6.5 of \ccite{RezzollaZanotti:2013} for a comment on this in the context of relativistic hydrodynamics.
+}~\cite{Hunter2014,RezzollaZanotti:2013,Rezolla2020}.
+
+Parabolic \pdes{} describe inherently irreversible processes from a \cfd{} point of view: time reversal for a parabolic \pde{} amounts to forward time integration with a negative diffusion coefficient.
+Such a process of \textit{reverse diffusion} \dash{} transport towards regions of higher concentration \dash{} amplifies existing gradients in $u(t,x)$ without any limit.
+In a practical numerical computation any discretization errors (to an extent present in all discretization schemes with a finite number of cells) get amplified throughout the computational domain and introduce rapidly growing spurious oscillations making time reversal practically impossible.
+This is again linked to the aforementioned concept of numerical entropy, which in parabolic systems grows as the arc length of solutions decreases.
+The latter can be intuitively linked to the dissipative nature of parabolic systems: gradients get smoothed out resulting in a reduction of arc length.
+
+\paragraph{The heat equation}\phantomsection\label{paragraph:HE}\mbox{} \\
+In the following we will limit our discussion to one archetypical parabolic diffusion equation, \viz{} the \he{}~\cite{Fourier2009Jul}
+\begin{align}
+\partial_t u(t,x) &= \partial_x^2u(t,x) \label{eq:he}
+\end{align}
+in its mathematical form, see, \eg{}, the textbooks~\cite{Cannon:1984,LeVeque:1992,LeVeque:2002} for additional details.
+In physics this equation can be used to study heat diffusion and goes back to Joseph J. B. Fourier's seminal work~\cite{Fourier2009Jul}: \emph{Th{\ifmmode\acute{e}\else\'{e}\fi}orie \
+analytique de la chaleur} on the topic from 1822. 
+When using it in this context $u(t,x)$ would be a temperature distribution $T(t,x)$ and the \rhs{} of \cref{eq:he} would include a dimensionful, positive diffusion coefficient $\alpha$, called the \textit{thermal diffusivity} of the medium, \ie{}, $\alpha=111\,\mathrm{mm}^2/\mathrm{s}$ for copper at 25\textdegree{}C~\cite{CASALEGNO201083}.
+In order to define a well-posed \ivp{} for the \heq{} it is imperative to specify \bcs{}.
+In the following we will study the \heq{} with two different boundary conditions \eqref{eq:heICS1DBC} and \eqref{eq:heICS2NBC} while using the identical \ics{}~\eqref{eq:heICS1} and \eqref{eq:heICS2}.
+
+\fullWidthFigure%
+	[t]%
+	{hydro/figures/he.pdf}% Graphics
+	[fig:heP1,fig:heP2]% Sublabels
+	{%
+	Semi-analytical (solid lines) and numerical solution (dots) to the \heq{} with identical \ics{} \eqref{eq:heICS1}/\eqref{eq:heICS2}, Dirichlet \bc{} \eqref{eq:heICS1DBC} on the left \subref{fig:heP1}, and  Neumann \bc{}~\eqref{eq:heICS2NBC} on the right \subref{fig:heP2} at different times.
+	The numerical solution has been computed with the \ktScheme{} using $n=101$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{100}=1$, \cf{} section 2.3 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:he}%Label
+Setting \textit{Dirichlet} \bcs{} by fixing the values of $u(t,x)$ on the boundaries of the computational domain ($x_{-1/2}$ and $x_{n-1/2}$) amounts to connecting the \he{} with a heath bath:
+\begin{align}
+\stepcounter{equation}\newSubEqBlock
+u_\mathrm{I}(t=0,x)&=1+\tfrac{1}{2}\cos(\piu\, x)\, ,\label{eq:heICS1}\subEqTag\\
+u_\mathrm{I}(t,x_{-1/2})&=\tfrac{3}{2}, \quad u_\mathrm{I}(t,x_{n-1/2})=\tfrac{1}{2}\label{eq:heICS1DBC}\, ,\subEqTag\\
+u_\mathrm{I}(t,x)&= \tfrac{3}{2} - x + \sum_{n = 1}^{\infty} \frac{2 \sin ( 2 n \piu \, x )}{( 2 n \piu ) \, ( (2 n )^2 + 1)} \, \eu^{-( 2 n \piu )^2 \, t}\, ,\label{eq:heICS1sol}\subEqTag\\
+\newSubEqBlockPrime\setcounter{subeqPrime}{2}
+ \Rightarrow u_{\mathrm{I},\mathrm{e}}(x)&\equiv \lim_{t\rightarrow\infty}u_\mathrm{I}(t,x)=\tfrac{3}{2}-x\subEqTagPrime\label{eq:heICS1asymp}\, .
+\end{align}
+Choosing \textit{Neumann} \bcs{} by fixing the derivatives $\partial_x u(t,x)$ to zero on the boundaries of the computational domain amounts to isolating \bc{} \dash{} preventing any in- or out-flow of heat into or out of the computational domain:
+\begin{align}
+\stepcounter{equation}\newSubEqBlock
+u_\mathrm{II}(t=0,x)&\equiv u_\mathrm{I}(t=0,x) =1+\tfrac{1}{2}\cos(\piu\, x)\,\label{eq:heICS2}\subEqTag\\
+\partial_x u_\mathrm{II}(t,x)|_{x=x_{-1/2}}&=\partial_x u_\mathrm{II}(t,x)|_{x=x_{n-1/2}}=0\,\label{eq:heICS2NBC}\subEqTag\\
+u_\mathrm{II}(t,x)&= 1 + \tfrac{1}{2} \cos ( \piu \, x ) \, \eu^{- \piu^2 \, t} \label{eq:heICS2sol}\,\subEqTag\\* % no page break
+\newSubEqBlockPrime\setcounter{subeqPrime}{2}
+ \Rightarrow u_{\mathrm{II},\mathrm{e}}(x)&\equiv \lim_{t\rightarrow\infty}u_\mathrm{II}(t,x)=1\subEqTagPrime\label{eq:heICS2asymp}\,.
+\end{align}
+The specific \textit{Dirichlet} \bcs{} \eqref{eq:heICS1DBC} are readily implemented in our \fv{} scheme by choosing
+\begin{align}
+	\bar{u}_{-2}&=\tfrac{3}{2}\,,\quad \bar{u}_{-1}=\tfrac{3}{2}\,,\quad
+	\bar{u}_{n}=\tfrac{1}{2}\,,\quad\quad \bar{u}_{n+1}=\tfrac{1}{2}\,,
+	\label{eq:heICS1DBCFV}
+\end{align}
+for the ghost cells.
+While the \textit{Neumann} \bcs{} \eqref{eq:heICS2NBC} are realized by choosing
+\begin{align}
+	\bar{u}_{-2}&=\bar{u}_{0}\,,\quad \bar{u}_{-1}=\bar{u}_{0}\,,\quad
+	\bar{u}_{n}=\bar{u}_{n-1}\,,\quad\quad \bar{u}_{n+1}=\bar{u}_{n-1}\,.
+	\label{eq:heICS2NBCFV}
+\end{align}
+The semi-analytical/symbolic solutions \eqref{eq:heICS1sol} and \eqref{eq:heICS2sol} can be computed using a separation ansatz and employing a Fourier/heat kernel expansion~\cite{Fourier2009Jul,Koenigstein:2021numericalSchemes}, see, \eg{}, Sec. 8.3 of \ccite{Rezolla2020}.
+Resulting flows for both problems are visualized in \cref{fig:he}.
+Using the numerical diffusion flux \eqref{eq:kt_original_diffusion} from \cref{paragraph:KTQS} we are able to reproduce the semi-analytical reference solutions \eqref{eq:heICS1sol} and \eqref{eq:heICS2sol}.
+We can observe how the flows approach their respective equilibrium solutions \eqref{eq:heICS1asymp} and \eqref{eq:heICS2asymp} at late times.
+\Cref{eq:heICS1asymp} describes a constant temperature gradient between the two heat baths left and right of the computation domain, while \cref{eq:heICS2asymp} describes a constant temperature distribution which is solely determined by the heat/energy of the \ic{}.
+Even though we study the same \pde{} with identical \ics{} $u_\mathrm{I}(t=0,x)=u_\mathrm{II}(t=0,x)$, we observe completely different behavior based on the two distinct \bcs{}.
+This highlights the imperative importance of \bc{} for convection and especially parabolic equations.
+
+We conclude the discussion of the \he{} with remarks on the rate of convergence and errors, \cf{} \cref{tab:HEconvergence}.
+The wall time for the $n=1024$ computation in \cref{tab:HEconvergence} is almost six seconds, \cf{} \cref{tab:lae_P2convergence}.
+Somewhat curiously we observe a convergence rate of basically $1$, even though we are technically using a four-point stencil based on \cref{eq:kt_original_diffusion}, \cf{} \cref{paragraph:KTQS}, for which one would expect second-order accuracy.
+This highlights the fact that the practical rate of convergence is rather problem specific in numerical applications of the \ktScheme{}.
+
+\begin{table}[t]
+	\centering
+	\caption{\label{tab:HEconvergence}
+		Relative errors in $L^1$-norm $\epsilon_{L^1}$ using \cref{eq:L1error} and errors in $L^\infty$-norm  $\epsilon_{L^\infty}$ using \cref{eq:Linftyerror} and corresponding convergence rates at $t=0.25$ between the semi-analytical solutions and the numerical solutions obtained with the \ktScheme{} for the \heq{} with \bcs{} \eqref{eq:heICS1DBC} and \eqref{eq:heICS2NBC} in the interval $x_0=0$ and $x_{n}=1$ with varying number $n$ of equidistantly spaced volume cells, \cf{} subsection 2.3.3 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}
+	\vspace{\TableAbovecaptionskip}
+	\renewcommand{\arraystretch}{1.15}
+	\small
+	\begin{tabular}{l c c c c  p{0.2em}  c c c c}
+		\toprule
+		&	\multicolumn{4}{c}{Dirichlet \bc{} \eqref{eq:heICS1DBC} \dash{} Heat bath}							&						&	\multicolumn{4}{c}{Neumann \bc{} \eqref{eq:heICS2NBC} \dash{} Isolating}
+		\\\cmidrule(lr){2-5}	\cmidrule(lr){7-10}
+		$n$		&	$\epsilon_{L^1}$	&	$r$	&	$\epsilon_{L^\infty}$	&	$r$	&	&$\epsilon_{L^1}$	&	$r$	&	$\epsilon_{L^\infty}$	&	$r$	
+		\\
+		\midrule\addlinespace[0.25em]
+			$32$	&	$1.56\cdot 10^{-2}$	&	-	&	$3.03\cdot 10^{-2}$	&	-	&		&	$4.48\cdot 10^{-3}$	&	-	&	$7.73\cdot 10^{-3}$	&	-\\
+			$64$	&	$7.81\cdot 10^{-3}$	&	$1.00$	&	$1.54\cdot 10^{-2}$	&	$0.98$	&		&	$2.14\cdot 10^{-3}$	&	$1.06$	&	$3.73\cdot 10^{-3}$	&	$1.05$\\
+			$128$	&	$3.90\cdot 10^{-3}$	&	$1.00$	&	$7.75\cdot 10^{-3}$	&	$0.99$	&		&	$1.05\cdot 10^{-3}$	&	$1.03$	&	$1.83\cdot 10^{-3}$	&	$1.03$\\
+			$256$	&	$1.95\cdot 10^{-3}$	&	$1.00$	&	$3.89\cdot 10^{-3}$	&	$0.99$	&		&	$5.19\cdot 10^{-4}$	&	$1.02$	&	$9.08\cdot 10^{-4}$	&	$1.01$\\
+			$512$	&	$9.76\cdot 10^{-4}$	&	$1.00$	&	$1.95\cdot 10^{-3}$	&	$1.00$	&		&	$2.58\cdot 10^{-4}$	&	$1.01$	&	$4.52\cdot 10^{-4}$	&	$1.01$\\
+			$1024$	&	$4.88\cdot 10^{-4}$	&	$1.00$	&	$9.76\cdot 10^{-4}$	&	$1.00$	&		&	$1.29\cdot 10^{-4}$	&	$1.00$	&	$2.26\cdot 10^{-4}$	&	$1.00$\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Sources and the heat equation}\label{subsec:hydroSource}
+\fullWidthFigure%
+	[t]%
+	{hydro/figures/hes.pdf}% Graphics
+	[fig:hesP1,fig:hesP2]% Sublabels
+	{%
+	Solutions to the \heq{} with \ics{} \eqref{eq:heICS1},\eqref{eq:heICS2}, Dirichlet \bc{} \eqref{eq:heICS1DBC} on the left \subref{fig:heP1}, and  Neumann \bc{} \eqref{eq:heICS2NBC} on the right \subref{fig:heP2} at different times including the source \eqref{eq:heSource}.
+	The numerical solution has been computed with the \ktScheme{} using $n=101$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{100}=1$, \cf{} section 2.4 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:hes}%Label
+At this point we only want to comment briefly on the inclusion of explicit source terms.
+We will do so by including the explicit source term
+\begin{align}
+	S(x)&=\sin(\uppi\, x)
+	\label{eq:heSource}
+\end{align}
+on the \rhs{} of the \heq{} and by studying the two examples introduced in the previous \cref{paragraph:HE}.
+In the case of Dirichlet \bc{} \eqref{eq:heICS1DBC} it is possible to construct a semi-analytic solution
+\begin{subequations}\label{eq:heICS1S}
+\begin{align}
+	u_\mathrm{IS}(t,x)&= \frac{3}{2} - x+\frac{1-\eu^{- \piu^2 \, t}}{\uppi ^2}\sin (\uppi\,x) + \sum_{n = 1}^{\infty} \frac{2 \sin ( 2 n \piu  x )}{( n \piu ) \, ( (2 n )^2 - 1)} \, \eu^{-( 2 n \piu )^2 \, t}\label{eq:heICS1Ssol}\,,\\
+	\Rightarrow u_{\mathrm{IS},\mathrm{e}}(t,x)&\equiv\lim_{t\rightarrow\infty}u_\mathrm{I}(t,x)=\frac{3}{2} - x+\frac{1}{\uppi ^2}\sin (\uppi\,x)\label{eq:heICS1Sasymp}\,,
+\end{align}
+\end{subequations}
+by first computing an equilibrium solution $u_{\mathrm{IS},\mathrm{e}}(t,x)\equiv\lim_{t\rightarrow\infty}u_\mathrm{IS}(t,x)$ and then solving the homogeneous system with the established Fourier methods by considering perturbations around $u_{\mathrm{IS},\mathrm{e}}(t,x)$, \cf{} section 2.4 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+For the isolating Neumann \bc{} \eqref{eq:heICS2NBC} such a construction is not possible, since there is no equilibrium solution \dash{} the continuous heating in the isolated computational interval leads to a steady increase in $u(x,t)$.
+Results from the \ktScheme{} with the source term \eqref{eq:heSource} naively discretized in the volume cells by its midpoint value, \cf{} \cref{paragraph:KTQS}, are shown in \cref{fig:hes}.
+\Cref{fig:hesP1} also includes the semi-analytical solution \eqref{eq:heICS1Ssol}, which we are able to reproduce with our numerical scheme.
+For large times the equilibrium solution \eqref{eq:heICS1Sasymp} is approached in \cref{fig:hesP1}, while \cref{fig:hesP2} displays a continuously rising but flattening temperature distribution.
+
+A detailed discussion of sinks and sources in the context of our research can be found in \cref{paragraph:chemical_potential_shock_wave}.
+
+\subsection{Euler equations -- the KT scheme showing its MUSCLes}\label{subsec:hydroEuler}
+To conclude our discussion of \cfd{} and the \ktScheme{} we want to present one more involved example of advection equations, \viz{} the system of \textit{Euler equations}~\cite{Euler1757}
+\begin{align}
+\partial_t\begin{pmatrix}
+	\rho(t,x)\\
+	\mu(t,x)\\
+	\epsilon(t,x)
+\end{pmatrix}
++\partial_x
+\begin{pmatrix}
+ \mu(t,x)  \\
+ p(t,x)+\rho(t,x)  v(t,x)^2 \\
+ v(t,x) (p(t,x)+\epsilon(t,x) )
+\end{pmatrix}
+=\begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}\, ,\label{eq:euler}
+\end{align}
+including the derived quantities pressure $p=(\gamma-1)(\epsilon-\tfrac{\rho}{2}v^2)=\rho \mathrm{R}_\mathrm{s} T$ and velocity $v=\mu/\rho$.
+The vector of conserved quantities $\vec{u}=(\rho,\mu,\epsilon)^\tr$ includes the mass density $\rho$, the momentum density $\mu$, and the energy density $\epsilon$.
+The \eulereqs{} describe the advective evolution of an inviscid, compressible, adiabatic, \ie{}, ideal, fluid in one spatial $x$ and one temporal $t$ dimension.
+They are based on the conservation of mass, momentum, and energy and are frequently used in \cfd{} to construct challenging benchmark problems for numerical schemes.
+
+\fullWidthFigure%
+	[t]%
+	{hydro/figures/ee_sod.pdf}% Graphics
+	[fig:ee_sodrho,fig:ee_sodmu,fig:ee_sodepsilon]% Sublabels
+	{%
+	Semi-analytical (solid lines) and numerical solutions (dots) of the Sod shock tube problem \eqref{eq:sodICS} for the \eulereqs{}, with density on the left \subref{fig:ee_sodrho}, momentum density in the middle \subref{fig:ee_sodmu}, and energy density on the right \subref{fig:ee_sodepsilon} at $t=0.1644\,\mathrm{s}$ with the initial condition at $t=0$ as reference (dashed lines).
+	The semi-analytical solution has been obtained using an exact Riemann-Solver~\cite{Toro2009,ToroExact:GitHub}.
+	The numerical solution has been computed with the \ktScheme{} using $n=201$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{200}=1\,\mathrm{m}$, \cf{} subsection 2.5.2 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:ee_sod}%Label
+One established problem is the so-called \textit{Sod shock tube problem}~\cite{Sod1978Apr} which is a specific Riemann problem for the \eulereqs{}: an as one-dimensional idealized tube is considered with two constant states $\vec{u}_L$ and $\vec{u}_R$, separated at initial time $t_0=0$ by an diaphragm/burst-disc.
+At the begin of the computation at $t=0_+$ this diaphragm is considered to be instantaneously removed and a pure Riemann problem is simulated. 
+The computational domain (time) typically under consideration is large (short) enough such that explicit boundary conditions are not required, since the dynamics do not reach the spatial computational boundary. 
+Following \textsc{Example} 5 of Sec.~6.3 of \nbccite{KTO2-0}, we will consider a computational domain stretching from $x_0=0$ to $x_{n-1}=1\,\mathrm{m}$ up to a time of $t=0.1644\,\mathrm{s}$ with the two constant initial states
+\begin{align}
+\vec{u}_L=\begin{pmatrix}
+	1.0\,\kgmIII\\
+	0\,\kgms\\
+	2.5\,\JmIII
+\end{pmatrix}\,,\qquad \vec{u}_R=\begin{pmatrix}
+	0.125\,\kgmIII\\
+	0\,\kgms\\
+	0.25\,\JmIII
+\end{pmatrix}\, ,
+\label{eq:sodICS}
+\end{align}
+separated at $x=0.5\,\mathrm{m}$ and assuming an adiabatic index of $\gamma=1.4$.
+A numerical solution obtained with the \ktScheme{} and the semi-analytical solution obtained using an exact Riemann-Solver~\cite{Toro2009,ToroExact:GitHub} is shown in \cref{fig:ee_sod}.
+We observe a shock wave traveling into the dilute right half of the tube, which is followed by a contact discontinuity.
+A rarefaction fan is spreading into the denser left half of the tube.
+We observe that the \ktScheme{} is able to reproduce this complicated dynamic with several extreme discontinuities perfectly (to given accuracy based on the employed spatial discretization, \ie{}, number of volume cells) without any spurious oscillations or under/over shooting around the discontinuities.
+
+To illustrate the dynamic inside such a shock tube further we adapt a Sod shock tube problem, in parts motivated by \ccite{Coll2018}, to study a more realistic scenario.
+We consider a tube of 20 meters, filled with dry air (adiabatic index $\gamma=1.4$ and specific gas constant ${\mathrm{R}_\mathrm{s}= 0.287\cdot 10^3\,\mathrm{J}\mkern1.0mu\mathrm{kg}^{-1}\mkern1.0mu\mathrm{K}^{-1}}$~\cite{dry-air-properties}), and the two constant states
+\begin{align}
+\vec{u}_L=\begin{pmatrix}
+	1.177\,\kgmIII\\
+	0\,\kgms\\
+	2.533 \cdot 10^5\,\JmIII
+\end{pmatrix}\,,\qquad \vec{u}_R=0.1 \vec{u}_L = \begin{pmatrix}
+	1.177 \cdot 10^{-1}\,\kgmIII\\
+	0\,\kgms\\
+	2.533 \cdot 10^4\,\JmIII
+\end{pmatrix}\, ,
+\label{eq:sodPhysicalICS}
+\end{align}
+separated at $x=10\,\mathrm{m}$.
+The \ic{} \eqref{eq:sodPhysicalICS} is constructed to have a pressure of one standard atmosphere $p_L=101,325\,\mathrm{Pa}=1\,\mathrm{atm}$ at room temperature of $T_L=299.852\,\mathrm{K}$ in the left half of the tube.
+The pressure in the right half of the tube is decreased by $90\%$ to $p_R=0.1p_L=0.1\, \mathrm{atm}$ while the temperature is still  $T_R=T_L=299.852\,\mathrm{K}$.
+This amounts to an adiabatic speed of sound of $c_s\simeq 347\,\ms$ in both halves.
+Overall we are considering a system which has units and magnitudes which we are accustomed to in our day-to-day life \dash{} far away from the extremes of \hep{} with temperatures in excess of $10^{10}\,\mathrm{K}$ and densities well above $10^{17}\,\kgmIII$.
+We now want to study the time evolution with this \ic{} from $t=0$ up to $t=60\,\mathrm{ms}$ assuming reflective boundary conditions at the edges of the computational interval
+${x_{-\frac{1}{2}}=-0.025\,\mathrm{m}}$ and ${x_{n-\frac{1}{2}}=20.025\,\mathrm{m}}$, which for the \eulereqs{} can be implemented by choosing
+\begin{align}
+	\bar{u}_{i,-2}&=c_i\bar{u}_{i,1}\,,\quad \bar{u}_{i,-1}=c_i\bar{u}_{i,0}\,,\quad
+	\bar{u}_{i,n}=c_i\bar{u}_{i,n-1}\,,\quad\quad \bar{u}_{i,n+1}=c_i\bar{u}_{i,n-2}\,,
+	\label{eq:eulerReflectiveBC}
+\end{align}
+for the ghost cells with $c_i=1$ for $i=1$ and $i=3$ ($\rho$ and $\epsilon$) and $c_i=-1$ for $i=2$ ($\mu$)~\cite{SpringelLectureNotes}.
+
+We visualize the solution of this \textit{physical shock tube problem} in \cref{fig:ee_sodPhysical} as a set of six density plots (including contour lines).
+We plot only two primitive, conserved quantities: $\rho$ and $\epsilon$ in \cref{fig:ee_sodPhysical_rho,fig:ee_sodPhysical_epsilon} and four derived quantities.
+Note that the momentum density \dash{} the missing primitive, conserved quantity \dash{} is simply given by the product of density and velocity $\mu=\rho v$, the latter is plotted in \cref{fig:ee_sodPhysical_v}.
+Pressure and temperature in \cref{fig:ee_sodPhysical_p,fig:ee_sodPhysical_T} follow from the ideal gas law $p=(\gamma-1)(\epsilon-\tfrac{\rho}{2}v^2)=\rho \mathrm{R}_\mathrm{s} T$, while the (adiabatic) speed of sound in \cref{fig:ee_sodPhysical_cs} follows from $c_s^2=(\partial p/\partial \rho)_s=\gamma p/\rho=\gamma\mathrm{R}_\mathrm{s}T$.
+At the beginning of time evolution we recognize the dynamics of the Sod shock tube problem: a rarefaction fan travels to the left while a contact discontinuity and a shock wave travel to the right.
+Here the left edge of the rarefaction fan travels into the denser left half with a velocity of $v_{rl}\simeq -347\,\ms$ at the speed of sound.
+The right edge of the rarefaction fan travels at only $v_{rr}\simeq-5\,\ms$.
+The contact discontinuity is driven into the dilute right half with a substantial subsonic velocity of $v_{cd}\simeq 285\,\ms$ while velocity and pressure stay constant across it.
+The shock travels at a supersonic velocity of $v_s\simeq 558\,\ms$ towards the right wall.
+The dilution, \ie{}, adiabatic expansion of the gas, due to the rarefaction fan, cools the left half.
+The gas in the region between the contact discontinuity and the shock front gets compressed and heated by the shock.
+The latter hits the right wall at $t\simeq 17.9\,\mathrm{ms}$ and the rarefaction fan hits the left wall at $t\simeq 28.8\,\mathrm{ms}$.
+They both get reflected leading to a complicated interaction between the shock and the contact discontinuity at $t\simeq 25.9\,\mathrm{ms}$ and an interaction within the rarefaction fan at $t\smallergtrsim 28.8\,\mathrm{ms}$.
+The computation with the \ktScheme{} using $n=401$ volume cells, hence solving a method-of-lines \ode{} system of $401\times 3 = 1203$ equations, takes 24 seconds on a single thread of an \intel{} using our latest \WAM{} code~\cite{Steil:2023PhDFVNB}.
+\clearpage
+
+\WarningFilter{latex}{Float too large for page}
+\fullWidthFigure%
+	{hydro/figures/ee_sodPhysical.pdf}% Graphics
+	[fig:ee_sodPhysical_rho,fig:ee_sodPhysical_p,fig:ee_sodPhysical_v,fig:ee_sodPhysical_T,fig:ee_sodPhysical_cs,fig:ee_sodPhysical_epsilon]% Sublabels
+	{Numerical solution of the physical shock tube problem \eqref{eq:sodPhysicalICS} for the \eulereqs{} with reflective \bcs{} \eqref{eq:eulerReflectiveBC} from $t=0$ to $t=60\,\mathrm{ms}$.
+	For plotting the density $\rho$ in \subref{fig:ee_sodPhysical_rho}, the pressure $p$ in \subref{fig:ee_sodPhysical_p}, and the energy density $\epsilon$ in \subref{fig:ee_sodPhysical_epsilon} we use the canonical \textit{'jet'} color map~\cite{Hunter:2007}.
+	For plotting the velocity $v$ in \subref{fig:ee_sodPhysical_v}, the temperature $T$ in \subref{fig:ee_sodPhysical_T}, and the speed of sound $c_s$ in \subref{fig:ee_sodPhysical_cs} we use the \textit{'coolwarm'} color map~\cite{Hunter:2007} diverging non-linearly around the respective initial values.
+	The rarefaction fan is marked with \ding{192}, the contact discontinuity with \ding{193}, the shock wave with \ding{194}, and the reflected shock wave with \ding{195}.
+	The numerical solution has been computed with the \ktScheme{} using $n=401$ volume cells equidistantly spaced in the interval $x_0=0$ and $x_{400}=20\,\mathrm{m}$, \cf{} subsection 2.5.3 of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+	}%Caption
+	{fig:ee_sodPhysical}%Label
+\WarningFilter*{latex}{Float too large for page}
+\clearpage
+
+\paragraph{Navier-Stokes equations and gravity}\phantomsection\label{paragraph:NSg}\mbox{} \\
+The \eulereqs{} can be extended to include the effects of gravity by adding a simple source term, see, \eg{}, \ccite{Xing2013Feb,Touma2016Sep,QIAN201823,Kappeli2016Mar}.
+A further extension to include viscous effects by means of a diffusion term incorporating the effects of thermal conductivity and bulk viscosity\footnote{%
+	In this context also referred to as \textit{dynamic} or \textit{absolute} viscosity.%
+} leads to a generalization of the \eulereqs{} to the one-dimensional \textit{Navier-Stokes equations}, see, \eg{}, \ccite{Chen2006Jul,Berg2011,Li2017Sep}, which in a constant gravitational field read
+\begin{align}
+\partial_t\begin{pmatrix}
+	\rho\\
+	\mu\\
+	\epsilon
+\end{pmatrix}
++\partial_x
+\begin{pmatrix}
+ \mu  \\
+ p+\rho  v^2 \\
+ v (p+\epsilon )
+\end{pmatrix}
+=\partial_x \begin{pmatrix}
+ 0  \\
+ \lambda \partial_x v\\
+ \lambda v\partial_x v+\kappa\partial_x T
+\end{pmatrix}+\begin{pmatrix}
+ 0  \\
+ -g \rho\\
+ -g \mu
+\end{pmatrix}\, ,\label{eq:navierStokes}
+\end{align}
+including the gravitational acceleration $g$, bulk viscosity coefficient $\lambda$, and thermal conductivity coefficient $\kappa$.
+\Cref{eq:navierStokes} is a system of non-linear advection-diffusion-source equations and in this sense similar to the differential equations discussed in the main part of this thesis, \cf{} \cref{chap:zeroONSU2,chap:GN}.
+While the Navier-Stokes equations (of course including the practically relevant applications in three dimension) are numerically well under control in the field of \cfd{}, there are still open mathematical questions regarding their structure and solutions \dash{} notably the unsolved \textit{Navier–Stokes existence and smoothness} problem~\cite{NavierStokesMilleniumProblem} stated as one of the seven \textit{Millennium Prize Problems}.
+This is the second, \cf{} \cref{chap:introduction}, time we reference one of these problems.
+Explicit additional numerical computations with the \ktScheme{} and Euler/Navier-Stokes equations with and without gravitational sources can be found at the end of the auxiliary notebook~\cite{Steil:2023PhDFVNB}.
+We will not discuss these here, apart from the note, that the shock tube problems of this subsubsection are completely advection dominated: the relatively low bulk viscosity $\lambda=1.846\cdot 10^{-5} \mathrm{kg}\mkern1mu\mathrm{m}^{-1}\mkern1mu\mathrm{s}^{-1}$ and thermal conductivity $\kappa=2.624\cdot 10^{-2} \mathrm{J}\mkern1mu\mathrm{m}^{-1}\mkern1mu\mathrm{s}^{-1}\mathrm{K}^{-1}$ of air~\cite{dry-air-properties} lead to diffusive contributions which are several orders of magnitude smaller than the advective ones.

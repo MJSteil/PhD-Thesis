@@ -1,0 +1,163 @@
+\usetheme{metropolis}
+
+% Setup for notes/script
+\setbeamerfont{note page}{{size=\fontsize{7pt}{8pt}\selectfont}}
+\setbeamercolor{note page}{bg=white}
+\setbeamercolor{note title}{bg=white}
+
+\let\oldnote\note
+% Redefine \note to include the frame number
+\renewcommand{\note}[1]{%
+	\oldnote{#1\hfill \insertframenumber/\inserttotalframenumber
+	}
+}
+
+% General packages and related setup
+\usepackage[ngerman]{babel}
+\usepackage{vwcol}
+\usepackage{tikz}
+\usetikzlibrary{shapes, positioning, fit, backgrounds,calc}
+\usepackage{lmodern}
+
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% Mathpackages (probably more than needed here)
+\usepackage{amsmath}		% AMS math package for improved mathematical typesetting
+\usepackage{amssymb}		% AMS symbol package
+\usepackage{mathrsfs}		% Support for using RSFS fonts in maths -- e.g. \mathscr{}
+\usepackage{accents}		% package for improved accents functionality mathematics (Needed in tudapub with amsmath for stacked accents, e.g., \hat{\bar{\MFpsi}} )
+\usepackage{slashed}		% "Feynman slashed character" notation
+\usepackage{upgreek}		% upright Greek letters, e.g., \uppi
+\usepackage{dsfont}			% "blackboard bold" alphabet with mathds -- using bbold introduces type 3 fonts (sadly)
+\usepackage{mathtools}	% General tools for finte tuning mathematical typesetting [https://www.ctan.org/pkg/mathtools]
+\usepackage{commath}		% Additional mathematical typesetting commands, e.g., \del, \sbr, \cbr, \dif, \od, \pd [https://www.ctan.org/pkg/commath]
+\usepackage{pifont}			% Access to PostScript standard Symbol and Dingbats fonts -- e.g. \ding{192}-\ding{195} for encircled numbers
+\usepackage{eurosym}		% METAFONT and macros for Euro sign
+\usepackage[thicklines]{cancel} % \cancel and related methods to strikethough text
+
+% Thesis Commands
+\input{../commands/colors}
+\input{../commands/math}
+\input{../commands/FS}
+\input{../commands/general}
+\input{../commands/qft}
+\input{../commands/referenceBlocks}
+
+% Additional custom commands for beamer presentation 
+\makeatletter
+	\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+\makeatletter
+	\newcommand{\srcsize}{\@setfontsize{\srcsize}{6pt}{6pt}}
+\makeatother
+
+\newcommand{\dimcompspace}{\mkern-2mu}
+\newcommand{\dimcomp}[1]{\texorpdfstring{$d\dimcompspace=\dimcompspace#1$}{d=#1}}
+\newcommand{\dimcomplus}[2]{\texorpdfstring{$d\dimcompspace=\dimcompspace#1\dimcompspace+\dimcompspace#2$}{d=#1+#2}}
+
+% Setup Colors and Links
+\definecolor{lightgray}{gray}{0.18}
+\definecolor{deepblack}{RGB}{0,0,0}
+\colorlet{goetheBlauDark}{goetheBlau!80!black}
+\colorlet{goetheBlauDarker}{goetheBlau!42!black}
+
+\setbeamercolor{alerted text}{fg=goetheBlauDark}
+\setbeamercolor{footnote}{fg=lightgray}
+\setbeamerfont{footnote}{size=\tiny}
+\setbeamercolor{structure}{fg=goetheBlauDark}
+
+\setbeamercolor{normal text}{fg=goetheBlauDarker,bg=white}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, % Colored links instead of ugly boxes
+	linkcolor=goetheBlauDark,  % Color of internal links
+	citecolor=goetheBlauDark, % Color of citations
+	urlcolor=goetheBlauDark,    % Color of external hyperlinks
+}
+
+% Beamer slide setup
+\setbeamertemplate{itemize item}[triangle]
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{itemize subsubitem}[circle]
+
+\makeatletter
+	\setbeamertemplate{frame footer}{%
+		\insertshortauthor~\textbar{}~%
+		\insertdate~\textbar{}~%
+		\let\hyperlink\@secondoftwo\insertshorttitle%
+		\ifx\insertsection\empty{}\else{~\textbar{}~\let\hyperlink\@secondoftwo\shortsection}\fi%
+	}
+\makeatother
+
+\let\oldsection\section
+\makeatletter % from https://tex.stackexchange.com/questions/417461/beamer-insertshortsection
+	\def\section{%
+		\@ifstar{\@Starred}{\@nonStarred}%
+	}
+	
+	\def\@Starred{%
+		\@ifnextchar[%
+			{\GenericWarning{}{Warning: A starred section can not have parameters. I am going to ignore them!}\@StarredWith}%
+			{\@StarredWithout}%
+	}
+	
+	\def\@StarredWith[#1]#2{%
+		\xdef\shortsection{#1}
+		\oldsection*{#2}%
+	}
+	
+	\def\@StarredWithout#1{
+		\xdef\shortsection{#1}
+		\oldsection*{#1}%
+	}
+	
+	\def\@nonStarred{%
+		\@ifnextchar[%
+			{\@nonStarredWith}%
+			{\@nonStarredWithout}%
+	}
+	
+	\def\@nonStarredWith[#1]#2{%
+		\xdef\shortsection{#1}
+		\oldsection[#1]{#2}%
+	}
+	
+	\def\@nonStarredWithout#1{%
+		\xdef\shortsection{#1}
+		\oldsection{#1}%
+	}
+\makeatother
+
+\newenvironment{backup}%
+{
+	\newcounter{framenumberappendix}
+	\setcounter{framenumberappendix}{\value{framenumber}}
+	\setbeamertemplate{frame numbering}[fraction]
+}{
+	\addtocounter{framenumberappendix}{-\value{framenumber}}
+	\addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+
+\renewcommand{\appendix}{
+	\part{Anh\"ange}
+	\begingroup
+	\setbeamertemplate{footline}[default]
+	\setbeamertemplate{frame numbering}[fraction]
+	\begin{frame}[noframenumbering]
+	\vfill
+	\centering
+	\begin{beamercolorbox}[sep=8pt,center,shadow=false,rounded=false]{title}
+		\usebeamerfont{title}Anh\"ange\par
+	\end{beamercolorbox}
+	\vfill
+	\end{frame}
+\endgroup
+}
+
+\AtBeginSection[]{}
+\setbeamertemplate{frame numbering}[fraction]
+
+\newcommand{\switch}{\textcolor{goetheBlauDark}{$\hookrightarrow$}}
