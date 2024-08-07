@@ -1,0 +1,2 @@
+# Exclude all files in the vendor directory from language stats
+digital_auxiliary_files/** linguist-vendored
